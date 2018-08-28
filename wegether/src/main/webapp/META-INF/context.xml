@@ -6,5 +6,5 @@
           username="sa"
           password="passw0rd"
           driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-          url="jdbc:sqlserver://localhost:1433;database=wegether"/>
+          url="jdbc:sqlserver:8uj//localhost:1433;database=wegether"/>
 </Context>
