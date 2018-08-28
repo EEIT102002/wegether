@@ -29,7 +29,7 @@ fans	Int not null default 0,		--追蹤數
 notices	Int not null default 0,		--提醒	
 state	Int	not null default 0 check(state between 0 and 1)	--認證狀態
 ,fbid nchar(100)
-.googleid nchar(100)
+,googleid nchar(100)
 )	
 GO
 
@@ -42,7 +42,7 @@ city Int not null default 0 check(city between 0 and 2),		--縣市
 addr Int not null default 0 check(addr between 0 and 2),		--詳細地址	
 tel	Int not null default 0 check(tel between 0 and 2),		--電話	
 content	Int not null default 0 check(content between 0 and 2),		--自我介紹	
-class	Int not null default 0 check(class between 0 and 2),		--喜好活動類型	
+favorite	Int not null default 0 check(class between 0 and 2),		--喜好活動類型	
 showarticle	Int not null default 0 check(showarticle between 0 and 2),		--Po文顯示	
 showhost	Int not null default 0 check(showhost between 0 and 2),		--主辦活動顯示	
 showactivity	Int not null default 0 check(showactivity between 0 and 2),		--參加活動紀錄	
@@ -68,7 +68,7 @@ picture	varbinary(max),	--活動縮圖
 actbegin	datetime	NOT NULL,	--活動開始時間	
 actend	datetime,		--活動結束時間	
 dateline	datetime NOT NULL ,		--報名截止日期	
-class	varchar(max) ,	--活動類型 
+classtype	varchar(max) ,	--活動類型 
 content	nvarchar(max) 	NOT NULL,	--活動描述	
 numberlimit	Int ,		--活動人數上限			
 feed	Int default 0,		--活動費用	
