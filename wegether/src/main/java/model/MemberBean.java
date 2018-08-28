@@ -2,7 +2,17 @@ package model;
 
 import java.util.Arrays;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="MEMBER")
 public class MemberBean {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String account;
 	private Byte[] pwd;
