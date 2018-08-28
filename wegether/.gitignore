@@ -6,6 +6,14 @@
 /.settings/
 /.classpath
 /.project
+<<<<<<< HEAD
 /.springBeans
 /target/
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
+<<<<<<< HEAD
+=======
+=======
+/.springBeans
+/target/
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 >>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
