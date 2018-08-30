@@ -1,6 +1,7 @@
-package model.dao;
+package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,10 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
+import model.dao.ActivityDAOHibernate;
 
 @WebServlet("/ActivityTest")
-@Controller
-public class ActivityTest extends HttpServlet {
+public class BeanTestModelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SimpleDateFormat simpleDateFormat;
 	private ActivityDAOHibernate activityDAOHibernate;
@@ -81,9 +82,11 @@ public class ActivityTest extends HttpServlet {
 		//delete
 	//	boolean result = activityDAOHibernate.delete(4);
 		
-		
-		System.out.println(result);
-		System.out.println("ActivityTest");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<p>ActivityTest</p>");
+		result.forEach(x->out.println(x+"<br>"));
+		out.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -13,11 +13,7 @@ public interface ActivityDAO {
 
 	public abstract ActivityBean insert(ActivityBean bean);
 
-	public abstract ActivityBean update(Integer hostid,	Date createtime, String title,
-			Integer city, String addr, byte[] picture, Date actbegin, Date actend,
-			Date dateline, String classtype, String content, Integer numberlimit,
-			Integer feed, Integer state, Double rank1, Double rank2, Double rank3,
-			Integer judges, String form, Integer click, int id);
+	public abstract ActivityBean update(ActivityBean bean);
 
 	public abstract boolean delete(int id);
 }

@@ -56,7 +56,6 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return null;
 	}
 
-	@Override
 	public ActivityBean update(Integer hostid, Date createtime, String title, Integer city, String addr, byte[] picture,
 			Date actbegin, Date actend, Date dateline, String classtype, String content, Integer numberlimit,
 			Integer feed, Integer state, Double rank1, Double rank2, Double rank3, Integer judges,
@@ -96,6 +95,12 @@ public class ActivityDAOHibernate implements ActivityDAO {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public ActivityBean update(ActivityBean bean) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
