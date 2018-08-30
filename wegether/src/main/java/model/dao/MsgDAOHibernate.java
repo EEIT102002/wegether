@@ -16,6 +16,7 @@ public class MsgDAOHibernate implements MsgDAO {
 	private SessionFactory sessionFactory;
 	@Autowired
 	private Integer selectLimit;
+	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -62,13 +63,22 @@ public class MsgDAOHibernate implements MsgDAO {
 
 	@Override
 	public Boolean insert(MsgBean msgBean) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			getSession().save(msgBean);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public Boolean delete(Integer id) {
-		// TODO Auto-generated method stub
+		
+		MsgBean delete = getSession().get(MsgBean.class, id);
+		if(delete != null) {
+			getSession().delete(delete);
+			return true;
+		}
 		return null;
 	}
 
