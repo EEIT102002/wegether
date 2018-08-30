@@ -6,9 +6,11 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
         <property name="hibernate.show_sql">true</property>
+        <property name="dialect">org.hibernate.dialect.SQLServer2008Dialect</property>
         <property name="current_session_context_class">thread</property>
         <mapping class="model.ActivityBean"/>
         <mapping class="model.ServiceBean"/>
         <mapping class="model.InviteBean"/>
+        <mapping class="model.NoticeBean"/>
     </session-factory>
 </hibernate-configuration>

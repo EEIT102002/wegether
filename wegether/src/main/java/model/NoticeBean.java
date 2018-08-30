@@ -30,6 +30,10 @@ public class NoticeBean {
 	@Column(insertable=false)
 	private Date noticetime;
 	
+	@Override
+	public String toString() {
+		return String.format("id = %-10s, memberid = %-10s, noticetime = %-20s ", id, memberid,noticetime);
+	}
 	public Integer getId() {
 		return id;
 	}
