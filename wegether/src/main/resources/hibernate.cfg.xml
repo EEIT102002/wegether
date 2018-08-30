@@ -9,5 +9,6 @@
         <property name="current_session_context_class">thread</property>
         <mapping class="model.ActivityBean"/>
         <mapping class="model.ServiceBean"/>
+        <mapping class="model.InviteBean"/>
     </session-factory>
 </hibernate-configuration>
