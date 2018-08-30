@@ -8,5 +8,6 @@
         <property name="hibernate.show_sql">true</property>
         <property name="current_session_context_class">thread</property>
         <mapping class="model.ActivityBean"/>
+        <mapping class="model.ServiceBean"/>
     </session-factory>
 </hibernate-configuration>

@@ -34,14 +34,9 @@ public class ServiceDAOHibernate implements ServiceDAO {
 		@Override
 		public ServiceBean insert(ServiceBean bean) {
 			if(bean!=null) {
-				int id = bean.getId();
-				ServiceBean temp = this.getSession().get(ServiceBean.class, id);
-				if(temp==null) {
-					this.getSession().save(bean);
-					return bean;
-				}
+				this.getSession().save(bean);
+				return bean;
 			}
-			
 			return null;
 		}
 

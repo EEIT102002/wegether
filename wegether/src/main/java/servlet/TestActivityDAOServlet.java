@@ -22,7 +22,7 @@ import model.ActivityBean;
 import model.dao.ActivityDAOHibernate;
 
 @WebServlet("/ActivityTest")
-public class BeanTestModelServlet extends HttpServlet {
+public class TestActivityDAOServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SimpleDateFormat simpleDateFormat;
 	private ActivityDAOHibernate activityDAOHibernate;
@@ -42,11 +42,11 @@ public class BeanTestModelServlet extends HttpServlet {
 		//select(id)
 	//	ActivityBean result = activityDAOHibernate.select(2);
 		
-		//select()
+//		select()
 		List<ActivityBean> result = activityDAOHibernate.select();
 		
 		//insert
-	/*		
+		/*	
 	    ActivityBean bean = new ActivityBean();
 		bean.setActbegin(new java.util.Date());
 		bean.setActend(new java.util.Date());
@@ -86,6 +86,7 @@ public class BeanTestModelServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
 		result.forEach(x->out.println(x+"<br>"));
+//		out.print(result);
 		out.close();
 	}
 
