@@ -35,12 +35,10 @@ public class InviteDAOHibernate implements InviteDAO {
 	@Override
 	public InviteBean insert(InviteBean bean) {
 		if(bean!=null) {
-			int id = bean.getId();
-			InviteBean temp = this.getSession().get(InviteBean.class, id);
-			if(temp==null) {
+			
 				this.getSession().save(bean);
 				return bean;
-			}
+		
 		}
 		
 		return null;
