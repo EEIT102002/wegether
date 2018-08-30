@@ -73,9 +73,29 @@ public class ActivityTest extends HttpServlet {
 		
 		//update	
 	/*
-		ActivityBean result = activityDAOHibernate.update(1, new java.util.Date(), "一起去爬山title", 102, "台北市", null,
-				new java.util.Date(), new java.util.Date(), new java.util.Date(), "戶外活動", "一起去爬山Content", 100,
-				500, 0, 3.0, 3.0,3.0, 101,"Activityform", 97, 4);
+	 * ActivityBean bean = new ActivityBean();
+		bean.setActbegin(new java.util.Date());
+		bean.setActend(new java.util.Date());
+		bean.setAddr("象山");
+		bean.setCity(102);
+		bean.setClasstype("戶外活動");
+		bean.setClick(97);
+		bean.setContent("一起去爬山Content");
+		bean.setCreatetime(new java.util.Date());
+		bean.setDateline(new java.util.Date());
+		bean.setFeed(500);
+		bean.setForm("Activityform");
+		bean.setHostid(1);
+		bean.setId(4);
+		bean.setJudges(101);
+		bean.setNumberlimit(100);
+		bean.setPicture(null);
+		bean.setRank1(3.0);
+		bean.setRank2(3.0);
+		bean.setRank3(3.0);
+		bean.setState(1);
+		bean.setTitle("一起去爬山title");
+		ActivityBean result = activityDAOHibernate.update(bean);
 		*/
 		
 		//delete
