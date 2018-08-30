@@ -1,10 +1,12 @@
-package model;
+package model.dao;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.sql.Select;
+
+import model.ActivityBean;
 
 public interface ActivityDAO {
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import model.dao.ActivityDAO;
+
 public class ActivityService {
 
 	@Autowired
