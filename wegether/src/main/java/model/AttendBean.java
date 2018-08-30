@@ -25,7 +25,7 @@ public class AttendBean {
 	private Integer rank3;
 	private Integer state;
 	
-	//member
+	//activity
 	@ManyToOne
 	@JoinColumn(
 			name="ACTIVITYID",
