@@ -6,97 +6,97 @@ GO
 USE wegether
 GO
 
-CREATE TABLE  member	(	--5.·|­ûTable	
-id	Int	PRIMARY KEY IDENTITY,	--·|­ûid	
-account	varchar(50) UNIQUE NOT NULL,	--±b¸¹	
-pwd	varbinary(50) NOT NULL,	--±K½X
-photo	varbinary(max) , --¤jÀY·Ó,	
-name	nvarchar(50)	NOT NULL,	--©m¦W	
-nickname	nvarchar(50) ,	--¼ÊºÙ	
-birthday	date not null,		--¥Í¤é	
-sex	int  check(sex between 0 and 1)	,	--©Ê§O	
-job	nvarchar(50), 		--Â¾·~	
-city	int, 		--¿¤¥«	
-addr	nvarchar(50), 		--¸Ô²Ó¦a§}	
-tel	char(20), 		--¹q¸Ü	
-content	nvarchar(max), 		--¦Û§Ú¤¶²Ð	
-favorite	varchar(max) 	,	--³ß¦n¬¡°ÊÃþ«¬	
-signupdate	datetime not null default getdate(),		--µù¥U¤é´Á		
-rank1	decimal(2,1) check(rank1 between 0 and 5),		--¬¡°Êº¡·N«×	
-rank2	decimal(2,1) check(rank2 between 0 and 5),		--¨Æ«e·¾³q¦w±Æ	
-rank3	decimal(2,1) check(rank3 between 0 and 5),		--®É¶¡¦aÂI¿ï¾Ü	
-fans	Int not null default 0,		--°lÂÜ¼Æ	
-notices	Int not null default 0,		--´£¿ô	
-state	Int	not null default 0 check(state between 0 and 1)	--»{ÃÒª¬ºA
+CREATE TABLE  member	(	--5.ï¿½|ï¿½ï¿½Table	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½|ï¿½ï¿½id	
+account	varchar(50) UNIQUE NOT NULL,	--ï¿½bï¿½ï¿½	
+pwd	varbinary(50) NOT NULL,	--ï¿½Kï¿½X
+photo	varbinary(max) , --ï¿½jï¿½Yï¿½ï¿½,	
+name	nvarchar(50)	NOT NULL,	--ï¿½mï¿½W	
+nickname	nvarchar(50) ,	--ï¿½Êºï¿½	
+birthday	date not null,		--ï¿½Í¤ï¿½	
+sex	int  check(sex between 0 and 1)	,	--ï¿½Ê§O	
+job	nvarchar(50), 		--Â¾ï¿½~	
+city	int, 		--ï¿½ï¿½ï¿½ï¿½	
+addr	nvarchar(50), 		--ï¿½Ô²Ó¦aï¿½}	
+tel	char(20), 		--ï¿½qï¿½ï¿½	
+content	nvarchar(max), 		--ï¿½Û§Ú¤ï¿½ï¿½ï¿½	
+favorite	varchar(max) 	,	--ï¿½ß¦nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+signupdate	datetime not null default getdate(),		--ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½		
+rank1	decimal(2,1) check(rank1 between 0 and 5),		--ï¿½ï¿½ï¿½Êºï¿½ï¿½Nï¿½ï¿½	
+rank2	decimal(2,1) check(rank2 between 0 and 5),		--ï¿½Æ«eï¿½ï¿½ï¿½qï¿½wï¿½ï¿½	
+rank3	decimal(2,1) check(rank3 between 0 and 5),		--ï¿½É¶ï¿½ï¿½aï¿½Iï¿½ï¿½ï¿½	
+fans	Int not null default 0,		--ï¿½lï¿½Ü¼ï¿½	
+notices	Int not null default 0,		--ï¿½ï¿½ï¿½ï¿½	
+state	Int	not null default 0 check(state between 0 and 1)	--ï¿½{ï¿½Òªï¿½ï¿½A
 ,fbid nchar(100)
 ,googleid nchar(100)
 )	
 GO
 
-CREATE TABLE	setting	(	---14·|­û­Ó¤H³]©w	
-memberid Int primary key REFERENCES member(id),	--·|­ûid	
-birthday Int not null default 0 check(birthday between 0 and 2),		--¥Í¤é	
-sex	Int not null default 0 check(sex between 0 and 2),		--©Ê§O	
-job	Int not null default 0 check(job between 0 and 2),		--Â¾·~	
-city Int not null default 0 check(city between 0 and 2),		--¿¤¥«		
-addr Int not null default 0 check(addr between 0 and 2),		--¸Ô²Ó¦a§}	
-tel	Int not null default 0 check(tel between 0 and 2),		--¹q¸Ü	
-content	Int not null default 0 check(content between 0 and 2),		--¦Û§Ú¤¶²Ð	
-favorite	Int not null default 0 check(class between 0 and 2),		--³ß¦n¬¡°ÊÃþ«¬	
-showarticle	Int not null default 0 check(showarticle between 0 and 2),		--Po¤åÅã¥Ü	
-showhost	Int not null default 0 check(showhost between 0 and 2),		--¥D¿ì¬¡°ÊÅã¥Ü	
-showactivity	Int not null default 0 check(showactivity between 0 and 2),		--°Ñ¥[¬¡°Ê¬ö¿ý	
-rankscore	Int not null default 0 check(rankscore between 0 and 2),		--µû¤À	
-invite	Int not null default 0 check(invite between 0 and 1),		--¬¡°ÊÁÜ½Ð		
-addfriend	Int not null default 0 check(addfriend between 0 and 1),	--¥[¦n¤Í
-activitymsg Int not null default 0 check(activitymsg between 0 and 1), --¬¡°Ê¯d¨¥³qª¾
-articlemsg Int not null default 0 check(articlemsg between 0 and 1), --¤å³¹¯d¨¥³qª¾
-activitychange Int not null default 0 check(activitychange between 0 and 1), --¬¡°ÊÅÜ§ó³qª¾
-friendarticle Int not null default 0 check(friendarticle between 0 and 1), --¦n¤Íµo¤å³qª¾
-friendactivity Int not null default 0 check(friendactivity between 0 and 1),	--¦n¤Í¬¡°Ê³qª¾	
+CREATE TABLE	setting	(	---14ï¿½|ï¿½ï¿½ï¿½Ó¤Hï¿½]ï¿½w	
+memberid Int primary key REFERENCES member(id),	--ï¿½|ï¿½ï¿½id	
+birthday Int not null default 0 check(birthday between 0 and 2),		--ï¿½Í¤ï¿½	
+sex	Int not null default 0 check(sex between 0 and 2),		--ï¿½Ê§O	
+job	Int not null default 0 check(job between 0 and 2),		--Â¾ï¿½~	
+city Int not null default 0 check(city between 0 and 2),		--ï¿½ï¿½ï¿½ï¿½		
+addr Int not null default 0 check(addr between 0 and 2),		--ï¿½Ô²Ó¦aï¿½}	
+tel	Int not null default 0 check(tel between 0 and 2),		--ï¿½qï¿½ï¿½	
+content	Int not null default 0 check(content between 0 and 2),		--ï¿½Û§Ú¤ï¿½ï¿½ï¿½	
+favorite	Int not null default 0 check(class between 0 and 2),		--ï¿½ß¦nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+showarticle	Int not null default 0 check(showarticle between 0 and 2),		--Poï¿½ï¿½ï¿½ï¿½ï¿½	
+showhost	Int not null default 0 check(showhost between 0 and 2),		--ï¿½Dï¿½ì¬¡ï¿½ï¿½ï¿½ï¿½ï¿½	
+showactivity	Int not null default 0 check(showactivity between 0 and 2),		--ï¿½Ñ¥[ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½	
+rankscore	Int not null default 0 check(rankscore between 0 and 2),		--ï¿½ï¿½ï¿½ï¿½	
+invite	Int not null default 0 check(invite between 0 and 1),		--ï¿½ï¿½ï¿½ï¿½ï¿½Ü½ï¿½		
+addfriend	Int not null default 0 check(addfriend between 0 and 1),	--ï¿½[ï¿½nï¿½ï¿½
+activitymsg Int not null default 0 check(activitymsg between 0 and 1), --ï¿½ï¿½ï¿½Ê¯dï¿½ï¿½ï¿½qï¿½ï¿½
+articlemsg Int not null default 0 check(articlemsg between 0 and 1), --ï¿½å³¹ï¿½dï¿½ï¿½ï¿½qï¿½ï¿½
+activitychange Int not null default 0 check(activitychange between 0 and 1), --ï¿½ï¿½ï¿½ï¿½ï¿½Ü§ï¿½qï¿½ï¿½
+friendarticle Int not null default 0 check(friendarticle between 0 and 1), --ï¿½nï¿½Íµoï¿½ï¿½qï¿½ï¿½
+friendactivity Int not null default 0 check(friendactivity between 0 and 1),	--ï¿½nï¿½Í¬ï¿½ï¿½Ê³qï¿½ï¿½	
 )
 GO
 
-CREATE TABLE	activity	(	--1.¬¡°Ê¸ê°TTable	
-id	Int	PRIMARY KEY IDENTITY,	--¬¡°Êid	
-hostid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--¥D¿ì¤Hid	
-createtime	datetime not null default getdate(),		--³Ð«Ø®É¶¡
-title	nvarchar(50) 	NOT NULL,	--¬¡°Ê¦WºÙ	
-city	int	,	--¿¤¥«	
-addr	nvarchar(100) ,	--¸Ô²Ó¦a§}	
-picture	varbinary(max),	--¬¡°ÊÁY¹Ï
-actbegin	datetime	NOT NULL,	--¬¡°Ê¶}©l®É¶¡	
-actend	datetime,		--¬¡°Êµ²§ô®É¶¡	
-dateline	datetime NOT NULL ,		--³ø¦WºI¤î¤é´Á	
-classtype	varchar(max) ,	--¬¡°ÊÃþ«¬ 
-content	nvarchar(max) 	NOT NULL,	--¬¡°Ê´y­z	
-numberlimit	Int ,		--¬¡°Ê¤H¼Æ¤W­­			
-feed	Int default 0,		--¬¡°Ê¶O¥Î	
-state	Int	NOT NULL default 0 check(state between 0 and 2) ,	--¬¡°Êª¬ºA(0 ¬¡°Ê¶i¦æ 1 ¬¡°Êµ²§ô 2¬¡°Ê¨ú®ø
-rank1	decimal(2,1) check(rank1 between 0 and 5),		--¬¡°Êº¡·N«×¥­§¡	
-rank2	decimal(2,1) check(rank2 between 0 and 5),		--¨Æ«e·¾³q¦w±Æ¥­§¡	
-rank3	decimal(2,1) check(rank3 between 0 and 5),		--®É¶¡¦aÂI¿ï¾Ü¥­§¡	
-judges	Int default 0,		--µû¤À¤H¼Æ	
-form	nvarchar(max),		--³ø¦Wªí³æ	
-click	Int not null default 0		--ÂI¾\²v	
+CREATE TABLE	activity	(	--1.ï¿½ï¿½ï¿½Ê¸ï¿½TTable	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½ï¿½ï¿½ï¿½id	
+hostid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½Dï¿½ï¿½Hid	
+createtime	datetime not null default getdate(),		--ï¿½Ð«Ø®É¶ï¿½
+title	nvarchar(50) 	NOT NULL,	--ï¿½ï¿½ï¿½Ê¦Wï¿½ï¿½	
+city	int	,	--ï¿½ï¿½ï¿½ï¿½	
+addr	nvarchar(100) ,	--ï¿½Ô²Ó¦aï¿½}	
+picture	varbinary(max),	--ï¿½ï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½
+actbegin	datetime	NOT NULL,	--ï¿½ï¿½ï¿½Ê¶}ï¿½lï¿½É¶ï¿½	
+actend	datetime,		--ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½É¶ï¿½	
+dateline	datetime NOT NULL ,		--ï¿½ï¿½ï¿½Wï¿½Iï¿½ï¿½ï¿½ï¿½	
+classtype	varchar(max) ,	--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+content	nvarchar(max) 	NOT NULL,	--ï¿½ï¿½ï¿½Ê´yï¿½z	
+numberlimit	Int ,		--ï¿½ï¿½ï¿½Ê¤Hï¿½Æ¤Wï¿½ï¿½			
+feed	Int default 0,		--ï¿½ï¿½ï¿½Ê¶Oï¿½ï¿½	
+state	Int	NOT NULL default 0 check(state between 0 and 2) ,	--ï¿½ï¿½ï¿½Êªï¿½ï¿½A(0 ï¿½ï¿½ï¿½Ê¶iï¿½ï¿½ 1 ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½Ê¨ï¿½ï¿½ï¿½
+rank1	decimal(2,1) check(rank1 between 0 and 5),		--ï¿½ï¿½ï¿½Êºï¿½ï¿½Nï¿½×¥ï¿½ï¿½ï¿½	
+rank2	decimal(2,1) check(rank2 between 0 and 5),		--ï¿½Æ«eï¿½ï¿½ï¿½qï¿½wï¿½Æ¥ï¿½ï¿½ï¿½	
+rank3	decimal(2,1) check(rank3 between 0 and 5),		--ï¿½É¶ï¿½ï¿½aï¿½Iï¿½ï¿½Ü¥ï¿½ï¿½ï¿½	
+judges	Int default 0,		--ï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½	
+form	nvarchar(max),		--ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½	
+click	Int not null default 0		--ï¿½Iï¿½\ï¿½v	
 )	
 
-CREATE TABLE	article	(	--4.PO¤å¸ê°TTable	
-id	Int	PRIMARY KEY IDENTITY,	--PO¤åid	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--·|­ûid	
-activityid	Int	FOREIGN KEY REFERENCES activity(id), 	--¬¡°Êid	
-content	nvarchar(max) 	NOT NULL,	--PO¤º®e	
-createtime	datetime not null default getdate()		--PO®É¶¡		
+CREATE TABLE	article	(	--4.POï¿½ï¿½ï¿½TTable	
+id	Int	PRIMARY KEY IDENTITY,	--POï¿½ï¿½id	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½|ï¿½ï¿½id	
+activityid	Int	FOREIGN KEY REFERENCES activity(id), 	--ï¿½ï¿½ï¿½ï¿½id	
+content	nvarchar(max) 	NOT NULL,	--POï¿½ï¿½ï¿½e	
+createtime	datetime not null default getdate()		--POï¿½É¶ï¿½		
 )	
 GO
 
-CREATE TABLE	msg	(	--2.¬¡°Ê.PO¤å¯d¨¥Table	
-id	Int	PRIMARY KEY IDENTITY,	--¯d¨¥id	
-activityid	Int	FOREIGN KEY REFERENCES activity(id),	--¬¡°Êid	
-articleid	Int	FOREIGN KEY REFERENCES article(id),	--PO¤åid	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--·|­ûid	
-msgtime	datetime not null default getdate(),		--¯d¨¥®É¶¡	
-content	nvarchar(200) 	NOT NULL,	--¯d¨¥¤º®e	
+CREATE TABLE	msg	(	--2.ï¿½ï¿½ï¿½ï¿½.POï¿½ï¿½dï¿½ï¿½Table	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½dï¿½ï¿½id	
+activityid	Int	FOREIGN KEY REFERENCES activity(id),	--ï¿½ï¿½ï¿½ï¿½id	
+articleid	Int	FOREIGN KEY REFERENCES article(id),	--POï¿½ï¿½id	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½|ï¿½ï¿½id	
+msgtime	datetime not null default getdate(),		--ï¿½dï¿½ï¿½ï¿½É¶ï¿½	
+content	nvarchar(200) 	NOT NULL,	--ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½e	
 constraint msg_chk check(
 	(case when activityid is null then 0 else 1 end)+
 	(case when articleid is null then 0 else 1  end)=1
@@ -104,48 +104,48 @@ constraint msg_chk check(
 )	
 GO
 
-CREATE TABLE	attend(	--3.°Ñ¥[¦W³æTable	
-id	Int	PRIMARY KEY IDENTITY,	--°Ñ¥[¦W³æid	
-activityid	Int	NOT NULL  FOREIGN KEY REFERENCES activity(id),	--¬¡°Êid	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--·|­ûid	
-createtime	datetime not null default getdate(),		--³ø¦W®É¶¡	
-form	nvarchar(max),		--³ø¦Wªí³æ
-rank1	Int check(rank1 between 0 and 5),		--¬¡°Êº¡·N«×	
-rank2	Int check(rank2 between 0 and 5),		--¨Æ«e·¾³q¦w±Æ	
-rank3	Int check(rank3 between 0 and 5),		--®É¶¡¦aÂI¿ï¾Ü	
-state	Int	NOT NULL check(state between 0 and 3),	--³ø¦Wª¬ºA 0:³ø¦W¤¤ 1:³ø¦W¦¨¥\ 2:³ø¦W¥¢±Ñ 3:¬¡°Ê¥D¿ì¤HÁÜ½Ð
+CREATE TABLE	attend(	--3.ï¿½Ñ¥[ï¿½Wï¿½ï¿½Table	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½Ñ¥[ï¿½Wï¿½ï¿½id	
+activityid	Int	NOT NULL  FOREIGN KEY REFERENCES activity(id),	--ï¿½ï¿½ï¿½ï¿½id	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½|ï¿½ï¿½id	
+createtime	datetime not null default getdate(),		--ï¿½ï¿½ï¿½Wï¿½É¶ï¿½	
+form	nvarchar(max),		--ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½
+rank1	Int check(rank1 between 0 and 5),		--ï¿½ï¿½ï¿½Êºï¿½ï¿½Nï¿½ï¿½	
+rank2	Int check(rank2 between 0 and 5),		--ï¿½Æ«eï¿½ï¿½ï¿½qï¿½wï¿½ï¿½	
+rank3	Int check(rank3 between 0 and 5),		--ï¿½É¶ï¿½ï¿½aï¿½Iï¿½ï¿½ï¿½	
+state	Int	NOT NULL check(state between 0 and 3),	--ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½A 0:ï¿½ï¿½ï¿½Wï¿½ï¿½ 1:ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½\ 2:ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ 3:ï¿½ï¿½ï¿½Ê¥Dï¿½ï¿½Hï¿½Ü½ï¿½
 constraint act_member_uq unique (activityid,memberid)
 )	
 GO
 
-CREATE TABLE	friend	(	--6.¦n¤Í¦W³æTable	
-id	Int	PRIMARY KEY IDENTITY,	--¦n¤Í¦W³æid	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--·|­ûid	
-memberidf	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--¦n¤Íid	
-state	Int	NOT NULL check(state between 0 and 2),	--ª¬ºA	 0:¥Ó½Ð¤¤ 1:¦n¤Í 2:©Úµ´
+CREATE TABLE	friend	(	--6.ï¿½nï¿½Í¦Wï¿½ï¿½Table	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½nï¿½Í¦Wï¿½ï¿½id	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½|ï¿½ï¿½id	
+memberidf	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½nï¿½ï¿½id	
+state	Int	NOT NULL check(state between 0 and 2),	--ï¿½ï¿½ï¿½A	 0:ï¿½Ó½Ð¤ï¿½ 1:ï¿½nï¿½ï¿½ 2:ï¿½Úµï¿½
 constraint friend_uq unique (memberid, memberidf)
 )
 GO
 
-CREATE TABLE	invite	(	--7.±ÀÂË¬¡°Ê	
-id	Int	PRIMARY KEY IDENTITY,	--±ÀÂË¬¡°Êid	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--¥DÁÜ·|­ûid	
-invitedid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--³QÁÜ·|­ûid	
-activityid	Int	NOT NULL  FOREIGN KEY REFERENCES activity(id), --¬¡°Êid	
+CREATE TABLE	invite	(	--7.ï¿½ï¿½ï¿½Ë¬ï¿½ï¿½ï¿½	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½ï¿½ï¿½Ë¬ï¿½ï¿½ï¿½id	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½Dï¿½Ü·|ï¿½ï¿½id	
+invitedid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½Qï¿½Ü·|ï¿½ï¿½id	
+activityid	Int	NOT NULL  FOREIGN KEY REFERENCES activity(id), --ï¿½ï¿½ï¿½ï¿½id	
 constraint inv_uq unique (memberid, invitedid, activityid)
 )				
 GO
 
-CREATE TABLE	notice	(	--11.´£¿ô³qª¾Table	±ÀÂË¬¡°Ê, ¤å³¹, ¦n¤Í¥Ó½Ð, ¬¡°Ê¥Ó½Ð, ¯d¨¥, ¬¡°ÊÅÜ§ó, 
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--·|­ûID
+CREATE TABLE	notice	(	--11.ï¿½ï¿½ï¿½ï¿½ï¿½qï¿½ï¿½Table	ï¿½ï¿½ï¿½Ë¬ï¿½ï¿½ï¿½, ï¿½å³¹, ï¿½nï¿½Í¥Ó½ï¿½, ï¿½ï¿½ï¿½Ê¥Ó½ï¿½, ï¿½dï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ü§ï¿½, 
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½|ï¿½ï¿½ID
 content nvarchar(max) not null,	
 noticetime	datetime not null default getDate(),
-activityid int references activity(id),--¬¡°Êid
-articleid int references article(id),  --¤å³¹id
-attendid int references attend(id) on delete cascade, --°Ñ¥[¦W³æid (¥Ó½Ð, ¦¨¥\, ¥¢±Ñ
-inviteid int references invite(id) on delete cascade, --±ÀÂË¬¡°Êid 
-friendid int references friend(id) on delete cascade, --¦n¤Í¦W³æid (¥Ó½Ð, ¦¨¥\, ¥¢±Ñ
-msgid int references msg(id) on delete cascade, --¯d¨¥id
+activityid int references activity(id),--ï¿½ï¿½ï¿½ï¿½id
+articleid int references article(id),  --ï¿½å³¹id
+attendid int references attend(id) on delete cascade, --ï¿½Ñ¥[ï¿½Wï¿½ï¿½id (ï¿½Ó½ï¿½, ï¿½ï¿½ï¿½\, ï¿½ï¿½ï¿½ï¿½
+inviteid int references invite(id) on delete cascade, --ï¿½ï¿½ï¿½Ë¬ï¿½ï¿½ï¿½id 
+friendid int references friend(id) on delete cascade, --ï¿½nï¿½Í¦Wï¿½ï¿½id (ï¿½Ó½ï¿½, ï¿½ï¿½ï¿½\, ï¿½ï¿½ï¿½ï¿½
+msgid int references msg(id) on delete cascade, --ï¿½dï¿½ï¿½id
 state int not null default 0,
 constraint notic_chk check(
 	((case when articleid is null then 0 else 1 end)+
@@ -158,46 +158,46 @@ constraint notic_chk check(
 create nonclustered index notice_index on notice(memberid);	
 GO
 
-CREATE TABLE	trackactivity	(	-- -12.°lÂÜ¬¡°Ê²M³æTable	
+CREATE TABLE	trackactivity	(	-- -12.ï¿½lï¿½Ü¬ï¿½ï¿½Ê²Mï¿½ï¿½Table	
 memberid int not null FOREIGN key references member(id),
 activityid	Int	NOT NULL  FOREIGN KEY REFERENCES activity(id),
 constraint trackact_uq unique (memberid, activityid)							
 )	
 GO
 
-CREATE TABLE	trackmember	(	--8.°lÂÜ·|­û¦W³æTable	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--·|­ûid	
-fanid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--°lÂÜ·|­ûid
+CREATE TABLE	trackmember	(	--8.ï¿½lï¿½Ü·|ï¿½ï¿½ï¿½Wï¿½ï¿½Table	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½|ï¿½ï¿½id	
+fanid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½lï¿½Ü·|ï¿½ï¿½id
 constraint track_uq unique (memberid, fanid)	
 )	
 GO
 
-CREATE TABLE blacklist	(	---16¶Â¦W³æ	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id) ,	--·|­ûid	
-blackid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id), --¶Â¦W³æ·|­ûid
+CREATE TABLE blacklist	(	---16ï¿½Â¦Wï¿½ï¿½	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id) ,	--ï¿½|ï¿½ï¿½id	
+blackid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id), --ï¿½Â¦Wï¿½ï¿½|ï¿½ï¿½id
 constraint 	blacklist_uq unique (memberid, blackid)
 )	
 GO
 
-CREATE TABLE	service	(	--9.«ÈªA¸ê°TTable	
-id	Int	PRIMARY KEY IDENTITY,	--«ÈªA¸ê°Tid	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--·|­ûid	
-asktime	datetime not null default getdate(),		--µo°Ý®É¶¡	
-title	nvarchar(50) 	NOT NULL,	--°ÝÃD¦WºÙ	
-class	Int not null,		--°ÝÃDÃþ«¬	
-content	nvarchar(max) 	NOT NULL	--°ÝÃD´y­z	
+CREATE TABLE	service	(	--9.ï¿½ÈªAï¿½ï¿½TTable	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½ÈªAï¿½ï¿½Tid	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--ï¿½|ï¿½ï¿½id	
+asktime	datetime not null default getdate(),		--ï¿½oï¿½Ý®É¶ï¿½	
+title	nvarchar(50) 	NOT NULL,	--ï¿½ï¿½ï¿½Dï¿½Wï¿½ï¿½	
+class	Int not null,		--ï¿½ï¿½ï¿½Dï¿½ï¿½ï¿½ï¿½	
+content	nvarchar(max) 	NOT NULL	--ï¿½ï¿½ï¿½Dï¿½yï¿½z	
 )
 GO
 
-CREATE TABLE	activityclass	(	--10.¬¡°ÊÃþ«¬Table(¥Î©óselect	
-classid	Int	not null,	--¬¡°ÊÃþ«¬id	
-activityid	Int	NOT NULL  FOREIGN KEY REFERENCES activity(id)	--¬¡°Êid	
+CREATE TABLE	activityclass	(	--10.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Table(ï¿½Î©ï¿½select	
+classid	Int	not null,	--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id	
+activityid	Int	NOT NULL  FOREIGN KEY REFERENCES activity(id)	--ï¿½ï¿½ï¿½ï¿½id	
 )	
 GO
 
-CREATE TABLE	picture	(	---13¹Ï¤ùtable	
-id	Int	PRIMARY KEY IDENTITY,	--¹Ï¤ùtableid	
-picture	varbinary(max) 	NOT NULL,	--¹Ï¤ù
+CREATE TABLE	picture	(	---13ï¿½Ï¤ï¿½table	
+id	Int	PRIMARY KEY IDENTITY,	--ï¿½Ï¤ï¿½tableid	
+picture	varbinary(max) 	NOT NULL,	--ï¿½Ï¤ï¿½
 activityid int references activity(id),
 articleid int references article(id) on delete cascade,
 memberid int references member(id),
