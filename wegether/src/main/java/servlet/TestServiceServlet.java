@@ -42,7 +42,7 @@ public class TestServiceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 //		以ID搜尋
-		ServiceBean result=serviceDAOHibernate.select(2);
+//		ServiceBean result=serviceDAOHibernate.select(2);
 		
 		
 ////	抓全部資料
@@ -50,15 +50,14 @@ public class TestServiceServlet extends HttpServlet {
 		
 		
 //		新增一筆資料
-//		ServiceBean bean = new ServiceBean();
-//		
-//		bean.setMemberid(3);
-//		bean.setAsktime(new java.util.Date());
-//		bean.setTitle("無法參加");
-//		bean.setClasstype(33);
-//		bean.setContent("無法參加");
-//
-//		ServiceBean result = serviceDAOHibernate.insert(bean);
+		ServiceBean bean = new ServiceBean();
+		
+		bean.setMemberid(4);
+		bean.setTitle("無法參加+1");
+		bean.setClasstype(44);
+		bean.setContent("無法參加+1");
+
+		ServiceBean result = serviceDAOHibernate.insert(bean);
 		
 		
 //		修改資料
