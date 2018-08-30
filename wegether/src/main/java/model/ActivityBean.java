@@ -12,10 +12,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ACTIVITY")
-
 public class ActivityBean {
 	
-	@Id
+	@Id  
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Integer hostid;
 	private Date createtime;
@@ -31,9 +31,9 @@ public class ActivityBean {
 	private Integer numberlimit;
 	private Integer feed;
 	private Integer state;
-	private BigDecimal rank1;
-	private BigDecimal rank2;
-	private BigDecimal rank3;
+	private Double rank1;
+	private Double rank2;
+	private Double rank3;
 	private Integer judges;
 	private String form;
 	private Integer click;
@@ -140,22 +140,22 @@ public class ActivityBean {
 	public void setState(Integer state) {
 		this.state = state;
 	}
-	public BigDecimal getRank1() {
+	public Double getRank1() {
 		return rank1;
 	}
-	public void setRank1(BigDecimal rank1) {
+	public void setRank1(Double rank1) {
 		this.rank1 = rank1;
 	}
-	public BigDecimal getRank2() {
+	public Double getRank2() {
 		return rank2;
 	}
-	public void setRank2(BigDecimal rank2) {
+	public void setRank2(Double rank2) {
 		this.rank2 = rank2;
 	}
-	public BigDecimal getRank3() {
+	public Double getRank3() {
 		return rank3;
 	}
-	public void setRank3(BigDecimal rank3) {
+	public void setRank3(Double rank3) {
 		this.rank3 = rank3;
 	}
 	public Integer getJudges() {
