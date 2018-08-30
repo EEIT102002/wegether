@@ -8,6 +8,4 @@ public interface FriendDao {
 	public abstract FriendBean insert(FriendBean friendBean);
 
 	public abstract boolean updateState(FriendBean friendBean);
-
-	public abstract boolean delete(int memberid, int memberidf);
 }

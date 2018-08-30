@@ -2,18 +2,17 @@ package model.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import model.ArticleBean;
 import model.ArticleDao;
 
-@Component
+@Repository
 public class ArticleDaoHibernate implements ArticleDao {
+	@Autowired
 	private SessionFactory sessionFactory;
-
-	public ArticleDaoHibernate(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
@@ -26,10 +25,9 @@ public class ArticleDaoHibernate implements ArticleDao {
 
 	@Override
 	public ArticleBean insert(ArticleBean articleBean) {
-		ArticleBean insert = this.getSession().get(ArticleBean.class, articleBean.getId());
-		if (insert != null) {
-			this.getSession().save(articleBean);
-			return articleBean;
+		if (articleBean != null) {
+				this.getSession().save(articleBean);
+				return articleBean;
 		}
 		return null;
 	}

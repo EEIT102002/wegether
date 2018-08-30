@@ -5,27 +5,27 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import model.FriendBean;
 import model.FriendDao;
 
+@Repository
 public class FriendDaoHibernate implements FriendDao {
+	@Autowired
 	private SessionFactory sessionFactory;
-
-	public FriendDaoHibernate(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	private String HqlSelectAll = "SELECT FROM FRIEND WHERE MEMBERID = :MID AND STATE = 1";
-	private String HqlSelectOne = "SELECT FROM FRIEND WHERE MEMBERID = :MID AND MEMBERIDF = :MIDF";
+	private String HqlSelectAll = "FROM FriendBean WHERE MEMBERID = :MID AND STATE = 1";
+	private String HqlUpdateOne = "UPDATE FriendBean SET STATE = :ST WHERE MEMBERID = :MID AND MEMBERIDF = :MIDF";
 
 	@Override
 	public List<FriendBean> select(int memberid) {
-		Query<FriendBean> query = this.getSession().createQuery(HqlSelectAll, FriendBean.class);
+		Query<FriendBean> query = this.getSession().createQuery(HqlSelectAll);
 		query.setParameter("MID", memberid);
 		return query.list();
 	}
@@ -33,37 +33,24 @@ public class FriendDaoHibernate implements FriendDao {
 	@Override
 	public FriendBean insert(FriendBean friendBean) {
 		if (friendBean != null) {
-			FriendBean select = this.getSession().get(FriendBean.class, friendBean.getId());
-			if (select != null) {
-				this.getSession().save(friendBean);
-				return friendBean;
-			}
+			this.getSession().save(friendBean);
+			return friendBean;
 		}
 		return null;
 	}
 
 	@Override
 	public boolean updateState(FriendBean friendBean) {
-		Query update = this.getSession().createQuery(HqlSelectOne, FriendBean.class);
-		update.setParameter("MID", friendBean.getMemberid());
-		update.setParameter("MIDF", friendBean.getMemberidf());
-		if (update != null) {
-			((FriendBean) update).setState(friendBean.getState());
-			return true;
+		if (friendBean != null) {
+			Query update = this.getSession().createQuery(HqlUpdateOne);
+			if (update != null) {
+				update.setParameter("MID", friendBean.getMemberid());
+				update.setParameter("MIDF", friendBean.getMemberidf());
+				update.setParameter("ST", friendBean.getState());
+				update.executeUpdate();
+				return true;
+			}
 		}
 		return false;
 	}
-
-	@Override
-	public boolean delete(int memberid, int memberidf) {
-		Query delete = this.getSession().createQuery(HqlSelectOne, FriendBean.class);
-		delete.setParameter("MID", memberid);
-		delete.setParameter("MIDF", memberidf);
-		if (delete != null) {
-			this.getSession().delete(delete);
-			return true;
-		}
-		return false;
-	}
-
 }
