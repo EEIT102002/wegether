@@ -69,4 +69,5 @@ public class MsgBean {
 	public void setState(Integer state) {
 		this.state = state;
 	}
+
 }

@@ -39,4 +39,8 @@ public class SpringConfig {
 		builder.configure("hibernate.cfg.xml");
 		return builder.buildSessionFactory();
 	}
+	@Bean 
+	public Integer selectLimit() {
+		return 10; 
+	}
 }
