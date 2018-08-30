@@ -17,7 +17,7 @@ public class AttendDAOHibernate implements AttendDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
@@ -36,30 +36,26 @@ public class AttendDAOHibernate implements AttendDAO {
 
 	@Override
 	public AttendBean insert(AttendBean bean) {
-		if(bean!=null) {
-			int id = bean.getId();
-			AttendBean temp = this.getSession().get(AttendBean.class, id);
-			if(temp==null) {
+		if(bean!=null) {			
 				this.getSession().save(bean);
 				return bean;
-			}
+			
 		}
 		return null;
 	}
 
 	@Override
-	public AttendBean update(Integer activityid, Integer memberid, Date createtime, String form, Integer rank1,
-			Integer rank2, Integer rank3, Integer state, int id) {
-		AttendBean temp = this.getSession().get(AttendBean.class, id);
+	public AttendBean update(AttendBean bean) {
+		AttendBean temp = this.getSession().get(AttendBean.class, bean.getId());
 		if(temp!=null) {
-			temp.setActivityid(activityid);
-			temp.setMemberid(memberid);
-			temp.setCreatetime(createtime);
-			temp.setForm(form);
-			temp.setRank1(rank1);
-			temp.setRank2(rank2);
-			temp.setRank3(rank3);
-			temp.setState(state);
+			temp.setActivityid(bean.getActivityid());
+			temp.setMemberid(bean.getMemberid());
+			temp.setCreatetime(bean.getCreatetime());
+			temp.setForm(bean.getForm());
+			temp.setRank1(bean.getRank1());
+			temp.setRank2(bean.getRank2());
+			temp.setRank3(bean.getRank3());
+			temp.setState(bean.getState());
 			return temp;
 		}
 		return null;

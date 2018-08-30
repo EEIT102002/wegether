@@ -20,14 +20,10 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public static void main(String[] args) {
-		System.out.println("ActivityBean");
-		
-	}
 	@Override
 	public ActivityBean select(int id) {
 		System.out.println("ActivityBean  select");
@@ -46,19 +42,17 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public ActivityBean insert(ActivityBean bean) {
 		if(bean!=null) {
-			int id = bean.getId();
-			ActivityBean temp = this.getSession().get(ActivityBean.class, id);
-			if(temp==null) {
 				this.getSession().save(bean);
 				return bean;
-			}
 		}
 		return null;
 	}
 
+
 	@Override
 	public ActivityBean update(ActivityBean bean) {
 		ActivityBean temp = this.getSession().get(ActivityBean.class, bean.getId());
+
 		if(temp!=null) {
 			temp.setHostid(bean.getHostid());
 			temp.setCreatetime(bean.getCreatetime());
@@ -95,6 +89,6 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return false;
 	}
 
-	
+		
 
 }

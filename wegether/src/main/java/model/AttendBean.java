@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +15,16 @@ public class AttendBean {
 	private Integer id;
 	private Integer activityid;
 	private Integer memberid;
+	@Column(insertable = false)
 	private java.util.Date createtime;
 	private String form;
 	private Integer rank1;
 	private Integer rank2;
 	private Integer rank3;
 	private Integer state;
+	
+	
+	
 
 	@Override
 	public String toString() {

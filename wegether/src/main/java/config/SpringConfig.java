@@ -37,7 +37,6 @@ public class SpringConfig {
 		LocalSessionFactoryBuilder builder =
 				new LocalSessionFactoryBuilder(dataSource());
 		builder.configure("hibernate.cfg.xml");
-		builder.addAnnotatedClasses(ActivityBean.class,AttendBean.class);
 		return builder.buildSessionFactory();
 	}
 }
