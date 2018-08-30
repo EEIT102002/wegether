@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +16,12 @@ public class MsgBean {
 	private Integer activityid;
 	private Integer articleid;
 	private Integer memberid;
+	@Column(insertable=false)
 	private java.util.Date msgtime;
 	private String content;
-
+	@Column(insertable=false)
+	private Integer state;
+	
 	@Override
 	public String toString() {
 		return "MsgBean [id=" + id + ", activityid=" + activityid + ", articleid=" + articleid + ", memberid="
@@ -70,5 +74,11 @@ public class MsgBean {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
 	}
 }
