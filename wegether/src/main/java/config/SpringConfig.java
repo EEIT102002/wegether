@@ -10,6 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 
+import model.ActivityBean;
+import model.AttendBean;
+
 @Configurable
 @ComponentScan(basePackages= {"model"})
 public class SpringConfig {
@@ -34,7 +37,7 @@ public class SpringConfig {
 		LocalSessionFactoryBuilder builder =
 				new LocalSessionFactoryBuilder(dataSource());
 		builder.configure("hibernate.cfg.xml");
-
+		builder.addAnnotatedClasses(ActivityBean.class,AttendBean.class);
 		return builder.buildSessionFactory();
 	}
 }
