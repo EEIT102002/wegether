@@ -46,7 +46,7 @@ public class TestServiceServlet extends HttpServlet {
 		
 		
 ////	抓全部資料
-//		List<ServiceBean> result=serviceDAOHibernate.select();
+		List<ServiceBean> result=serviceDAOHibernate.select();
 		
 //		搜尋memberid
 //		List<ServiceBean> result = serviceDAOHibernate.selectMemberId(2);
@@ -58,7 +58,7 @@ public class TestServiceServlet extends HttpServlet {
 //		List<ServiceBean> result = serviceDAOHibernate.selectClassType(33);
 		
 //		搜尋content
-		List<ServiceBean> result = serviceDAOHibernate.selectContent("報名");
+//		List<ServiceBean> result = serviceDAOHibernate.selectContent("報名");
 		
 		
 		
