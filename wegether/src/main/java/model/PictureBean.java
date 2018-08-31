@@ -20,50 +20,50 @@ public class PictureBean {
 	public Integer memberid;
 	
 	//activity
-	@ManyToOne
-	@JoinColumn(
-			name="ACTIVITYID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
-	private ActivityBean activityBean;		
-	public ActivityBean getActivityBean() {
-		return activityBean;
-	}
-	public void setActivityBean(ActivityBean activityBean) {
-		this.activityBean = activityBean;
-	}
-	
-	//article
-	@ManyToOne
-	@JoinColumn(
-			name="ARTICLEID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
-	private ArticleBean articleBean;		
-	public ArticleBean getArticleBean() {
-		return articleBean;
-	}
-	public void setArticleBean(ArticleBean articleBean) {
-		this.articleBean = articleBean;
-	}
-	
-	//member
-	@OneToOne
-	@JoinColumn(
-			name="MEMBERID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
-	private MemberBean memberBean;		
-	public MemberBean getMemberBean() {
-			return memberBean;
-		}
-		public void setMemberBean(MemberBean memberBean) {
-			this.memberBean = memberBean;
-		}
-	
+//	@ManyToOne
+//	@JoinColumn(
+//			name="ACTIVITYID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
+//	private ActivityBean activityBean;		
+//	public ActivityBean getActivityBean() {
+//		return activityBean;
+//	}
+//	public void setActivityBean(ActivityBean activityBean) {
+//		this.activityBean = activityBean;
+//	}
+//	
+//	//article
+//	@ManyToOne
+//	@JoinColumn(
+//			name="ARTICLEID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
+//	private ArticleBean articleBean;		
+//	public ArticleBean getArticleBean() {
+//		return articleBean;
+//	}
+//	public void setArticleBean(ArticleBean articleBean) {
+//		this.articleBean = articleBean;
+//	}
+//	
+//	//member
+//	@OneToOne
+//	@JoinColumn(
+//			name="MEMBERID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
+//	private MemberBean memberBean;		
+//	public MemberBean getMemberBean() {
+//			return memberBean;
+//		}
+//		public void setMemberBean(MemberBean memberBean) {
+//			this.memberBean = memberBean;
+//		}
+//	
 	@Override
 	public String toString() {
 		return "PictureBean [id=" + id + ", activityid=" + activityid

@@ -47,10 +47,10 @@ public class TestMsgDAOServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		MsgBean insert = new MsgBean();
-//		insert.setMemberid(1);
-//		insert.etContent("insert Test");
-//		msgDAO.insert(insert);
+		MsgBean insert = new MsgBean();
+		insert.setMemberid(1);
+		insert.setContent("insert Test");
+		System.out.println(msgDAO.insert(insert));
 		List<MsgBean> result = msgDAO.selectByActivity(1);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
