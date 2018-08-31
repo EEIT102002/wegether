@@ -18,7 +18,7 @@ public class PictureBean {
 	public Integer activityid;
 	public Integer articleid;
 	public Integer memberid;
-	
+/*	
 	//activity
 	@ManyToOne
 	@JoinColumn(
@@ -63,7 +63,7 @@ public class PictureBean {
 		public void setMemberBean(MemberBean memberBean) {
 			this.memberBean = memberBean;
 		}
-	
+	*/
 	@Override
 	public String toString() {
 		return "PictureBean [id=" + id + ", activityid=" + activityid

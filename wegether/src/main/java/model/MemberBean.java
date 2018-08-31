@@ -1,12 +1,17 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name="MEMBER")
@@ -37,6 +42,19 @@ public class MemberBean {
 	private String fbid;
 	private String googleid;
 	
+	//Activity
+	@OneToMany(
+			mappedBy="memberBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<ActivityBean> activityBean;	
+	public Set<ActivityBean> getActivityBean() {
+			return activityBean;
+		}
+		public void setActivityBean(Set<ActivityBean> activityBean) {
+			this.activityBean = activityBean;
+		}
+		
 	@Override
 	public String toString() {
 		return "MemberBean [id=" + id + ", account=" + account + ", pwd=" + Arrays.toString(pwd) + ", photo="

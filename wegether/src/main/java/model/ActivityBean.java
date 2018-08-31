@@ -58,7 +58,7 @@ public class ActivityBean {
 		public void setMemberBean(MemberBean memberBean) {
 			this.memberBean = memberBean;
 		}
-
+		/*
 	//picture
 	@OneToMany(
 			mappedBy="activityBean",
@@ -162,7 +162,7 @@ public class ActivityBean {
 	public void setActivityclassBean(Set<ActivityclassBean> activityclassBean) {
 		this.activityclassBean = activityclassBean;
 	}	
-	
+	*/
 	
 	@Override
 	public String toString() {

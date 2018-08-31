@@ -98,7 +98,6 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setId(7);
 		ActivityBean result = activityDAOHibernate.update(bean);
 		*/
-	
 		
 		//delete
 	//	boolean result = activityDAOHibernate.delete(7);
