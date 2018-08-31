@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
 
 import model.ActivityBean;
@@ -20,14 +21,10 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public static void main(String[] args) {
-		System.out.println("ActivityBean");
-		
-	}
 	@Override
 	public ActivityBean select(int id) {
 		System.out.println("ActivityBean  select");
@@ -46,42 +43,38 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public ActivityBean insert(ActivityBean bean) {
 		if(bean!=null) {
-			int id = bean.getId();
-			ActivityBean temp = this.getSession().get(ActivityBean.class, id);
-			if(temp==null) {
 				this.getSession().save(bean);
 				return bean;
-			}
 		}
 		return null;
 	}
 
-	public ActivityBean update(Integer hostid, Date createtime, String title, Integer city, String addr, byte[] picture,
-			Date actbegin, Date actend, Date dateline, String classtype, String content, Integer numberlimit,
-			Integer feed, Integer state, Double rank1, Double rank2, Double rank3, Integer judges,
-			String form, Integer click, int id) {
-		ActivityBean temp = this.getSession().get(ActivityBean.class, id);
+
+	@Override
+	public ActivityBean update(ActivityBean bean) {
+		ActivityBean temp = this.getSession().get(ActivityBean.class, bean.getId());
+
 		if(temp!=null) {
-			temp.setHostid(hostid);
-			temp.setCreatetime(createtime);
-			temp.setTitle(title);
-			temp.setCity(city);
-			temp.setAddr(addr);
-			temp.setPicture(picture);
-			temp.setActbegin(actbegin);
-			temp.setActend(actend);
-			temp.setDateline(dateline);
-			temp.setClasstype(classtype);
-			temp.setContent(content);
-			temp.setNumberlimit(numberlimit);
-			temp.setFeed(feed);
-			temp.setState(state);
-			temp.setRank1(rank1);
-			temp.setRank2(rank2);
-			temp.setRank3(rank3);
-			temp.setJudges(judges);
-			temp.setForm(form);
-			temp.setClick(click);
+			temp.setHostid(bean.getHostid());
+			temp.setCreatetime(bean.getCreatetime());
+			temp.setTitle(bean.getTitle());
+			temp.setCity(bean.getCity());
+			temp.setAddr(bean.getAddr());
+			temp.setPicture(bean.getPicture());
+			temp.setActbegin(bean.getActbegin());
+			temp.setActend(bean.getActend());
+			temp.setDateline(bean.getDateline());
+			temp.setClasstype(bean.getClasstype());
+			temp.setContent(bean.getContent());
+			temp.setNumberlimit(bean.getNumberlimit());
+			temp.setFeed(bean.getFeed());
+			temp.setState(bean.getState());
+			temp.setRank1(bean.getRank1());
+			temp.setRank2(bean.getRank2());
+			temp.setRank3(bean.getRank3());
+			temp.setJudges(bean.getJudges());
+			temp.setForm(bean.getForm());
+			temp.setClick(bean.getClick());
 			return temp;
 		}
 		return null;
@@ -97,12 +90,5 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return false;
 	}
 
-	@Override
-	public ActivityBean update(ActivityBean bean) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 
 }

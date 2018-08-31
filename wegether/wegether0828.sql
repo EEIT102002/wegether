@@ -1,5 +1,6 @@
 drop database wegether
 
+
 CREATE DATABASE wegether
 GO
 
