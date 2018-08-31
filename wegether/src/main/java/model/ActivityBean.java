@@ -16,11 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ACTIVITY")
+@Table(name="activity")
 public class ActivityBean {
 	
 	@Id  
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+		      generator = "activity_sq")
 	private Integer id;
 	private Integer hostid;
 	@Column(insertable = false)

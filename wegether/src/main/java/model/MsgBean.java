@@ -11,7 +11,8 @@ import javax.persistence.Table;
 @Table(name = "MSG")
 public class MsgBean {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+    	generator = "MSG_sq")
 	private Integer id;
 	private Integer activityid;
 	private Integer articleid;

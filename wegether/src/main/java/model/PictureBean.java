@@ -12,7 +12,8 @@ import javax.persistence.Table;
 @Table(name="PICTURE")
 public class PictureBean {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+    	generator = "PICTURE_sq")
 	public Integer id;
 	public byte[] picture;
 	public Integer activityid;

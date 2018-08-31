@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Table(name="notice")
 public class NoticeBean {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+    generator = "notice_sq")
 	private Integer id;
 	private Integer memberid;
 	private Integer activityid;

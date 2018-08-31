@@ -12,7 +12,8 @@ import javax.persistence.Table;
 @Table(name="INVITE")
 public class InviteBean {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+    	generator = "INVITE_sq")
 	private Integer id ;
 	private Integer memberid;
 	private Integer invitedid;

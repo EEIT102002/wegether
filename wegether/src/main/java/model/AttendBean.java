@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Table(name = "ATTEND")
 public class AttendBean {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+    	generator = "ATTEND_sq")
 	private Integer id;
 	private Integer activityid;
 	private Integer memberid;
