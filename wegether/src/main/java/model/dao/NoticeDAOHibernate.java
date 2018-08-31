@@ -16,19 +16,19 @@ public class NoticeDAOHibernate implements NoticeDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	private String selectByMemberIdHql = 
+	private final String selectByMemberIdHql = 
 			"from NoticeBean where memberid = :id order by noticetime desc";
 	@Override
 	public List<NoticeBean> selectByMemberId(Integer id, Integer first){
-		Query<NoticeBean> query = getSession().createQuery(selectByMemberIdHql, NoticeBean.class);
-		query.setParameter("id", id);
-		query.setFirstResult(first);
-		query.setMaxResults(10);
-		return query.list();
+		
+		return getSession().createQuery(selectByMemberIdHql, NoticeBean.class)
+					.setParameter("id", id)
+					.setFirstResult(first)
+					.setMaxResults(10).list();
 	}
 
 }

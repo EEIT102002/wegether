@@ -19,9 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
+import model.PictureBean;
 import model.dao.ActivityDAOHibernate;
 
-@WebServlet("/ActivityTest")
+@WebServlet("/TestActivityDAOServlet")
 public class TestActivityDAOServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SimpleDateFormat simpleDateFormat;
@@ -40,13 +41,13 @@ public class TestActivityDAOServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//select(id)
-	//	ActivityBean result = activityDAOHibernate.select(2);
+		//ActivityBean result = activityDAOHibernate.select(2);
 		
-//		select()
+		//select()
 		List<ActivityBean> result = activityDAOHibernate.select();
 		
 		//insert
-		/*	
+/*		
 	    ActivityBean bean = new ActivityBean();
 		bean.setActbegin(new java.util.Date());
 		bean.setActend(new java.util.Date());
@@ -60,7 +61,6 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setFeed(500);
 		bean.setForm("Activityform");
 		bean.setHostid(1);
-		bean.setId(4);
 		bean.setJudges(101);
 		bean.setNumberlimit(100);
 		bean.setPicture(null);
@@ -68,25 +68,46 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setRank2(3.0);
 		bean.setRank3(3.0);
 		bean.setState(1);
-		bean.setTitle("一起去爬山title");
+		bean.setTitle("一起去爬山title7");
 		ActivityBean result = activityDAOHibernate.insert(bean);
-		*/
+	*/
 		
 		//update	
-	/*
-		ActivityBean result = activityDAOHibernate.update(1, new java.util.Date(), "一起去爬山title", 102, "台北市", null,
-				new java.util.Date(), new java.util.Date(), new java.util.Date(), "戶外活動", "一起去爬山Content", 100,
-				500, 0, 3.0, 3.0,3.0, 101,"Activityform", 97, 4);
+		/*		
+	    ActivityBean bean = new ActivityBean();
+		bean.setActbegin(new java.util.Date());
+		bean.setActend(new java.util.Date());
+		bean.setAddr("象山");
+		bean.setCity(102);
+		bean.setClasstype("戶外活動");
+		bean.setClick(97);
+		bean.setContent("一起去爬山Content");
+		bean.setCreatetime(new java.util.Date());
+		bean.setDateline(new java.util.Date());
+		bean.setFeed(500);
+		bean.setForm("Activityform");
+		bean.setHostid(1);
+		bean.setJudges(101);
+		bean.setNumberlimit(100);
+		bean.setPicture(null);
+		bean.setRank1(3.0);
+		bean.setRank2(3.0);
+		bean.setRank3(3.0);
+		bean.setState(1);
+		bean.setTitle("一起去爬山title7");
+		bean.setId(7);
+		ActivityBean result = activityDAOHibernate.update(bean);
 		*/
+	
 		
 		//delete
-	//	boolean result = activityDAOHibernate.delete(4);
+	//	boolean result = activityDAOHibernate.delete(7);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
 		result.forEach(x->out.println(x+"<br>"));
-//		out.print(result);
+	//	out.println(result);
 		out.close();
 	}
 

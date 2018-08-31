@@ -21,7 +21,7 @@ public class MsgBean {
 	private String content;
 	@Column(insertable=false)
 	private Integer state;
-	
+
 	@Override
 	public String toString() {
 		return "MsgBean [id=" + id + ", activityid=" + activityid + ", articleid=" + articleid + ", memberid="

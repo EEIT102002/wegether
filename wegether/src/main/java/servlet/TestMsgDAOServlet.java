@@ -19,17 +19,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
+import model.MsgBean;
 import model.NoticeBean;
 import model.dao.ActivityDAOHibernate;
+import model.dao.MsgDAO;
 import model.dao.NoticeDAO;
 import model.dao.NoticeDAOHibernate;
 
-@WebServlet("/NoticeTest")
-public class TestNoticeDAOServlet extends HttpServlet {
+@WebServlet("/MsgTest")
+public class TestMsgDAOServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SimpleDateFormat simpleDateFormat;
 	private ActivityDAOHibernate activityDAOHibernate;
 	private NoticeDAO noticeDAO;
+	private MsgDAO msgDAO;
 	
 	@Override
 	public void init() throws ServletException {
@@ -38,15 +41,16 @@ public class TestNoticeDAOServlet extends HttpServlet {
 				application.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 		activityDAOHibernate = (ActivityDAOHibernate) context.getBean("activityDAOHibernate");
 		noticeDAO = (NoticeDAO)context.getBean("noticeDAOHibernate");
+		msgDAO = (MsgDAO)context.getBean("msgDAOHibernate");
 		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<NoticeBean> result = noticeDAO.selectByMemberId(2,Integer.parseInt(request.getParameter("id")));
+		List<MsgBean> result = msgDAO.selectByActivity(1);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println("<p>NoticeBean</p>");
+		out.println("<p>MsgBean</p>");
 		result.forEach(x->out.println(x+"<br>"));
 //		out.print(result);
 		out.close();
