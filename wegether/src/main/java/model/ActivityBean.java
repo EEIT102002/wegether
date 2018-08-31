@@ -1,13 +1,18 @@
 package model;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +23,7 @@ public class ActivityBean {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Integer hostid;
+	@Column(insertable = false)
 	private Date createtime;
 	private String title;
 	private Integer city;
@@ -38,6 +44,125 @@ public class ActivityBean {
 	private String form;
 	private Integer click;
 	
+	//member
+	@ManyToOne
+	@JoinColumn(
+			name="HOSTID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
+	private MemberBean memberBean;		
+	public MemberBean getMemberBean() {
+			return memberBean;
+		}
+		public void setMemberBean(MemberBean memberBean) {
+			this.memberBean = memberBean;
+		}
+		/*
+	//picture
+	@OneToMany(
+			mappedBy="activityBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<PictureBean> pictureBean;	
+	public Set<PictureBean> getPictureBean() {
+		return pictureBean;
+	}
+	public void setPictureBean(Set<PictureBean> pictureBean) {
+		this.pictureBean = pictureBean;
+	}
+	
+	//article
+	@OneToMany(
+			mappedBy="articleBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<ArticleBean> articleBean;	
+	public Set<ArticleBean> getArticleBean() {
+		return articleBean;
+	}
+	public void setArticleBean(Set<ArticleBean> articleBean) {
+		this.articleBean = articleBean;
+	}
+	
+	//msg
+	@OneToMany(
+			mappedBy="msgBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<MsgBean> msgBean;	
+	public Set<MsgBean> getMsgBean() {
+		return msgBean;
+	}
+	public void setMsgBean(Set<MsgBean> msgBean) {
+		this.msgBean = msgBean;
+	}
+	
+	//attend
+	@OneToMany(
+			mappedBy="attendBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<AttendBean> attendBean;
+	public Set<AttendBean> getAttendBean() {
+		return attendBean;
+	}
+	public void setAttendBean(Set<AttendBean> attendBean) {
+		this.attendBean = attendBean;
+	}
+	
+	//invite
+	@OneToMany(
+			mappedBy="inviteBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<InviteBean> inviteBean;
+	public Set<InviteBean> getInviteBean() {
+		return inviteBean;
+	}
+	public void setInviteBean(Set<InviteBean> inviteBean) {
+		this.inviteBean = inviteBean;
+	}
+	
+	//notice
+	@OneToMany(
+			mappedBy="noticeBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<NoticeBean> noticeBean;
+	public Set<NoticeBean> getNoticeBean() {
+		return noticeBean;
+	}
+	public void setNoticeBean(Set<NoticeBean> noticeBean) {
+		this.noticeBean = noticeBean;
+	}
+	
+	//trackactivity
+	@OneToMany(
+			mappedBy="trackactivityBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<TrackactivityBean> trackactivityBean;
+	public Set<TrackactivityBean> getTrackactivityBean() {
+		return trackactivityBean;
+	}
+	public void setTrackactivityBean(Set<TrackactivityBean> trackactivityBean) {
+		this.trackactivityBean = trackactivityBean;
+	}
+
+	//activityclass
+	@OneToMany(
+			mappedBy="activityclassBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<ActivityclassBean> activityclassBean;
+	public Set<ActivityclassBean> getActivityclassBean() {
+		return activityclassBean;
+	}
+	public void setActivityclassBean(Set<ActivityclassBean> activityclassBean) {
+		this.activityclassBean = activityclassBean;
+	}	
+	*/
 	
 	@Override
 	public String toString() {
@@ -176,6 +301,7 @@ public class ActivityBean {
 	public void setClick(Integer click) {
 		this.click = click;
 	}
+	
 	
 	
 	
