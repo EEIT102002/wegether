@@ -12,7 +12,6 @@ public interface PictureDAO {
 	public abstract List<PictureBean> selectByArticle(Integer articleid);
 	public abstract PictureBean Select(int id);
 	public abstract PictureBean insert(PictureBean picturebean);
-
 	public abstract PictureBean update(PictureBean picturebean);
 
 	public abstract boolean delete(int id);

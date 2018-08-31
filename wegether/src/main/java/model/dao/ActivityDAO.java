@@ -8,7 +8,15 @@ import model.ActivityBean;
 
 public interface ActivityDAO {
 	public abstract ActivityBean select(int id);
-
+	
+//	public abstract List<ActivityBean> selectByState(int first);
+//	
+//	public abstract List<ActivityBean> selectByTime(Date begin, Date end);
+//	
+//	public abstract List<ActivityBean> selectByActbegin(Date Actbegin);
+	
+	
+	
 	public abstract List<ActivityBean> select();
 
 	public abstract ActivityBean insert(ActivityBean bean);

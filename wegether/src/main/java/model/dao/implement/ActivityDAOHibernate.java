@@ -28,7 +28,6 @@ public class ActivityDAOHibernate implements ActivityDAO {
 
 	@Override
 	public ActivityBean select(int id) {
-		System.out.println("ActivityBean  select");
 
 		return this.getSession().get(ActivityBean.class, id);
 	
@@ -71,6 +70,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		}
 		return false;
 	}
-
+	
+	
 
 }
