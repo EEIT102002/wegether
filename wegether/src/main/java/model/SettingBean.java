@@ -1,9 +1,11 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -35,6 +37,15 @@ public class SettingBean {
 			public Integer friendarticle;
 			public Integer friendactivity;
 			
+			@OneToOne(mappedBy="settingBean",cascade= {CascadeType.REMOVE})
+			
+			private MemberBean memberBean;
+			public MemberBean getMemberBean() {
+				return memberBean;
+			}
+			public void setMemberBean(MemberBean memberBean) {
+				this.memberBean = memberBean;
+			}
 			@Override
 			public String toString() {
 				return "SettingBean [memberid=" + memberid + ", birthday=" + birthday + ", sex=" + sex + ", job=" + job
