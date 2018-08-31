@@ -55,26 +55,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		ActivityBean temp = this.getSession().get(ActivityBean.class, bean.getId());
 
 		if(temp!=null) {
-			temp.setHostid(bean.getHostid());
-			temp.setCreatetime(bean.getCreatetime());
-			temp.setTitle(bean.getTitle());
-			temp.setCity(bean.getCity());
-			temp.setAddr(bean.getAddr());
-			temp.setPicture(bean.getPicture());
-			temp.setActbegin(bean.getActbegin());
-			temp.setActend(bean.getActend());
-			temp.setDateline(bean.getDateline());
-			temp.setClasstype(bean.getClasstype());
-			temp.setContent(bean.getContent());
-			temp.setNumberlimit(bean.getNumberlimit());
-			temp.setFeed(bean.getFeed());
-			temp.setState(bean.getState());
-			temp.setRank1(bean.getRank1());
-			temp.setRank2(bean.getRank2());
-			temp.setRank3(bean.getRank3());
-			temp.setJudges(bean.getJudges());
-			temp.setForm(bean.getForm());
-			temp.setClick(bean.getClick());
+			this.getSession().merge(temp);
 			return temp;
 		}
 		return null;

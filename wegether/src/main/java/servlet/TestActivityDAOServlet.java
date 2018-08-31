@@ -44,7 +44,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 		//ActivityBean result = activityDAOHibernate.select(2);
 		
 		//select()
-		List<ActivityBean> result = activityDAOHibernate.select();
+//		List<ActivityBean> result = activityDAOHibernate.select();
 		
 		//insert
 /*		
@@ -73,11 +73,11 @@ public class TestActivityDAOServlet extends HttpServlet {
 	*/
 		
 		//update	
-		/*		
+				
 	    ActivityBean bean = new ActivityBean();
 		bean.setActbegin(new java.util.Date());
 		bean.setActend(new java.util.Date());
-		bean.setAddr("象山");
+		bean.setAddr("大屯山");
 		bean.setCity(102);
 		bean.setClasstype("戶外活動");
 		bean.setClick(97);
@@ -95,9 +95,9 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setRank3(3.0);
 		bean.setState(1);
 		bean.setTitle("一起去爬山title7");
-		bean.setId(7);
+		bean.setId(6);
 		ActivityBean result = activityDAOHibernate.update(bean);
-		*/
+		
 		
 		//delete
 	//	boolean result = activityDAOHibernate.delete(7);
@@ -105,8 +105,8 @@ public class TestActivityDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
-		result.forEach(x->out.println(x+"<br>"));
-	//	out.println(result);
+//		result.forEach(x->out.println(x+"<br>"));
+		out.println(result);
 		out.close();
 	}
 

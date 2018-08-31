@@ -40,7 +40,7 @@ public class TestAttendDAOServlet extends HttpServlet {
 	//	AttendBean result = attendDAOHibernate.select(2);
 		
 		//select()
-		List<AttendBean> result = attendDAOHibernate.select();
+//		List<AttendBean> result = attendDAOHibernate.select();
 		
 		//insert
 /*		
@@ -57,7 +57,7 @@ public class TestAttendDAOServlet extends HttpServlet {
 		*/
 		
 		//update	
-	/*		
+			
 	    AttendBean bean = new AttendBean();
 	    bean.setActivityid(1);
 		bean.setCreatetime(new java.util.Date());
@@ -67,9 +67,9 @@ public class TestAttendDAOServlet extends HttpServlet {
 		bean.setRank2(5);
 		bean.setRank3(5);
 		bean.setState(0);
-		bean.setId(4);
+		bean.setId(3);
 		AttendBean result = attendDAOHibernate.update(bean);
-		*/
+		
 	
 		
 		//delete
@@ -78,8 +78,8 @@ public class TestAttendDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<p>TestAttendDAOServlet</p>");
-		result.forEach(x->out.println(x+"<br>"));
-//		out.println(result);
+//		result.forEach(x->out.println(x+"<br>"));
+		out.println(result);
 		out.close();
 	}
 

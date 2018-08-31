@@ -48,14 +48,7 @@ public class AttendDAOHibernate implements AttendDAO {
 	public AttendBean update(AttendBean bean) {
 		AttendBean temp = this.getSession().get(AttendBean.class, bean.getId());
 		if(temp!=null) {
-			temp.setActivityid(bean.getActivityid());
-			temp.setMemberid(bean.getMemberid());
-			temp.setCreatetime(bean.getCreatetime());
-			temp.setForm(bean.getForm());
-			temp.setRank1(bean.getRank1());
-			temp.setRank2(bean.getRank2());
-			temp.setRank3(bean.getRank3());
-			temp.setState(bean.getState());
+			this.getSession().merge(temp);
 			return temp;
 		}
 		return null;
