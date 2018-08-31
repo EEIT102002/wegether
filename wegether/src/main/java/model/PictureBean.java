@@ -18,7 +18,8 @@ public class PictureBean {
 	public Integer activityid;
 	public Integer articleid;
 	public Integer memberid;
-	
+
+
 	//activity
 	@ManyToOne
 	@JoinColumn(

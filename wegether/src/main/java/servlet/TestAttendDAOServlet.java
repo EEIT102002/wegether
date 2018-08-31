@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.AttendBean;
-import model.dao.AttendDAOHibernate;
+import model.dao.implement.AttendDAOHibernate;
 
 @WebServlet("/TestAttendDAOServlet")
 public class TestAttendDAOServlet extends HttpServlet {

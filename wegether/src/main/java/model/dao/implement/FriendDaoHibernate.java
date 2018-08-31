@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.FriendBean;
-import model.FriendDao;
+import model.dao.FriendDao;
 
 @Repository
 public class FriendDaoHibernate implements FriendDao {

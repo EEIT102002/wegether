@@ -45,11 +45,24 @@ public class ActivityBean {
 	private Integer click;
 	
 	//member
-//	@ManyToOne
-//	@JoinColumn(
-//			name="HOSTID",
-//			referencedColumnName="ID",
-//			insertable=false, updatable=false
+	@ManyToOne
+	@JoinColumn(
+			name="HOSTID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
+	private MemberBean memberBean;		
+	public MemberBean getMemberBean() {
+			return memberBean;
+		}
+		public void setMemberBean(MemberBean memberBean) {
+			this.memberBean = memberBean;
+		}
+		
+//	//picture
+//	@OneToMany(
+//			mappedBy="activityBean",
+//			cascade= {CascadeType.REMOVE}
 //			)
 //	private MemberBean memberBean;		
 //	public MemberBean getMemberBean() {
