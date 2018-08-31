@@ -20,8 +20,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
 import model.ArticleBean;
-import model.dao.ActivityDAOHibernate;
-import model.dao.ArticleDaoHibernate;
+import model.dao.implement.ActivityDAOHibernate;
+import model.dao.implement.ArticleDaoHibernate;
 
 @WebServlet("/AriticleTest")
 public class TestArticleDAOServlet extends HttpServlet {

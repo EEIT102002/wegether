@@ -1,4 +1,6 @@
-package model;
+package model.dao;
+
+import model.MemberBean;
 
 public interface MemberDao {
 	public abstract MemberBean select(int id);

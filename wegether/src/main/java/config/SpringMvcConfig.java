@@ -16,8 +16,8 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.XmlViewResolver;
 
-import model.ArticleDao;
-import model.dao.ArticleDaoHibernate;
+import model.dao.ArticleDao;
+import model.dao.implement.ArticleDaoHibernate;
 
 @Configuration
 @ComponentScan(basePackages = { "controller" })

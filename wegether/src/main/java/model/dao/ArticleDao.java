@@ -1,4 +1,6 @@
-package model;
+package model.dao;
+
+import model.ArticleBean;
 
 public interface ArticleDao {
 	public abstract ArticleBean select(int id);

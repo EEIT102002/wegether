@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.NoticeBean;
+import model.dao.NoticeDAO;
 
 @Repository
 public class NoticeDAOHibernate implements NoticeDAO {
