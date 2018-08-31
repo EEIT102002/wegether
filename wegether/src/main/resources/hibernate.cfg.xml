@@ -8,6 +8,8 @@
         <property name="hibernate.show_sql">true</property>
         <property name="dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
         <property name="current_session_context_class">thread</property>
+        <mapping class="model.SettingBean"/>
+        <mapping class="model.PictureBean"/>
         <mapping class="model.ActivityBean"/>
         <mapping class="model.ArticleBean"/>
         <mapping class="model.FriendBean"/>
@@ -17,5 +19,6 @@
         <mapping class="model.InviteBean"/>
         <mapping class="model.NoticeBean"/>
         <mapping class="model.MsgBean"/>
+
     </session-factory>
 </hibernate-configuration>

@@ -1,15 +1,18 @@
 package model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import net.bytebuddy.matcher.FailSafeMatcher;
 
 @Entity
 @Table(name = "ARTICLE")
@@ -22,6 +25,19 @@ public class ArticleBean {
 	private String content;
 	@Column(insertable = false)
 	private java.util.Date createtime;
+	
+	@OneToMany(
+			mappedBy="articleBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<PictureBean> PictureBean;
+	public Set<PictureBean> getPictureBean() {
+		return PictureBean;
+	}
+
+	public void setPictureBean(Set<PictureBean> pictureBean) {
+		PictureBean = pictureBean;
+	}
 
 	// member
 	@ManyToOne

@@ -11,7 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "MEMBER")
@@ -77,6 +80,31 @@ public class MemberBean {
 	}
 	public void setFriendBean(Set<FriendBean> friendBean) {
 		this.friendBean = friendBean;
+	}
+
+	@OneToMany(
+			mappedBy="memberBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<PictureBean> pictureBean;
+	public Set<PictureBean> getPictureBean() {
+		return pictureBean;
+	}
+	public void setPictureBean(Set<PictureBean> pictureBean) {
+		this.pictureBean = pictureBean;
+	}
+	@OneToOne
+	@JoinColumn(
+			name="id",
+			referencedColumnName="memberid",
+			insertable=false,updatable=false		
+			)
+	private SettingBean settingBean;
+	public SettingBean getSettingBean() {
+		return settingBean;
+	}
+	public void setSettingBean(SettingBean settingBean) {
+		this.settingBean = settingBean;
 	}
 
 	@Override
