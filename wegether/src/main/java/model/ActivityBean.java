@@ -96,19 +96,19 @@ public class ActivityBean {
 //		this.msgBean = msgBean;
 //	}
 //	
-//	//attend
-//	@OneToMany(
-//			mappedBy="attendBean",
-//			cascade= {CascadeType.REMOVE}
-//			)
-//	private Set<AttendBean> attendBean;
-//	public Set<AttendBean> getAttendBean() {
-//		return attendBean;
-//	}
-//	public void setAttendBean(Set<AttendBean> attendBean) {
-//		this.attendBean = attendBean;
-//	}
-//	
+	//attend
+	@OneToMany(
+			mappedBy="activityBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<AttendBean> attendBean;
+	public Set<AttendBean> getAttendBean() {
+		return attendBean;
+	}
+	public void setAttendBean(Set<AttendBean> attendBean) {
+		this.attendBean = attendBean;
+	}
+	
 //	//invite
 //	@OneToMany(
 //			mappedBy="inviteBean",
