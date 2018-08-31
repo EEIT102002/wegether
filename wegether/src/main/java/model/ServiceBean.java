@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +22,21 @@ public class ServiceBean {
 	private  String title ;
 	private Integer classtype ;
 	private String content ;
+	
+	//member
+	@ManyToOne
+	@JoinColumn(
+			name="MEMBERID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
+	private MemberBean memberBean;		
+	public MemberBean getMemberBean() {
+			return memberBean;
+		}
+		public void setMemberBean(MemberBean memberBean) {
+			this.memberBean = memberBean;
+		}
 	
 	@Override
 	public String toString() {

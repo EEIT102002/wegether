@@ -118,8 +118,17 @@ public class MemberBean {
 		this.settingBean = settingBean;
 	}
 
-	
-	
+	// Service
+	@OneToMany(mappedBy = "memberBean",
+			   cascade = { CascadeType.REMOVE })
+	private Set<ServiceBean> serviceBean;	
+	public Set<ServiceBean> getServiceBean() {
+			return serviceBean;
+		}
+		public void setServiceBean(Set<ServiceBean> serviceBean) {
+			this.serviceBean = serviceBean;
+		}
+		
 	@Override
 	public String toString() {
 		return "MemberBean [id=" + id + ", account=" + account + ", pwd=" + Arrays.toString(pwd) + ", photo="

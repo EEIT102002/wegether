@@ -74,11 +74,11 @@ public class TestServiceServlet extends HttpServlet {
 		
 		
 //		修改資料
-//		ServiceBean result = serviceDAOHibernate.update(6, 3, new java.util.Date(), "更新測試", 33, "更新測試");
+//		ServiceBean result = serviceDAOHibernate.update(7, 3, new java.util.Date(), "更新測試", 33, "更新測試");
 		
 		
 //		刪除資料
-//		boolean result = serviceDAOHibernate.delete(6);
+//		boolean result = serviceDAOHibernate.delete(7);
 		
 		
 		
