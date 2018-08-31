@@ -3,7 +3,6 @@ package model;
 import java.util.Arrays;
 import java.util.Set;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-
 
 @Entity
 @Table(name = "MEMBER")
@@ -48,19 +45,39 @@ public class MemberBean {
 	private Integer state;
 	private String fbid;
 	private String googleid;
-	
-	//Activity
-	@OneToMany(
-			mappedBy="memberBean",
-			cascade= {CascadeType.REMOVE}
-			)
-	private Set<ActivityBean> activityBean;	
+
+	// Activity
+	@OneToMany(mappedBy = "memberBean",
+			   cascade = { CascadeType.REMOVE })
+	private Set<ActivityBean> activityBean;
 	public Set<ActivityBean> getActivityBean() {
-			return activityBean;
-		}
-		public void setActivityBean(Set<ActivityBean> activityBean) {
-			this.activityBean = activityBean;
-		}
+		return activityBean;
+	}
+	public void setActivityBean(Set<ActivityBean> activityBean) {
+		this.activityBean = activityBean;
+	}
+
+	// Article
+	@OneToMany(mappedBy = "memberBean",
+			   cascade = {CascadeType.REMOVE})
+	private Set<ArticleBean> articleBean;
+	public Set<ArticleBean> getArticleBean() {
+		return articleBean;
+	}
+	public void setArticleBean(Set<ArticleBean> articleBean) {
+		this.articleBean = articleBean;
+	}
+	
+	//Friend
+	@OneToMany(mappedBy = "memberBean",
+			   cascade = {CascadeType.REMOVE})
+	private Set<FriendBean> friendBean;
+	public Set<FriendBean> getFriendBean() {
+		return friendBean;
+	}
+	public void setFriendBean(Set<FriendBean> friendBean) {
+		this.friendBean = friendBean;
+	}
 
 	@Override
 	public String toString() {

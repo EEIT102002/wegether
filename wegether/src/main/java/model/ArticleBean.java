@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import net.bytebuddy.matcher.FailSafeMatcher;
+
 @Entity
 @Table(name = "ARTICLE")
 public class ArticleBean {
@@ -21,14 +23,30 @@ public class ArticleBean {
 	@Column(insertable = false)
 	private java.util.Date createtime;
 
+	// member
 	@ManyToOne
-	@JoinColumn(name="")
+	@JoinColumn(name = "MEMBERID",
+				referencedColumnName = "ID",
+				insertable = false, updatable = false)
 	private MemberBean memberBean;
 	public MemberBean getMemberBean() {
 		return memberBean;
 	}
 	public void setMemberBean(MemberBean memberBean) {
 		this.memberBean = memberBean;
+	}
+	
+	// activity
+	@ManyToOne
+	@JoinColumn(name = "ACTIVITYID",
+				referencedColumnName = "ID",
+				insertable = false, updatable = false)
+	private ActivityBean activityBean;
+	public ActivityBean getActivityBean() {
+		return activityBean;
+	}
+	public void setActivityBean(ActivityBean activityBean) {
+		this.activityBean = activityBean;
 	}
 
 	@Override

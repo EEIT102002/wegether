@@ -47,28 +47,28 @@ public class TestMemberDAOServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// select(id)
-		// MemberBean result = memberDaoHibernate.select(1);
+		MemberBean result = memberDaoHibernate.select(1);
 
 		// select()
 		// List<ActivityBean> result = memberDaoHibernate.select();
 
 		// insert
-		 MemberBean bean = new MemberBean();
-		 bean.setAccount("ewf@yahoo");
-		 bean.setPwd("E".getBytes());
-		 bean.setName("安妮");
-		 try {
-		 bean.setBirthday(simpleDateFormat.parse("1999-01-01"));
-		 } catch (ParseException e) {
-		 e.printStackTrace();
-		 }
-		 MemberBean result = memberDaoHibernate.insert(bean);
+		// MemberBean bean = new MemberBean();
+		// bean.setAccount("ewf@yahoo");
+		// bean.setPwd("E".getBytes());
+		// bean.setName("安妮");
+		// try {
+		// bean.setBirthday(simpleDateFormat.parse("1999-01-01"));
+		// } catch (ParseException e) {
+		// e.printStackTrace();
+		// }
+		// MemberBean result = memberDaoHibernate.insert(bean);
 
 		// update
-//		MemberBean memberBean = memberDaoHibernate.select(4);
-//		memberBean.setAddr("景安");
-//		memberBean.setNickname("longlong");
-//		boolean result = memberDaoHibernate.update(memberBean);
+		// MemberBean memberBean = memberDaoHibernate.select(4);
+		// memberBean.setAddr("景安");
+		// memberBean.setNickname("longlong");
+		// boolean result = memberDaoHibernate.update(memberBean);
 
 		// delete
 		// boolean result = memberDaoHibernate.delete(1);
