@@ -48,29 +48,4 @@ public class SpringConfig {
 		return 10;
 	}
 	
-	@Bean 
-	public String offsetSql() {
-		return 	"offset :offset_first row fetch next :offset_max rows only ";
-	}
-	
-	@Bean 
-	public String noticeSelectByMemberIdSql() {
-		return "select {n.*} from Notice n where memberid = :id order by noticetime desc "
-				+offsetSql();
-	}
-	
-	public String msgSelectSql(String tabelid) {
-		return "select {m.*} from Msg m where "+tabelid+" = :id order by msgtime desc ";
-	}
-	
-	
-	@Bean 
-	public String msgSelectByActivitySql() {
-		return msgSelectSql("activityid");
-	}
-	
-	@Bean 
-	public String msgSelectByArticleSql() {
-		return msgSelectSql("articleid");
-	}
 }
