@@ -5,7 +5,17 @@ import java.util.List;
 import model.ServiceBean;
 
 public interface ServiceDAO {
-	public abstract ServiceBean select(Integer id );
+
+	
+	public abstract ServiceBean selectid(Integer id );
+	
+	public abstract List<ServiceBean> selectMemberId(Integer memberid );
+	
+	public abstract List<ServiceBean> selectTitle(String title );
+	
+	public abstract List<ServiceBean> selectClassType(Integer classtype );
+	
+	public abstract List<ServiceBean> selectContent(String content );
 
 	public abstract List<ServiceBean> select();
 
