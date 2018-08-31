@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 
 
 @Entity
@@ -60,7 +62,10 @@ public class MemberBean {
 		public void setActivityBean(Set<ActivityBean> activityBean) {
 			this.activityBean = activityBean;
 		}
-
+	@OneToMany(
+			mappedBy="memberBean",
+			cascade= {CascadeType.REMOVE}
+			)
 	private Set<PictureBean> pictureBean;
 	public Set<PictureBean> getPictureBean() {
 		return pictureBean;

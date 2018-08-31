@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import model.ActivityBean;
 import model.SettingBean;
+import model.dao.SettingDAO;
 
 @Repository
 public class SettingDAOHibernate implements SettingDAO{

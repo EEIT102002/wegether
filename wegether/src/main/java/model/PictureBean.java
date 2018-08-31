@@ -36,34 +36,34 @@ public class PictureBean {
 	}
 	
 	//article
-//	@ManyToOne
-//	@JoinColumn(
-//			name="ARTICLEID",
-//			referencedColumnName="ID",
-//			insertable=false, updatable=false
-//			)
-//	private ArticleBean articleBean;		
-//	public ArticleBean getArticleBean() {
-//		return articleBean;
-//	}
-//	public void setArticleBean(ArticleBean articleBean) {
-//		this.articleBean = articleBean;
-//	}
+	@ManyToOne
+	@JoinColumn(
+			name="ARTICLEID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
+	private ArticleBean articleBean;		
+	public ArticleBean getArticleBean() {
+		return articleBean;
+	}
+	public void setArticleBean(ArticleBean articleBean) {
+		this.articleBean = articleBean;
+	}
 	
 	//member
-//	@OneToOne
-//	@JoinColumn(
-//			name="MEMBERID",
-//			referencedColumnName="ID",
-//			insertable=false, updatable=false
-//			)
-//	private MemberBean memberBean;		
-//	public MemberBean getMemberBean() {
-//			return memberBean;
-//		}
-//		public void setMemberBean(MemberBean memberBean) {
-//			this.memberBean = memberBean;
-//		}
+	@OneToOne
+	@JoinColumn(
+			name="MEMBERID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
+	private MemberBean memberBean;		
+	public MemberBean getMemberBean() {
+			return memberBean;
+		}
+		public void setMemberBean(MemberBean memberBean) {
+			this.memberBean = memberBean;
+		}
 		
 	@Override
 	public String toString() {

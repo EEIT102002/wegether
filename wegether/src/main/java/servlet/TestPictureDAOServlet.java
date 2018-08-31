@@ -2,11 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -16,21 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.ctc.wstx.util.StringUtil;
-import com.fasterxml.jackson.databind.ser.std.IterableSerializer;
-
-import antlr.StringUtils;
-import model.ActivityBean;
 import model.PictureBean;
-import model.SettingBean;
-import model.dao.ActivityDAOHibernate;
-import model.dao.PictureDAOHibernate;
-import model.dao.SettingDAOHibernate;
+import model.dao.implement.PictureDAOHibernate;
 
 @WebServlet("/PictureTest")
 public class TestPictureDAOServlet extends HttpServlet {

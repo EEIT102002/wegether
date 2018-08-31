@@ -20,8 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
 import model.SettingBean;
-import model.dao.ActivityDAOHibernate;
-import model.dao.SettingDAOHibernate;
+import model.dao.implement.SettingDAOHibernate;
 
 @WebServlet("/SettingTest")
 public class TestSettingDAOServlet extends HttpServlet {
