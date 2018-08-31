@@ -26,35 +26,35 @@ public class AttendBean {
 
 	private Integer state;
 	
-//	//activity
-//	@ManyToOne
-//	@JoinColumn(
-//			name="ACTIVITYID",
-//			referencedColumnName="ID",
-//			insertable=false, updatable=false
-//			)
-//	private ActivityBean activityBean;			
-//	public ActivityBean getActivityBean() {
-//		return activityBean;
-//	}
-//	public void setActivityBean(ActivityBean activityBean) {
-//		this.activityBean = activityBean;
-//	}
-//
-//	//member
-//	@ManyToOne
-//	@JoinColumn(
-//			name="MEMBERID",
-//			referencedColumnName="ID",
-//			insertable=false, updatable=false
-//			)
-//	private MemberBean memberBean;		
-//	public MemberBean getMemberBean() {
-//			return memberBean;
-//		}
-//		public void setMemberBean(MemberBean memberBean) {
-//			this.memberBean = memberBean;
-//		}
+	//activity
+	@ManyToOne
+	@JoinColumn(
+			name="ACTIVITYID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
+	private ActivityBean activityBean;			
+	public ActivityBean getActivityBean() {
+		return activityBean;
+	}
+	public void setActivityBean(ActivityBean activityBean) {
+		this.activityBean = activityBean;
+	}
+
+	//member
+	@ManyToOne
+	@JoinColumn(
+			name="MEMBERID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
+	private MemberBean memberBean;		
+	public MemberBean getMemberBean() {
+			return memberBean;
+		}
+		public void setMemberBean(MemberBean memberBean) {
+			this.memberBean = memberBean;
+		}
 
 
 	@Override

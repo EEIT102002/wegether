@@ -59,6 +59,17 @@ public class MemberBean {
 	public void setActivityBean(Set<ActivityBean> activityBean) {
 		this.activityBean = activityBean;
 	}
+	
+	// Attend
+	@OneToMany(mappedBy = "memberBean",
+			   cascade = { CascadeType.REMOVE })
+	private Set<AttendBean> attendBean;
+	public Set<AttendBean> getAttendBean() {
+			return attendBean;
+		}
+		public void setAttendBean(Set<AttendBean> attendBean) {
+			this.attendBean = attendBean;
+		}
 
 	// Article
 	@OneToMany(mappedBy = "memberBean",
@@ -107,6 +118,8 @@ public class MemberBean {
 		this.settingBean = settingBean;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "MemberBean [id=" + id + ", account=" + account + ", pwd=" + Arrays.toString(pwd) + ", photo="
