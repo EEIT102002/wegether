@@ -20,12 +20,12 @@ public class PictureBean {
 	public Integer memberid;
 	
 	//activity
-//	@ManyToOne
-//	@JoinColumn(
-//			name="ACTIVITYID",
-//			referencedColumnName="ID",
-//			insertable=false, updatable=false
-//			)
+	@ManyToOne
+	@JoinColumn(
+			name="ACTIVITYID",
+			referencedColumnName="ID",
+			insertable=false, updatable=false
+			)
 	private ActivityBean activityBean;		
 	public ActivityBean getActivityBean() {
 		return activityBean;
@@ -41,13 +41,13 @@ public class PictureBean {
 //			referencedColumnName="ID",
 //			insertable=false, updatable=false
 //			)
-	private ArticleBean articleBean;		
-	public ArticleBean getArticleBean() {
-		return articleBean;
-	}
-	public void setArticleBean(ArticleBean articleBean) {
-		this.articleBean = articleBean;
-	}
+//	private ArticleBean articleBean;		
+//	public ArticleBean getArticleBean() {
+//		return articleBean;
+//	}
+//	public void setArticleBean(ArticleBean articleBean) {
+//		this.articleBean = articleBean;
+//	}
 	
 	//member
 //	@OneToOne
@@ -56,14 +56,14 @@ public class PictureBean {
 //			referencedColumnName="ID",
 //			insertable=false, updatable=false
 //			)
-	private MemberBean memberBean;		
-	public MemberBean getMemberBean() {
-			return memberBean;
-		}
-		public void setMemberBean(MemberBean memberBean) {
-			this.memberBean = memberBean;
-		}
-	
+//	private MemberBean memberBean;		
+//	public MemberBean getMemberBean() {
+//			return memberBean;
+//		}
+//		public void setMemberBean(MemberBean memberBean) {
+//			this.memberBean = memberBean;
+//		}
+		
 	@Override
 	public String toString() {
 		return "PictureBean [id=" + id + ", activityid=" + activityid

@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class ServiceBean {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id ;
 	private Integer memberid ;
+	@Column(insertable = false)
 	private java.util.Date asktime ;
 	private  String title ;
 	private Integer classtype ;
