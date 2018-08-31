@@ -41,31 +41,44 @@ public class TestServiceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//		以ID搜尋
+////		以ID搜尋
 //		ServiceBean result=serviceDAOHibernate.select(2);
 		
 		
 ////	抓全部資料
-//		List<ServiceBean> result=serviceDAOHibernate.select();
+		List<ServiceBean> result=serviceDAOHibernate.select();
+		
+////		搜尋memberid
+//		List<ServiceBean> result = serviceDAOHibernate.selectMemberId(2);
+		
+////		搜尋title
+//		List<ServiceBean> result = serviceDAOHibernate.selectTitle("1");
+		
+////		搜尋classtype
+//		List<ServiceBean> result = serviceDAOHibernate.selectClassType(33);
+		
+////		搜尋content
+//		List<ServiceBean> result = serviceDAOHibernate.selectContent("報名");
+		
 		
 		
 //		新增一筆資料
-		ServiceBean bean = new ServiceBean();
-		
-		bean.setMemberid(4);
-		bean.setTitle("無法參加+1");
-		bean.setClasstype(44);
-		bean.setContent("無法參加+1");
-
-		ServiceBean result = serviceDAOHibernate.insert(bean);
+//		ServiceBean bean = new ServiceBean();
+//		
+//		bean.setMemberid(2);
+//		bean.setTitle("無法參加+2");
+//		bean.setClasstype(55);
+//		bean.setContent("無法參加+2");
+//
+//		ServiceBean result = serviceDAOHibernate.insert(bean);
 		
 		
 //		修改資料
-//		ServiceBean result = serviceDAOHibernate.update(3, 3, new java.util.Date(), "更新測試", 33, "更新測試");
+//		ServiceBean result = serviceDAOHibernate.update(6, 3, new java.util.Date(), "更新測試", 33, "更新測試");
 		
 		
 //		刪除資料
-//		boolean result = serviceDAOHibernate.delete(3);
+//		boolean result = serviceDAOHibernate.delete(6);
 		
 		
 		
