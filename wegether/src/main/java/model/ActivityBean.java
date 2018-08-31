@@ -44,7 +44,7 @@ public class ActivityBean {
 	private String form;
 	private Integer click;
 	
-	
+	//member
 	@ManyToOne
 	@JoinColumn(
 			name="HOSTID",
@@ -64,13 +64,26 @@ public class ActivityBean {
 //			mappedBy="activityBean",
 //			cascade= {CascadeType.REMOVE}
 //			)
-//	private Set<PictureBean> pictureBean;	
-//	public Set<PictureBean> getPictureBean() {
-//		return pictureBean;
-//	}
-//	public void setPictureBean(Set<PictureBean> pictureBean) {
-//		this.pictureBean = pictureBean;
-//	}
+//	private MemberBean memberBean;		
+//	public MemberBean getMemberBean() {
+//			return memberBean;
+//		}
+//		public void setMemberBean(MemberBean memberBean) {
+//			this.memberBean = memberBean;
+//		}
+		
+//	picture
+	@OneToMany(
+			mappedBy="activityBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<PictureBean> pictureBean;	
+	public Set<PictureBean> getPictureBean() {
+		return pictureBean;
+	}
+	public void setPictureBean(Set<PictureBean> pictureBean) {
+		this.pictureBean = pictureBean;
+	}
 //	
 //	//article
 //	@OneToMany(
@@ -138,6 +151,7 @@ public class ActivityBean {
 //	}
 //	
 //	
+
 	
 	@Override
 	public String toString() {

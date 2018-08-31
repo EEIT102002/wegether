@@ -10,8 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 
 
@@ -60,8 +64,30 @@ public class MemberBean {
 		public void setActivityBean(Set<ActivityBean> activityBean) {
 			this.activityBean = activityBean;
 		}
-		
-
+	@OneToMany(
+			mappedBy="memberBean",
+			cascade= {CascadeType.REMOVE}
+			)
+	private Set<PictureBean> pictureBean;
+	public Set<PictureBean> getPictureBean() {
+		return pictureBean;
+	}
+	public void setPictureBean(Set<PictureBean> pictureBean) {
+		this.pictureBean = pictureBean;
+	}
+	@OneToOne
+	@JoinColumn(
+			name="id",
+			referencedColumnName="memberid",
+			insertable=false,updatable=false		
+			)
+	private SettingBean settingBean;
+	public SettingBean getSettingBean() {
+		return settingBean;
+	}
+	public void setSettingBean(SettingBean settingBean) {
+		this.settingBean = settingBean;
+	}
 	@Override
 	public String toString() {
 		return "MemberBean [id=" + id + ", account=" + account + ", pwd=" + Arrays.toString(pwd) + ", photo="

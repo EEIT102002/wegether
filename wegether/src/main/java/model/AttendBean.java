@@ -23,6 +23,7 @@ public class AttendBean {
 	private Integer rank1;
 	private Integer rank2;
 	private Integer rank3;
+
 	private Integer state;
 	
 //	//activity
@@ -54,7 +55,6 @@ public class AttendBean {
 //		public void setMemberBean(MemberBean memberBean) {
 //			this.memberBean = memberBean;
 //		}
-
 
 
 	@Override
