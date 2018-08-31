@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.ServiceBean;
+import model.dao.ServiceDAO;
 
 @Repository
 public class ServiceDAOHibernate implements ServiceDAO {
@@ -38,7 +39,7 @@ public class ServiceDAOHibernate implements ServiceDAO {
 
 	@Override
 	public List<ServiceBean> selectClassType(Integer classtype) {
-		return this.getSession().createQuery("from ServiceBean  WHERE classtype = " + Integer.toString(classtype) + " ORDER BY id DESC", ServiceBean.class).list();
+		return this.getSession().createQuery("from ServiceBean  WHERE classtype = :cl ORDER BY id DESC", ServiceBean.class).list();
 	}
 
 	@Override

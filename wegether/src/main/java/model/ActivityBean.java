@@ -44,7 +44,7 @@ public class ActivityBean {
 	private String form;
 	private Integer click;
 	
-	//member
+	
 	@ManyToOne
 	@JoinColumn(
 			name="HOSTID",

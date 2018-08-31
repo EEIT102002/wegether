@@ -22,9 +22,9 @@ import org.springframework.web.context.WebApplicationContext;
 import model.ActivityBean;
 import model.ArticleBean;
 import model.FriendBean;
-import model.dao.ActivityDAOHibernate;
-import model.dao.ArticleDaoHibernate;
-import model.dao.FriendDaoHibernate;
+import model.dao.implement.ActivityDAOHibernate;
+import model.dao.implement.ArticleDaoHibernate;
+import model.dao.implement.FriendDaoHibernate;
 
 @WebServlet("/FriendTest")
 public class TestFriendDAOServlet extends HttpServlet {

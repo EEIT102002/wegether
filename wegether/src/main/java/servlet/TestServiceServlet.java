@@ -18,8 +18,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.ServiceBean;
-import model.dao.ActivityDAOHibernate;
-import model.dao.ServiceDAOHibernate;
+import model.dao.implement.ActivityDAOHibernate;
+import model.dao.implement.ServiceDAOHibernate;
 
 
 @WebServlet("/TestServiceServlet")

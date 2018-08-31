@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import static org.junit.Assert.fail;
 
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import model.ActivityBean;
 import model.PictureBean;
 import model.SettingBean;
+import model.dao.PictureDAO;
 
 @Repository
 public class PictureDAOHibernate implements PictureDAO{
