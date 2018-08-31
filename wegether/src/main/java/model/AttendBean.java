@@ -26,12 +26,12 @@ public class AttendBean {
 	private Integer state;
 	
 	//activity
-	@ManyToOne
-	@JoinColumn(
-			name="ACTIVITYID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
+//	@ManyToOne
+//	@JoinColumn(
+//			name="ACTIVITYID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
 	private ActivityBean activityBean;			
 	public ActivityBean getActivityBean() {
 		return activityBean;
@@ -41,12 +41,12 @@ public class AttendBean {
 	}
 
 	//member
-	@ManyToOne
-	@JoinColumn(
-			name="MEMBERID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
+//	@ManyToOne
+//	@JoinColumn(
+//			name="MEMBERID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
 	private MemberBean memberBean;		
 	public MemberBean getMemberBean() {
 			return memberBean;

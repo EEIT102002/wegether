@@ -45,12 +45,12 @@ public class ActivityBean {
 	private Integer click;
 	
 	//member
-	@ManyToOne
-	@JoinColumn(
-			name="HOSTID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
+//	@ManyToOne
+//	@JoinColumn(
+//			name="HOSTID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
 	private MemberBean memberBean;		
 	public MemberBean getMemberBean() {
 			return memberBean;
@@ -60,10 +60,10 @@ public class ActivityBean {
 		}
 
 	//picture
-	@OneToMany(
-			mappedBy="activityBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="activityBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<PictureBean> pictureBean;	
 	public Set<PictureBean> getPictureBean() {
 		return pictureBean;
@@ -73,10 +73,10 @@ public class ActivityBean {
 	}
 	
 	//article
-	@OneToMany(
-			mappedBy="articleBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="articleBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<ArticleBean> articleBean;	
 	public Set<ArticleBean> getArticleBean() {
 		return articleBean;
@@ -86,10 +86,10 @@ public class ActivityBean {
 	}
 	
 	//msg
-	@OneToMany(
-			mappedBy="msgBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="msgBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<MsgBean> msgBean;	
 	public Set<MsgBean> getMsgBean() {
 		return msgBean;
@@ -99,10 +99,10 @@ public class ActivityBean {
 	}
 	
 	//attend
-	@OneToMany(
-			mappedBy="attendBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="attendBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<AttendBean> attendBean;
 	public Set<AttendBean> getAttendBean() {
 		return attendBean;
@@ -112,10 +112,10 @@ public class ActivityBean {
 	}
 	
 	//invite
-	@OneToMany(
-			mappedBy="inviteBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="inviteBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<InviteBean> inviteBean;
 	public Set<InviteBean> getInviteBean() {
 		return inviteBean;
@@ -125,10 +125,10 @@ public class ActivityBean {
 	}
 	
 	//notice
-	@OneToMany(
-			mappedBy="noticeBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="noticeBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<NoticeBean> noticeBean;
 	public Set<NoticeBean> getNoticeBean() {
 		return noticeBean;
@@ -138,10 +138,10 @@ public class ActivityBean {
 	}
 	
 	//trackactivity
-	@OneToMany(
-			mappedBy="trackactivityBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="trackactivityBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<TrackactivityBean> trackactivityBean;
 	public Set<TrackactivityBean> getTrackactivityBean() {
 		return trackactivityBean;
@@ -151,10 +151,10 @@ public class ActivityBean {
 	}
 
 	//activityclass
-	@OneToMany(
-			mappedBy="activityclassBean",
-			cascade= {CascadeType.REMOVE}
-			)
+//	@OneToMany(
+//			mappedBy="activityclassBean",
+//			cascade= {CascadeType.REMOVE}
+//			)
 	private Set<ActivityclassBean> activityclassBean;
 	public Set<ActivityclassBean> getActivityclassBean() {
 		return activityclassBean;

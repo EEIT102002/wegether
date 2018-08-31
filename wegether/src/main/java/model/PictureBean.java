@@ -21,11 +21,11 @@ public class PictureBean {
 	
 	//activity
 //	@ManyToOne
-	@JoinColumn(
-			name="ACTIVITYID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
+//	@JoinColumn(
+//			name="ACTIVITYID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
 	private ActivityBean activityBean;		
 	public ActivityBean getActivityBean() {
 		return activityBean;
@@ -36,11 +36,11 @@ public class PictureBean {
 	
 	//article
 //	@ManyToOne
-	@JoinColumn(
-			name="ARTICLEID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
+//	@JoinColumn(
+//			name="ARTICLEID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
 	private ArticleBean articleBean;		
 	public ArticleBean getArticleBean() {
 		return articleBean;
@@ -51,11 +51,11 @@ public class PictureBean {
 	
 	//member
 //	@OneToOne
-	@JoinColumn(
-			name="MEMBERID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
+//	@JoinColumn(
+//			name="MEMBERID",
+//			referencedColumnName="ID",
+//			insertable=false, updatable=false
+//			)
 	private MemberBean memberBean;		
 	public MemberBean getMemberBean() {
 			return memberBean;
