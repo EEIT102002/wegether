@@ -4,7 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import net.bytebuddy.matcher.FailSafeMatcher;
 
 @Entity
 @Table(name="FRIEND")
@@ -15,6 +19,18 @@ public class FriendBean {
 	private Integer memberid;
 	private Integer memberidf;
 	private Integer state;
+	
+	@ManyToOne
+	@JoinColumn(name = "MEMBERID, MEMBERIDF",
+				referencedColumnName = "ID",
+				insertable = false, updatable = false)
+	private MemberBean memberBean;
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
 	
 	@Override
 	public String toString() {

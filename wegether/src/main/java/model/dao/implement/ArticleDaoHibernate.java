@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import model.ArticleBean;
-import model.ArticleDao;
+import model.dao.ArticleDao;
 
 @Repository
 public class ArticleDaoHibernate implements ArticleDao {

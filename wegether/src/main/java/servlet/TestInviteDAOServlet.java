@@ -18,7 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
 import model.InviteBean;
-import model.dao.InviteDAOHibernate;
+import model.dao.implement.InviteDAOHibernate;
 
 @WebServlet("/TestInviteDAOServlet")
 @Controller

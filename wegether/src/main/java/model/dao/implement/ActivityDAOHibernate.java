@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.ActivityBean;
+import model.dao.ActivityDAO;
 
 
 
@@ -27,7 +28,6 @@ public class ActivityDAOHibernate implements ActivityDAO {
 
 	@Override
 	public ActivityBean select(int id) {
-		System.out.println("ActivityBean  select");
 
 		return this.getSession().get(ActivityBean.class, id);
 	
@@ -55,26 +55,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		ActivityBean temp = this.getSession().get(ActivityBean.class, bean.getId());
 
 		if(temp!=null) {
-			temp.setHostid(bean.getHostid());
-			temp.setCreatetime(bean.getCreatetime());
-			temp.setTitle(bean.getTitle());
-			temp.setCity(bean.getCity());
-			temp.setAddr(bean.getAddr());
-			temp.setPicture(bean.getPicture());
-			temp.setActbegin(bean.getActbegin());
-			temp.setActend(bean.getActend());
-			temp.setDateline(bean.getDateline());
-			temp.setClasstype(bean.getClasstype());
-			temp.setContent(bean.getContent());
-			temp.setNumberlimit(bean.getNumberlimit());
-			temp.setFeed(bean.getFeed());
-			temp.setState(bean.getState());
-			temp.setRank1(bean.getRank1());
-			temp.setRank2(bean.getRank2());
-			temp.setRank3(bean.getRank3());
-			temp.setJudges(bean.getJudges());
-			temp.setForm(bean.getForm());
-			temp.setClick(bean.getClick());
+			getSession().merge(bean);
 			return temp;
 		}
 		return null;
@@ -89,6 +70,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		}
 		return false;
 	}
-
+	
+	
 
 }

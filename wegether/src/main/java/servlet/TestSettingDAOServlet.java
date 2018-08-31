@@ -19,35 +19,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
-import model.PictureBean;
-import model.dao.implement.ActivityDAOHibernate;
+import model.SettingBean;
+import model.dao.implement.SettingDAOHibernate;
 
-@WebServlet("/TestActivityDAOServlet")
-public class TestActivityDAOServlet extends HttpServlet {
+@WebServlet("/SettingTest")
+public class TestSettingDAOServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private SimpleDateFormat simpleDateFormat;
-	private ActivityDAOHibernate activityDAOHibernate;
+	private SettingDAOHibernate settingDAOHibernate;
+	private SettingBean settingBean;
 	
 	@Override
 	public void init() throws ServletException {
 		ServletContext application = this.getServletContext();
 		ApplicationContext context = (ApplicationContext) 
 				application.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		activityDAOHibernate = (ActivityDAOHibernate) context.getBean("activityDAOHibernate");
-		
-		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		settingDAOHibernate = (SettingDAOHibernate) context.getBean("settingDAOHibernate");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//select(id)
-		//ActivityBean result = activityDAOHibernate.select(2);
+//		select(id)
+		SettingBean result = settingDAOHibernate.select(2);
 		
 		//select()
-		List<ActivityBean> result = activityDAOHibernate.select();
+//		List<ActivityBean> result = activityDAOHibernate.select();
 		
 		//insert
-/*		
+	/*		
 	    ActivityBean bean = new ActivityBean();
 		bean.setActbegin(new java.util.Date());
 		bean.setActend(new java.util.Date());
@@ -61,6 +59,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setFeed(500);
 		bean.setForm("Activityform");
 		bean.setHostid(1);
+		bean.setId(4);
 		bean.setJudges(101);
 		bean.setNumberlimit(100);
 		bean.setPicture(null);
@@ -68,47 +67,29 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setRank2(3.0);
 		bean.setRank3(3.0);
 		bean.setState(1);
-		bean.setTitle("一起去爬山title7");
+		bean.setTitle("一起去爬山title");
 		ActivityBean result = activityDAOHibernate.insert(bean);
-	*/
+		*/
 		
-		//update				
-//	    ActivityBean bean = new ActivityBean();
-//		bean.setActbegin(new java.util.Date());
-//		bean.setActend(new java.util.Date());
-//		bean.setAddr("大屯山");
-//		bean.setCity(102);
-//		bean.setClasstype("戶外活動");
-//		bean.setClick(97);
-//		bean.setContent("一起去爬山Content");
-//		bean.setCreatetime(new java.util.Date());
-//		bean.setDateline(new java.util.Date());
-//		bean.setFeed(500);
-//		bean.setForm("Activityform");
-//		bean.setHostid(1);
-//		bean.setJudges(101);
-//		bean.setNumberlimit(100);
-//		bean.setPicture(null);
-//		bean.setRank1(3.0);
-//		bean.setRank2(3.0);
-//		bean.setRank3(3.0);
-//		bean.setState(1);
-//		bean.setTitle("一起去爬山title7");
-//		bean.setId(6);
-//		ActivityBean result = activityDAOHibernate.update(bean);
+		//update
+		SettingBean currentbean = settingDAOHibernate.select(2);
+		currentbean.setTel(0);
+		currentbean.setAddr(0);
+		currentbean.setJob(1);
 		
+		SettingBean result1 = settingDAOHibernate.update(currentbean);
 		
 		//delete
-	//	boolean result = activityDAOHibernate.delete(7);
+	//	boolean result = activityDAOHibernate.delete(4);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println("<p>ActivityTest</p>");
-		result.forEach(x->{			
-			out.println(x+"<br>");
-			out.println(x.getMemberBean()+"<br>");
-		});
-	//	out.println(result);
+		out.println("<p>SettingSelectTest</p>");
+		out.println(result);
+//		result.forEach(x->out.println(x+"<br>"));
+		out.println("<p>SettingUpdateTest</p>");
+		out.println(result1);
+		
 		out.close();
 	}
 
