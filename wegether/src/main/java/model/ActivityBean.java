@@ -138,6 +138,21 @@ public class ActivityBean {
 //	
 
 	
+	//invite activityid
+		@OneToMany(mappedBy = "activityBean",
+				cascade= {CascadeType.REMOVE}
+				)
+		
+		private Set<InviteBean> InviteBean;
+		
+		public Set<InviteBean> getInviteBean() {
+			return InviteBean;
+		}
+		public void setInviteBean(Set<InviteBean> inviteBean) {
+			InviteBean = inviteBean;
+		}
+	
+	
 	@Override
 	public String toString() {
 		return "ActivityBean [id=" + id + ", hostid=" + hostid + ", createtime=" + createtime + ", title=" + title

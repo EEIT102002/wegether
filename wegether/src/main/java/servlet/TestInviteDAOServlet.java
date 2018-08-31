@@ -41,20 +41,20 @@ public class TestInviteDAOServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// select(id)
-		// InviteBean result = inviteDAOHibernate.select(2);
+		 InviteBean result = inviteDAOHibernate.select(2);
 
 		// select()
 		// List<InviteBean> result = inviteDAOHibernate.select();
 
 		// insert
 		///*
-		InviteBean bean = new InviteBean();
-		
-		bean.setMemberid(2);
-		bean.setInvitedid(2);
-		bean.setActivityid(2);
-
-		InviteBean result = inviteDAOHibernate.insert(bean);
+//		InviteBean bean = new InviteBean();
+//		
+//		bean.setMemberid(2);
+//		bean.setInvitedid(2);
+//		bean.setActivityid(2);
+//
+//		InviteBean result = inviteDAOHibernate.insert(bean);
 //*/
 		// update
 

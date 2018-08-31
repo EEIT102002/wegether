@@ -129,6 +129,36 @@ public class MemberBean {
 			this.serviceBean = serviceBean;
 		}
 		
+		
+		//Invite memberid
+		@OneToMany(
+				cascade={CascadeType.REMOVE},
+				mappedBy="memberBean"		
+				)
+		
+		private  Set<InviteBean> inviteBean ;
+
+		public Set<InviteBean> getInviteBean() {
+			return inviteBean;
+		}
+		public void setInviteBean(Set<InviteBean> inviteBean) {
+			this.inviteBean = inviteBean;
+		}
+		
+		//Invite invited
+		@OneToMany(
+				cascade={CascadeType.REMOVE},
+				mappedBy="memberBeaninvited"		
+				)
+		private  Set<InviteBean> inviteBeaninvited ;
+		
+		public Set<InviteBean> getInviteBeaninvited() {
+			return inviteBeaninvited;
+		}
+		public void setInviteBeaninvited(Set<InviteBean> inviteBeaninvited) {
+			this.inviteBeaninvited = inviteBeaninvited;
+		}
+		
 	@Override
 	public String toString() {
 		return "MemberBean [id=" + id + ", account=" + account + ", pwd=" + Arrays.toString(pwd) + ", photo="
