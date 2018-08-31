@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import model.MsgBean;
 import model.NoticeBean;
 import model.dao.MsgDAO;
+import querylanguage.Select;
 
 @Repository
 public class MsgDAOHibernate implements MsgDAO {
@@ -24,50 +25,41 @@ public class MsgDAOHibernate implements MsgDAO {
 		return sessionFactory.getCurrentSession();
 	}
 
-	@Autowired
-	private String msgSelectByActivitySql;
-
-	@Autowired
-	private String msgSelectByArticleSql;
-
-	@Autowired
-	private String offsetSql;
-
-	@SuppressWarnings("unchecked")
-	private NativeQuery<MsgBean> getSelectQuery(String sql, int id) {
+	private NativeQuery<?> getSelectQuery(String sql, int id) {
 		return getSession().createSQLQuery(sql)
 				.addEntity("m", MsgBean.class)
 				.setParameter("id", id);
 	}
 	
-	private NativeQuery<MsgBean> getSelectQuery(String sql, int id, int first) {
-		return getSelectQuery(sql+offsetSql, id)
+	private NativeQuery<?> getSelectQuery(String sql, int id, int first) {
+		return getSelectQuery(sql, id)
 				.setParameter("offset_first", first)
 				.setParameter("offset_max", msgSelectLimit);
 	}
 	
-	private List<MsgBean> getBeanList(NativeQuery<MsgBean> nq) {
+	@SuppressWarnings("unchecked")
+	private List<MsgBean> getBeanList(NativeQuery<?> nq) {
 		return (List<MsgBean>) nq.list();
 	}
 
 	@Override
 	public List<MsgBean> selectByActivity(Integer id) {
-		return getBeanList(getSelectQuery(msgSelectByActivitySql, id));
+		return getBeanList(getSelectQuery(Select.msgByActivity, id));
 	}
 
 	@Override
 	public List<MsgBean> selectByArticle(Integer id) {
-		return getBeanList(getSelectQuery(msgSelectByArticleSql, id));
+		return getBeanList(getSelectQuery(Select.msgByArticle, id));
 	}
 
 	@Override
 	public List<MsgBean> selectByActivity(Integer id, Integer first) {
-		return getBeanList(getSelectQuery(msgSelectByActivitySql, id, first));
+		return getBeanList(getSelectQuery(Select.msgByActivityOffset, id, first));
 	}
 
 	@Override
 	public List<MsgBean> selectByArticle(Integer id, Integer first) {
-		return getBeanList(getSelectQuery(msgSelectByArticleSql, id, first));
+		return getBeanList(getSelectQuery(Select.msgByArticleOffset, id, first));
 	}
 
 	@Override
