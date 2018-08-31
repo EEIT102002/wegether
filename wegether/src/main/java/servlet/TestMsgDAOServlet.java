@@ -21,10 +21,10 @@ import org.springframework.web.context.WebApplicationContext;
 import model.ActivityBean;
 import model.MsgBean;
 import model.NoticeBean;
-import model.dao.ActivityDAOHibernate;
 import model.dao.MsgDAO;
 import model.dao.NoticeDAO;
-import model.dao.NoticeDAOHibernate;
+import model.dao.implement.ActivityDAOHibernate;
+import model.dao.implement.NoticeDAOHibernate;
 
 @WebServlet("/MsgTest")
 public class TestMsgDAOServlet extends HttpServlet {
@@ -47,6 +47,10 @@ public class TestMsgDAOServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		MsgBean insert = new MsgBean();
+		insert.setMemberid(1);
+		insert.setContent("insert Test");
+		System.out.println(msgDAO.insert(insert)+"1");
 		List<MsgBean> result = msgDAO.selectByActivity(1);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();

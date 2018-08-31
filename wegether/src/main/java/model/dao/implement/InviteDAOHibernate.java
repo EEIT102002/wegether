@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.InviteBean;
-
+import model.dao.InviteDAO;
 import net.bytebuddy.asm.Advice.Return;
 
 @Repository

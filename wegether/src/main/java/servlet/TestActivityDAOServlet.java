@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
 import model.PictureBean;
-import model.dao.ActivityDAOHibernate;
+import model.dao.implement.ActivityDAOHibernate;
 
 @WebServlet("/TestActivityDAOServlet")
 public class TestActivityDAOServlet extends HttpServlet {
@@ -105,7 +105,11 @@ public class TestActivityDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
-		result.forEach(x->out.println(x+"<br>"));
+		result.forEach(x->{
+			
+			out.println(x+"<br>");
+			out.println(x.getMemberBean()+"<br>");
+		});
 	//	out.println(result);
 		out.close();
 	}

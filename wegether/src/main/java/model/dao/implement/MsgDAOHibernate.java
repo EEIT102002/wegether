@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.implement;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.MsgBean;
+import model.dao.MsgDAO;
 
 @Repository
 public class MsgDAOHibernate implements MsgDAO {
@@ -16,6 +17,7 @@ public class MsgDAOHibernate implements MsgDAO {
 	private SessionFactory sessionFactory;
 	@Autowired
 	private Integer selectLimit;
+	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -62,13 +64,25 @@ public class MsgDAOHibernate implements MsgDAO {
 
 	@Override
 	public Boolean insert(MsgBean msgBean) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			getSession().flush();
+			getSession().save(msgBean);
+		} catch (Exception e) {
+			getSession().getTransaction().rollback();
+			getSession().beginTransaction();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public Boolean delete(Integer id) {
-		// TODO Auto-generated method stub
+		
+		MsgBean delete = getSession().get(MsgBean.class, id);
+		if(delete != null) {
+			getSession().delete(delete);
+			return true;
+		}
 		return null;
 	}
 

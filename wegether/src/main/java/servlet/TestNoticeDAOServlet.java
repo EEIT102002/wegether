@@ -20,9 +20,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
 import model.NoticeBean;
-import model.dao.ActivityDAOHibernate;
 import model.dao.NoticeDAO;
-import model.dao.NoticeDAOHibernate;
+import model.dao.implement.ActivityDAOHibernate;
+import model.dao.implement.NoticeDAOHibernate;
 
 @WebServlet("/NoticeTest")
 public class TestNoticeDAOServlet extends HttpServlet {
