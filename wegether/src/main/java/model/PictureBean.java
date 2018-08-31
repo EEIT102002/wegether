@@ -15,7 +15,7 @@ public class PictureBean {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer id;
-	public Byte[] picture;
+	public byte[] picture;
 	public Integer activityid;
 	public Integer articleid;
 	public Integer memberid;
@@ -23,7 +23,7 @@ public class PictureBean {
 	
 	@Override
 	public String toString() {
-		return "PictureBean [id=" + id + ", picture=" + Arrays.toString(picture) + ", activityid=" + activityid
+		return "PictureBean [id=" + id + ", activityid=" + activityid
 				+ ", articleid=" + articleid + ", memberid=" + memberid + "]";
 	}
 	public Integer getId() {
@@ -32,10 +32,10 @@ public class PictureBean {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Byte[] getPicture() {
+	public byte[] getPicture() {
 		return picture;
 	}
-	public void setPicture(Byte[] picture) {
+	public void setPicture(byte[] picture) {
 		this.picture = picture;
 	}
 	public Integer getActivityid() {

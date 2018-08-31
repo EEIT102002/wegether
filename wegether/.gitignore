@@ -2,4 +2,9 @@
 /.classpath
 /.project
 /.springBeans
+<<<<<<< HEAD
 /target/
+=======
+/target/
+
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether.git
