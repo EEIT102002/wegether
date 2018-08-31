@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +20,16 @@ public class ArticleBean {
 	private String content;
 	@Column(insertable = false)
 	private java.util.Date createtime;
+
+	@ManyToOne
+	@JoinColumn(name="")
+	private MemberBean memberBean;
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
 
 	@Override
 	public String toString() {
