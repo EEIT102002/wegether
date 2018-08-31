@@ -25,25 +25,34 @@ public class ServiceDAOHibernate implements ServiceDAO {
 
 		return this.getSession().get(ServiceBean.class, id);
 	}
-
+	
+	private final String st = "from ServiceBean  WHERE memberid = :memberid ORDER BY id DESC";
 	@Override
 	public List<ServiceBean> selectMemberId(Integer memberid) {
-		return this.getSession().createQuery("from ServiceBean  WHERE memberid = " + Integer.toString(memberid) + " ORDER BY id DESC", ServiceBean.class).list();
+		
+		return this.getSession().createQuery(st, ServiceBean.class).setParameter("memberid", memberid).list();
 	}
 
+	private final String st1="from ServiceBean as a where a.title like :title";
 	@Override
 	public List<ServiceBean> selectTitle(String title) {
-		return this.getSession().createQuery("from ServiceBean as a where a.title like '%" + title + "%'", ServiceBean.class).list();
+		
+		return this.getSession().createQuery(st1, ServiceBean.class).setParameter("title","%"+title+"%").list();
 	}
 
+	
+	private final String st2 = "from ServiceBean  WHERE classtype = :classtype ORDER BY id DESC";
 	@Override
 	public List<ServiceBean> selectClassType(Integer classtype) {
-		return this.getSession().createQuery("from ServiceBean  WHERE classtype = " + Integer.toString(classtype) + " ORDER BY id DESC", ServiceBean.class).list();
+		
+		return this.getSession().createQuery(st2, ServiceBean.class).setParameter("classtype", classtype).list();
 	}
 
+	private final String st3="from ServiceBean as a where a.content like :content";
 	@Override
 	public List<ServiceBean> selectContent(String content) {
-		return this.getSession().createQuery("from ServiceBean as a where a.content like '%" + content + "%'", ServiceBean.class).list();
+		
+		return this.getSession().createQuery(st3, ServiceBean.class).setParameter("content", "%"+content+"%").list();
 	}
 
 	@Override
