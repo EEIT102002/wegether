@@ -60,8 +60,7 @@ public class MemberBean {
 		public void setActivityBean(Set<ActivityBean> activityBean) {
 			this.activityBean = activityBean;
 		}
-	@OneToMany
-	@j
+
 	private Set<PictureBean> pictureBean;
 	public Set<PictureBean> getPictureBean() {
 		return pictureBean;
