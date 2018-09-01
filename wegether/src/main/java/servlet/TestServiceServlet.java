@@ -42,7 +42,7 @@ public class TestServiceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 ////		以ID搜尋
-//		ServiceBean result=serviceDAOHibernate.select(2);
+//		ServiceBean result=serviceDAOHibernate.selectid(2);
 		
 		
 ////	抓全部資料
@@ -86,8 +86,8 @@ public class TestServiceServlet extends HttpServlet {
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println("<p>ServiceBean<p>");
-//		result.forEach(x->out.println(x+"<br>"));////對應<ServiceBean> result
+//		out.println("<p>ServiceBean<p>");
+		result.forEach(x->out.println(x+"<br>"));////對應<ServiceBean> result
 		out.print(result);
 		out.close();
 		

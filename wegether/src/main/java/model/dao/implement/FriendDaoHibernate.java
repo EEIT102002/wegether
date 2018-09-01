@@ -16,7 +16,7 @@ public class FriendDaoHibernate implements FriendDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
