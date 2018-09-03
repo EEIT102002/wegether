@@ -14,6 +14,8 @@ public class PictureBean {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer id;
+	
+	
 	public byte[] picture;
 	public Integer activityid;
 	public Integer articleid;

@@ -9,6 +9,8 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
+
   <resource-ref>
     <description>SQLServerJDBCConnection</description>
     <res-ref-name>jdbc/wegether</res-ref-name>
@@ -39,9 +41,26 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+ 
   <servlet-mapping>
     <servlet-name>mvc</servlet-name>
     <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+   <servlet-name>default</servlet-name>
+      <url-pattern>*.js</url-pattern>
+</servlet-mapping>
+  <servlet-mapping>
+   <servlet-name>default</servlet-name>
+      <url-pattern>*.jpg</url-pattern>
+</servlet-mapping>
+  <servlet-mapping>
+   <servlet-name>default</servlet-name>
+      <url-pattern>*.png</url-pattern>
+</servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.jsp</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>default</servlet-name>

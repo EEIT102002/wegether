@@ -8,6 +8,7 @@
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/test.jsp"></property>
 	</bean>
+
 		<bean id="oh"
 		class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true"></property>
