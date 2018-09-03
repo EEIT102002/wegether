@@ -1,0 +1,11 @@
+    <div>
+        <div style="background-color: red;">
+            <img src="" alt=""> 申請A[接受][拒絕]
+        </div>
+        <div style="background-color: red;">
+            <img src="" alt=""> 申請A[接受][拒絕]
+        </div>
+        <div style="background-color: red;">
+            <img src="" alt=""> 申請A[接受][拒絕]
+        </div>
+    </div>

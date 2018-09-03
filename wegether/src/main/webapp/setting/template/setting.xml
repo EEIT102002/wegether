@@ -1,0 +1,23 @@
+<setting
+    birthday = '0'
+    sex = '0'
+    job = '2'
+    city = '0'
+    addr = '0'
+    tel = '0'
+    content = '0'
+    favrite = '0' 
+    showoarticle = '0'
+    showhost = '0'
+    showactivity = '0'
+    rankscore = '0'
+    invite = '0'
+    addfriend = '0'
+    activitymsg= '0'
+    articlemsg='0'
+    activitychange='0'
+    friendarticle ='0'
+    friendactivity ='0'
+/>
+
+

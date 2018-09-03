@@ -1,0 +1,202 @@
+<head>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+<script>
+    var setting = null;
+    var setform = null;
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "../template/setting.xml",
+            dataType: "xml",
+            success: function (xml) {
+                setting = xml.getElementsByTagName("setting")[0];
+                set1 = {
+                    'set': 'set1',
+                    'name': '個人資料',
+                    'td': {
+                        'birthday': '生日',
+                        'sex': '性別',
+                        'job': '職業',
+                        'city': '所在地區',
+                        'addr': '詳細地址',
+                        'tel': '電話',
+                        'content': '自我介紹',
+                        'favrite': '喜好活動'
+                    }
+                };
+                set2 = {
+                    'set': 'set1',
+                    'name': '貼文與活動',
+                    'td': {
+                        'showhost': '主辦活動',
+                        'showactivity': '活動參加紀錄',
+                        'showarticle': '文章',
+                        'rankscore': '評價'
+                    }
+                }
+                set3 = {
+                    'set': 'set2',
+                    'name': '推薦和邀請',
+                    'td': {
+                        'invite': '活動邀請',
+                    }
+                }
+                set4 = {
+                    'set': 'set3',
+                    'name': '',
+                    'td': {
+                        'addfriend': '好友邀請'
+                    }
+                }
+                set5 = {
+                    'set': 'set4',
+                    'name': '提醒通知',
+                    'td': {
+                        'activitychange': '參加活動變更通知',
+                        'friendarticle' : '好友活動通知',
+                        'friendactivity': '好友發文通知',
+                        'activitymsg' : '活動留言通知',
+                        'articlemsg': '文章留言通知'
+                    }
+                }
+                $.ajax({
+                    type: "GET",
+                    url: "../template/3_1.txt",
+                    dataType: "xml",
+                    success: function (xml1) {
+                        $('#setting3').append($('<table>'));
+                        setform = $(xml1).children("set");
+                        createTr(set1);
+                        createTr(set2);
+                        createTr(set3);
+                        createTr(set4);
+                        createTr(set5);
+                        iframe_auto_height();
+                    }
+                });
+            }	
+        });
+
+        $('#setting3').on('click', 'table tr > td > span', function () {
+            $(this).closest('tr').siblings("tr:has(form)").each(function () {
+                if ($(this.children[3].children).text() == '取消') {
+                    $(this.children[3].children).text('編輯').parent().prev().children().eq(0).show().next().hide();
+                }
+            });
+            var select = $(this).text(
+                $(this).text() == "編輯" ? "取消" : "編輯"
+            ).parent().prev().children().eq(0).toggle().next().toggle()
+                .children().eq(0);
+            select.val($(setting).attr(select[0].name));
+        });
+       
+    });
+
+    function createTr(obj) {
+        var table = $('<table>');
+        var form = setform.children(obj.set).children();
+        $.each(obj.td, function (key, value) {
+            var tr = $('<tr><td><td><td><td></tr>');
+            tr.children().eq(1).text(value)
+                .next().html($('<div>').text(settingText(key)))
+                .next().html('<span>編輯</span>');
+            tr.children()[2].insertAdjacentHTML('beforeend', form[0].outerHTML);
+            tr.find('form').hide().children().eq(0).val($(setting).attr(key)).attr('name', key);
+            table.append(tr);
+        });
+        if(obj.name !== "")
+            table.find("td:eq(0)").text(obj.name).parent().children().addClass('firsttd');
+        $('table').append(table.children());
+    };
+    function settingText(name) {
+        var value = Number(setting.getAttribute(name));
+        switch(name){
+            case 'activitymsg':
+            case 'articlemsg':
+            case 'activitychange':
+            case 'friendarticle':
+            case 'friendactivity':
+                switch(value){
+                    case 0: 
+                        return '開啟';
+                    case 1:
+                        return '關閉';
+                }
+            default:
+            if (name == 'addfriend') {
+                switch (value) {
+                    case 0:
+                        return "接受";
+                    case 1:
+                        return "不接受";
+                }
+            } else if (name == 'invite') {
+                switch (value) {
+                    case 0:
+                        return "好友";
+                    case 1:
+                        return "不接受";
+                }
+            } else {
+                switch (value) {
+                    case 0:
+                        return "所有人";
+                    case 1:
+                        return "好友";
+                    case 2:
+                        return "隱藏";
+                }
+            }
+        }
+    }
+</script>
+<script src="../js/iframeautoheight.js" type="text/javascript"></script>
+ <style>
+ 	*{
+ 		margin : 0;
+       	padding :0;
+ 	}
+     body{
+ 		width:800px;
+     }
+     #setting3{
+        margin-top: 10px;
+     }
+    #setting3{
+        display: inline-block; 
+        vertical-align:top; 
+        padding:10px;
+    }
+    #setting3 table{
+        /* background-color: red; */
+        border-top: 3px solid rgba(0, 44, 95, 0.3);
+        border-bottom: 3px solid rgba(0, 44, 95, 0.3);
+        border-collapse: collapse;
+    }
+    #setting3 tr{
+        vertical-align: top;
+    }
+    #setting3 td{
+        padding: 10px;
+        border-top:  1.5px solid rgba(0, 44, 95, 0.2);
+    }
+    #setting3 td:nth-child(1){
+        width: 150px;
+        border-top: 0;
+    }
+    .firsttd{
+        border-top: 3px solid rgba(0, 44, 95, 0.3) !important;
+    }
+    #setting3 tr td:nth-child(2){
+        width: 200px;
+    }
+    #setting3 tr td:nth-child(3){
+        width: 100px;
+    }
+ </style>
+ </head>
+ <body>
+<div id='setting3'></div>
+</body>
