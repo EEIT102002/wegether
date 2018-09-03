@@ -60,7 +60,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		  
-		List<ActivityBean> result = activityDAOHibernate.selectOfIndex(112,"山",t1,t2);
+		List<ActivityBean> result = activityDAOHibernate.selectOfIndex(1,112,"山",t1,t2);
 		
 		
 		//insert

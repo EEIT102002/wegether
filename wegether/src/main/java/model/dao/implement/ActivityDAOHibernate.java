@@ -140,32 +140,42 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(selectByClick, ActivityBean.class).setParameter("click",click).list();
 	}
 	
-	private final String selectOfIndexCity = "from ActivityBean  WHERE state=0 and city =  :city ";
+	
+	//indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋
+	private final String selectOfIndexCity = "from ActivityBean  WHERE state=:state and city =:city ";
 	@Override
-	public List<ActivityBean> selectOfIndex(int city) {
-		return this.getSession().createQuery(selectOfIndexCity, ActivityBean.class).setParameter("city",city).list();
+	public List<ActivityBean> selectOfIndex(int state, int city) {
+		return this.getSession().createQuery(selectOfIndexCity, ActivityBean.class)
+				.setParameter("state",state)
+				.setParameter("city",city)
+				.list();
 	}
 
-	private final String selectOfIndexTitle = "from ActivityBean  WHERE state=0 and title like :title ";
+	private final String selectOfIndexTitle = "from ActivityBean  WHERE state=:state and title like :title ";
 	@Override
-	public List<ActivityBean> selectOfIndex(String title) {
-		return this.getSession().createQuery(selectOfIndexTitle, ActivityBean.class).setParameter("title","%"+title+"%").list();
+	public List<ActivityBean> selectOfIndex(int state, String title) {
+		return this.getSession().createQuery(selectOfIndexTitle, ActivityBean.class)
+				.setParameter("state",state)
+				.setParameter("title","%"+title+"%")
+				.list();
 	}
 
 	private final String selectOfIndexTime = "from ActivityBean where Convert(DateTime,dateline) >=Convert(DateTime,:begin)"+
-			"and Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0";
+			"and Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=:state";
 	@Override
-	public List<ActivityBean> selectOfIndex(Date begin, Date end) {
+	public List<ActivityBean> selectOfIndex(int state, Date begin, Date end) {
 		return this.getSession().createQuery(selectOfIndexTime,ActivityBean.class)
+				.setParameter("state",state)
 				.setParameter("begin", begin)
 				.setParameter("end", end)
 				.list();
 	}
 	
-	private final String selectOfIndexCityTitle = "from ActivityBean  WHERE state=0 and city =  :city and title like :title ";
+	private final String selectOfIndexCityTitle = "from ActivityBean  WHERE state=:state and city =  :city and title like :title ";
 	@Override
-	public List<ActivityBean> selectOfIndex(int city, String title) {
+	public List<ActivityBean> selectOfIndex(int state, int city, String title) {
 		return this.getSession().createQuery(selectOfIndexCityTitle, ActivityBean.class)
+				.setParameter("state",state)
 				.setParameter("city",city)
 				.setParameter("title","%"+title+"%")
 				.list();
@@ -173,10 +183,11 @@ public class ActivityDAOHibernate implements ActivityDAO {
 
 	private final String selectOfIndexCityDate = "from ActivityBean  WHERE "+
 			"Convert(DateTime,dateline) >=Convert(DateTime,:begin) and "+
-			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0 and city=:city";
+			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=:state and city=:city";
 	@Override
-	public List<ActivityBean> selectOfIndex(int city, Date begin, Date end) {
+	public List<ActivityBean> selectOfIndex(int state, int city, Date begin, Date end) {
 		return this.getSession().createQuery(selectOfIndexCityDate, ActivityBean.class)
+				.setParameter("state",state)
 				.setParameter("city",city)				
 				.setParameter("begin",begin)
 				.setParameter("end",end)
@@ -185,10 +196,11 @@ public class ActivityDAOHibernate implements ActivityDAO {
 
 	private final String selectOfIndexTitleDate = "from ActivityBean  WHERE "+
 			"Convert(DateTime,dateline) >=Convert(DateTime,:begin) and "+
-			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0 and title like:title";
+			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=:state and title like:title";
 	@Override
-	public List<ActivityBean> selectOfIndex(String title, Date begin, Date end) {
+	public List<ActivityBean> selectOfIndex(int state, String title, Date begin, Date end) {
 		return this.getSession().createQuery(selectOfIndexTitleDate, ActivityBean.class)
+				.setParameter("state",state)
 				.setParameter("title","%"+title+"%")
 				.setParameter("begin",begin)
 				.setParameter("end",end)
@@ -198,10 +210,11 @@ public class ActivityDAOHibernate implements ActivityDAO {
 
 	private final String selectOfIndexAll = "from ActivityBean  WHERE "+
 			"Convert(DateTime,dateline) >=Convert(DateTime,:begin) and "+
-			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0 and city=:city and title like:title";
+			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=:state and city=:city and title like:title";
 	@Override
-	public List<ActivityBean> selectOfIndex(int city, String title, Date begin, Date end) {
+	public List<ActivityBean> selectOfIndex(int state, int city, String title, Date begin, Date end) {
 		return this.getSession().createQuery(selectOfIndexAll, ActivityBean.class)
+				.setParameter("state",state)
 				.setParameter("city",city)
 				.setParameter("title","%"+title+"%")
 				.setParameter("begin",begin)

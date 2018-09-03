@@ -38,14 +38,15 @@ public interface ActivityDAO {
 
 	public abstract boolean delete(int id);
 	
-	public abstract List<ActivityBean> selectOfIndex(int city);
-	public abstract List<ActivityBean> selectOfIndex(String title);
-	public abstract List<ActivityBean> selectOfIndex(Date begin, Date end);
+	//indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋
+	public abstract List<ActivityBean> selectOfIndex(int state, int city);
+	public abstract List<ActivityBean> selectOfIndex(int state, String title);
+	public abstract List<ActivityBean> selectOfIndex(int state, Date begin, Date end);
 	
-	public abstract List<ActivityBean> selectOfIndex(int city, String title);
-	public abstract List<ActivityBean> selectOfIndex(int city, Date begin, Date end);
-	public abstract List<ActivityBean> selectOfIndex(String title, Date begin, Date end);
+	public abstract List<ActivityBean> selectOfIndex(int state, int city, String title);
+	public abstract List<ActivityBean> selectOfIndex(int state, int city, Date begin, Date end);
+	public abstract List<ActivityBean> selectOfIndex(int state, String title, Date begin, Date end);
 	
-	public abstract List<ActivityBean> selectOfIndex(int city, String title, Date begin, Date end);
+	public abstract List<ActivityBean> selectOfIndex(int state, int city, String title, Date begin, Date end);
 }
 
