@@ -15,7 +15,7 @@ public class indexService {
 	public ActivityDAO activityDAO;
 	
 	public List<ActivityBean> showDefault() {
-		List<ActivityBean> bean = activityDAO.select();
+		List<ActivityBean> bean = activityDAO.selectAll();
 		
 		return bean;
 	}
