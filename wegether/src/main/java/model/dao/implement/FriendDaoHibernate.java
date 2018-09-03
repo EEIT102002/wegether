@@ -16,7 +16,7 @@ public class FriendDaoHibernate implements FriendDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
@@ -33,7 +33,7 @@ public class FriendDaoHibernate implements FriendDao {
 	@Override
 	public FriendBean insert(FriendBean friendBean) {
 		if (friendBean != null) {
-			this.getSession().save(friendBean);
+			getSession().save(friendBean);
 			return friendBean;
 		}
 		return null;

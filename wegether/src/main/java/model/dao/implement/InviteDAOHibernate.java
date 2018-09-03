@@ -17,7 +17,7 @@ public class InviteDAOHibernate implements InviteDAO {
     @Autowired
 	private SessionFactory sessionFactory;
     
-    public Session getSession() {
+    private Session getSession() {
     	return sessionFactory.getCurrentSession();
     }
 	@Override

@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import net.bytebuddy.matcher.FailSafeMatcher;
@@ -14,7 +15,9 @@ import net.bytebuddy.matcher.FailSafeMatcher;
 @Table(name="FRIEND")
 public class FriendBean {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO, 
+    	generator = "FRIEND_sq")
+	@SequenceGenerator(allocationSize = 1, name = "FRIEND_sq")
 	private Integer id;
 	private Integer memberid;
 	private Integer memberidf;

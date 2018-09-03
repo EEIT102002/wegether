@@ -53,11 +53,11 @@ public class TestFriendDAOServlet extends HttpServlet {
 
 		// insert
 //		 FriendBean bean = new FriendBean();
-//		 bean.setMemberid(2);
-//		 bean.setMemberidf(3);
+//		 bean.setMemberid(Integer.parseInt(request.getParameter("id")));
+//		 bean.setMemberidf(Integer.parseInt(request.getParameter("f")));
 //		 bean.setState(0);
 //		 FriendBean result = friendDaoHibernate.insert(bean);
-
+		 
 		// update
 //		FriendBean bean = new FriendBean();
 //		bean.setMemberid(2);

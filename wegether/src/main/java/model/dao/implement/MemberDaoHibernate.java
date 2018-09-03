@@ -13,7 +13,7 @@ public class MemberDaoHibernate implements MemberDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 

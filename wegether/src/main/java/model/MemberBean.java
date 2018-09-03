@@ -20,7 +20,8 @@ import org.hibernate.annotations.Cascade;
 @Table(name = "MEMBER")
 public class MemberBean {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+    	generator = "MEMBER_sq")
 	private Integer id;
 	private String account;
 	private byte[] pwd;

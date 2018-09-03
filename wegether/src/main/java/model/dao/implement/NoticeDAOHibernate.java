@@ -2,7 +2,6 @@ package model.dao.implement;
 
 import java.util.List;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -20,20 +19,33 @@ public class NoticeDAOHibernate implements NoticeDAO {
 	private SessionFactory sessionFactory;
 	@Autowired
 	private Integer noticeSelectLimit;
-	
+
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<NoticeBean> selectByMemberId(Integer id, Integer first){
+	public List<NoticeBean> selectByMemberId(Integer id, Integer first) {
+
+		return (List<NoticeBean>) getSession().createSQLQuery(Select.noticeByMember).addEntity("n", NoticeBean.class)
+				.setParameter("id", id).setParameter("offset_first", first)
+				.setParameter("offset_max", noticeSelectLimit).list();
+	}
+
+	public List<NoticeBean> selectByActivityId(Integer id, Integer ntype) {
 		
-		return (List<NoticeBean>)getSession().createSQLQuery(Select.noticeByMember)
-				.addEntity("n",NoticeBean.class)
+		return getSession().createQuery(Select.noticeByActivity,NoticeBean.class)
 				.setParameter("id", id)
-				.setParameter("offset_first", first)
-				.setParameter("offset_max", noticeSelectLimit)
+				.setParameter("ntype", ntype)
+				.list();
+	}
+
+	public List<NoticeBean> selectByArticleId(Integer id, Integer ntype) {
+		
+		return getSession().createQuery(Select.noticeByArticle,NoticeBean.class)
+				.setParameter("id", id)
+				.setParameter("ntype", ntype)
 				.list();
 	}
 

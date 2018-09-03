@@ -14,7 +14,8 @@ import javax.persistence.Table;
 public class ServiceBean {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
+    	generator = "SERVICE_sq")
 	private Integer id ;
 	private Integer memberid ;
 	@Column(insertable = false)
