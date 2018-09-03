@@ -41,6 +41,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(
 				"from ActivityBean", ActivityBean.class).list();
 	}
+	
 
 	@Override
 	public ActivityBean insert(ActivityBean bean) {
@@ -80,8 +81,8 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(selectByState, ActivityBean.class).setParameter("state",state).list();
 	}
 	
-	private final String selectByTime = "from ActivityBean where Convert(DateTime,actbegin) >=Convert(DateTime,:begin)"+
-			"and Convert(DateTime,actbegin)<= Convert(DateTime,:end)";
+	private final String selectByTime = "from ActivityBean where Convert(DateTime,dateline) >=Convert(DateTime,:begin)"+
+			"and Convert(DateTime,dateline)<= Convert(DateTime,:end)";
 	@Override
 	public List<ActivityBean> selectByTime(Date begin, Date end) {
 		return this.getSession().createQuery(selectByTime,ActivityBean.class)
@@ -139,6 +140,75 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(selectByClick, ActivityBean.class).setParameter("click",click).list();
 	}
 	
+	private final String selectOfIndexCity = "from ActivityBean  WHERE state=0 and city =  :city ";
+	@Override
+	public List<ActivityBean> selectOfIndex(int city) {
+		return this.getSession().createQuery(selectOfIndexCity, ActivityBean.class).setParameter("city",city).list();
+	}
+
+	private final String selectOfIndexTitle = "from ActivityBean  WHERE state=0 and title like :title ";
+	@Override
+	public List<ActivityBean> selectOfIndex(String title) {
+		return this.getSession().createQuery(selectOfIndexTitle, ActivityBean.class).setParameter("title","%"+title+"%").list();
+	}
+
+	private final String selectOfIndexTime = "from ActivityBean where Convert(DateTime,dateline) >=Convert(DateTime,:begin)"+
+			"and Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0";
+	@Override
+	public List<ActivityBean> selectOfIndex(Date begin, Date end) {
+		return this.getSession().createQuery(selectOfIndexTime,ActivityBean.class)
+				.setParameter("begin", begin)
+				.setParameter("end", end)
+				.list();
+	}
 	
+	private final String selectOfIndexCityTitle = "from ActivityBean  WHERE state=0 and city =  :city and title like :title ";
+	@Override
+	public List<ActivityBean> selectOfIndex(int city, String title) {
+		return this.getSession().createQuery(selectOfIndexCityTitle, ActivityBean.class)
+				.setParameter("city",city)
+				.setParameter("title","%"+title+"%")
+				.list();
+	}
+
+	private final String selectOfIndexCityDate = "from ActivityBean  WHERE "+
+			"Convert(DateTime,dateline) >=Convert(DateTime,:begin) and "+
+			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0 and city=:city";
+	@Override
+	public List<ActivityBean> selectOfIndex(int city, Date begin, Date end) {
+		return this.getSession().createQuery(selectOfIndexCityDate, ActivityBean.class)
+				.setParameter("city",city)				
+				.setParameter("begin",begin)
+				.setParameter("end",end)
+				.list();
+	}
+
+	private final String selectOfIndexTitleDate = "from ActivityBean  WHERE "+
+			"Convert(DateTime,dateline) >=Convert(DateTime,:begin) and "+
+			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0 and title like:title";
+	@Override
+	public List<ActivityBean> selectOfIndex(String title, Date begin, Date end) {
+		return this.getSession().createQuery(selectOfIndexTitleDate, ActivityBean.class)
+				.setParameter("title","%"+title+"%")
+				.setParameter("begin",begin)
+				.setParameter("end",end)
+				.list();
+	}
+	
+
+	private final String selectOfIndexAll = "from ActivityBean  WHERE "+
+			"Convert(DateTime,dateline) >=Convert(DateTime,:begin) and "+
+			"Convert(DateTime,dateline)<= Convert(DateTime,:end) and state=0 and city=:city and title like:title";
+	@Override
+	public List<ActivityBean> selectOfIndex(int city, String title, Date begin, Date end) {
+		return this.getSession().createQuery(selectOfIndexAll, ActivityBean.class)
+				.setParameter("city",city)
+				.setParameter("title","%"+title+"%")
+				.setParameter("begin",begin)
+				.setParameter("end",end)
+				.list();
+	}
+	
+
 
 }

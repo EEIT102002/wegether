@@ -49,8 +49,21 @@ public class TestActivityDAOServlet extends HttpServlet {
 		//selectAll()
 //		List<ActivityBean> result = activityDAOHibernate.selectAll();
 		
+		//selectOfIndex
+		String begin = "2018-08-01";
+		String end = "2018-09-10";
+		Date t1 = null, t2 = null;;
+		  try {
+			t1 = simpleDateFormat.parse(begin);
+			t2 = simpleDateFormat.parse(end);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		  
+		List<ActivityBean> result = activityDAOHibernate.selectOfIndex(112,"山",t1,t2);
+		
+		
 		//insert
-//	
 //	    ActivityBean bean = new ActivityBean();
 //		bean.setActbegin(new java.util.Date());
 //		bean.setActend(new java.util.Date());
@@ -125,14 +138,14 @@ public class TestActivityDAOServlet extends HttpServlet {
 //		List<ActivityBean> result = activityDAOHibernate.selectByTime(t1,t2);
 		
 		//selectByActbegin
-		String input = "2018-09-09";
-		Date t = null;
-		try{
-			t = simpleDateFormat.parse(input);		
-		  }catch(ParseException e){
-			  e.printStackTrace();
-		  }
-		List<ActivityBean> result = activityDAOHibernate.selectByActbegin(t);
+//		String input = "2018-09-09";
+//		Date t = null;
+//		try{
+//			t = simpleDateFormat.parse(input);		
+//		  }catch(ParseException e){
+//			  e.printStackTrace();
+//		  }
+//		List<ActivityBean> result = activityDAOHibernate.selectByActbegin(t);
 		
 		//selectByCity
 //		List<ActivityBean> result = activityDAOHibernate.selectByCity(112);
