@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!DOCTYPE html>
 <html>
 <head>
 <title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet"  href="css/bootstrap.css" />
+<link rel="stylesheet"  href="css/style.css"/>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -60,7 +61,7 @@
 				</div>
 			</nav>
 			<div class="banner-info">
-				<div class="from-group">
+				<div class="from-group" id="show_act_area">
 						<form action="">
 								<div class="AreaCon">
 								<label>地區 :</label>
@@ -159,90 +160,90 @@
 					<li><a href="">地區</a></li>
 				</ul>
 					<div class="row  masonry">
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/01.jpg" alt="" class="img-responsive">
-							<figcaption>join us</figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/02.jpg" alt="" class="img-responsive">
-							<figcaption>that's go </figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/03.jpg" alt="" class="img-responsive">
-							<figcaption>party</figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/04.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/05.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/06.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/07.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/08.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/09.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/010.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/013.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/014.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/011.jpg" alt="" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 item">
-							<figure>
-							<img src="images/012.jpg" alt="12" class="img-responsive">
-							<figcaption></figcaption>
-							</figure>
-						</div>
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/01.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption>join us</figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/02.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption>that's go </figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/03.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption>party</figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/04.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/05.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/06.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/07.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/08.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/09.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/010.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/013.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/014.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/011.jpg" alt="" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
+<!-- 							<figure> -->
+<!-- 							<img src="images/012.jpg" alt="12" class="img-responsive"> -->
+<!-- 							<figcaption></figcaption> -->
+<!-- 							</figure> -->
+<!-- 						</div> -->
 					</div>
 				</div>
 			<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>

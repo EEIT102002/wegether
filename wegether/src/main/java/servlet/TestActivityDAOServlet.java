@@ -106,7 +106,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 		out.println("<p>ActivityTest</p>");
 		result.forEach(x->{			
 			out.println(x+"<br>");
-			out.println(x.getMemberBean()+"<br>");
+			out.println(x.getPictureBean()+"<br>");
 		});
 	//	out.println(result);
 		out.close();
