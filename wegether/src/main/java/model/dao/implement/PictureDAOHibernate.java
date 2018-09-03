@@ -46,7 +46,8 @@ public class PictureDAOHibernate implements PictureDAO{
 	@Override
 	public List<PictureBean> selectByArticle(Integer articleid) {
 		Query<PictureBean> query = getSession().createQuery(selectByArticleHql, PictureBean.class);
-		query.setParameter("id", articleid);
+		query.
+		setParameter("id", articleid);
 		return query.list();
 	}
 

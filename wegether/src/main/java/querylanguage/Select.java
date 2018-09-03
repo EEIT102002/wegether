@@ -9,7 +9,9 @@ public class Select {
 	public static final String noticeByMember = 
 			"select {n.*} from Notice n where memberid = :id order by noticetime desc "
 			+offset;
-	 
+	public static final String noticeByActivity = "from NoticeBean where activityid = :id and ntype = :ntype";
+	public static final String noticeByArticle = "from NoticeBean where articleid = :id and ntype = :ntype";
+	
 	public static final String msgByActivity = msgSql("activityid");
 	
 	public static final String msgByArticle = msgSql("activityid");

@@ -1,0 +1,43 @@
+<set>
+    <set1>
+        <form>
+            <select name="" id="">
+                <option value="0">所有人</option>
+                <option value="1">好友</option>
+                <option value="2">隱藏</option>
+            </select>
+            <br/>
+            <span>儲存</span>
+        </form>
+    </set1>
+     <set2> 
+        <form> 
+            <select name="" id="">
+                <option value="0">好友</option>
+                <option value="1">不接受</option>
+            </select>
+            <br/>
+            <span>儲存</span>
+        </form>
+    </set2>
+    <set3>
+        <form>
+            <select name="" id="">
+                <option value="0">接受</option>
+                <option value="1">不接受</option>
+            </select>
+            <br/>
+            <span>儲存</span>
+        </form>
+    </set3>
+    <set4>
+        <form>
+            <select name="" id="">
+                <option value="0">開啟</option>
+                <option value="1">關閉</option>
+            </select>
+            <br/>
+            <span>儲存</span>
+        </form>
+    </set4>
+</set>

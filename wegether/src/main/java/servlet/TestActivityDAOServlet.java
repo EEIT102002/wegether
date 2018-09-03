@@ -155,10 +155,12 @@ public class TestActivityDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
+
 		result.forEach(temp->{			
 				out.println(temp+"<br><br>");			
 				out.println("===============<br><br>");
 		});
+		
 //				out.println(result);
 		out.close();
 	}

@@ -15,6 +15,8 @@ public class PictureBean {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "PICTURE_sq")
 	public Integer id;
+	
+	
 	public byte[] picture;
 	public Integer activityid;
 	public Integer articleid;
