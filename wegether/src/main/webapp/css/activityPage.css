@@ -1,0 +1,18 @@
+ #up{
+    overflow: auto;
+    width:100%;
+    /* border: 1px solid gray; */   
+}
+#left{
+    width:60%;
+    float: left;
+    
+}
+#right{
+    
+    float: right;
+}         
+#txtup{
+    text-align: left;    
+}
+       
