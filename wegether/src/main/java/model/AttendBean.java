@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +16,7 @@ public class AttendBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "ATTEND_sq")
+	@SequenceGenerator(allocationSize=1, name = "ATTEND_sq")
 	private Integer id;
 	private Integer activityid;
 	private Integer memberid;

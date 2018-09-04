@@ -11,7 +11,7 @@ import model.MemberBean;
 import model.dao.MemberDAO;
 
 @Repository
-public class MemberDaoHibernate implements MemberDAO {
+public class MemberDAOHibernate implements MemberDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 

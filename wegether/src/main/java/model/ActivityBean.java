@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +23,7 @@ public class ActivityBean {
 	@Id  
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
 		      generator = "activity_sq")
+	@SequenceGenerator(allocationSize=1, name = "activity_sq")
 	private Integer id;
 	private Integer hostid;
 	@Column(insertable = false)

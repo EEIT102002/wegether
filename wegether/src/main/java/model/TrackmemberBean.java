@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "trackmemberid")
+//@Entity
+//@Table(name = "trackmemberid")
 public class TrackmemberBean implements Serializable{
 
 	private static final long serialVersionUID = 432954984112471789L;

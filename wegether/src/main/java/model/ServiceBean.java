@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +17,7 @@ public class ServiceBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "SERVICE_sq")
+	@SequenceGenerator(allocationSize = 1, name = "PICTURE_sq")
 	private Integer id ;
 	private Integer memberid ;
 	@Column(insertable = false)

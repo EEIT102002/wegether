@@ -16,7 +16,7 @@ import querylanguage.QueryBean;
 import querylanguage.Select;
 
 @Repository
-public class FriendDaoHibernate implements FriendDAO {
+public class FriendDAOHibernate implements FriendDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	@Autowired

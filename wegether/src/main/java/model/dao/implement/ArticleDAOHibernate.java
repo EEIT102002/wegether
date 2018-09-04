@@ -10,7 +10,7 @@ import model.ArticleBean;
 import model.dao.ArticleDAO;
 
 @Repository
-public class ArticleDaoHibernate implements ArticleDAO {
+public class ArticleDAOHibernate implements ArticleDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 

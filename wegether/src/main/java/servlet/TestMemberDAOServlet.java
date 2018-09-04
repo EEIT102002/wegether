@@ -24,21 +24,21 @@ import model.ActivityBean;
 import model.ArticleBean;
 import model.MemberBean;
 import model.dao.implement.ActivityDAOHibernate;
-import model.dao.implement.ArticleDaoHibernate;
-import model.dao.implement.MemberDaoHibernate;
+import model.dao.implement.ArticleDAOHibernate;
+import model.dao.implement.MemberDAOHibernate;
 
 @WebServlet("/MemberTest")
 public class TestMemberDAOServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SimpleDateFormat simpleDateFormat;
-	private MemberDaoHibernate memberDaoHibernate;
+	private MemberDAOHibernate memberDaoHibernate;
 
 	@Override
 	public void init() throws ServletException {
 		ServletContext application = this.getServletContext();
 		ApplicationContext context = (ApplicationContext) application
 				.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		memberDaoHibernate = (MemberDaoHibernate) context.getBean("memberDaoHibernate");
+		memberDaoHibernate = (MemberDAOHibernate) context.getBean("memberDaoHibernate");
 
 		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	}

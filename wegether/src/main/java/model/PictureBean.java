@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 @Entity
 @Table(name="PICTURE")
@@ -14,6 +15,7 @@ public class PictureBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "PICTURE_sq")
+	@SequenceGenerator(allocationSize = 1, name = "PICTURE_sq")
 	public Integer id;
 	
 	

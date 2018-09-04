@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import model.MemberBean;
-import model.dao.implement.MemberDaoHibernate;
+import model.dao.implement.MemberDAOHibernate;
 
 @Controller
 @SessionAttributes(names={"mem"})
 public class MemeberPersonalController {
 	@Autowired
-	private MemberDaoHibernate memberDaoHibernate;
+	private MemberDAOHibernate memberDaoHibernate;
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
 		webDataBinder.registerCustomEditor(java.util.Date.class,

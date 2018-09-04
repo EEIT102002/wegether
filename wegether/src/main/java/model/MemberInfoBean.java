@@ -13,6 +13,7 @@ public class MemberInfoBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "MEMBER_sq")
+	
 	private Integer id;
 	private Byte[] photo;
 	private String name;

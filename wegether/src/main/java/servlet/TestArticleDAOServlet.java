@@ -21,20 +21,20 @@ import org.springframework.web.context.WebApplicationContext;
 import model.ActivityBean;
 import model.ArticleBean;
 import model.dao.implement.ActivityDAOHibernate;
-import model.dao.implement.ArticleDaoHibernate;
+import model.dao.implement.ArticleDAOHibernate;
 
 @WebServlet("/AriticleTest")
 public class TestArticleDAOServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SimpleDateFormat simpleDateFormat;
-	private ArticleDaoHibernate articleDaoHibernate;
+	private ArticleDAOHibernate articleDaoHibernate;
 
 	@Override
 	public void init() throws ServletException {
 		ServletContext application = this.getServletContext();
 		ApplicationContext context = (ApplicationContext) application
 				.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		articleDaoHibernate = (ArticleDaoHibernate) context.getBean("articleDaoHibernate");
+		articleDaoHibernate = (ArticleDAOHibernate) context.getBean("articleDaoHibernate");
 
 		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	}

@@ -26,8 +26,8 @@ import model.MemberBean;
 import model.TrackmemberBean;
 import model.dao.TrackmemberDAO;
 import model.dao.implement.ActivityDAOHibernate;
-import model.dao.implement.ArticleDaoHibernate;
-import model.dao.implement.MemberDaoHibernate;
+import model.dao.implement.ArticleDAOHibernate;
+import model.dao.implement.MemberDAOHibernate;
 import model.dao.implement.TrackmemberDAOHibernate;
 
 @WebServlet("/TrackemberTest")

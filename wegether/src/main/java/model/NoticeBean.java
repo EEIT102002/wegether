@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +16,7 @@ public class NoticeBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     generator = "notice_sq")
+	@SequenceGenerator(allocationSize = 1, name = "notice_sq")
 	private Integer id;
 	private Integer memberid;
 	private Integer activityid;

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -22,6 +23,7 @@ public class MemberBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "MEMBER_sq")
+	@SequenceGenerator(allocationSize = 1, name = "MEMBER_sq")
 	private Integer id;
 	private String account;
 	private byte[] pwd;

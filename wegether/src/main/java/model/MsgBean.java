@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +14,7 @@ public class MsgBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "MSG_sq")
+	@SequenceGenerator(allocationSize = 1, name = "MSG_sq")
 	private Integer id;
 	private Integer activityid;
 	private Integer articleid;

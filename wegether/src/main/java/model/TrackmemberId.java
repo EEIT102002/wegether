@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
 
-@Embeddable
+//@Embeddable
 public class TrackmemberId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	 @Column(name = "memberid")

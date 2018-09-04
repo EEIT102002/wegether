@@ -50,8 +50,8 @@ public class TestActivityDAOServlet extends HttpServlet {
 //		List<ActivityBean> result = activityDAOHibernate.selectAll();
 		
 		//selectOfIndex
-		String beginDate = "2018-08-01";
-		String endDate = "2018-10-01";
+//		String beginDate = "2018-08-01";
+//		String endDate = "2018-10-01";
 //		Date t1 = null, t2 = null;;
 //		  try {
 //			t1 = simpleDateFormat.parse(beginDate);
@@ -60,33 +60,33 @@ public class TestActivityDAOServlet extends HttpServlet {
 //			e.printStackTrace();
 //		}
 		  
-		List<ActivityBean> result = activityDAOHibernate.selectOfIndex(0,0,beginDate,endDate,"戶外活動","山");
+//		List<ActivityBean> result = activityDAOHibernate.selectOfIndex(0,0,beginDate,endDate,"戶外活動","山");
 		
 		
 		
 		//insert
-//	    ActivityBean bean = new ActivityBean();
-//		bean.setActbegin(new java.util.Date());
-//		bean.setActend(new java.util.Date());
-//		bean.setAddr("象山");
-//		bean.setCity(102);
-//		bean.setClasstype("戶外活動");
-//		bean.setClick(97);
-//		bean.setContent("一起去爬山Content");
-//		bean.setCreatetime(new java.util.Date());
-//		bean.setDateline(new java.util.Date());
-//		bean.setFeed(500);
-//		bean.setForm("Activityform");
-//		bean.setHostid(1);
-//		bean.setJudges(101);
-//		bean.setNumberlimit(100);
-//		bean.setPicture(null);
-//		bean.setRank1(3.0);
-//		bean.setRank2(3.0);
-//		bean.setRank3(3.0);
-//		bean.setState(1);
-//		bean.setTitle("一起去爬山title7");
-//		ActivityBean result = activityDAOHibernate.insert(bean);
+	    ActivityBean bean = new ActivityBean();
+		bean.setActbegin(new java.util.Date());
+		bean.setActend(new java.util.Date());
+		bean.setAddr("象山");
+		bean.setCity(102);
+		bean.setClasstype("戶外活動");
+		bean.setClick(97);
+		bean.setContent("一起去爬山Content");
+		bean.setCreatetime(new java.util.Date());
+		bean.setDateline(new java.util.Date());
+		bean.setFeed(500);
+		bean.setForm("Activityform");
+		bean.setHostid(1);
+		bean.setJudges(101);
+		bean.setNumberlimit(100);
+		bean.setPicture(null);
+		bean.setRank1(3.0);
+		bean.setRank2(3.0);
+		bean.setRank3(3.0);
+		bean.setState(1);
+		bean.setTitle("一起去爬山title7");
+		ActivityBean result = activityDAOHibernate.insert(bean);
 
 		
 		//update				
@@ -170,12 +170,13 @@ public class TestActivityDAOServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
 
-		result.forEach(temp->{			
-				out.println(temp+"<br><br>");			
-				out.println("===============<br><br>");
-		});
-		
-//				out.println(result);
+//		result.forEach(temp->{			
+//				out.println(temp+"<br><br>");			
+//				out.println("===============<br><br>");
+//		});
+//		
+		System.out.println(result);
+		out.println(result);
 		out.close();
 	}
 
