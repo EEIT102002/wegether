@@ -24,17 +24,17 @@ public class FriendBean {
 	private Integer state;
 	
 	@ManyToOne
-	@JoinColumn(name = "MEMBERID, MEMBERIDF",
+	@JoinColumn(name = "MEMBERID",
 				referencedColumnName = "ID",
 				insertable = false, updatable = false)
 	private MemberBean memberBean;
-	public MemberBean getMemberBean() {
-		return memberBean;
-	}
-	public void setMemberBean(MemberBean memberBean) {
-		this.memberBean = memberBean;
-	}
 	
+	@ManyToOne
+	@JoinColumn(name = "MEMBERIDF",
+				referencedColumnName = "ID",
+				insertable = false, updatable = false)
+	private MemberBean memberFBean;
+
 	@Override
 	public String toString() {
 		return "FriendBean [id=" + id + ", memberid=" + memberid + ", memberidf=" + memberidf + ", state=" + state
@@ -63,5 +63,17 @@ public class FriendBean {
 	}
 	public void setState(Integer state) {
 		this.state = state;
+	}
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
+	public MemberBean getMemberFBean() {
+		return memberFBean;
+	}
+	public void setMemberFBean(MemberBean memberFBean) {
+		this.memberFBean = memberFBean;
 	}
 }

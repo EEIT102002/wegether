@@ -1,24 +1,34 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+        crossorigin="anonymous"></script>
     <script>
         var memberinfo = null;
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
-                url: "../template/member.txt",
+                url: "/wegether/member/Info",
                 dataType: "json",
-                success: function (xml) {
-                    memberinfo = xml.getElementsByTagName("member")[0];
-                    var addr = memberinfo.getAttribute("city");
-                    addr += memberinfo.getAttribute("addr");
-                    memberinfo.setAttribute("addrs", addr);
+                success: function (json) {
+                    memberinfo = json;
+                    var addr = memberinfo["city"];
+                    addr += memberinfo["addr"];
+                    if (addr != 0)
+                        memberinfo["addrs"] = addr;
                     $('div:eq(0) > table tr').each(function () {
-                        this.children[1].innerHTML = memberinfo.getAttribute($(this).attr('id'));
+                        var info = memberinfo[$(this).attr('id')]
+                        if (info != null) {
+                            if ($(this).attr('id') == "birthday")
+                                info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
+                            this.children[1].innerHTML = info;
+                        }else{
+                            this.children[1].innerHTML = '<span class="notinput">未填寫</span>';
+                        }
                     });
                 }
             });
+
             $('div:eq(0) > table tr > td > button').click(function () {
                 var prevtd = $(this).parent().prev();
                 var tr = prevtd.parent();
@@ -39,17 +49,25 @@
             });
         });
         function editInput(td, key) {
-            $(td).find('input').val($(memberinfo).attr(key));
-
+            var val = $(memberinfo).attr(key);
+            var input = $(td).find('input')
+            if (val != null)
+                input.val(val);
         }
 
         function editTextarea(td, key) {
-            $(td).find('textarea').val($(memberinfo).attr(key));
+            var val = $(memberinfo).attr(key);
+            if (val != null)
+                $(td).find('textarea').val(val);
         }
 
         function editAddr(tr) {
-            $(tr).find('select[name="city"]').val(1);
-            $(tr).find('input').val($(memberinfo).attr("addr"));
+            var city = $(memberinfo).attr('city');
+            var addr = $(memberinfo).attr('addr');
+            if (city != null && addr != null) {
+                $(tr).find('select[name="city"]').val(city);
+                $(tr).find('input').val($(memberinfo).attr("addr"));
+            }
         }
 
     </script>
@@ -100,6 +118,9 @@
             display: inline-block;
             vertical-align: top;
             background-color: blue;
+        }
+        .notinput{
+            color: grey
         }
     </style>
 </head>

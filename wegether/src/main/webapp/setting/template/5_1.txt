@@ -4,7 +4,7 @@
             <input type="submit" value="增加好友">
         </form>
     </div>
-    <div>
+    <div class="friendList">
         <div style="background-color: red;">
             <img src="" alt=""> 好友A
         </div>

@@ -13,9 +13,8 @@ import javax.persistence.TableGenerator;
 @Table(name = "setting")
 public class SettingBean {
 	@Id
-	@TableGenerator(name = "mySetting", table = "member")
-	@GeneratedValue(generator = "mySetting", strategy = GenerationType.TABLE)
-
+	@TableGenerator(name = "memberid", table = "member")
+	@GeneratedValue(generator = "memberid", strategy = GenerationType.TABLE)
 	public Integer memberid;
 	public Integer birthday;
 	public Integer sex;

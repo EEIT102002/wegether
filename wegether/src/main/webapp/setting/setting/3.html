@@ -8,10 +8,10 @@
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
-                url: "../template/setting.xml",
-                dataType: "xml",
-                success: function (xml) {
-                    setting = xml.getElementsByTagName("setting")[0];
+                url: "/wegether/member/Setting",
+                dataType: "json",
+                success: function (json) {
+                    setting = json;
                     set1 = {
                         'set': 'set1',
                         'name': '個人資料',
@@ -23,7 +23,7 @@
                             'addr': '詳細地址',
                             'tel': '電話',
                             'content': '自我介紹',
-                            'favrite': '喜好活動'
+                            'favorite': '喜好活動'
                         }
                     };
                     set2 = {
@@ -111,7 +111,7 @@
             $('table').append(table.children());
         };
         function settingText(name) {
-            var value = Number(setting.getAttribute(name));
+            var value = Number(setting[name]);
             switch (name) {
                 case 'activitymsg':
                 case 'articlemsg':
