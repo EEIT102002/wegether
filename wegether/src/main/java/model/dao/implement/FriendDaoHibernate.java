@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.FriendBean;
-import model.dao.FriendDao;
+import model.dao.FriendDAO;
 
 @Repository
-public class FriendDaoHibernate implements FriendDao {
+public class FriendDaoHibernate implements FriendDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 

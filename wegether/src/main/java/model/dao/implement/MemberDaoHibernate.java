@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.MemberBean;
-import model.dao.MemberDao;
+import model.dao.MemberDAO;
 
 @Repository
-public class MemberDaoHibernate implements MemberDao {
+public class MemberDaoHibernate implements MemberDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 

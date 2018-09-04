@@ -2,7 +2,7 @@ package model.dao;
 
 import model.ArticleBean;
 
-public interface ArticleDao {
+public interface ArticleDAO {
 	public abstract ArticleBean select(int id);
 
 	public abstract ArticleBean insert(ArticleBean articleBean);

@@ -2,7 +2,7 @@ package model.dao;
 
 import model.MemberBean;
 
-public interface MemberDao {
+public interface MemberDAO {
 	public abstract MemberBean select(int id);
 
 	public abstract MemberBean insert(MemberBean memberBean);

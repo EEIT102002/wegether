@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import model.ArticleBean;
-import model.dao.ArticleDao;
+import model.dao.ArticleDAO;
 
 @Repository
-public class ArticleDaoHibernate implements ArticleDao {
+public class ArticleDaoHibernate implements ArticleDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
