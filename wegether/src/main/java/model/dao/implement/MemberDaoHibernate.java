@@ -1,5 +1,7 @@
 package model.dao.implement;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,10 @@ public class MemberDaoHibernate implements MemberDAO {
 	}
 
 	@Override
+	public List<MemberBean> select() {
+		return this.getSession().createQuery("from MemberBean",MemberBean.class).list();
+	}
+	@Override
 	public MemberBean insert(MemberBean memberBean) {
 		if (memberBean != null) {
 			this.getSession().save(memberBean);
@@ -42,4 +48,6 @@ public class MemberDaoHibernate implements MemberDAO {
 		}
 		return false;
 	}
+
+	
 }
