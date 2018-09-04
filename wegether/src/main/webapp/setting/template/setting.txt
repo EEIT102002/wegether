@@ -1,0 +1,23 @@
+{
+"memberid": 2,
+"birthday": 0,
+"sex": 0,
+"job": 0,
+"city": 0,
+"addr": 0,
+"tel": 0,
+"content": 0,
+"favorite": 0,
+"showarticle": 0,
+"showhost": 0,
+"showactivity": 0,
+"rankscore": 0,
+"invite": 0,
+"addfriend": 0,
+"activitymsg": 0,
+"articlemsg": 0,
+"activitychange": 0,
+"friendarticle": 0,
+"friendactivity": 0,
+"memberBean": null
+}

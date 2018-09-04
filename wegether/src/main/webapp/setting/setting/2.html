@@ -1,16 +1,33 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+        crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
             var pwd = $('#pwd');
-            pwd.find('form').hide();
             pwd.find('td:eq(2)>span').click(function () {
                 pwd.find('form').toggle();
                 $(this).text() == "修改密碼" ? "取消" : "修改密碼";
-            })
+            });
+            $.ajax({
+                type: "GET",
+                url: "/wegether/member/Account",
+                dataType: "json",
+                success: function (json) {
+                    console.log(json);
+                    var table = $('table');
+                    table.find('tr:nth-child(1) td:nth-child(2)').html(json.account);
+                    table.find('tr:nth-child(3) td:nth-child(2)').html(
+                        $.datepicker.formatDate('yy/mm/dd', new Date(json.signupdate))
+                    );
+                    var state = json == 0? '已認證':'未認證';
+                    table.find('tr:nth-child(4) td:nth-child(2)').html(state);
+                }
+            });
+        });
 
-        })
+
     </script>
     <script src="../js/iframeautoheight.js"></script>
     <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
@@ -44,6 +61,10 @@
 
             padding: 10px;
         }
+
+        .buttomSpan{
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -51,13 +72,13 @@
     <table>
         <tr>
             <td>帳號</td>
-            <td>xxx@mails</td>
+            <td></td>
             <td></td>
         </tr>
         <tr id="pwd">
             <td>密碼</td>
             <td>
-                <form>
+                <form style="display: none;">
                     <div>
                         <p>舊密碼:</p>
                         <input type="password" name="">
@@ -74,17 +95,17 @@
                 </form>
             </td>
             <td>
-                <span>修改密碼</span>
+                <span class="buttomSpan">修改密碼</span>
             </td>
         </tr>
         <tr>
             <td>註冊日期</td>
-            <td>20XX/XX/XX</td>
+            <td></td>
             <td></td>
         </tr>
         <tr>
             <td>認證狀態</td>
-            <td>已註冊</td>
+            <td></td>
             <td></td>
         </tr>
     </table>

@@ -4,9 +4,11 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 
@@ -14,7 +16,7 @@ import model.ActivityBean;
 import model.AttendBean;
 
 @Configurable
-@ComponentScan(basePackages= {"model"})
+@ComponentScan(basePackages= {"model","querylanguage"})
 public class SpringConfig {
 
 	@Bean
@@ -46,6 +48,12 @@ public class SpringConfig {
 	@Bean 
 	public Integer noticeSelectLimit() {
 		return 10;
+	}
+	
+	@Bean
+	@Scope("prototype")
+	public JSONObject newJson() {
+		return new JSONObject();
 	}
 	
 }
