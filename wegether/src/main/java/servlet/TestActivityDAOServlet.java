@@ -50,17 +50,18 @@ public class TestActivityDAOServlet extends HttpServlet {
 //		List<ActivityBean> result = activityDAOHibernate.selectAll();
 		
 		//selectOfIndex
-		String begin = "2018-08-01";
-		String end = "2018-09-10";
-		Date t1 = null, t2 = null;;
-		  try {
-			t1 = simpleDateFormat.parse(begin);
-			t2 = simpleDateFormat.parse(end);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		String beginDate = "2018-08-01";
+		String endDate = "2018-10-01";
+//		Date t1 = null, t2 = null;;
+//		  try {
+//			t1 = simpleDateFormat.parse(beginDate);
+//			t2 = simpleDateFormat.parse(endDate);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		  
-		List<ActivityBean> result = activityDAOHibernate.selectOfIndex(1,112,"山",t1,t2);
+		List<ActivityBean> result = activityDAOHibernate.selectOfIndex(0,0,beginDate,endDate,"戶外活動","山");
+		
 		
 		
 		//insert
@@ -122,10 +123,10 @@ public class TestActivityDAOServlet extends HttpServlet {
 //		List<ActivityBean> result = activityDAOHibernate.selectByState(0);
 		
 		//selectByAddress
-//		List<ActivityBean> result = activityDAOHibernate.selectByAddress("仁愛");
+//		List<ActivityBean> result = activityDAOHibernate.selectByAddress(0,"仁愛");
 		
 		//selectByTime
-//		String begin = "2018-09-01";
+//		String begin = "2018-08-01";
 //		String end = "2018-09-10";
 //		Date t1 = null, t2 = null;;
 //		  try {
@@ -135,7 +136,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 //			e.printStackTrace();
 //		}
 //	
-//		List<ActivityBean> result = activityDAOHibernate.selectByTime(t1,t2);
+//		List<ActivityBean> result = activityDAOHibernate.selectByTime(0,t1,t2);
 		
 		//selectByActbegin
 //		String input = "2018-09-09";
@@ -145,25 +146,25 @@ public class TestActivityDAOServlet extends HttpServlet {
 //		  }catch(ParseException e){
 //			  e.printStackTrace();
 //		  }
-//		List<ActivityBean> result = activityDAOHibernate.selectByActbegin(t);
+//		List<ActivityBean> result = activityDAOHibernate.selectByActbegin(0,t);
 		
 		//selectByCity
-//		List<ActivityBean> result = activityDAOHibernate.selectByCity(112);
+//		List<ActivityBean> result = activityDAOHibernate.selectByCity(0,112);
 		
 		//selectByTitle
-	//	List<ActivityBean> result = activityDAOHibernate.selectByTitle("大賞楓");
+	//	List<ActivityBean> result = activityDAOHibernate.selectByTitle(0,"大賞楓");
 		
 		//selectByClasstype
-//		List<ActivityBean> result = activityDAOHibernate.selectByClasstype("戶外");
+//		List<ActivityBean> result = activityDAOHibernate.selectByClasstype(0,"戶外");
 		
 		//selectByHost
-//		List<ActivityBean> result = activityDAOHibernate.selectByNickname("胡");
+//		List<ActivityBean> result = activityDAOHibernate.selectByNickname(0,"安");
 		
 		//selectByFeed
-//		List<ActivityBean> result = activityDAOHibernate.selectByFees(1000);
+//		List<ActivityBean> result = activityDAOHibernate.selectByFees(0,1000);
 		
 		//selectByClick
-//		List<ActivityBean> result = activityDAOHibernate.selectByClick(150);
+//		List<ActivityBean> result = activityDAOHibernate.selectByClick(0,90);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();

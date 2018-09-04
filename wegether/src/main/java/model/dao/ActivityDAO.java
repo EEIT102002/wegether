@@ -14,23 +14,23 @@ public interface ActivityDAO {
 		
 	public abstract List<ActivityBean> selectByState(int state);
 
-	public abstract List<ActivityBean> selectByTime(Date begin, Date end);
+	public abstract List<ActivityBean> selectByTime(int state, Date begin, Date end);
 
-	public abstract List<ActivityBean> selectByActbegin(Date Actbegin);
+	public abstract List<ActivityBean> selectByActbegin(int state, Date Actbegin);
 	
-	public abstract List<ActivityBean> selectByCity(int city);
+	public abstract List<ActivityBean> selectByCity(int state, int city);
 	
-	public abstract List<ActivityBean> selectByAddress(String addr);
+	public abstract List<ActivityBean> selectByAddress(int state, String addr);
 	
-	public abstract List<ActivityBean> selectByTitle(String title);
+	public abstract List<ActivityBean> selectByTitle(int state, String title);
 	
-	public abstract List<ActivityBean> selectByClasstype(String classtype);
+	public abstract List<ActivityBean> selectByClasstype(int state, String classtype);
 	
-	public abstract List<ActivityBean> selectByNickname(String nickname);
+	public abstract List<ActivityBean> selectByNickname(int state, String nickname);
 	
-	public abstract List<ActivityBean> selectByFees(int fees);
+	public abstract List<ActivityBean> selectByFees(int state, int fees);
 	
-	public abstract List<ActivityBean> selectByClick(int click);
+	public abstract List<ActivityBean> selectByClick(int state, int click);
 
 	public abstract ActivityBean insert(ActivityBean bean);
 
@@ -38,15 +38,7 @@ public interface ActivityDAO {
 
 	public abstract boolean delete(int id);
 	
-	//indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋
-	public abstract List<ActivityBean> selectOfIndex(int state, int city);
-	public abstract List<ActivityBean> selectOfIndex(int state, String title);
-	public abstract List<ActivityBean> selectOfIndex(int state, Date begin, Date end);
-	
-	public abstract List<ActivityBean> selectOfIndex(int state, int city, String title);
-	public abstract List<ActivityBean> selectOfIndex(int state, int city, Date begin, Date end);
-	public abstract List<ActivityBean> selectOfIndex(int state, String title, Date begin, Date end);
-	
-	public abstract List<ActivityBean> selectOfIndex(int state, int city, String title, Date begin, Date end);
+	//indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋	
+	public abstract List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype, String title);
 }
 
