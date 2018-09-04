@@ -7,8 +7,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "trackmember")
-@IdClass(Trackmember.class)
-public class Trackmember {
+@IdClass(TrackmemberBean.class)
+public class TrackmemberBean {
 
 	 @Id 
 	 private Integer memberid;
