@@ -1,0 +1,112 @@
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var pwd = $('#pwd');
+            pwd.find('td:eq(2)>span').click(function () {
+                pwd.find('form').toggle();
+                $(this).text() == "修改密碼" ? "取消" : "修改密碼";
+            });
+            $.ajax({
+                type: "GET",
+                url: "/wegether/member/Account",
+                dataType: "json",
+                success: function (json) {
+                    console.log(json);
+                    var table = $('table');
+                    table.find('tr:nth-child(1) td:nth-child(2)').html(json.account);
+                    table.find('tr:nth-child(3) td:nth-child(2)').html(
+                        $.datepicker.formatDate('yy/mm/dd', new Date(json.signupdate))
+                    );
+                    var state = json == 0? '已認證':'未認證';
+                    table.find('tr:nth-child(4) td:nth-child(2)').html(state);
+                }
+            });
+        });
+
+
+    </script>
+    <script src="../js/iframeautoheight.js"></script>
+    <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            margin-top: 10px;
+            border-top: 3px solid rgba(0, 44, 95, 0.3);
+            border-bottom: 3px solid rgba(0, 44, 95, 0.3);
+            border-collapse: collapse;
+        }
+
+        tr {
+            vertical-align: top;
+        }
+
+        td {
+            padding: 10px;
+            border-top: 1.5px solid rgba(0, 44, 95, 0.2);
+        }
+
+        tr td:nth-child(2) {
+            width: 200px;
+        }
+
+        body {
+
+            padding: 10px;
+        }
+
+        .buttomSpan{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>帳號</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr id="pwd">
+            <td>密碼</td>
+            <td>
+                <form style="display: none;">
+                    <div>
+                        <p>舊密碼:</p>
+                        <input type="password" name="">
+                    </div>
+                    <div>
+                        <p>修改密碼:</p>
+                        <input type="password" name="">
+                    </div>
+                    <div>
+                        <p>確認密碼:</p>
+                        <input type="password" name="">
+                    </div>
+                    <input type="submit" value="儲存">
+                </form>
+            </td>
+            <td>
+                <span class="buttomSpan">修改密碼</span>
+            </td>
+        </tr>
+        <tr>
+            <td>註冊日期</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>認證狀態</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>

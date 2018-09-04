@@ -1,0 +1,17 @@
+<div>
+        <form>
+            <input type="text" name="" id="">
+            <input type="submit" value="增加好友">
+        </form>
+    </div>
+    <div class="friendList">
+        <div style="background-color: red;">
+            <img src="" alt=""> 好友A
+        </div>
+        <div style="background-color: red;">
+            <img src="" alt=""> 好友A
+        </div>
+        <div style="background-color: red;">
+            <img src="" alt=""> 好友A
+        </div>
+    </div>

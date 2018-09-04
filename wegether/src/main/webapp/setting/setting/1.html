@@ -1,0 +1,241 @@
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+        crossorigin="anonymous"></script>
+    <script>
+        var memberinfo = null;
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/wegether/member/Info",
+                dataType: "json",
+                success: function (json) {
+                    memberinfo = json;
+                    var addr = memberinfo["city"];
+                    addr += memberinfo["addr"];
+                    if (addr != 0)
+                        memberinfo["addrs"] = addr;
+                    $('div:eq(0) > table tr').each(function () {
+                        var info = memberinfo[$(this).attr('id')]
+                        if (info != null) {
+                            if ($(this).attr('id') == "birthday")
+                                info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
+                            this.children[1].innerHTML = info;
+                        }else{
+                            this.children[1].innerHTML = '<span class="notinput">未填寫</span>';
+                        }
+                    });
+                }
+            });
+
+            $('div:eq(0) > table tr > td > button').click(function () {
+                var prevtd = $(this).parent().prev();
+                var tr = prevtd.parent();
+                $(tr).siblings("tr:has(form)").each(function () {
+                    if ($(this.children[3].children).text() == '取消') {
+                        $(this.children[1]).show().next().hide().next().children().text('編輯');
+                    }
+                });
+                var key = tr.attr('id');
+                prevtd.toggle().prev().toggle();
+                $(this).text(
+                    $(this).text() == "編輯" ? "取消" : "編輯");
+                switch (key) {
+                    case "addrs": editAddr(prevtd); break;
+                    case 'content': editTextarea(prevtd, key); break;
+                    default: editInput(prevtd, key); break;
+                };
+            });
+        });
+        function editInput(td, key) {
+            var val = $(memberinfo).attr(key);
+            var input = $(td).find('input')
+            if (val != null)
+                input.val(val);
+        }
+
+        function editTextarea(td, key) {
+            var val = $(memberinfo).attr(key);
+            if (val != null)
+                $(td).find('textarea').val(val);
+        }
+
+        function editAddr(tr) {
+            var city = $(memberinfo).attr('city');
+            var addr = $(memberinfo).attr('addr');
+            if (city != null && addr != null) {
+                $(tr).find('select[name="city"]').val(city);
+                $(tr).find('input').val($(memberinfo).attr("addr"));
+            }
+        }
+
+    </script>
+    <script src="../js/iframeautoheight.js"></script>
+    <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 800px;
+        }
+
+        .setting1,
+        .photo {
+            margin-top: 10px;
+        }
+
+        .setting1 {
+            display: inline-block;
+            vertical-align: top;
+            padding: 10px;
+        }
+
+        .setting1 table {
+            /* background-color: red; */
+            border-top: 3px solid rgba(0, 44, 95, 0.3);
+            border-bottom: 3px solid rgba(0, 44, 95, 0.3);
+            border-collapse: collapse;
+        }
+
+        .setting1 tr {
+            vertical-align: top;
+        }
+
+        .setting1 td {
+            padding: 10px;
+            border-top: 1.5px solid rgba(0, 44, 95, 0.2);
+        }
+
+        .setting1 tr td:nth-child(2) {
+            width: 360px;
+        }
+
+        .photo {
+            display: inline-block;
+            vertical-align: top;
+            background-color: blue;
+        }
+        .notinput{
+            color: grey
+        }
+    </style>
+</head>
+
+<body>
+    <div class="setting1">
+        <table>
+            <tr id="name">
+                <td>姓名</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="nickname">
+                <td>暱稱</td>
+                <td></td>
+                <td style="display: none;">
+                    <form>
+                        <input type="text" name="" id="" value="" />
+                        <br/>
+                        <button>儲存</button>
+                    </form>
+                </td>
+                <td>
+                    <button>編輯</button>
+                </td>
+            </tr>
+            <tr id="birthday">
+                <td>生日</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="sex">
+                <td>性別</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="job">
+                <td>職業</td>
+                <td></td>
+                <td style="display: none;">
+                    <form>
+                        <input type="text" name="" id="" value="" />
+                        <br/>
+                        <button>儲存</button>
+                    </form>
+                </td>
+                <td>
+                    <button>編輯</button>
+                </td>
+            </tr>
+            <tr id="addrs">
+                <td>居住地區</td>
+                <td></td>
+                <td style="display: none;">
+                    <form>
+                        <select name="city">
+                            <option value="1">台北</option>
+                            <option value="2">新北</option>
+                        </select>
+                        <input type="text" name="addr" id="" value="" />
+                        <br/>
+                        <button>儲存</button>
+                    </form>
+                </td>
+                <td>
+                    <button>編輯</button>
+                </td>
+            </tr>
+            <tr id="tel">
+                <td>電話</td>
+                <td></td>
+                <td style="display: none;">
+                    <form>
+                        <input type="text" name="" id="" value="" />
+                        <br/>
+                        <button>儲存</button>
+                    </form>
+                </td>
+                <td>
+                    <button>編輯</button>
+                </td>
+            </tr>
+            <tr id="content">
+                <td>自我介紹</td>
+                <td></td>
+                <td style="display: none;">
+                    <form>
+                        <textarea name="" id="" cols="40" rows="5"> </textarea>
+                        <br/>
+                        <button>儲存</button>
+                    </form>
+                </td>
+                <td>
+                    <button>編輯</button>
+                </td>
+            </tr>
+            <tr id="favorite">
+                <td>喜好活動類型</td>
+                <td></td>
+                <td style="display: none;">
+                    <form>
+                        <input type="text" name="" id="" value="" />
+                        <br/>
+                        <button>儲存</button>
+                    </form>
+                </td>
+                <td>
+                    <button>編輯</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="photo">
+        <img src="" alt="">
+        <p>編輯</p>
+    </div>
+
+</body>
