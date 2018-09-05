@@ -1,5 +1,8 @@
 package config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
@@ -12,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.web.socket.WebSocketSession;
 
 import model.ActivityBean;
 import model.AttendBean;
@@ -61,6 +65,11 @@ public class SpringConfig {
 	@Scope("prototype")
 	public JSONArray newJsonArray() {
 		return new JSONArray();
+	}
+	
+	@Bean
+	public List<WebSocketSession> websocketList(){
+		return new ArrayList<WebSocketSession>();
 	}
 	
 }
