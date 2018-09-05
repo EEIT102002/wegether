@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import net.bytebuddy.matcher.FailSafeMatcher;
 
 @Entity
 @Table(name="FRIEND")
