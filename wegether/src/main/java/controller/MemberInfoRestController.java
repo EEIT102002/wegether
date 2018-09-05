@@ -13,14 +13,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import model.BlacklistBean;
 import model.FriendBean;
 import model.MemberBean;
 import model.MemberInfoBean;
 import model.SettingBean;
+import model.TrackmemberBean;
+import model.dao.BlacklistDAO;
 import model.dao.FriendDAO;
 import model.dao.MemberDAO;
 import model.dao.MemberInfoDAO;
 import model.dao.SettingDAO;
+import model.dao.TrackmemberDAO;
 
 @RestController
 public class MemberInfoRestController {
@@ -36,6 +40,10 @@ public class MemberInfoRestController {
 	SessionFactory sessionFactory;
 	@Autowired
 	FriendDAO friendDAO;
+	@Autowired
+	TrackmemberDAO trackmemberDAO;
+	@Autowired
+	BlacklistDAO blacklistDAO;
 	
 	@GetMapping( path= {"/member/Info"}, produces= {"application/json"})
 	public ResponseEntity<?> getInfo(){
@@ -81,7 +89,7 @@ public class MemberInfoRestController {
 	public ResponseEntity<?> getFriend(){
 		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(2, 1,0);
 		if(friendBeans.size() > 0) {
-			JSONArray result = new JSONArray();
+			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			friendBeans.forEach(x->{
 				JSONObject row = (JSONObject)applicationContext.getBean("newJson");
 				row.put("nickname", x.getMemberFBean().getNickname());
@@ -99,7 +107,7 @@ public class MemberInfoRestController {
 	public ResponseEntity<?> getFriendApplyed(){
 		List<FriendBean> friendBeans = 	friendDAO.selectByMemberFState(2, 0,0);
 		if(friendBeans.size() > 0) {
-			JSONArray result = new JSONArray();
+			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			friendBeans.forEach(x->{
 				JSONObject row = (JSONObject)applicationContext.getBean("newJson");
 				row.put("nickname", x.getMemberBean().getNickname());
@@ -117,7 +125,7 @@ public class MemberInfoRestController {
 	public ResponseEntity<?> getFriendApply(){
 		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(2, 0,0);
 		if(friendBeans.size() > 0) {
-			JSONArray result = new JSONArray();
+			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			friendBeans.forEach(x->{
 				JSONObject row = (JSONObject)applicationContext.getBean("newJson");
 				row.put("nickname", x.getMemberFBean().getNickname());
@@ -129,6 +137,43 @@ public class MemberInfoRestController {
 		} else {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping( path= {"/member/Trackmember"}, produces= {"application/json"})
+	public ResponseEntity<?> getTrackmember(){
+		List<TrackmemberBean> trackmemberBeans = trackmemberDAO.selectByFan(2);
+		if(trackmemberBeans.size() > 0) {
+			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
+			trackmemberBeans.forEach(x->{
+				JSONObject row = (JSONObject)applicationContext.getBean("newJson");
+				row.put("nickname", x.getMemberByMemberid().getNickname());
+				row.put("photo",x.getMemberByMemberid().getPhoto());
+				row.put("id", x.getId().getMemberid());
+				result.add(row);
+			});
+			return new ResponseEntity<JSONArray>(result, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping( path= {"/member/Blacklist"}, produces= {"application/json"})
+	public ResponseEntity<?> getBlacklist(){
+		List<BlacklistBean> blacklistBeans = blacklistDAO.selectByMember(2);
+		JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
+		if(blacklistBeans.size() > 0) {
+			blacklistBeans.forEach(x->{
+				JSONObject row = (JSONObject)applicationContext.getBean("newJson");
+				row.put("nickname", x.getMemberByBlackid().getNickname());
+				row.put("photo",x.getMemberByBlackid().getPhoto());
+				row.put("id", x.getId().getBlackid());
+				result.add(row);
+			});
+			
+		} 
+		return new ResponseEntity<JSONArray>(result, HttpStatus.OK);
 	}
 	
 	

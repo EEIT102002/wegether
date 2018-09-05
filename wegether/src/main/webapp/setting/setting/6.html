@@ -2,41 +2,76 @@
 <html lang="en">
 
 <head>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="../js/iframeautoheight.js"></script>
-    <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
 
-        .setting4 {
-            padding: 10px;
-        }
-    </style>
-</head>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="../js/iframeautoheight.js"></script>
+        <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
+        <script>
+            var rowtemp = '<a href=""><div><img src="" alt=""><span class="name"></span></div></a>';
+            var friendList;
+            $(document).ready(function () {
+                friendList = $('.friendList');
+                friendlist();
+            })
 
-<body>
-    <div class="setting4">
-        <div>
-            <form>
-                <input type="text" name="" id="">
-                <input type="submit" value="加入黑名單">
-            </form>
+            function friendlist() {
+                addfriendlist(rowtemp, "/wegether/member/Blacklist");
+            }
+
+            function addfriendlist(temple, restful) {
+                friendList.html("");
+                $.ajax({
+                    type: "GET",
+                    url: restful,
+                    dataType: "json",
+                    success: function (json) {
+                        $.each(json, function (i, e) {
+                            var row = $(temple);
+                            row.find(".name").html(e.nickname);
+                            if (e.photo != null)
+                                row.find('img').attr('src', e.photo);
+                            row.find('a').attr('href', e.id);
+                            friendList.append(row);
+                            iframe_auto_height();
+                        })
+                    }
+                });
+            }
+        </script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                width: 800px;
+            }
+
+            .friendList div {
+                margin: 10px;
+                padding: 10px;
+                background-color: rgba(200, 226, 255, 0.459);
+                width: 300px;
+                box-shadow: 4px 4px 12px -2px rgba(20%, 20%, 40%, 0.5);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class='setting4'>
+            <div id="blocklist">
+                <div class="friendsearch">
+                    <form>
+                        <input type="text" name="" id="">
+                        <input type="submit" value="加入黑名單">
+                    </form>
+                </div>
+                <div class="friendList">
+                </div>
+            </div>
         </div>
-        <div>
-            <div style="background-color: red;">
-                <img src="" alt=""> 黑名單C
-            </div>
-            <div style="background-color: red;">
-                <img src="" alt=""> 黑名單C
-            </div>
-            <div style="background-color: red;">
-                <img src="" alt=""> 黑名單C
-            </div>
-        </div>
-    </div>
-</body>
+    </body>
 
 </html>

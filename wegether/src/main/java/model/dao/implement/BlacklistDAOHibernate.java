@@ -7,13 +7,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import model.TrackmemberBean;
-import model.dao.TrackmemberDAO;
+import model.BlacklistBean;
+import model.dao.BlacklistDAO;
 import querylanguage.QueryBean;
-import querylanguage.Select;
 
 @Repository
-public class TrackmemberDAOHibernate implements TrackmemberDAO{
+public class BlacklistDAOHibernate implements BlacklistDAO{
 	@Autowired
 	QueryBean qb;
 	@Autowired
@@ -24,10 +23,10 @@ public class TrackmemberDAOHibernate implements TrackmemberDAO{
 	}
 	
 	@Override
-	public List<TrackmemberBean> selectByFan(int fanid) {
+	public List<BlacklistBean> selectByMember(int memberid) {
 		return getSession().createQuery(
-				"from TrackmemberBean where fanid = :fanid",TrackmemberBean.class)
-				.setParameter("fanid", fanid)
+				"from BlacklistBean where memberid = :memberid",BlacklistBean.class)
+				.setParameter("memberid", memberid)
 				.list();
 	}
 

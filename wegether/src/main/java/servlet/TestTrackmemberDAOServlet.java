@@ -15,20 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
-import model.ActivityBean;
-import model.ArticleBean;
-import model.MemberBean;
+
 import model.TrackmemberBean;
 import model.dao.TrackmemberDAO;
-import model.dao.implement.ActivityDAOHibernate;
-import model.dao.implement.ArticleDAOHibernate;
-import model.dao.implement.MemberDAOHibernate;
-import model.dao.implement.TrackmemberDAOHibernate;
+
 
 @WebServlet("/TrackemberTest")
 public class TestTrackmemberDAOServlet extends HttpServlet {
@@ -53,7 +46,7 @@ public class TestTrackmemberDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<p>Trackmember Test</p>");
-//		 result.forEach(x->out.println(x+"<br>"));
+		 result.forEach(x->out.println(x+"<br>"));
 		out.close();
 	}
 

@@ -4,6 +4,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
@@ -54,6 +55,12 @@ public class SpringConfig {
 	@Scope("prototype")
 	public JSONObject newJson() {
 		return new JSONObject();
+	}
+	
+	@Bean
+	@Scope("prototype")
+	public JSONArray newJsonArray() {
+		return new JSONArray();
 	}
 	
 }

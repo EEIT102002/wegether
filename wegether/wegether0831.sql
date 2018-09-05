@@ -214,7 +214,7 @@ constraint trackact_uq unique (memberid, activityid)
 GO
 
 CREATE TABLE	trackmember	(	--8.追蹤會員名單Table	
-memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--會員id	
+memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--被追蹤會員id	
 fanid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--追蹤會員id
 constraint track_uq unique (memberid, fanid)	
 )	
@@ -222,7 +222,7 @@ GO
 
 CREATE TABLE blacklist	(	---16黑名單	
 memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id) ,	--會員id	
-blackid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id), --黑名單會員id
+blackid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id), --被黑名單會員id
 constraint 	blacklist_uq unique (memberid, blackid)
 )	
 GO

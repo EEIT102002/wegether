@@ -4,15 +4,18 @@
     <script>
 
         var rowtemp = '<a href=""><div><img src="" alt=""><span class="name"></span></div></a>';
+        var applytemp =	'<div><a href=""><div><img src = ""alt=""><span class="name"></span></div></a><div class="friendButton"><button type="button">接受</button><br><button type="button">拒絕</button></div></div>';
+        var applyedtemp =	'<div><a href=""><div><img src = ""alt=""><span class="name"></span></div></a><div class="friendButton"><button type="button">取消</button></div></div>';
         var friendList;
         var friendsearch;
         $(document).ready(function () {
             friendList = $('.friendList');
             friendsearch = $('.friendsearch');
+            iframe_auto_height();
             friendlist();
             $('ul:eq(0) li').click(function () {
                 var i = $(this).index();
-                switch(i){
+                switch (i) {
                     case 0:
                         friendlist();
                         break;
@@ -20,7 +23,7 @@
                         friendapplyedlist();
                         break;
                     case 2:
-                        friendapplylist(); 
+                        friendapplylist();
                         break;
                 }
             })
@@ -29,15 +32,15 @@
 
         function friendlist() {
             friendsearch.show();
-            addfriendlist(rowtemp,"/wegether/member/Friend");
+            addfriendlist(rowtemp, "/wegether/member/Friend");
         }
         function friendapplylist() {
             friendsearch.hide();
-            addfriendlist(rowtemp,"/wegether/member/Friend/Apply");
+            addfriendlist(applytemp, "/wegether/member/Friend/Apply");
         }
         function friendapplyedlist() {
             friendsearch.hide();
-            addfriendlist(rowtemp,"/wegether/member/Friend/Applyed");
+            addfriendlist(applyedtemp, "/wegether/member/Friend/Applyed");
         }
 
         function addfriendlist(temple, restful) {
@@ -67,15 +70,15 @@
             margin: 0;
             padding: 0;
         }
-
-        .setting4 {
-            padding: 10px;
+        body {
+            width: 800px;
         }
-
+        
+        
         .setting4ul {
             margin: 0;
         }
-
+        
         .setting4ul li {
             float: left;
             padding: 4px;
@@ -87,6 +90,10 @@
         .setting4ul li:hover {
             color: white;
             background-color: rgba(0, 44, 95, 0.100);
+            
+        }
+        .friendsearch{
+            margin: 10px;
         }
 
         .setting4list:after {
@@ -95,12 +102,49 @@
             clear: both;
         }
 
-        .friendList div {
+        .friendList>div,
+        .friendList> a {
+            padding-left: 20px;
             margin: 10px;
-            padding: 10px;
             background-color: rgba(200, 226, 255, 0.459);
             width: 300px;
+            height: 60px;
             box-shadow: 4px 4px 12px -2px rgba(20%, 20%, 40%, 0.5);
+        }
+
+        .friendList>a {
+            display: block;
+            position: relative;
+        }
+
+        .friendList>a>div {
+            display: flex;
+            justify-content: left; /* align horizontal */
+            align-items: center; /* align vertical */
+            height: 100%;
+            width: 100%;
+
+        }
+        .friendList>div {
+            display: table;
+        }
+
+        .friendList>div>a {
+            display: table-cell;
+            text-align: left;
+            vertical-align: middle;
+            width: 70%;
+        }
+
+        .friendButton {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            width: 30%;
+        }
+
+        .friendButton button {
+            margin: 5px;
         }
     </style>
 
@@ -127,5 +171,4 @@
             </div>
         </div>
     </div>
-
 </body>

@@ -8,7 +8,8 @@
             var pwd = $('#pwd');
             pwd.find('td:eq(2)>span').click(function () {
                 pwd.find('form').toggle();
-                $(this).text() == "修改密碼" ? "取消" : "修改密碼";
+                pwd.find('#pwdt').toggle();
+                $(this).text() == "修改密碼" ? $(this).text("取消") : $(this).text("修改密碼");
             });
             $.ajax({
                 type: "GET",
@@ -36,12 +37,15 @@
             margin: 0;
             padding: 0;
         }
+        body{
+            width: 800px;
+        }
 
         table {
-            margin-top: 10px;
             border-top: 3px solid rgba(0, 44, 95, 0.3);
             border-bottom: 3px solid rgba(0, 44, 95, 0.3);
             border-collapse: collapse;
+            width:750px;
         }
 
         tr {
@@ -52,9 +56,15 @@
             padding: 10px;
             border-top: 1.5px solid rgba(0, 44, 95, 0.2);
         }
-
+		tr td:nth-child(1) {
+            width: 25%;
+        }
         tr td:nth-child(2) {
-            width: 200px;
+        	color:gray;
+            width: 60%;
+        }
+        tr td:nth-child(3) {
+            text-align: center;
         }
 
         body {
@@ -78,6 +88,7 @@
         <tr id="pwd">
             <td>密碼</td>
             <td>
+            	<span id = "pwdt">修改密碼</span>
                 <form style="display: none;">
                     <div>
                         <p>舊密碼:</p>
