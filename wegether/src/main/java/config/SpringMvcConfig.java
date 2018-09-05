@@ -20,7 +20,7 @@ import model.dao.ArticleDAO;
 import model.dao.implement.ArticleDAOHibernate;
 
 @Configuration
-@ComponentScan(basePackages = { "controller" })
+@ComponentScan(basePackages = {"controller", "webstock"})
 @EnableWebMvc
 public class SpringMvcConfig implements WebMvcConfigurer {
 	@Autowired
