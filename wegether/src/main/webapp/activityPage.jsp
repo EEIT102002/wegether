@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="org.apache.commons.codec.binary.Base64" %>
+<%@ page import="org.apache.commons.codec.binary.StringUtils" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/activityPage.css">
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -14,7 +18,7 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
-<link rel="stylesheet" href="css/activityPage.css">
+
 <script>
 	$(function(){
 		$('#header_nav ul li').click(function(){
@@ -88,7 +92,7 @@
 					<span><i class="fa fa-bars" aria-hidden="true"></i></span>
 				  </button>
 					<div class="logo">
-						<h1><a class="navbar-brand" href="index.html">Wegther</a></h1>
+						<h1><a class="navbar-brand" href="index.html">Wegether</a></h1>
 					</div>
 				</div>
 				<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
@@ -145,7 +149,7 @@
 	<div class="container">
         <div id="small_con">
 <!--       寫在這以下 -->
-<div id="core">
+				<div id="core">
             
                     <div id="up" >
                         <div id="left" >
@@ -155,16 +159,23 @@
                                         <a href="#"><img src="images/activityPageImages/host.png" ></a>
                                 </div>
                                 <div  id="left" style="width: auto;">
-                                    <p id="txtup" style="background-color:#FFBB73" >Ｍimi</p>
-                                    <p id="txtup" >銀行專員</p>
+                                    <p id="txtup" style="background-color:#FFBB73" >${memBean.nickname}</p>
+                                    <p id="txtup" >${memBean.job}</p>
                                 </div>   
-                                <div id="right" >
-                                    <a href="#"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
-                                    <img src="images/activityPageImages/click2.png" width="50" > 53
+                                
+
+                                   
+                                  
+								
+								
+                                <div id="right" >                  
+					                <a href="activityPage.controller"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
+                                    <img src="images/activityPageImages/click2.png" width="50" > ${actBean.click}
+                                   
                                 </div>                            
                             </div>
                             <div>
-                               <img src="images/activityPageImages/head.png" width="400" > 
+                               <img src="data:image/jpg;base64,${base64Image}"  width="400" > 
                             </div>
                             <div style="padding-top: 10px;">
                                     <a href="#"> <img src="images/activityPageImages/p1.jpg" width="100" height="80"></a>
@@ -176,13 +187,13 @@
 
                         
                         <div id="right">
-                            <h3>一個適合碰面的美好日子</h3><!-- right1 end -->
-                            <p>七月 29 (日) 12:00</p><!-- right2 end -->
-                            <p> 100台灣台北市中正區館前路36號</p><!-- right3 end -->
+                            <h3>${actBean.title}</h3><!-- right1 end -->
+                            <p>${actBean.actbegin}</p><!-- right2 end -->
+                            <p>${actBean.addr}</p><!-- right3 end -->
                             <div>
-                                    <img src="images/activityPageImages/people.png" width="20" > 10人 &emsp;
-                                    <img src="images/activityPageImages/fees.png" width="20" > 500元 &emsp;
-                                    <img src="images/activityPageImages/deadline.png" width="40" >7/20 
+                                    <img src="images/activityPageImages/people.png" width="20" > ${actBean.numberlimit}人 &emsp;
+                                    <img src="images/activityPageImages/fees.png" width="20" >${actBean.feed}元 &emsp;
+                                    <img src="images/activityPageImages/deadline.png" width="40" >${actBean.dateline} 
                             </div><!-- right4 end -->
                             <div>
                                     <a href="#"><img src="images/activityPageImages/fans1.png" width="40" ></a> &emsp; 
@@ -202,20 +213,12 @@
 
 
                      <div id="down">
-                            <h2>一個適合碰面的美好日子</h2>
-                            <p >
-                               雖然每天都要吃飯，但覺得7/29真的很適合吃飯！
-                               如果你也這麼覺得，那咱們就一起當個飯友吧～20號會審核唷～～ 
-                               若超過人數就會停止審核，想參加的人要趕快來報名唷😁
-                            </p>
-                            <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
-                                
-                            
-                                    
-                                
-                                <div id="msgid">
-                                        <img src="images/activityPageImages/msgs.png" width="600" >
-                                </div>
+                            <h2>${actBean.title}</h2>
+                            <p > ${actBean.content} </p>
+                            <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>                       
+                            <div id="msgid">
+                               <img src="images/activityPageImages/msgs.png" width="600" >
+                             </div>
                     </div> <!-- down end -->
                     
                 </div>
@@ -246,7 +249,7 @@
                         </ul>
                     </li>
             </ul>
-            <p class="text-center">- Wegther 2018 EEIT10202 -</p>
+            <p class="text-center">- Wegether 2018 EEIT10202 -</p>
     </footer>
 </body>
 </html>
