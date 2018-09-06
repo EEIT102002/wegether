@@ -39,12 +39,15 @@ public class ActivityBean {
 	private String content;
 	private Integer numberlimit;
 	private Integer feed;
+	@Column(insertable = false)
 	private Integer state;
 	private Double rank1;
 	private Double rank2;
 	private Double rank3;
+	@Column(insertable = false)
 	private Integer judges;
 	private String form;
+	@Column(insertable = false)
 	private Integer click;
 	
 	//member
