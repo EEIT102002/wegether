@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import model.ActivityBean;
 import model.AttendBean;
 import model.dao.AttendDAO;
 
@@ -33,6 +34,20 @@ public class AttendDAOHibernate implements AttendDAO {
 
 		return this.getSession().createQuery(
 				"from AttendBean", AttendBean.class).list();
+	}
+	
+	private final String selectByActID = "from AttendBean  WHERE activityid = :activityid ";
+	@Override
+	public List<AttendBean> selectByActID(int actID) {
+		return this.getSession().createQuery(selectByActID, AttendBean.class)
+				.setParameter("activityid",actID).list();		
+	}
+	
+	private final String selectByMemID = "from AttendBean  WHERE memberid = :memberid ";
+	@Override
+	public List<AttendBean> selectByMemID(int memID) {
+		return this.getSession().createQuery(selectByMemID, AttendBean.class)
+				.setParameter("memberid",memID).list();
 	}
 
 	@Override

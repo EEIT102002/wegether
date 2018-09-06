@@ -156,7 +156,7 @@
                                 
                             <div id="up" >
                                 <div id="left" style="width: auto;">
-                                        <a href="#"><img src="images/activityPageImages/host.png" ></a>
+                                        <a href="#"><img src="data:image/jpg;base64,${memPicList.get(0)}"  width="70" > </a>
                                 </div>
                                 <div  id="left" style="width: auto;">
                                     <p id="txtup" style="background-color:#FFBB73" >${memBean.nickname}</p>
@@ -169,19 +169,20 @@
 								
 								
                                 <div id="right" >                  
-					                <a href="activityPage.controller"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
+					                <a href="activityPage.controller?actid=1"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
                                     <img src="images/activityPageImages/click2.png" width="50" > ${actBean.click}
                                    
                                 </div>                            
                             </div>
                             <div>
-                               <img src="data:image/jpg;base64,${base64Image}"  width="400" > 
+                               <img src="data:image/jpg;base64,${actPicList.get(0)}"  width="400" > 
                             </div>
                             <div style="padding-top: 10px;">
-                                    <a href="#"> <img src="images/activityPageImages/p1.jpg" width="100" height="80"></a>
-                                    <a href="#"> <img src="images/activityPageImages/p2.jpg" width="100"  height="80"></a>
-                                    <a href="#"> <img src="images/activityPageImages/p3.jpg" width="100"  height="80"></a>
-                                    <a href="#"> <img src="images/activityPageImages/p4.jpg" width="100"  height="80"></a>
+                            
+                             	<c:forEach var="obj" items="${actPicList}">
+							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="100"  height="80"></a>
+								</c:forEach>
+                                   
                             </div>
                         </div>  <!-- left end -->
 

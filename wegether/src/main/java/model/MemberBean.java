@@ -96,6 +96,7 @@ public class MemberBean {
 		this.friendBean = friendBean;
 	}
 
+	//Picture
 	@OneToMany(
 			mappedBy="memberBean",
 			cascade= {CascadeType.REMOVE}
