@@ -12,22 +12,17 @@ import model.dao.implement.ServiceDAOHibernate;
 @Service
 public class ServiceService {
 	@Autowired
-	private static ServiceDAO serviceDAO;
+	private  ServiceDAO serviceDAO;
 
 
 	public List<ServiceBean> select(ServiceBean bean) {
 		System.out.println("ServiceService");
 		List<ServiceBean> result = null;
-		if(bean!=null && bean.getId()!=0) {
-			ServiceBean temp = serviceDAO.selectid(bean.getId());
-			if(temp!=null) {
-				result = new ArrayList<ServiceBean>();
-				result.add(temp);
-			}
-		} else {
-			result = serviceDAO.select(); 
-			
-		}
+		if(bean!=null && bean.getMemberid()!=0) {
+			System.out.println(bean.getMemberid());
+			 result = serviceDAO.selectMemberId(bean.getMemberid());
+			 System.out.println(result);
+			} 
 		return result;
 	}
 	public ServiceBean insert(ServiceBean bean) {

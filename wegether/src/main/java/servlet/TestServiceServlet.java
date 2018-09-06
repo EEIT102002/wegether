@@ -88,7 +88,7 @@ public class TestServiceServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 //		out.println("<p>ServiceBean<p>");
 		result.forEach(x->out.println(x+"<br>"));////對應<ServiceBean> result
-		out.print(result);
+//		out.print(result);
 		out.close();
 		
 		
