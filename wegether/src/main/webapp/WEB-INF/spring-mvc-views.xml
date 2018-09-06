@@ -19,10 +19,14 @@
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/testart.jsp"></property>
 	</bean>
-	<bean id="personal.success"
-		class="org.springframework.web.servlet.view.RedirectView">
-		<property name="contextRelative" value="true"></property>
-		<property name="url" value="/personal.jsp"></property>
+<!-- 	<bean id="personal.success" -->
+<!-- 		class="org.springframework.web.servlet.view.RedirectView"> -->
+<!-- 		<property name="contextRelative" value="true"></property> -->
+<!-- 		<property name="url" value="/personal.jsp"></property> -->
+<!-- 	</bean> -->
+
+	<bean id="personal.success" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/personalPage.jsp"></property>
 	</bean>
 	
 	<bean id="activityPage" class="org.springframework.web.servlet.view.InternalResourceView">

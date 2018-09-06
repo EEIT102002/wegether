@@ -83,7 +83,7 @@ public class ActivityPageController {
 		model.addAttribute("actPicBean",actPicBean);
 		model.addAttribute("memPicBean",memPicBean);
 		model.addAttribute("actPicList",actPicList);
-		model.addAttribute("memPicList",memPicList);
+     	model.addAttribute("memPicList",memPicList);
 		
 		return "activityPage";
 	}
