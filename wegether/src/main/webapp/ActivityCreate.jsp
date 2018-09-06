@@ -140,13 +140,13 @@
         $(function(){
         	$('#preBotton').click(function(){
         		var selCityVal = $('#selCity').val();
-        		if(selCityVal == 00)
+        		if(selCityVal == 0)
         			var city = '台北市';
-        		if(selCityVal == 01)
+        		if(selCityVal == 1)
         			var city = '新北市';
         		
         		var datas = [];
-				$(':checked[name="selActType"]').each(function(){
+				$(':checked[name="classtype"]').each(function(){
 					datas.push($(this).val())
 				})
 				
@@ -308,39 +308,39 @@
 							<td>聚會封面</td>
 							<td>
 								<img src="images/actcreate.jpg" id="picZone" class="selPic">
-								<input type="file" name="actPic" id="actPic" accept="image/*">
+								<input type="file" name="picture" id="actPic" accept="image/*">
 							</td>
 						</tr>
 						<tr>
 							<td>聚會標題</td>
 							<td>
-								<input type="text" name="insertActname" id="insertActname">
+								<input type="text" name="title" id="insertActname">
 							</td>
 						</tr>
 						<tr>
 							<td>聚會類型</td>
 							<td>
-							<input type="checkbox" name="selActType" value="輕鬆聊">輕鬆聊
-							<input type="checkbox" name="selActType" value="浪漫約會">浪漫約會
-							<input type="checkbox" name="selActType" value="寵物">寵物
-							<input type="checkbox" name="selActType" value="桌遊">桌遊
-							<input type="checkbox" name="selActType" value="郊遊踏青">郊遊踏青
-							<input type="checkbox" name="selActType" value="電影">電影
+							<input type="checkbox" name="classtype" value="輕鬆聊">輕鬆聊
+							<input type="checkbox" name="classtype" value="浪漫約會">浪漫約會
+							<input type="checkbox" name="classtype" value="寵物">寵物
+							<input type="checkbox" name="classtype" value="桌遊">桌遊
+							<input type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青
+							<input type="checkbox" name="classtype" value="電影">電影
 							</td>
 						</tr>
 						<tr>
 							<td>城市/所在地</td>
 							<td>
-								<select name="selCity" id="selCity">
-									<option value="00">台北市</option>
-									<option value="01">新北市</option>
+								<select name="city" id="selCity">
+									<option value="0">台北市</option>
+									<option value="1">新北市</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<td>地點</td>
 							<td>
-								<input type="text" name="insertWhere" id="insertWhere" value="館前路36號">
+								<input type="text" name="addr" id="insertWhere" value="館前路36號">
 							</td>
 						</tr>
 						<tr>
@@ -360,25 +360,25 @@
 						<tr>
 							<td>詳細描述</td>
 							<td>
-								<textarea name="insertDes" id="insertDes" cols="30" rows="10"></textarea>
+								<textarea name="content" id="insertDes" cols="30" rows="10"></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>聚會人數</td>
 							<td>
-								<input step="1" type="number" id="selNum" name="selNum" ng-model="peoplemax" ng-init="peoplemax = 5">
+								<input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax" ng-init="peoplemax = 5">
 							</td>
 						</tr>
 						<tr>
 							<td>聚會預算</td>
 							<td>
-								<input step="50" type="number" id="selBud" name="selBud" ng-model="fee" ng-init="fee = 100">
+								<input step="50" type="number" id="selBud" name="feed" ng-model="fee" ng-init="fee = 100">
 							</td>
 						</tr>
 						<tr>
 							<td>報名截止日期</td>
 							<td>
-								<input type="date" id="deathLine" name="deathLine">
+								<input type="date" id="deathLine" name="dateline">
 							</td>
 						</tr>
 		

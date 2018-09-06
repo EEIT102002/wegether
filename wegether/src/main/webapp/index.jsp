@@ -20,36 +20,45 @@
 		//.1. 轉時間
 		//.2. 搞定圖片
 		//.3. 連接 MEMBER BEAN 取得會員姓名
-		$.ajax("${pageContext.request.contextPath}/activity",{
+// 		$.ajax("${pageContext.request.contextPath}/activity",{
+// 			method:"GET",
+// 			success:function(jsonArray){
+// 				var i = 0;
+// 		        $.each(jsonArray, function() {
+// 		        var date = new Date(jsonArray[i].actbegin);
+// 					Y = date.getFullYear() + '-';
+// 					M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+// 					D = date.getDate() + ' ';
+// 	        	var str1="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img src='images/01.jpg' alt='' class='img-responsive'>";
+//         		str1+="<figcaption>";
+//         		str1+="活動名稱:"+jsonArray[i].title+"<br>"+"活動地點:"+jsonArray[i].city+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"活動ID:"+jsonArray[i].id+"<br>"+"主辦人ID:"+jsonArray[i].hostid;
+//         		str1+="</figcaption><figure></div>";
+// 	        	$("#show_act_area").append(str1);
+// 		        i++;
+// 		        });
+// 			}
+// 		})//ajax end
+		$.ajax("${pageContext.request.contextPath}/member/Info",{
 			method:"GET",
-			success:function(jsonArray){
-				var i = 0;
-		        $.each(jsonArray, function() {
-		        var date = new Date(jsonArray[i].actbegin);
-					Y = date.getFullYear() + '-';
-					M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-					D = date.getDate() + ' ';
-	        	var str1="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img src='images/01.jpg' alt='' class='img-responsive'>";
-        		str1+="<figcaption>";
-        		str1+="活動名稱:"+jsonArray[i].title+"<br>"+"活動地點:"+jsonArray[i].city+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"活動ID:"+jsonArray[i].id+"<br>"+"主辦人ID:"+jsonArray[i].hostid;
-        		str1+="</figcaption><figure></div>";
+			success:function(data){
+				alert("A");
+		        	str1 = data.name
 	        	$("#show_act_area").append(str1);
-		        i++;
-		        });
+// 		        });
 			}
 		})//ajax end
-		$('#header_nav ul li').click(function(){
-			$(this).addClass('active').siblings().removeClass('active');
-		})
-		$('#upTop').click(function(){
-			var body = $("html, body");
-			body.stop().animate({scrollTop:0}, 500, 'swing');
-			}).mouseover(function(){
-				$(this).removeClass('animated');
-			}).mouseout(function(){
-				$(this).addClass('animated');
-			})
-	})
+// 		$('#header_nav ul li').click(function(){
+// 			$(this).addClass('active').siblings().removeClass('active');
+// 		})
+// 		$('#upTop').click(function(){
+// 			var body = $("html, body");
+// 			body.stop().animate({scrollTop:0}, 500, 'swing');
+// 			}).mouseover(function(){
+// 				$(this).removeClass('animated');
+// 			}).mouseout(function(){
+// 				$(this).addClass('animated');
+// 			})
+// 	})
 
 
 </script>
