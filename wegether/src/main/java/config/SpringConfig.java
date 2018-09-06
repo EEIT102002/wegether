@@ -17,7 +17,7 @@ import model.ActivityBean;
 import model.AttendBean;
 
 @Configurable
-@ComponentScan(basePackages= {"model","querylanguage"})
+@ComponentScan(basePackages= {"model","querylanguage","Service"})
 public class SpringConfig {
 
 	@Bean
