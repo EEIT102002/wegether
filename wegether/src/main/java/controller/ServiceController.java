@@ -91,9 +91,13 @@ public class ServiceController {
 		if ("Select".equals(servicemethod)) {
 			List<ServiceBean> result = serviceService.select(bean);
 //			List<ServiceBean> result = serviceDAO.select();
-			System.out.println(result.size());
-			model.addAttribute("select", result);
-			return "Service.List";
+			if (result!=null) {
+				System.out.println(result.size());
+				model.addAttribute("select", result);
+				return "Service.List";
+			}
+			return "Service.errors";
+			
 		} else
 
 		if ("提交".equals(servicemethod)) {
