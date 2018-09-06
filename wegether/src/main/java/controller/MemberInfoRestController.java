@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -46,11 +48,10 @@ public class MemberInfoRestController {
 	BlacklistDAO blacklistDAO;
 	
 	@GetMapping( path= {"/member/Info"}, produces= {"application/json"})
-	public ResponseEntity<?> getInfo(){
-		MemberInfoBean result = memberInfoDAO.select(2);
-		System.out.println(result);
+	public ResponseEntity<?> getInfo(HttpServletRequest request){
 		
-		
+		Integer id = (Integer) request.getAttribute("memberid");
+		MemberInfoBean result = memberInfoDAO.select(id);
 		if(result!=null) {
 			return new ResponseEntity<MemberInfoBean>(result, HttpStatus.OK);
 		} else {
@@ -60,8 +61,10 @@ public class MemberInfoRestController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping( path= {"/member/Account"}, produces= {"application/json"})
-	public ResponseEntity<?> getAccount(){
-		MemberBean memberBean = 	memberDAO.select(2);
+	public ResponseEntity<?> getAccount(HttpServletRequest request){
+		
+		Integer id = (Integer) request.getAttribute("memberid");
+		MemberBean memberBean = memberDAO.select(id);
 		if(memberBean!=null) {
 			JSONObject result = (JSONObject)applicationContext.getBean("newJson");
 			result.put("account", memberBean.getAccount());
@@ -74,8 +77,10 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Setting"}, produces= {"application/json"})
-	public ResponseEntity<?> getSetting(){
-		SettingBean settingBean = 	settingDAO.select(2);
+	public ResponseEntity<?> getSetting(HttpServletRequest request){
+		
+		Integer id = (Integer) request.getAttribute("memberid");
+		SettingBean settingBean = 	settingDAO.select(id);
 		if(settingBean != null) {
 			sessionFactory.getCurrentSession().evict(settingBean);
 			settingBean.setMemberBean(null);
@@ -86,8 +91,10 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Friend"}, produces= {"application/json"})
-	public ResponseEntity<?> getFriend(){
-		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(2, 1,0);
+	public ResponseEntity<?> getFriend(HttpServletRequest request){
+		
+		Integer id = (Integer) request.getAttribute("memberid");
+		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(id, 1,0);
 		if(friendBeans.size() > 0) {
 			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			friendBeans.forEach(x->{
@@ -104,8 +111,10 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Friend/Applyed"}, produces= {"application/json"})
-	public ResponseEntity<?> getFriendApplyed(){
-		List<FriendBean> friendBeans = 	friendDAO.selectByMemberFState(2, 0,0);
+	public ResponseEntity<?> getFriendApplyed(HttpServletRequest request){
+		
+		Integer id = (Integer) request.getAttribute("memberid");
+		List<FriendBean> friendBeans = 	friendDAO.selectByMemberFState(id, 0,0);
 		if(friendBeans.size() > 0) {
 			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			friendBeans.forEach(x->{
@@ -122,8 +131,10 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Friend/Apply"}, produces= {"application/json"})
-	public ResponseEntity<?> getFriendApply(){
-		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(2, 0,0);
+	public ResponseEntity<?> getFriendApply(HttpServletRequest request){
+		
+		Integer id = (Integer) request.getAttribute("memberid");
+		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(id, 0,0);
 		if(friendBeans.size() > 0) {
 			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			friendBeans.forEach(x->{
@@ -141,8 +152,10 @@ public class MemberInfoRestController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping( path= {"/member/Trackmember"}, produces= {"application/json"})
-	public ResponseEntity<?> getTrackmember(){
-		List<TrackmemberBean> trackmemberBeans = trackmemberDAO.selectByFan(2);
+	public ResponseEntity<?> getTrackmember(HttpServletRequest request){
+		
+		Integer id = (Integer) request.getAttribute("memberid");
+		List<TrackmemberBean> trackmemberBeans = trackmemberDAO.selectByFan(id);
 		if(trackmemberBeans.size() > 0) {
 			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			trackmemberBeans.forEach(x->{
@@ -160,8 +173,10 @@ public class MemberInfoRestController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping( path= {"/member/Blacklist"}, produces= {"application/json"})
-	public ResponseEntity<?> getBlacklist(){
-		List<BlacklistBean> blacklistBeans = blacklistDAO.selectByMember(2);
+	public ResponseEntity<?> getBlacklist(HttpServletRequest request){
+		
+		Integer id = (Integer) request.getAttribute("memberid");
+		List<BlacklistBean> blacklistBeans = blacklistDAO.selectByMember(id);
 		JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 		if(blacklistBeans.size() > 0) {
 			blacklistBeans.forEach(x->{

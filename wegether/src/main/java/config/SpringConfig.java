@@ -1,5 +1,12 @@
 package config;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
@@ -12,12 +19,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.web.socket.WebSocketSession;
 
+import Service.bean.LoginBean;
 import model.ActivityBean;
 import model.AttendBean;
 
 @Configurable
-@ComponentScan(basePackages= {"model","querylanguage"})
+@ComponentScan(basePackages= {"model","querylanguage","Service"})
 public class SpringConfig {
 
 	@Bean
@@ -42,6 +51,7 @@ public class SpringConfig {
 		builder.configure("hibernate.cfg.xml");
 		return builder.buildSessionFactory();
 	}
+	
 	@Bean 
 	public Integer msgSelectLimit() {
 		return 10; 
@@ -61,6 +71,21 @@ public class SpringConfig {
 	@Scope("prototype")
 	public JSONArray newJsonArray() {
 		return new JSONArray();
+	}
+	
+	@Bean
+	public List<WebSocketSession> websocketList(){
+		return new ArrayList<>();
+	}
+	
+	@Bean
+	public Map<Integer, LoginBean> loginMap(){
+		return new HashMap<>();
+	}
+	
+	@Bean(name = "tokenMap")
+	public Map<String, Integer> tokenMap(){
+		return new HashMap<String, Integer>();
 	}
 	
 }

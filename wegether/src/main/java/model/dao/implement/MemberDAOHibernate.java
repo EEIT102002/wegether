@@ -42,11 +42,24 @@ public class MemberDAOHibernate implements MemberDAO {
 		if (memberBean != null) {
 			MemberBean updateBean = this.getSession().get(MemberBean.class, memberBean.getId());
 			if (updateBean != null) {
-				this.getSession().save(memberBean);
+				this.getSession().merge(memberBean);
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public MemberBean selectByAccount(String account) {
+		 List<MemberBean> result = getSession().createQuery(
+				 "from MemberBean where account = :account",MemberBean.class)
+				 .setParameter("account", account).list();
+		 if(result.size()>0) {
+			 return result.get(0);
+		 }else {
+			 return null;
+		 }
+
 	}
 
 	

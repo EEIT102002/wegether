@@ -75,6 +75,7 @@ public class ActivityPageController {
 		model.addAttribute("hostBean",hostBean);
 		
 		model.addAttribute("actPicList",actPicList);
+
 		model.addAttribute("hostPicList",hostPicList);
 		
 		if(memPicList.size()!=0) 
@@ -86,6 +87,7 @@ public class ActivityPageController {
 			model.addAttribute("attedNumber",attBean.size()+" 個申請人");//報名人數
 		else
 			model.addAttribute("attedNumber",null);//報名人數
+
 		
 		return "activityPage";
 	}

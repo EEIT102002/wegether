@@ -84,7 +84,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setRank1(3.0);
 		bean.setRank2(3.0);
 		bean.setRank3(3.0);
-		bean.setState(1);
+		//bean.setState(1);
 		bean.setTitle("一起去爬山title7");
 		ActivityBean result = activityDAOHibernate.insert(bean);
 

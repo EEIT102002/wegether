@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
 	<bean id="test.success"
 		class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true"></property>
@@ -13,20 +13,43 @@
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/index.jsp"></property>
 	</bean>
+	<!-- <bean id="personal.success" -->
+	<!-- class="org.springframework.web.servlet.view.RedirectView"> -->
+	<!-- <property name="contextRelative" value="true"></property> -->
+	<!-- <property name="url" value="/personal.jsp"></property> -->
+	<!-- </bean> -->
 
-		<bean id="oh"
-		class="org.springframework.web.servlet.view.RedirectView">
-		<property name="contextRelative" value="true"></property>
-		<property name="url" value="/testart.jsp"></property>
-	</bean>
 	<bean id="personal.success"
-		class="org.springframework.web.servlet.view.RedirectView">
-		<property name="contextRelative" value="true"></property>
-		<property name="url" value="/personal.jsp"></property>
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/personalPage.jsp"></property>
 	</bean>
-	
-	<bean id="activityPage" class="org.springframework.web.servlet.view.InternalResourceView">
+	<bean id="activityPage"
+		class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/activityPage.jsp"></property>
 	</bean>
-	
+	<bean id="Service.errors"
+		class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true"></property>
+		<property name="url" value="/Service.jsp"></property>
+	</bean>
+	<bean id="Service.insertpage"
+		class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true"></property>
+		<property name="url" value="/Service.jsp"></property>
+	</bean>
+	<bean id="Service.List"
+		class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true"></property>
+		<property name="url" value="/ServiceListPage.jsp"></property>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.RedirectView"
+		id="actCreateErr.page">
+		<property value="true" name="contextRelative" />
+		<property value="/ActivityCreate.jsp" name="url" />
+	</bean>
+	<bean class="org.springframework.web.servlet.view.RedirectView"
+		id="actCreateSuc.page">
+		<property value="true" name="contextRelative" />
+		<property value="/index.jsp" name="url" />
+	</bean>
 </beans>
