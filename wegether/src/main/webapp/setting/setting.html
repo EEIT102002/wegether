@@ -18,24 +18,25 @@
     <script src="./js/setting.js"></script>
 	 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
     <script>
+    var logindiv;
         $(function () {
             $('#header_nav ul li').click(function () {
                 $(this).addClass('active').siblings().removeClass('active');
             })
-            
-            $('#login').click(function () {
-                
+            logindiv = $('#login');
+            $('#login').click(function () {      
                 var message = $('#loginform').serialize();
                 $.post(
                     "/wegether/login.do"
                     ,message
                     ,function(data){
                         if(data.state == true){
-                        	console.log($.cookie('token'));
-                            var qqq = $(this).closest('.modal');
-                             $(qqq).modal('hide');
-                             var qqq = $(this).closest('.modal');
-                             $(qqq).modal('hide');
+                            console.log($.cookie('token'));
+                            loadIframe('./setting/1.html');
+                            var qqq = $(logindiv).closest('.modal');
+                            $(qqq).modal('hide');
+                            var qqq = $(logindiv).closest('.modal');
+                            $(qqq).modal('hide');
                         }
                     }
                     ,"json"
