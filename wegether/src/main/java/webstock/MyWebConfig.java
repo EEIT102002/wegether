@@ -1,5 +1,6 @@
 package webstock;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -12,10 +13,11 @@ import webstock.model.MyHandler;
 @EnableWebSocket
 @EnableWebMvc
 public class MyWebConfig implements WebSocketConfigurer {
+	@Autowired
+	MyHandler myhandler;
 
-  @Override
-  public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-      registry.addHandler(new MyHandler(), "/myHandler")
-              .setAllowedOrigins("*");
-  }
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		registry.addHandler(myhandler, "/myHandler").setAllowedOrigins("*");
+	}
 }
