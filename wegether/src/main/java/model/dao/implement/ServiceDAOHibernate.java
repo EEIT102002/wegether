@@ -58,7 +58,7 @@ public class ServiceDAOHibernate implements ServiceDAO {
 
 	@Override
 	public List<ServiceBean> select() {
-
+		System.out.println("ServiceDAOHibernate");
 		return this.getSession().createQuery("from ServiceBean", ServiceBean.class).list();
 	}
 

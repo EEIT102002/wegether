@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,6 +17,27 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
 <script>
 	$(function(){
+		//.1. 轉時間
+		//.2. 搞定圖片
+		//.3. 連接 MEMBER BEAN 取得會員姓名
+		$.ajax("${pageContext.request.contextPath}/activity",{
+			method:"GET",
+			success:function(jsonArray){
+				var i = 0;
+		        $.each(jsonArray, function() {
+		        var date = new Date(jsonArray[i].actbegin);
+					Y = date.getFullYear() + '-';
+					M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+					D = date.getDate() + ' ';
+	        	var str1="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img src='images/01.jpg' alt='' class='img-responsive'>";
+        		str1+="<figcaption>";
+        		str1+="活動名稱:"+jsonArray[i].title+"<br>"+"活動地點:"+jsonArray[i].city+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"活動ID:"+jsonArray[i].id+"<br>"+"主辦人ID:"+jsonArray[i].hostid;
+        		str1+="</figcaption><figure></div>";
+	        	$("#show_act_area").append(str1);
+		        i++;
+		        });
+			}
+		})//ajax end
 		$('#header_nav ul li').click(function(){
 			$(this).addClass('active').siblings().removeClass('active');
 		})
@@ -60,7 +82,7 @@
 				</div>
 			</nav>
 			<div class="banner-info">
-				<div class="from-group" id="show_act_area">
+				<div class="from-group">
 						<form action="">
 								<div class="AreaCon">
 								<label>地區 :</label>
@@ -158,7 +180,7 @@
 					<li><a href="">時間</a></li>
 					<li><a href="">地區</a></li>
 				</ul>
-					<div class="row  masonry">
+					<div class="row  masonry" id="show_act_area">
 <!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
 <!-- 							<figure> -->
 <!-- 							<img src="images/01.jpg" alt="" class="img-responsive"> -->

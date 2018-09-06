@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -170,8 +171,8 @@
          <div id="core">
                     <div id="left">
                         <div style="text-align: center"  >
-                            <img  src="images/06.jpg" width="280" style="position:relative;top:20px;" > 
-                          
+                            <img src="data:image/jpg;base64,${picbean.get(0)}"  width="280" style="position:relative;top:20px;" > 
+                             
                         </div>
                         <div style="text-align: center">
                            <br>
@@ -182,9 +183,9 @@
                                  <td style="padding:20px;">好友</td>
                               </tr> 
                               <tr>
-                                 <td style="padding:10px;">??</td>
-                                 <td style="padding:10px;">??</td>
-                                 <td style="padding:10px;">??</td>
+                                 <td style="padding:10px;">${trackbean}</td>
+                                 <td style="padding:10px;">${attbean}</td>
+                                 <td style="padding:10px;">${fribean}</td>
                               </tr>
                               </table>
                         </div>  
@@ -194,8 +195,8 @@
                     <div id="right">
                         <div id="core1">
                             <div id="left">
-                                <p >${mem.nickname}</p>
-                                <p >台灣${mem.city}</p>
+<%--                                 <p >${mem.nickname}</p> --%>
+                                <p >台灣-${mem.city} ${mem.nickname}</p>
                             </div>
                             <div id="right">
 <!--                                 <p >編輯個人資料</p> -->
@@ -213,15 +214,25 @@
                          </div>
                             <h4 style="font-weight:bold" >自我簡介:</h4>
                               <span style="font-size: 15px;" id="core1">${mem.content}</span>
-                            <h4 style="font-weight:bold">姓名:</h4>
+                            <h4 style="font-weight:bold">個人姓名:</h4>
                               <span style="font-size: 15px;">${mem.name}</span> 
-                            <h4 style="font-weight:bold">生日:</h4>
-                              <span style="font-size: 15px;">${mem.birthday}</span>   
+                            <h4 style="font-weight:bold">出生日期:</h4>
+                              <span style="font-size: 15px;">
+                              <fmt:formatDate value="${mem.birthday}" pattern="yyyy/MM/dd"/>
+                              </span>   
                            <h4 style="font-weight:bold">性別:</h4>
-                              <span style="font-size: 15px;">${mem.sex}</pspan>
+                              <span style="font-size: 15px;">
+<%--                               <c:if test="${mem.sex==0}" value="boy"/> --%>
+<%--                               <c:out value="boy" /> --%>
+<%--                               <c:if test="${mem.sex==1}" value="girl"/> --%>
+<%--                               <c:out value="girl" /> --%>                                
+                              <c:if test="${mem.sex==0}">男生 </c:if>
+                               <c:if test="${mem.sex==1}">女生 </c:if>
+                              </span>
+
                            <h4 style="font-weight:bold">職業:</h4>
                               <span style="font-size: 15px;">${mem.job}</span>   
-                           <h4 style="font-weight:bold">縣市:</h4>
+                           <h4 style="font-weight:bold">居住縣市:</h4>
                               <span style="font-size: 15px;">${mem.city}</span>
                           <h4 style="font-weight:bold">詳細地址:</h4>
                               <span style="font-size: 15px;">${mem.addr}</span>

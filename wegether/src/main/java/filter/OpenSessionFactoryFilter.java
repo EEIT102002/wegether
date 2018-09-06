@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
@@ -19,6 +20,8 @@ public class OpenSessionFactoryFilter implements Filter {
 	private SessionFactory sessionFactory;
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {	
 		try {
+//			HttpServletRequest req = (HttpServletRequest) request;
+//			HttpServletResponse res = (HttpServletResponse) response;
 			
 			sessionFactory.getCurrentSession().beginTransaction();
 			chain.doFilter(request, response);
