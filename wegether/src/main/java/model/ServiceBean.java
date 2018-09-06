@@ -17,7 +17,7 @@ public class ServiceBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "SERVICE_sq")
-	@SequenceGenerator(allocationSize = 1, name = "PICTURE_sq")
+	@SequenceGenerator(allocationSize = 1, name = "SERVICE_sq")
 	private Integer id ;
 	private Integer memberid ;
 	@Column(insertable = false)

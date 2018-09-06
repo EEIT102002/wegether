@@ -45,45 +45,47 @@ public class ActivityPageController {
 	@RequestMapping("/activityPage.controller")
 	public String method(Model model,String actid) {
 		System.out.println("actid="+actid);
-		List<String> actPicList = new ArrayList<>();
+		List<String> actPicList = new ArrayList<>();		
+		List<String> hostPicList = new ArrayList<>();
 		List<String> memPicList = new ArrayList<>();
-		List<String> attPicList = new ArrayList<>();
 		
 		ActivityBean actBean = activityDAO.selectId(Integer.parseInt(actid));
-		MemberBean memBean = memberDAO.select(actBean.getHostid());		
-		List<AttendBean> attBean = attendDAO.selectByActID(Integer.parseInt(actid));
+		MemberBean hostBean = memberDAO.select(actBean.getHostid());		
+		List<AttendBean> attBean = attendDAO.selectByActID(Integer.parseInt(actid));//報名人員名單
 		
-		attBean.forEach(att->{
-			att.getMemberid();
-			List<PictureBean> attMemPicBean = pictureDAO.selectByMember(memBean.getId());	
+	
+		
+		List<PictureBean> actPicBean = pictureDAO.selectByActivity(actBean.getId());	
+		List<PictureBean> hostPicBean = pictureDAO.selectByMember(hostBean.getId());
+		attBean.forEach(att->{			
+			List<PictureBean> memPicBean = pictureDAO.selectByMember(att.getMemberid());	//報名人員的照片名單
+			memPicList.add(PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));//memPicBean.get(0) -->第一筆照片物件
 		});
 		
-		List<PictureBean> actPicBean = pictureDAO.selectByActivity(actBean.getId());		
-		List<PictureBean> memPicBean = pictureDAO.selectByMember(memBean.getId());
-		
-		//==========================================
-		
-		// Users u = daoUsers.find("hi.steven@gmail.com");
-//		        for(Appointment a:u.getAppointments()) {
-//		              System.out.println(a.toString());
-//		         }
-		
-			//==========================================
 		actPicBean.forEach(pic->{
 			actPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 		});
 		
-		memPicBean.forEach(pic->{
-			memPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
+		hostPicBean.forEach(pic->{
+			hostPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 		});
 
 		
 		model.addAttribute("actBean",actBean);
-		model.addAttribute("memBean",memBean);
-		model.addAttribute("actPicBean",actPicBean);
-		model.addAttribute("memPicBean",memPicBean);
+		model.addAttribute("hostBean",hostBean);
+		
 		model.addAttribute("actPicList",actPicList);
-		model.addAttribute("memPicList",memPicList);
+		model.addAttribute("hostPicList",hostPicList);
+		
+		if(memPicList.size()!=0) 
+			model.addAttribute("memPicList",memPicList);
+		else
+			model.addAttribute("memPicList",null);
+		
+		if(attBean.size()!=0) 
+			model.addAttribute("attedNumber",attBean.size()+" 個申請人");//報名人數
+		else
+			model.addAttribute("attedNumber",null);//報名人數
 		
 		return "activityPage";
 	}
