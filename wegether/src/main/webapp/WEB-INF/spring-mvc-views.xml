@@ -45,10 +45,16 @@
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/Service.jsp"></property>
 	</bean>
-	
+
 		<bean id="Service.List" 
 		class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/ServiceListPage.jsp"></property>
+	</bean>
+	
+	<bean id="Service.edit" 
+		class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true"></property>
+		<property name="url" value="/ServiceEditPage.jsp"></property>
 	</bean>
 </beans>
