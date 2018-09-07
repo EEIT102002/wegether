@@ -22,7 +22,9 @@ public class ServiceService {
 			System.out.println(bean.getMemberid());
 			 result = serviceDAO.selectMemberId(bean.getMemberid());
 			 System.out.println(result);
-			} 
+			} else {
+				result=null;
+			}
 		return result;
 	}
 	public ServiceBean insert(ServiceBean bean) {

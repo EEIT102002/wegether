@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,8 +15,50 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script>
 	$(function(){
+		$.ajax("${pageContext.request.contextPath}/activity",{
+			method:"GET",
+			success:function(jsonArray){
+// ===========================單筆 測試
+// 				console.log(jsonArray);
+// 				console.log(data[0]);
+// 				console.log(data[6][1]);
+// 				console.log(jsonArray[6][0].id);
+// 				console.log(jsonArray[6][2])
+				
+// 				var str1 = "<img alt='' class='img-responsive' src=\""+data[6][1]+"\"/>";
+// 				str1+="<div>";
+				
+// 				str1+="id:"+data[6][0].id+"title:"+data[6][0].title;
+// 				str1+="</div>";
+// 				alert("A")
+// 				if($("#show_act_area").html!=null){
+// 					alert("A-1");
+// 				}else{
+// 					alert("A-2");
+// 				}
+
+// 				$("#show_act_area").append(str1);
+// 				alert('A的append');
+// ===========================單筆 測試
+				var i = 0;
+		        $.each(jsonArray, function() {
+		        var date = new Date(jsonArray[i][0].actbegin);
+					Y = date.getFullYear() + '-';
+					M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+					D = date.getDate() + ' ';
+	        	var str1="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure>";
+	        	 str1 += "<img alt='' class='img-responsive' src=\""+jsonArray[i][1]+"\"/>";
+	        	str1+="<figcaption>";
+        		str1+="活動名稱:"+jsonArray[i][0].title+"<br>"+"活動地點:"+jsonArray[i][0].city+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"活動ID:"+jsonArray[i][0].id+"<br>"+"主揪:"+jsonArray[i][2]+"<br>";
+        		str1+="</figcaption><figure></div>";
+	        	$("#show_act_area").append(str1);
+		        i++;
+		        });
+			}
+		})//ajax end
 		$('#header_nav ul li').click(function(){
 			$(this).addClass('active').siblings().removeClass('active');
 		})
@@ -27,8 +70,26 @@
 			}).mouseout(function(){
 				$(this).addClass('animated');
 			})
-	})
+		$('#CitySelect').change(function(){
+			alert($(this).val().substr(7,3));
+		})
+		$('#start_date').change(function(){
+			alert($(this).val());
+		})
+		$('#end_date').change(function(){
+			alert($(this).val());
+		})
+		$('#type_select').change(function(){
+			alert($(this).val());
 
+		})
+		$('#keyword_search_input').blur(function(){
+			alert($(this).val());
+		})
+		$('#searchbarButton').change(function(){
+	
+		})
+	})
 
 </script>
 <style>
@@ -60,16 +121,19 @@
 				</div>
 			</nav>
 			<div class="banner-info">
-				<div class="from-group" id="show_act_area">
-						<form action="">
+				<div class="from-group">
+						<form action="" ng-app="myApp" ng-controller="myCtrl">
 								<div class="AreaCon">
 								<label>地區 :</label>
-								<select name="" id="CitySelect">
+								<select name="" id="CitySelect" ng-model="selectedName" ng-options="x for x in names">
 									<option value="">--請選擇--</option>
-									<option value="">A</option>
-									<option value="">B</option>
-									<option value="">C</option>
-									<option value="">D</option>
+									<script>
+											var app = angular.module('myApp', []);
+											app.controller('myCtrl', function($scope) {
+												$scope.names = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+												,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖'];
+											});
+									</script>
 								</select>
 								<select name="" id="AreaSelect">
 									<option value="">--請選擇--</option>
@@ -81,15 +145,15 @@
 								</div>
 								<div class="AreaCon">
 									<span class="form-group">活動開始日期 :</span><br>
-									<input type="date" class="form-control"><br>
+									<input type="date" class="form-control" id="start_date"><br>
 								</div>
 								<div class="AreaCon">
 									<span class="form-group">活動結束日期 :</span><br>
-									<input type="date" class="form-control"><br>
+									<input type="date" class="form-control" id="end_date"><br>
 								</div>
 								<div class="AreaCon">
 									<span>活動類型 :</span><br>
-									<select class="form-control">
+									<select class="form-control" id="type_select">
 										<option value="運動">運動</option>
 										<option value="休閒">休閒</option>
 										<option value="音樂" >音樂</option>
@@ -100,7 +164,7 @@
 								</div>
 								<div class="AreaCon" id="keyword_search">
 									<span class="form-group">關鍵字搜尋 :</span><br>
-									<input type="text" placeholder="搜尋-活動名稱" class="form-control"><br>
+									<input type="text" placeholder="搜尋-活動名稱" class="form-control" id="keyword_search_input"><br>
 								</div>
 								<div id="searchbarButton">	
 									<input type="submit" value="搜尋" class="btn btn-warning form-control ">
@@ -158,7 +222,7 @@
 					<li><a href="">時間</a></li>
 					<li><a href="">地區</a></li>
 				</ul>
-					<div class="row  masonry">
+					<div class="row  masonry" id="show_act_area">
 <!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
 <!-- 							<figure> -->
 <!-- 							<img src="images/01.jpg" alt="" class="img-responsive"> -->
