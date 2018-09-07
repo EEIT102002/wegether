@@ -302,7 +302,7 @@
 	<div class="container">
         <div id="small_con">
 			<div>
-				<form action="<c:url value="/actCreate.controller"/>" method="get" enctype="multipart/form-data">
+				<form action="<c:url value="/actCreate.controller"/>" method="post" accept-charset="ISO-8859-1" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td>聚會封面</td>
