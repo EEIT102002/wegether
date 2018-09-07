@@ -302,7 +302,7 @@
 	<div class="container">
         <div id="small_con">
 			<div>
-				<form action="<c:url value="/actCreate.controller"/>" method="get" enctype="multipart/form-data">
+				<form action="<c:url value="/actCreate.controller"/>" method="post" accept-charset="ISO-8859-1" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td>聚會封面</td>
@@ -314,7 +314,7 @@
 						<tr>
 							<td>聚會標題</td>
 							<td>
-								<input type="text" name="title" id="insertActname">
+								<input type="text" name="title" id="insertActname" value="${param.title}">
 							</td>
 						</tr>
 						<tr>
@@ -378,7 +378,7 @@
 						<tr>
 							<td>報名截止日期</td>
 							<td>
-								<input type="date" id="deathLine" name="dateline">
+								<input type="date" id="deathLine" name="dateline">${errMsgs.deathline}
 							</td>
 						</tr>
 		
@@ -399,7 +399,7 @@
 					  <div class="modal-body" id="mid-body">
 					  	<table>
 					  	<tr><td>聚會封面</td><td id="actPicture"><img src="images/actcreate.jpg" id="actPiczone" class="actPic"></td></tr>
-					  	<tr><td>聚會標題</td><td id="actName" value="${errMsgs.nameErr}"></td></tr>
+					  	<tr><td>聚會標題</td><td id="actName"></td></tr>
 					  	<tr><td>聚會類型</td><td id="actType"></td></tr>
 					  	<tr><td>城市/所在地</td><td id="actCity"></td></tr>
 					  	<tr><td>地點</td><td id="actWhere"></td></tr>

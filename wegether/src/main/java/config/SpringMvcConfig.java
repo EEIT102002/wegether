@@ -5,12 +5,15 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicInterface2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.ServletContextResource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -38,6 +41,13 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 		registry.viewResolver(vr);
 	}
 
+	@Bean
+	public CommonsMultipartResolver multipartResolver(){
+		CommonsMultipartResolver cmr = new CommonsMultipartResolver();
+		cmr.setMaxUploadSize(1000000);
+		return cmr;
+	}
+	
 	@Bean
 	LoginInterceptor localInterceptor() {
 		return new LoginInterceptor();
