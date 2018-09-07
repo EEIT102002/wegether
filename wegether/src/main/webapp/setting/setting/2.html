@@ -3,29 +3,71 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
         crossorigin="anonymous"></script>
-    <script>
+    <script>;
+    
         $(document).ready(function () {
             var pwd = $('#pwd');
-            pwd.find('td:eq(2)>span').click(function () {
-                pwd.find('form').toggle();
-                pwd.find('#pwdt').toggle();
+            var form = pwd.find('form');
+            var pwdt = pwd.find('#pwdt');
+            var repeat =  form.find('input[name="pwd"]').next();
+            var notrepeat = form.find('input[name="pwdrepeat"]').next();
+            var fail = form.find('div:eq(0) > p:eq(0)');
+            pwd.find('td:eq(2)>button').click(function () {
+            	repeat.text("");
+            	notrepeat.text("");
+            	fail.text("");
+                form.toggle()[0].reset();
+                pwdt.toggle();
                 $(this).text() == "修改密碼" ? $(this).text("取消") : $(this).text("修改密碼");
+
             });
+            form.find('button').click(function () {
+                var button = pwd.find('td:eq(2)>button');
+                var pwdmessage = form.serialize();
+                repeat.text("");
+            	notrepeat.text("");
+            	fail.text("");
+                $.post(
+                    "/wegether/member/Info/account"
+                    , pwdmessage
+                    , function (data) {
+                        if (data.state) {
+                            form.toggle()[0].reset();
+                            pwdt.toggle();
+                            button.text("修改密碼");
+                            alert("密碼變更成功");
+                        }else{
+                            if(data.errors.repeat != null){
+                                repeat.text(data.errors.repeat);
+                            }
+                            if(data.errors.notrepeat != null){
+                                notrepeat.text(data.errors.notrepeat);
+                            }
+                            if(data.errors.fail != null){
+                                fail.text(data.errors.fail);
+                            }
+                        }
+                    }
+                    , "json"
+                );
+            })
             $.ajax({
                 type: "GET",
                 url: "/wegether/member/Account",
                 dataType: "json",
                 success: function (json) {
-                    console.log(json);
+                   
                     var table = $('table');
                     table.find('tr:nth-child(1) td:nth-child(2)').html(json.account);
                     table.find('tr:nth-child(3) td:nth-child(2)').html(
                         $.datepicker.formatDate('yy/mm/dd', new Date(json.signupdate))
                     );
-                    var state = json == 0? '已認證':'未認證';
+                    var state = json == 0 ? '已認證' : '未認證';
                     table.find('tr:nth-child(4) td:nth-child(2)').html(state);
                 }
             });
+
+
         });
 
 
@@ -37,7 +79,8 @@
             margin: 0;
             padding: 0;
         }
-        body{
+
+        body {
             width: 800px;
         }
 
@@ -45,7 +88,7 @@
             border-top: 3px solid rgba(0, 44, 95, 0.3);
             border-bottom: 3px solid rgba(0, 44, 95, 0.3);
             border-collapse: collapse;
-            width:750px;
+            width: 750px;
         }
 
         tr {
@@ -56,13 +99,16 @@
             padding: 10px;
             border-top: 1.5px solid rgba(0, 44, 95, 0.2);
         }
-		tr td:nth-child(1) {
+
+        tr td:nth-child(1) {
             width: 25%;
         }
+
         tr td:nth-child(2) {
-        	color:gray;
+            color: gray;
             width: 60%;
         }
+
         tr td:nth-child(3) {
             text-align: center;
         }
@@ -72,7 +118,7 @@
             padding: 10px;
         }
 
-        .buttomSpan{
+        .buttomSpan {
             cursor: pointer;
         }
     </style>
@@ -88,25 +134,26 @@
         <tr id="pwd">
             <td>密碼</td>
             <td>
-            	<span id = "pwdt">修改密碼</span>
-                <form style="display: none;">
+                <span id="pwdt">修改密碼</span>
+                <form id="pwdform" style="display: none;">
                     <div>
+                    	<p></p>
                         <p>舊密碼:</p>
-                        <input type="password" name="">
+                        <input type="password" name="oldpwd"><span class="error"></span>
                     </div>
                     <div>
                         <p>修改密碼:</p>
-                        <input type="password" name="">
+                        <input type="password" name="pwd"><span class="error"></span>
                     </div>
                     <div>
                         <p>確認密碼:</p>
-                        <input type="password" name="">
+                        <input type="password" name="pwdrepeat"><span class="error"></span>
                     </div>
-                    <input type="submit" value="儲存">
+                    <button type="button">儲存</button>
                 </form>
             </td>
             <td>
-                <span class="buttomSpan">修改密碼</span>
+                <button type="button">修改密碼</button>
             </td>
         </tr>
         <tr>

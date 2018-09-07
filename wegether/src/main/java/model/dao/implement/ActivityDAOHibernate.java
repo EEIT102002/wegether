@@ -186,6 +186,15 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		
 		return this.getSession().createNativeQuery(selectOfIndex,ActivityBean.class).list();
 	}
+
+	 private final String Hqlactivitymemberid = "FROM ActivityBean WHERE hostid = :hostid ";
+	@Override
+	public List<ActivityBean> selectBymemberid(int memberid) {
+		return this.getSession().createQuery(Hqlactivitymemberid, ActivityBean.class)
+				.setParameter("hostid", memberid).list();
+	}
+	
+	
 	
 
 

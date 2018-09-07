@@ -30,6 +30,60 @@
 		// 	}).mouseout(function(){
 		// 		$(this).addClass('animated');
 		// 	})
+		$('.changePage:eq(0)').click(function(){
+			$('#change_one').css({
+				'display':'block'
+			})
+			
+// 			$.ajax({
+// 					method:'POST',
+// 				  	url: 'personalPage.jsp',
+// 				  	success: function(data){
+// 					$('#second').html(data);
+// 				  },
+// 				});
+			$('#second').css({'display':'none'});
+			$('#third').css({'display':'none'});
+			$('#fourth').css({'display':'none'});
+// 			$('#change_area').html("A");//改區塊內容 之後要修改成你要變換的 資料庫資料 
+		})
+		$('.changePage:eq(1)').click(function(){
+			$('#second').css({
+				'display':'block'
+			})
+// 			$.ajax({
+// 					method:'POST',
+// 				  	url: 'personalJugePage.jsp',
+// 				  	success: function(data){
+// 					$('#second').html(data);
+// 				  },
+// 				});
+
+			$('#change_one').css({'display':'none'});
+			$('#third').css({'display':'none'});
+			$('#fourth').css({'display':'none'});
+		})
+		
+		
+		$('.changePage:eq(2)').click(function(){
+			$('#third').css({
+				'display':'block'
+			})
+
+			$('#change_one').css({'display':'none'});
+			$('#second').css({'display':'none'});
+			$('#fourth').css({'display':'none'});
+		})
+		
+		$('.changePage:eq(3)').click(function(){
+			$('#fourth').css({
+				'display':'block'
+			})
+			
+			$('#change_one').css({'display':'none'});
+			$('#second').css({'display':'none'});
+			$('#third').css({'display':'none'});
+		})
 	})
 </script>
 <style>
@@ -100,6 +154,12 @@
         #txtcenter{
             text-align:center; 
         }
+        #change_area{
+         border:2px solid;
+        }
+         #second , #third , #fourth{ 
+         	display:none; 
+      } 
 </style>
 </head>	
 <body>
@@ -176,11 +236,15 @@
                         </div>
                         <div style="text-align: center">
                            <br>
-                             <table style="margin-left:150px"border="0" align="center">
+                           <br>
+                             <table style="margin-left:135px"border="0" align="center">
                               <tr>
-                                 <td style="padding:20px;">追蹤人數</td>
-                                 <td style="padding:20px;">聚會</td>
-                                 <td style="padding:20px;">好友</td>
+                                 <td style="padding:20px;font-weight:bold;font-family:微軟正黑體;color:#1E90FF;text-shadow: 2px 8px 6px rgba(0,0,0,0.2),0px -5px 35px rgba(255,255,255,0.3);">
+                                                                                        追蹤人數</td>
+                                 <td style="padding:20px;font-weight:bold;font-family:微軟正黑體;color:#1E90FF;text-shadow: 2px 8px 6px rgba(0,0,0,0.2),0px -5px 35px rgba(255,255,255,0.3);">
+                                                                                            參加活動</td>
+                                 <td style="padding:20px;font-weight:bold;font-family:微軟正黑體;color:#1E90FF;text-shadow: 2px 8px 6px rgba(0,0,0,0.2),0px -5px 35px rgba(255,255,255,0.3);">
+                                                                                        我的好友</td>
                               </tr> 
                               <tr>
                                  <td style="padding:10px;">${trackbean}</td>
@@ -188,6 +252,9 @@
                                  <td style="padding:10px;">${fribean}</td>
                               </tr>
                               </table>
+                              <br>
+                              <br>
+                              <p><a href="personal.controller">test</a></p>
                         </div>  
                            
 
@@ -204,21 +271,24 @@
                             </div>
                         </div>
                          <div>
-                           <table border="0">
+                           <table style="border-bottom:3px #87cefa solid;" border="0" >
                               <tr>
-                                 <td  type="button" class="btn btn-secondary" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">個人資料</td>
-                                <td  type="button" class="btn btn-secondary" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">評價</td>
-                                 <td  type="button" class="btn btn-secondary" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">我的聚會</td>
+<!--                          <a href="personal.controller?memberid=1">1234 </a> -->
+                                <td  type="button" class="btn btn-secondary changePage" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">個人資料</td>                              
+                                 <td  type="button" class="btn btn-secondary changePage" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">活動評價</td>
+                                 <td  type="button" class="btn btn-secondary changePage" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">主辦活動</td>
+                                 <td  type="button" class="btn btn-secondary changePage" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">參加活動</td>
                               </tr>
                            </table>      
                          </div>
+                         <div id="change_one">
                             <h4 style="font-weight:bold" >自我簡介:</h4>
                               <span style="font-size: 15px;" id="core1">${mem.content}</span>
                             <h4 style="font-weight:bold">個人姓名:</h4>
                               <span style="font-size: 15px;">${mem.name}</span> 
                             <h4 style="font-weight:bold">出生日期:</h4>
                               <span style="font-size: 15px;">
-                              <fmt:formatDate value="${mem.birthday}" pattern="yyyy/MM/dd"/>
+                              <fmt:formatDate value="${mem.birthday}" pattern="yyyy 年 MM 月 dd 日"/>
                               </span>   
                            <h4 style="font-weight:bold">性別:</h4>
                               <span style="font-size: 15px;">
@@ -240,7 +310,48 @@
                               <span style="font-size: 15px;">${mem.tel}</span>   
                            <h4 style="font-weight:bold">喜好活動類型:</h4>
                               <span style="font-size: 15px;" id="core1">${mem.favorite}</span>
-                        
+                              
+                              
+                              
+                              
+                            </div><!--                               change_one end -->
+							<div id="second">
+							 <br>
+							 <br>
+							 <table border="0" >
+                                <tr>
+                                   <td style="padding:20px;font-weight:bold">活動滿意度:</td>
+                                   <td style="padding:20px;">${mem.rank1}</td>
+                                </tr> 
+                                <tr>
+                                   <td style="padding:20px;font-weight:bold">溝通安排:</td>
+                                   <td style="padding:20px;">${mem.rank2}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:20px;font-weight:bold">時間地點選擇</td>
+                                    <td style="padding:20px;">${mem.rank3}</td>
+                                </tr> 
+                             </table>
+							  
+							</div><!-- change_second end -->
+                        	 <div id="third">
+                        	     <br> 
+                        	     <table  style="margin-left:10px;" border="0" RULES=ROWS frame="below" >
+                        	       <c:forEach var="obj3" items="${hostsum}">
+							 	     ${obj3}
+							       </c:forEach>
+                                 </table>
+							 </div><!--change_third end -->
+							 <div id="fourth"> 
+							    <br>
+							    <table  style="margin-left:10px;" border="0" RULES=ROWS frame="below" >
+							      <c:forEach var="obj2" items="${attsum}">
+							 	     ${obj2}
+							       </c:forEach>
+							    </table>
+						
+
+							</div><!--change_fourth end -->
                     </div>
             
                 </div> <!-- core end -->

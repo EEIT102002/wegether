@@ -79,6 +79,20 @@ public class LoginController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/login.check", produces = "application/json")
+	public @ResponseBody Map<String, Object> checkLogin(Model model,
+			HttpServletResponse response, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		if(request.getAttribute("memberid") != null) {
+			result.put("state", true);
+		}else {
+			result.put("state", false);
+		}
+		return result;
+	}
+	
+	
+	
 	public Cookie getCookie(HttpServletRequest request, String name) {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
