@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
@@ -39,12 +40,15 @@ public class ActivityBean {
 	private String content;
 	private Integer numberlimit;
 	private Integer feed;
+	@Column(insertable = false)
 	private Integer state;
 	private Double rank1;
 	private Double rank2;
 	private Double rank3;
+	@Column(insertable = false)
 	private Integer judges;
 	private String form;
+	@Column(insertable = false)
 	private Integer click;
 	
 	//member
@@ -293,8 +297,12 @@ public class ActivityBean {
 	public void setClick(Integer click) {
 		this.click = click;
 	}
-	
-	
+	public String getpictureToBase64() {
+	    if(picture!=null) {
+	     return Base64.getEncoder().encodeToString(picture);
+	    }
+	    return null;
+	   }
 	
 	
 	
