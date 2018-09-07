@@ -156,11 +156,11 @@
                                 
                             <div id="up" >
                                 <div id="left" style="width: auto;">
-                                        <a href="#"><img src="data:image/jpg;base64,${memPicList.get(0)}"  width="70" > </a>
+                                        <a href="#"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  width="70" > </a>
                                 </div>
                                 <div  id="left" style="width: auto;">
-                                    <p id="txtup" style="background-color:#FFBB73" >${memBean.nickname}</p>
-                                    <p id="txtup" >${memBean.job}</p>
+                                    <p id="txtup" style="background-color:#FFBB73" >${hostBean.nickname}</p>
+                                    <p id="txtup" >${hostBean.job}</p>
                                 </div>   
                                 
 
@@ -189,22 +189,21 @@
                         
                         <div id="right">
                             <h3>${actBean.title}</h3><!-- right1 end -->
-                            <p>${actBean.actbegin}</p><!-- right2 end -->
+                            <p>${actbegin}</p><!-- right2 end -->
                             <p>${actBean.addr}</p><!-- right3 end -->
                             <div>
-                                    <img src="images/activityPageImages/people.png" width="20" > ${actBean.numberlimit}人 &emsp;
-                                    <img src="images/activityPageImages/fees.png" width="20" >${actBean.feed}元 &emsp;
-                                    <img src="images/activityPageImages/deadline.png" width="40" >${actBean.dateline} 
+                                    <img src="images/activityPageImages/people.png" width="20" >&nbsp;${actBean.numberlimit}人 &emsp;
+                                    <img src="images/activityPageImages/fees.png" width="20" >&nbsp;${actBean.feed}元 &emsp;
+                                    <img src="images/activityPageImages/deadline.png" width="40" >&nbsp;${dateline} 
                             </div><!-- right4 end -->
                             <div>
-                                    <a href="#"><img src="images/activityPageImages/fans1.png" width="40" ></a> &emsp; 
-                                    <a href="#"><img src="images/activityPageImages/fans2.png" width="40" ></a> &emsp; 
-                                    <a href="#"><img src="images/activityPageImages/fans3.png" width="40" ></a> &emsp; 
-                                    <a href="#"><img src="images/activityPageImages/fans4.png" width="40" ></a> 
-                                    <a href="#"><img src="images/activityPageImages/fans5.png" width="40" ></a>  
+                            	<c:forEach var="obj" items="${memPicList}">
+							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="50" ></a> &emsp; 
+								</c:forEach>
+                           
 
                             </div><!-- right5 end -->
-                            <p style="text-align: center" >7 個申請人</p><!-- right6 end -->
+                            <p style="text-align: center" >${attedNumber} </p><!-- right6 end -->
                             <div style="text-align: center">
                                 <input   type="button" value="      報名     " >
                             </div><!-- right7 end -->
