@@ -211,15 +211,28 @@
                         </div>  <!-- right end -->
                    </div>   <!-- up end -->
 
-
+ 					
                      <div id="down">
-                            <h2>${actBean.title}</h2>
-                            <p > ${actBean.content} </p>
-                            <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>                       
-                            <div id="msgid">
-                               <img src="images/activityPageImages/msgs.png" width="600" >
-                             </div>
-                    </div> <!-- down end -->
+                          <h2>${actBean.title}</h2>
+                          <p > ${actBean.content} </p>
+                          </br>
+                          <h4>留下意見:</h4>
+                          <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>    </br> </br>   
+                          	<a href="#"><img  src="images/activityPageImages/msgbuttonstr.png" width="200"></a> 
+                          <!-- msg begin -->                 
+                      <div id="msgid">
+                    
+                        
+                        <c:forEach var="obj" items="${msgsList}">
+					 		
+                        ${obj.nickname} ${obj.msgtime}</br>
+                        ${obj.content}</br>
+						</c:forEach>
+                        
+                       </div>
+                             <!-- msg end -->
+                    </div> 
+                    <!-- down end -->
                     
                 </div>
                 <!--       寫在這以上 -->

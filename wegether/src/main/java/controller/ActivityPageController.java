@@ -3,7 +3,9 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -16,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import model.ActivityBean;
 import model.AttendBean;
 import model.MemberBean;
+import model.MsgBean;
 import model.PictureBean;
 import model.dao.ActivityDAO;
 import model.dao.AttendDAO;
 import model.dao.MemberDAO;
+import model.dao.MsgDAO;
 import model.dao.PictureDAO;
 import pictureconvert.PictureConvert;
 
@@ -37,6 +41,9 @@ public class ActivityPageController {
 	@Autowired
 	private AttendDAO attendDAO;
 	
+	@Autowired
+	private MsgDAO msgDAO;
+	
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
 		webDataBinder.registerCustomEditor(java.util.Date.class,
@@ -45,10 +52,21 @@ public class ActivityPageController {
 	
 	@RequestMapping("/activityPage.controller")
 	public String method(Model model,String actid) {
+		//時間轉換
+				String[] months = {"一 月", "二 月", "三 月", "四 月",
+		                "五 月", "六 月", "七 月", "八 月",
+		                "九 月", "十 月", "十一 月", "十二 月"};
+				
+				String[] week = {"(日)","(一)", "(二)", "(三)", "(四)",
+		                "(五)", "(六)"};
+				
 		System.out.println("actid="+actid);
 		List<String> actPicList = new ArrayList<>();		
 		List<String> hostPicList = new ArrayList<>();
 		List<String> memPicList = new ArrayList<>();
+		Map<String, String> msgsMap = new HashMap<>();
+		List<Map> msgsList = new ArrayList<>();
+		
 		
 		ActivityBean actBean = activityDAO.selectId(Integer.parseInt(actid));
 		MemberBean hostBean = memberDAO.select(actBean.getHostid());		
@@ -56,6 +74,8 @@ public class ActivityPageController {
 		
 		List<PictureBean> actPicBean = pictureDAO.selectByActivity(actBean.getId());	
 		List<PictureBean> hostPicBean = pictureDAO.selectByMember(hostBean.getId());
+		List<MsgBean>  msgBean = msgDAO.selectByActivity(Integer.parseInt(actid));
+		System.out.println(msgBean);
 		
 		if(attBean.size()!=0) 
 				attBean.forEach(att->{			
@@ -74,20 +94,37 @@ public class ActivityPageController {
 					hostPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 				});
 		
+		Calendar msgtime = Calendar.getInstance();
+		if(msgBean.size()!=0) 
+			msgBean.forEach(msg->{
+				msgsMap.put("nickname", memberDAO.select(msg.getMemberid()).getNickname());
+				
+				msgtime.setTime(msg.getMsgtime());
+				int msgMonth = msgtime.get(Calendar.MONTH);
+				int msgDay = msgtime.get(Calendar.DAY_OF_MONTH);
+				int msgHour = msgtime.get(Calendar.HOUR_OF_DAY);
+				String msgHourStr = Integer.toString(msgHour);
+				  if (msgHour<10) msgHourStr = "0"+msgHourStr;
+				
+				int msgMinute = msgtime.get(Calendar.MINUTE);
+				String msgMinuteStr = Integer.toString(msgMinute);
+				  if (msgMinute<10) msgMinuteStr = "0"+msgMinuteStr;
+				
+				String  msgtimeStr = msgMonth+" 月 "+msgDay+" 日  "+msgHourStr+" : "+msgMinuteStr;
+				
+				msgsMap.put("msgtime",msgtimeStr );
+				msgsMap.put("content", msg.getContent());
+				msgsList.add(msgsMap);
+			});
 		
-		//時間轉換
-		String[] months = {"一 月", "二 月", "三 月", "四 月",
-                "五 月", "六 月", "七 月", "八 月",
-                "九 月", "十 月", "十一 月", "十二 月"};
 		
-		String[] week = {"(日)","(一)", "(二)", "(三)", "(四)",
-                "(五)", "(六)"};
+		
 
 		String actbegin = null;
 		Calendar actTime = Calendar.getInstance();
 		if(actBean.getActbegin()!=null) {
 			actTime.setTime(actBean.getActbegin());
-			int atMonth = actTime.get(Calendar.MONTH);
+			int atMonth = actTime.get(Calendar.MONTH)+1;
 			int atDay = actTime.get(Calendar.DAY_OF_MONTH);
 			int atWeek = actTime.get(Calendar.DAY_OF_WEEK);
 			int atHour = actTime.get(Calendar.HOUR_OF_DAY);
@@ -98,7 +135,7 @@ public class ActivityPageController {
 			String atMinuteStr = Integer.toString(atMinute);
 			  if (atMinute<10) atMinuteStr = "0"+atMinuteStr;
 			
-			actbegin = months[atMonth]+" "+atDay+" 日  "+week[atWeek-1]+" "+atHour+" : "+atMinuteStr;
+			actbegin = atMonth+" 月 "+atDay+" 日  "+week[atWeek-1]+" "+atHourStr+" : "+atMinuteStr;
 		}
 		
 		String dateline = null;
@@ -133,6 +170,9 @@ public class ActivityPageController {
 		
 		if(dateline!=null) model.addAttribute("dateline",dateline);
 		else model.addAttribute("dateline",null);
+		
+		if(msgsList!=null) model.addAttribute("msgsList", msgsList);
+		else model.addAttribute("msgsList",null);
 		
 		return "activityPage";
 	}
