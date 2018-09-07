@@ -5,10 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import model.ActivityBean;
+import model.FriendBean;
 import model.MemberBean;
 
 public interface ActivityDAO {
 	public abstract ActivityBean selectId(int id);
+	
+	public abstract List<ActivityBean> selectBymemberid(int memberid);
 	
 	public abstract List<ActivityBean> selectAll();
 		

@@ -28,7 +28,7 @@ public class FriendDAOHibernate implements FriendDAO {
 	}
 
 	private String HqlSelectAll = "FROM FriendBean WHERE MEMBERID = :MID AND STATE = 1";
-	private String HqlUpdateOne = "UPDATE FriendBean SET STATE = :ST WHERE MEMBERID = :MID AND MEMBERIDF = :MIDF";
+	private String HqlSelectPK = "SELECT ID FROM FriendBean WHERE MEMBERID = :MID AND MEMBERIDF = :MIDF";
 
 	@Override
 	public List<FriendBean> select(int memberid) {
@@ -51,12 +51,11 @@ public class FriendDAOHibernate implements FriendDAO {
 	public boolean updateState(FriendBean friendBean) {
 		
 		if (friendBean != null) {
-			Query update = this.getSession().createQuery(HqlUpdateOne);
+			Query update = this.getSession().createQuery(HqlSelectPK);
 			if (update != null) {
 				update.setParameter("MID", friendBean.getMemberid());
 				update.setParameter("MIDF", friendBean.getMemberidf());
-				update.setParameter("ST", friendBean.getState());
-				update.executeUpdate();
+				this.getSession().get(FriendBean.class, update.toString());
 				return true;
 			}
 		}
@@ -64,22 +63,18 @@ public class FriendDAOHibernate implements FriendDAO {
 	}
 
 	@Override
-	public List<FriendBean> selectByMemberState(int memberid, int state ,int first) {
+	public List<FriendBean> selectByMemberState(int memberid, int state, int first) {
 		return querybean.getBeanList(
-				querybean.getSelectQuery(
-						Select.friendByMemberState, memberid, first, selectLimit, FriendBean.class
-						).setParameter("state", state)
-				);
-						
+				querybean.getSelectQuery(Select.friendByMemberState, memberid, first, selectLimit, FriendBean.class)
+						.setParameter("state", state));
+
 	}
 
 	@Override
-	public List<FriendBean> selectByMemberFState(int memberidf, int state , int first) {
+	public List<FriendBean> selectByMemberFState(int memberidf, int state, int first) {
 		return querybean.getBeanList(
-				querybean.getSelectQuery(
-						Select.friendByMemberFState, memberidf, first,selectLimit, FriendBean.class
-						).setParameter("state", state)
-				);
+				querybean.getSelectQuery(Select.friendByMemberFState, memberidf, first, selectLimit, FriendBean.class)
+						.setParameter("state", state));
 	}
 
 	@Override
