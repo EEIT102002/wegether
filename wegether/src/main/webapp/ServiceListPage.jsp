@@ -181,33 +181,41 @@ footer>ul>li ul {
 			<!--       寫在這 -->
 
 			<h3>Select Service Table Result : ${fn:length(select)} 筆資料</h3>
-
+			<td>${errors.SelectResult}</td>
 			<c:if test="${not empty select}">
 				<table>
 					<thead>
 						<tr>
-							<th> memberid </th>
-							<th> asktime </th>
-							<th> title </th>
-							<th> classtype </th>
-							<th> content </th>
+						<th> asktime </th>
+						<th> memberid </th>
+						<th> title </th>
+						<th> classtype </th>
+						<th> content </th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="obj" items="${select}">
-							<c:url value="/Service.controller" var="link" scope="page">
+							<c:url value="/ServiceEditPage.jsp" var="link" scope="page">
 								<c:param name="memberid" value="${obj.memberid}" />
-								<c:param name="asktime" value="${obj.asktime}" />
+								<c:param name="id"  value="${obj.id}"/>
+								<c:param name="asktime"  value="${obj.asktime}" />
 								<c:param name="title" value="${obj.title}" />
 								<c:param name="classtype" value="${obj.classtype}" />
 								<c:param name="content" value="${obj.content}" />
 							</c:url>
 							<tr>
+								
 								<td>${obj.asktime}</td>
-								<td><a href="${link}">${obj.memberid}</a></td>
-								<td>${obj.title}</td>
-								<td>${obj.classtype}</td>
+								<td><a href="${link}">${obj.memberid}</td>
+								<td><a href="${link}">${obj.title}</td>
+								
+								<td><c:if test="${obj.classtype==1}">會員(例如登入或密碼問題)</c:if></td>
+								<td><c:if test="${obj.classtype==2}">系統錯誤回報</c:if></td>
+								<td><c:if test="${obj.classtype==3}">建議</c:if></td>
+								<td><c:if test="${obj.classtype==4}">其他</c:if></td>
+								
 								<td>${obj.content}</td>
+								<td><input type="hidden" name="id" value="${param.id}"></input></td>
 							</tr>
 						</c:forEach>
 					</tbody>

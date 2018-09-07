@@ -42,6 +42,11 @@
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/ServiceListPage.jsp"></property>
 	</bean>
+	<bean id="Service.edit"
+		class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true"></property>
+		<property name="url" value="/ServiceEditPage.jsp"></property>
+	</bean>
 	<bean class="org.springframework.web.servlet.view.RedirectView"
 		id="actCreateErr.page">
 		<property value="true" name="contextRelative" />
@@ -51,5 +56,6 @@
 		id="actCreateSuc.page">
 		<property value="true" name="contextRelative" />
 		<property value="/index.jsp" name="url" />
+
 	</bean>
 </beans>
