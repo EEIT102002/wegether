@@ -2,6 +2,7 @@ package controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,34 @@ public class ActivityPageController {
 		hostPicBean.forEach(pic->{
 			hostPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 		});
-
+		
+		String[] months = {"一 月", "二 月", "三 月", "四 月",
+                "五 月", "六 月", "七 月", "八 月",
+                "九 月", "十 月", "十一 月", "十二 月"};
+		
+		String[] week = {"(日)","(一)", "(二)", "(三)", "(四)",
+                "(五)", "(六)"};
+		
+		//時間轉換
+		Calendar actTime = Calendar.getInstance();
+		actTime.setTime(actBean.getActbegin());
+		int atMonth = actTime.get(Calendar.MONTH);
+		int atDay = actTime.get(Calendar.DAY_OF_MONTH);
+		int atWeek = actTime.get(Calendar.WEDNESDAY);
+		int atHour = actTime.get(Calendar.HOUR_OF_DAY);
+		int atMinute = actTime.get(Calendar.AM_PM);
+		String actbegin = months[atMonth]+" "+atDay+" 日  "+week[atWeek]+" "+atHour+" : "+atMinute;
+		System.out.println(actbegin);
+		
+		Calendar dl = Calendar.getInstance();
+		dl.setTime(actBean.getDateline());
+		int dlMonth = dl.get(Calendar.MONTH) +1;
+		int dlDay = dl.get(Calendar.DAY_OF_MONTH);
+		int dlWeek = dl.get(Calendar.WEDNESDAY);
+	
+		String dateline = dlMonth+"/"+dlDay+week[dlWeek];
+		
+		
 		
 		model.addAttribute("actBean",actBean);
 		model.addAttribute("hostBean",hostBean);
@@ -87,8 +115,8 @@ public class ActivityPageController {
 			model.addAttribute("attedNumber",attBean.size()+" 個申請人");//報名人數
 		else
 			model.addAttribute("attedNumber",null);//報名人數
-
-		
+		model.addAttribute("actbegin",actbegin);
+		model.addAttribute("dateline",dateline);
 		return "activityPage";
 	}
 }

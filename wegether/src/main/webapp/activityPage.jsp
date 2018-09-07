@@ -189,12 +189,12 @@
                         
                         <div id="right">
                             <h3>${actBean.title}</h3><!-- right1 end -->
-                            <p>${actBean.actbegin}</p><!-- right2 end -->
+                            <p>${actbegin}</p><!-- right2 end -->
                             <p>${actBean.addr}</p><!-- right3 end -->
                             <div>
-                                    <img src="images/activityPageImages/people.png" width="20" > ${actBean.numberlimit}人 &emsp;
-                                    <img src="images/activityPageImages/fees.png" width="20" >${actBean.feed}元 &emsp;
-                                    <img src="images/activityPageImages/deadline.png" width="40" >${actBean.dateline} 
+                                    <img src="images/activityPageImages/people.png" width="20" >&nbsp;${actBean.numberlimit}人 &emsp;
+                                    <img src="images/activityPageImages/fees.png" width="20" >&nbsp;${actBean.feed}元 &emsp;
+                                    <img src="images/activityPageImages/deadline.png" width="40" >&nbsp;${dateline} 
                             </div><!-- right4 end -->
                             <div>
                             	<c:forEach var="obj" items="${memPicList}">
