@@ -384,6 +384,7 @@
 		
 					</table>
 					<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
+					<input type="botton" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
 		  <div class="modal fade" id="preview" tabindex="-1" role="dialog">
 			<div class="modal-dialog modal-lg" role="document">
 			  <div class="modal-content"><!--白色遮罩層-->
@@ -410,6 +411,29 @@
 					  	<tr><td>聚會預算</td><td id="actBudget"></td></tr>
 					  	<tr><td>報名截止日期</td><td id="actDeathline"></td></tr>
 					  	</table>
+					  </div>
+					  <div class="modal-footer">
+						  <button type="submit" class="btn btn-primary">確認送出</button>
+						  <button type="button" class="btn btn-secondary" data-dismiss="modal">修改</button>
+					  </div>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		  <div class="modal fade" id="setMyform" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg" role="document">
+			  <div class="modal-content"><!--白色遮罩層-->
+				  <div class="modal-body">
+		  <!--       // modal-body  有差padding -->
+					  <div class="modal-header">
+						  
+						  <h5 class="modal-title lead"><strong>報名表單</strong></h5>
+						  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							  <span aria-hidden="true">&times;</span>
+						  </button>
+					  </div>
+					  <div class="modal-body" id="mid-body">
+
 					  </div>
 					  <div class="modal-footer">
 						  <button type="submit" class="btn btn-primary">確認送出</button>

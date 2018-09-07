@@ -56,48 +56,35 @@ public class ActivityCreateController {
 		if (activityBean != null) {
 			col.put("title", activityBean.getTitle());
 
-			byte[] pic = file.getBytes();
-			activityBean.setPicture(pic);
+			if (file != null) { // 圖片判定
+				byte[] pic = file.getBytes();
+				activityBean.setPicture(pic);
+			} else {
+				FileInputStream defultPic = new FileInputStream("/wegether/src/main/webapp/images/actcreate.jpg");
+				byte[] pic = new byte[defultPic.available()];
+				activityBean.setPicture(pic);
+			}
 
-			if (dateline.isEmpty()) {
+			if (dateline.isEmpty()) { // 截止日期判定
 				errors.put("deathline", "請輸入截止日期");
 				return "actCreateErr.page";
 			}
 		}
+
+		String startDateTime = startDateFormat(startDate, starttime);
+		String endDateTime = endDateFormat(endDate, endTime);
+
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd k:mm");
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 
-		String pmam = starttime.substring(6, 8);
-		String pmam2 = endTime.substring(6, 8);
-		String hour = starttime.substring(0, 2);
-		String hour2 = endTime.substring(0, 2);
-		int hourNum = 0;
-		String format = null;
-		String format2 = null;
-		if ("PM".equals(pmam) && Integer.parseInt(hour) != 12) {
-			hourNum = Integer.parseInt(hour) + 12;
-			format = startDate + " " + hourNum + starttime.substring(2, 5);
-		} else if ("AM".equals(pmam) && Integer.parseInt(hour) == 12) {
-			format = startDate + " " + hourNum + starttime.substring(2, 5);
-		} else
-			format = startDate + " " + starttime;
-
-		if ("PM".equals(pmam2) && Integer.parseInt(hour2) != 12) {
-			hourNum = Integer.parseInt(hour2) + 12;
-			format2 = endDate + " " + hourNum + endTime.substring(2, 5);
-		} else if ("AM".equals(pmam2) && Integer.parseInt(hour2) == 12) {
-			hourNum = Integer.parseInt(hour2) - 12;
-			format2 = endDate + " " + hourNum + endTime.substring(2, 5);
-		} else
-			format2 = endDate + " " + endTime;
-
-		System.out.println("format = " + format);
-		System.out.println("format2 = " + format2);
-
-		Date aa = simpleDateFormat.parse(format);
-		System.out.println("after format = " + aa);
-		Date cc = simpleDateFormat.parse(format2);
+		Date aa = simpleDateFormat.parse(startDateTime);
+		Date cc = simpleDateFormat.parse(endDateTime);
 		Date bb = simpleDateFormat2.parse(dateline);
+
+		System.out.println("startDateTime = " + startDateTime);
+		System.out.println("after parse startDateTime = " + aa);
+		System.out.println("endDateTime = " + endDateTime);
+		System.out.println("after parse endDateTime = " + cc);
 
 		activityBean.setHostid(3);
 		activityBean.setActbegin(aa);
@@ -112,4 +99,31 @@ public class ActivityCreateController {
 		return "actCreateSuc.page";
 	}
 
+	public String startDateFormat(String startDate, String starttime) {
+		String pmam = starttime.substring(6, 8);
+		String hour = starttime.substring(0, 2);
+		int hourNum = 0;
+
+		if ("PM".equals(pmam) && Integer.parseInt(hour) != 12) {
+			hourNum = Integer.parseInt(hour) + 12;
+			return startDate + " " + hourNum + starttime.substring(2, 5);
+		} else if ("AM".equals(pmam) && Integer.parseInt(hour) == 12) {
+			return startDate + " " + hourNum + starttime.substring(2, 5);
+		} else
+			return startDate + " " + starttime;
+	}
+
+	public String endDateFormat(String endDate, String endTime) {
+		String pmam2 = endTime.substring(6, 8);
+		String hour2 = endTime.substring(0, 2);
+		int hourNum = 0;
+
+		if ("PM".equals(pmam2) && Integer.parseInt(hour2) != 12) {
+			hourNum = Integer.parseInt(hour2) + 12;
+			return endDate + " " + hourNum + endTime.substring(2, 5);
+		} else if ("AM".equals(pmam2) && Integer.parseInt(hour2) == 12) {
+			return endDate + " " + hourNum + endTime.substring(2, 5);
+		} else
+			return endDate + " " + endTime;
+	}
 }
