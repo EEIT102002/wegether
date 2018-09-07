@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
@@ -296,8 +297,12 @@ public class ActivityBean {
 	public void setClick(Integer click) {
 		this.click = click;
 	}
-	
-	
+	public String getpictureToBase64() {
+	    if(picture!=null) {
+	     return Base64.getEncoder().encodeToString(picture);
+	    }
+	    return null;
+	   }
 	
 	
 	
