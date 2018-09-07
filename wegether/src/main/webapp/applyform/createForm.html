@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Insert title here</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var template;
+        var formDiv;
+        var formJson;
+        var typeText = {
+            "text": "簡答",
+            "textarea": "詳答",
+            "date": "年/月/日",
+            "time": "時間",
+        }
+        $(document).ready(function () {
+            template = $("#template").hide();
+            formDiv = $("#formDiv");
+            formDiv.on("change", ".selectDiv > select", function () {
+                var value = this.value;
+                var inputDD = $(this.parentNode).siblings('.inputDiv').children('div');
+                switch (value) {
+                    case "radio":
+                    case "select":
+                    case "checkbox":
+                        inputDD.html('<ol>' + inputOption() +
+                            '</ol><button type="button" class="addOption">新增選項</button>');
+                        checkOnly(inputDD.children('ol'));
+                        break;
+                    default:
+                        inputDD.html(inputText(typeText[value]));
+                        break;
+                }
+
+            });
+            formDiv.on("click", ".inputDiv div .addOption", function () {
+                $(this).prev().append(inputOption());
+                checkOnly($(this).prev());
+            })
+            addInput();
+
+            $(".add").click(addInput);
+
+            formDiv.on('click', '.delete', function () {
+                var p = this.parentNode;
+                var pp = p.parentNode;
+                $(p).remove();
+                checkOnly(pp);
+            });
+            $('#save').click(function () {
+                var actForm = {};
+                actForm.questions = [];
+                $.each(formDiv.children('div'), function (i, e) {
+                    var q = {};
+                    var ele = $(e);
+                    q.title = ele.find('.inputDiv :text').val();
+                    q.type = ele.find('.selectDiv select').val();
+                    q.required = ele.find('.selectDiv :checkbox').prop('checked');
+                    q.name = q.type + i.toString();
+                    switch (q.type) {
+                        case "radio": case "select": case "checkbox":
+                            q.options = {};
+                            $.each(ele.find('.inputDiv ol input'), function (i, e) {
+                                q.options[q.name + "_" + i] = e.value;
+                            })
+                    }
+                    actForm.questions.push(q);
+                })
+                formJson = JSON.stringify(actForm);
+                console.log(formJson);
+            });
+        })
+
+        function addInput() {
+            var insert = template.clone().removeAttr("id").show();
+            formDiv.append(insert);
+            checkOnly(formDiv);
+        }
+        function checkOnly(div) {
+            var del = $(div).children().children('.delete');
+            if (del.length == 1) {
+                del.css('visibility', 'hidden');
+            } else {
+                del.css('visibility', 'visible');
+            }
+        }
+        function inputText(str) {
+            return "<p>" + str + "</p>";
+        }
+        function inputOption() {
+            return '<li><input type="text" placeholder="選項">' +
+                '<span class="delete">&times;</span>' +
+                '</li>';
+        }
+    </script>
+    <style>
+        #formDiv>div {
+            width: 400px;
+            background-color: rgba(200, 226, 255, 0.459);
+            box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5);
+            /* overflow: auto; */
+            position: relative;
+            margin: 0 0 10px 0;
+            border-radius: 10px;
+        }
+
+        .delete {
+            float: right;
+            margin: 0 5px 0 5px;
+            padding: 0 5px 0 5px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            /* background-color:  rgba(103, 121, 156, 0.541); */
+            box-shadow: 1px 1px 6px -1px rgba(51, 51, 102, 0.5);
+        }
+
+        .inputDiv {
+            float: left;
+            margin: 10px;
+
+        }
+        .inputDiv p{
+            color:gray;
+        }
+        .inputDiv li{
+            margin: 6px 0 0 0;
+            padding: 0 0 6px 0;
+            border-bottom: 1px solid rgba(64, 95, 131, 0.527);
+            border-radius: 3px;
+           
+        }
+        .inputDiv li:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .selectDiv {
+            float: right;
+            margin: 10px;
+        }
+
+        #formDiv>div:after {
+            clear: both;
+            content: '.';
+            display: block;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .model-4 {
+            position: absolute;
+            /* margin: 20px 0 10px 0; */
+            bottom: 10px;
+            min-width: 10px;
+            min-height: 20px;
+        }
+
+        .checkbox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .checkbox:after,
+        .checkbox:before {
+            font-family: FontAwesome;
+            -webkit-font-feature-settings: normal;
+            -moz-font-feature-settings: normal;
+            font-feature-settings: normal;
+            -webkit-font-kerning: auto;
+            -moz-font-kerning: auto;
+            font-kerning: auto;
+            -webkit-font-language-override: normal;
+            -moz-font-language-override: normal;
+            font-language-override: normal;
+            font-stretch: normal;
+            font-style: normal;
+            font-synthesis: weight style;
+            font-variant: normal;
+            font-weight: normal;
+            text-rendering: auto;
+        }
+
+        .checkbox label {
+            width: 90px;
+            height: 42px;
+            background: #ccc;
+            position: relative;
+            display: inline-block;
+            border-radius: 46px;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        .checkbox label:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            left: 0;
+            top: -5px;
+            z-index: 2;
+            background: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        .checkbox input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkbox input:hover+label:after {
+            box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .checkbox input:checked+label:after {
+            left: 40px;
+        }
+
+
+        .model-4 .checkbox label {
+            background: #bbb;
+            height: 10px;
+            width: 40px;
+        }
+
+        .model-4 .checkbox label:after {
+            background: #fff;
+            /* top: -8px; */
+            width: 20px;
+            height: 20px;
+        }
+
+        .model-4 .checkbox input:checked+label {
+            background: rgb(125, 181, 255);
+        }
+
+        .model-4 .checkbox input:checked+label:after {
+            background: #0078e9;
+            left: 22px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="template" style="display: none;">
+            <div class="inputDiv">
+                <input type="text" placeholder="問題名稱">
+                <br>
+                <div>
+                    <p>簡答</p>
+                </div>
+            </div>
+            <span class="delete">&times;</span>
+            <div class="selectDiv">
+                <span>問題類型</span>
+                <br>
+                <select name="type" id="">
+                    <option value="text">簡答</option>
+                    <option value="textarea">詳答</option>
+                    <option value="radio">單選</option>
+                    <option value="checkbox">多選</option>
+                    <option value="select">下拉選單</option>
+                    <option value="date">日期</option>
+                    <option value="time">時間</option>
+                </select>
+                <section class="model-4">
+                    <label>必填</label>
+                    <div class="checkbox">
+                        <input type="checkbox">
+                        <label></label>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div id="formDiv">
+        </div>
+        <div>
+            <button type="button" class="add">新增問題</button>
+            <button type="button" id="save">儲存</button>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
