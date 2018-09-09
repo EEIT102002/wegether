@@ -18,8 +18,22 @@
     <script src="./js/setting.js"></script>
 	 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
     <script>
-    var logindiv;
+   	 var logindiv;
+   	 var logoutSpan;
         $(function () {
+        	logouSpan =  $('#logoutSpan');
+        	var loginSpan =$('#loginSpan');
+        	 $.post(
+                     "/wegether/login.check"
+                     ,""
+                     ,function(data){
+                         if(data.state == true){
+                        	 loginSpan.toggle();
+                             logouSpan.toggle();
+                         }
+                     }
+                     ,"json"
+                 )    
             $('#header_nav ul li').click(function () {
                 $(this).addClass('active').siblings().removeClass('active');
             })
@@ -37,10 +51,16 @@
                             $(qqq).modal('hide');
                             var qqq = $(logindiv).closest('.modal');
                             $(qqq).modal('hide');
+                            loginSpan.toggle();
+                            logouSpan.toggle();
                         }
                     }
                     ,"json"
                 )    
+            })
+            logouSpan.click(function(){
+            	loginSpan.toggle();
+                logouSpan.toggle();
             })
             // $('#upTop').click(function(){
             // 	var body = $("html, body");
@@ -188,8 +208,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox">
+                            <a id="loginSpan" href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox">
                                 <span data-hover="登入">登入</span>
+                            </a>
+                            <a id="logoutSpan" href="#" class="scrol" style="display:none">
+                            	<span data-hover="登出">登出</span>
                             </a>
                         </li>
                     </ul>

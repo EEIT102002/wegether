@@ -302,7 +302,7 @@
 	<div class="container">
         <div id="small_con">
 			<div>
-				<form action="<c:url value="/actCreate.controller"/>" method="get" enctype="multipart/form-data">
+				<form action="<c:url value="/actCreate.controller"/>" method="post" accept-charset="ISO-8859-1" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td>聚會封面</td>
@@ -314,7 +314,7 @@
 						<tr>
 							<td>聚會標題</td>
 							<td>
-								<input type="text" name="title" id="insertActname">
+								<input type="text" name="title" id="insertActname" value="${param.title}">
 							</td>
 						</tr>
 						<tr>
@@ -378,12 +378,13 @@
 						<tr>
 							<td>報名截止日期</td>
 							<td>
-								<input type="date" id="deathLine" name="dateline">
+								<input type="date" id="deathLine" name="dateline">${errMsgs.deathline}
 							</td>
 						</tr>
 		
 					</table>
 					<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
+					<input type="botton" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
 		  <div class="modal fade" id="preview" tabindex="-1" role="dialog">
 			<div class="modal-dialog modal-lg" role="document">
 			  <div class="modal-content"><!--白色遮罩層-->
@@ -399,7 +400,7 @@
 					  <div class="modal-body" id="mid-body">
 					  	<table>
 					  	<tr><td>聚會封面</td><td id="actPicture"><img src="images/actcreate.jpg" id="actPiczone" class="actPic"></td></tr>
-					  	<tr><td>聚會標題</td><td id="actName" value="${errMsgs.nameErr}"></td></tr>
+					  	<tr><td>聚會標題</td><td id="actName"></td></tr>
 					  	<tr><td>聚會類型</td><td id="actType"></td></tr>
 					  	<tr><td>城市/所在地</td><td id="actCity"></td></tr>
 					  	<tr><td>地點</td><td id="actWhere"></td></tr>
@@ -410,6 +411,29 @@
 					  	<tr><td>聚會預算</td><td id="actBudget"></td></tr>
 					  	<tr><td>報名截止日期</td><td id="actDeathline"></td></tr>
 					  	</table>
+					  </div>
+					  <div class="modal-footer">
+						  <button type="submit" class="btn btn-primary">確認送出</button>
+						  <button type="button" class="btn btn-secondary" data-dismiss="modal">修改</button>
+					  </div>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		  <div class="modal fade" id="setMyform" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg" role="document">
+			  <div class="modal-content"><!--白色遮罩層-->
+				  <div class="modal-body">
+		  <!--       // modal-body  有差padding -->
+					  <div class="modal-header">
+						  
+						  <h5 class="modal-title lead"><strong>報名表單</strong></h5>
+						  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							  <span aria-hidden="true">&times;</span>
+						  </button>
+					  </div>
+					  <div class="modal-body" id="mid-body">
+
 					  </div>
 					  <div class="modal-footer">
 						  <button type="submit" class="btn btn-primary">確認送出</button>

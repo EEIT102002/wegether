@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#get').click(getForm);
+        });
+        var questions;
+        function getForm() {
+            $.getJSON("res/formJson.txt", function (data) {
+                questions = data.questions;
+                var form = $('<form/>');
+                var txt = "";
+                $.each(questions, function (i, v) {
+                    form.append(creatQ(v));
+                })
+                var submit = $('<input/>').val('submit').attr('type', 'submit');
+                form.append(submit);
+                form[0].method = 'post';
+                form[0].action = '/wegether/FormServletTest';
+                // form.submit(checkRequired);
+                $('#demo').html(form);
+            })
+        }
+
+        function checkRequired(){
+            $.each(questions, function (i, v) {
+                   if(v.required){
+                       console.log(v.title);
+                   }
+                })
+            return true;
+        }
+
+        function creatQ(question) {
+            var div = $('<div/>');
+            var title = $('<p/>').text(question.title);
+            div.html(title);
+            switch (question.type) {
+                case 'textarea':
+                    textarea(question, div);
+                    break;
+                case "date": case "time": case "text":
+                    text(question, div);
+                    break;
+                case "radio":
+                    radio(question, div);
+                    break;
+                case "checkbox":
+                    checkbox(question, div);
+                    break;
+                case "select":
+                    select(question, div);
+                    break;
+            }
+            return div;
+        }
+        function select(question, div) {
+            var select = $('<select/>')
+                .attr("name", question.name);
+            var def = $('<option/>').text("請選擇").prop('disabled', 'disabled').prop("selected",true);
+            select.append(def);
+            $.each(question.options, function (n, v) {
+                var option = $('<option/>')
+                    .val(n)
+                    .text(v);
+                select.append(option);
+            })
+            div.append(select);
+        }
+
+
+        function textarea(question, div){
+            var input = $('<textarea/>')
+                .attr('name', question.name);
+            div.append(input);
+        }
+
+        function text(question, div) {
+            var input = $('<input/>')
+                .attr('type', question.type)
+                .attr('name', question.name);
+            div.append(input);
+        }
+
+        function radio(question, div) {
+            $.each(question.options, function (n, v) {
+                var input = $('<input/>')
+                    .attr('type', question.type)
+                    .attr('name', question.name)
+                    .val(n);
+                div.append(input, v + "<br>");
+            })
+        }
+
+        function checkbox(question, div) {
+            $.each(question.options, function (n, v) {
+                var input = $('<input/>')
+                    .attr('type', question.type)
+                    .attr('name', n)
+                    .val(1);
+                div.append(input, v + "<br>");
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <h2 id="buttom">Create form Domo1</h2>
+    <p id="get">create form</p>
+    <div id="demo"></div>
+</body>
+
+</html>

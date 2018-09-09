@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home</title>
+<title>ServiceEdit</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -187,6 +187,13 @@ footer>ul>li ul {
 
 					<td>${errors.title}</td> <input type="text" name="memberid"
 						placeholder="memberid" value="${param.memberid}">
+
+					<!-- 						<input type="text" name="id" -->
+					<%-- 						type="hidden" value="${param.id}"> --%>
+
+					<input type="hidden" name="id" value="${param.id}"></input> <input
+						type="hidden" name="asktime" value="${param.asktime}"></input>
+
 					<td>${errors.memberid}</td> <br>
 
 				</div>
@@ -209,17 +216,17 @@ footer>ul>li ul {
 				</div>
 
 				<div id="searchbarButton">
-					<input type="submit" name="servicemethod" value="提交" 
-						class="btn btn-warning form-control "> <input type="reset"
-						value="清除" class="btn btn-warning form-control"> 
-<!-- 						<input type="submit" name="servicemethod" value="Select" -->
-<!-- 						class="btn btn-warning form-control "> -->
+					<input type="submit" name="servicemethod" value="更新"
+						class="btn btn-warning form-control ">
+					<button class="btn btn-warning form-control "
+						onclick="{ if(confirm('確定取消?'))location.href='<c:url value="/Service.jsp" />'}">取消</button>
 				</div>
 				<tr>
 					<td>${errors.action}</td>
 				</tr>
 			</form>
-			<a href="ServiceSelect.controller" class="btn btn-warning form-control">select</a>
+			<a href="ServiceSelect.controller"
+				class="btn btn-warning form-control ">select</a>
 
 		</div>
 	</div>

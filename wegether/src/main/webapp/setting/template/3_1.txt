@@ -7,7 +7,7 @@
                 <option value="2">隱藏</option>
             </select>
             <br/>
-            <span>儲存</span>
+            <button type="button">儲存</button>
         </form>
     </set1>
      <set2> 
@@ -17,7 +17,7 @@
                 <option value="1">不接受</option>
             </select>
             <br/>
-            <span>儲存</span>
+            <button type="button">儲存</button>
         </form>
     </set2>
     <set3>
@@ -27,7 +27,7 @@
                 <option value="1">不接受</option>
             </select>
             <br/>
-            <span>儲存</span>
+            <button type="button">儲存</button>
         </form>
     </set3>
     <set4>
@@ -37,7 +37,7 @@
                 <option value="1">關閉</option>
             </select>
             <br/>
-            <span>儲存</span>
+            <button type="button">儲存</button>
         </form>
     </set4>
 </set>
