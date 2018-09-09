@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +31,14 @@ public class TrackmemberDAOHibernate implements TrackmemberDAO{
 				.setParameter("fanid", fanid)
 				.list();
 	}
+     private final String Hqltrackmembermemberid = "FROM TrackmemberBean WHERE MEMBERID = :MID ";
+	@Override
+	public List<TrackmemberBean> selectBymemberid(int memberid) {
+		@SuppressWarnings("unchecked")
+		Query<TrackmemberBean> query = getSession().createQuery( Hqltrackmembermemberid);
+		query.setParameter("MID", memberid);
+		return query.list();
+	}
+	
 
 }

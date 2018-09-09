@@ -11,23 +11,27 @@
                 url: "/wegether/member/Info",
                 dataType: "json",
                 success: function (json) {
-                    memberinfo = json;
-                    var addr = memberinfo["city"];
-                    addr += memberinfo["addr"];
-                    if (addr != 0)
-                        memberinfo["addrs"] = addr;
-                    $('div:eq(0) > table tr').each(function () {
-                        var info = memberinfo[$(this).attr('id')]
-                        if (info != null) {
-                            if ($(this).attr('id') == "birthday")
-                                info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
-                            this.children[1].innerHTML = info;
-                        }else{
-                            this.children[1].innerHTML = '<span class="notinput">未填寫</span>';
-                        }
-                    });
+                    insertInfo(json);
                 }
+
             });
+            function insertInfo(json) {
+                memberinfo = json;
+                var addr = memberinfo["city"] != null ?city(memberinfo["city"])+" ":"";
+                addr += memberinfo["addr"] != null ? memberinfo["addr"]: "";
+                if (addr.length != 0)
+                    memberinfo["addrs"] = addr;
+                $('div:eq(0) > table tr').each(function () {
+                    var info = memberinfo[$(this).attr('id')]
+                    if (info != null) {
+                        if ($(this).attr('id') == "birthday")
+                            info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
+                        this.children[1].innerHTML = info;
+                    } else {
+                        this.children[1].innerHTML = '<span class="notinput">未填寫</span>';
+                    }
+                });
+            }
 
             $('div:eq(0) > table tr > td > button').click(function () {
                 var prevtd = $(this).parent().prev();
@@ -47,6 +51,24 @@
                     default: editInput(prevtd, key); break;
                 };
             });
+
+            $('form > button').click(function () {
+                var td = $(this).parent().parent();
+                var button = td.next('td').children('button');
+                var form = $(this).parent('form').serialize();
+                $.post(
+                    "/wegether/member/Info/setting"
+                    , form
+                    , function (data) {
+                        insertInfo(data);
+                        td.toggle().prev().toggle();
+                        button.text(
+                            button.text() == "編輯" ? "取消" : "編輯");
+                    }
+                    , "json"
+                );
+
+            })
         });
         function editInput(td, key) {
             var val = $(memberinfo).attr(key);
@@ -68,6 +90,17 @@
                 $(tr).find('select[name="city"]').val(city);
                 $(tr).find('input').val($(memberinfo).attr("addr"));
             }
+        }
+
+        function city(i) {
+            switch (i) {
+                case 1:
+                    return "台北市";
+                case 2:
+                    return "新北市";
+                default:
+                    return null;
+        	}
         }
 
     </script>
@@ -113,7 +146,8 @@
             vertical-align: top;
             background-color: blue;
         }
-        .notinput{
+
+        .notinput {
             color: grey
         }
     </style>
@@ -132,13 +166,13 @@
                 <td></td>
                 <td style="display: none;">
                     <form>
-                        <input type="text" name="" id="" value="" />
+                        <input type="text" name="nickname" id="" value="" />
                         <br/>
-                        <button>儲存</button>
+                        <button type="button">儲存</button>
                     </form>
                 </td>
                 <td>
-                    <button>編輯</button>
+                    <button type="button">編輯</button>
                 </td>
             </tr>
             <tr id="birthday">
@@ -156,13 +190,13 @@
                 <td></td>
                 <td style="display: none;">
                     <form>
-                        <input type="text" name="" id="" value="" />
+                        <input type="text" name="job" id="" value="" />
                         <br/>
-                        <button>儲存</button>
+                        <button type="button">儲存</button>
                     </form>
                 </td>
                 <td>
-                    <button>編輯</button>
+                    <button type="button">編輯</button>
                 </td>
             </tr>
             <tr id="addrs">
@@ -176,11 +210,11 @@
                         </select>
                         <input type="text" name="addr" id="" value="" />
                         <br/>
-                        <button>儲存</button>
+                        <button type="button">儲存</button>
                     </form>
                 </td>
                 <td>
-                    <button>編輯</button>
+                    <button type="button">編輯</button>
                 </td>
             </tr>
             <tr id="tel">
@@ -188,13 +222,13 @@
                 <td></td>
                 <td style="display: none;">
                     <form>
-                        <input type="text" name="" id="" value="" />
+                        <input type="text" name="tel" id="" value="" />
                         <br/>
-                        <button>儲存</button>
+                        <button type="button">儲存</button>
                     </form>
                 </td>
                 <td>
-                    <button>編輯</button>
+                    <button type="button">編輯</button>
                 </td>
             </tr>
             <tr id="content">
@@ -202,13 +236,13 @@
                 <td></td>
                 <td style="display: none;">
                     <form>
-                        <textarea name="" id="" cols="40" rows="5"> </textarea>
+                        <textarea name="content" id="" cols="40" rows="5"> </textarea>
                         <br/>
-                        <button>儲存</button>
+                        <button type="button">儲存</button>
                     </form>
                 </td>
                 <td>
-                    <button>編輯</button>
+                    <button type="button">編輯</button>
                 </td>
             </tr>
             <tr id="favorite">
@@ -216,13 +250,13 @@
                 <td></td>
                 <td style="display: none;">
                     <form>
-                        <input type="text" name="" id="" value="" />
+                        <input type="text" name="favorite" id="" value="" />
                         <br/>
-                        <button>儲存</button>
+                        <button type="button">儲存</button>
                     </form>
                 </td>
                 <td>
-                    <button>編輯</button>
+                    <button type="button">編輯</button>
                 </td>
             </tr>
         </table>

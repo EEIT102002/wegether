@@ -56,7 +56,7 @@ public class PictureBean {
 	}
 	
 	//member
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(
 			name="MEMBERID",
 			referencedColumnName="ID",

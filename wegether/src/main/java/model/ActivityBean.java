@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
@@ -39,12 +40,15 @@ public class ActivityBean {
 	private String content;
 	private Integer numberlimit;
 	private Integer feed;
+	@Column(insertable = false)
 	private Integer state;
 	private Double rank1;
 	private Double rank2;
 	private Double rank3;
+	@Column(insertable = false)
 	private Integer judges;
 	private String form;
+	@Column(insertable = false)
 	private Integer click;
 	
 	//member
@@ -159,7 +163,9 @@ public class ActivityBean {
 	@Override
 	public String toString() {
 		return "ActivityBean [id=" + id + ", hostid=" + hostid + ", createtime=" + createtime + ", title=" + title
-				+ ", city=" + city + ", addr=" + addr + ", picture=" + Arrays.toString(picture) + ", actbegin="
+				+ ", city=" + city + ", addr=" + addr + ", "
+//						+ "picture=" + Arrays.toString(picture) 
+						+ ", actbegin="
 				+ actbegin + ", actend=" + actend + ", dateline=" + dateline + ", classtype=" + classtype + ", content="
 				+ content + ", numberlimit=" + numberlimit + ", feed=" + feed + ", state=" + state + ", rank1=" + rank1
 				+ ", rank2=" + rank2 + ", rank3=" + rank3 + ", judges=" + judges + ", form=" + form + ", click=" + click
@@ -293,8 +299,12 @@ public class ActivityBean {
 	public void setClick(Integer click) {
 		this.click = click;
 	}
-	
-	
+	public String getpictureToBase64() {
+	    if(picture!=null) {
+	     return Base64.getEncoder().encodeToString(picture);
+	    }
+	    return null;
+	   }
 	
 	
 	

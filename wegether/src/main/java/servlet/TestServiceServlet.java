@@ -64,21 +64,20 @@ public class TestServiceServlet extends HttpServlet {
 		
 //		新增一筆資料
 //		ServiceBean bean = new ServiceBean();
-//		
 //		bean.setMemberid(2);
 //		bean.setTitle("無法參加+2");
 //		bean.setClasstype(55);
 //		bean.setContent("無法參加+2");
 //
 //		ServiceBean result = serviceDAOHibernate.insert(bean);
-		
+
 		
 //		修改資料
 //		ServiceBean result = serviceDAOHibernate.update(7, 3, new java.util.Date(), "更新測試", 33, "更新測試");
 		
 		
 //		刪除資料
-//		boolean result = serviceDAOHibernate.delete(7);
+//		boolean result = serviceDAOHibernate.delete(-26);
 		
 		
 		
@@ -88,7 +87,7 @@ public class TestServiceServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 //		out.println("<p>ServiceBean<p>");
 		result.forEach(x->out.println(x+"<br>"));////對應<ServiceBean> result
-		out.print(result);
+//		out.print(result);
 		out.close();
 		
 		

@@ -5,11 +5,15 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import model.ActivityBean;
 import model.AttendBean;
+import model.FriendBean;
 import model.dao.AttendDAO;
+import querylanguage.QueryBean;
 
 
 
@@ -17,6 +21,8 @@ import model.dao.AttendDAO;
 public class AttendDAOHibernate implements AttendDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+	@Autowired
+	private QueryBean querybean;
 	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
@@ -33,6 +39,29 @@ public class AttendDAOHibernate implements AttendDAO {
 
 		return this.getSession().createQuery(
 				"from AttendBean", AttendBean.class).list();
+	}
+	
+	private final String selectByActID = "from AttendBean  WHERE activityid = :activityid ";
+	@Override
+	public List<AttendBean> selectByActID(int actID) {
+		return this.getSession().createQuery(selectByActID, AttendBean.class)
+				.setParameter("activityid",actID).list();		
+	}
+	
+	private final String selectByMemID = "from AttendBean  WHERE memberid = :memberid ";
+	@Override
+	public List<AttendBean> selectByMemID(int memID) {
+		return this.getSession().createQuery(selectByMemID, AttendBean.class)
+				.setParameter("memberid",memID).list();
+	}
+	
+	private final String Hqlattendmemberid = "FROM AttendBean WHERE MEMBERID = :MID AND STATE = 1";
+	@Override
+	public List<AttendBean> selectBymemberid(int memberid) {
+		@SuppressWarnings("unchecked")
+		Query<AttendBean> query = getSession().createQuery(Hqlattendmemberid);
+		query.setParameter("MID", memberid);
+		return query.list();
 	}
 
 	@Override

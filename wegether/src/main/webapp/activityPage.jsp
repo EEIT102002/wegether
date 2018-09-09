@@ -39,7 +39,6 @@
         list-style: none;
         margin: 0;
         padding: 0;
-
     }
     body{
         /* background-color: rgb(145, 145, 145);
@@ -62,12 +61,10 @@
         display: flex;
         width: 70%;
         margin: auto;
-
     }
     footer>ul>li{
         /* border: 2px solid green; */
         flex: 1;
-
     }
     footer>ul>li a{
         font-size: 1.2em;
@@ -156,11 +153,11 @@
                                 
                             <div id="up" >
                                 <div id="left" style="width: auto;">
-                                        <a href="#"><img src="images/activityPageImages/host.png" ></a>
+                                        <a href="#"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  width="70" > </a>
                                 </div>
                                 <div  id="left" style="width: auto;">
-                                    <p id="txtup" style="background-color:#FFBB73" >${memBean.nickname}</p>
-                                    <p id="txtup" >${memBean.job}</p>
+                                    <p id="txtup" style="background-color:#FFBB73" >${hostBean.nickname}</p>
+                                    <p id="txtup" >${hostBean.job}</p>
                                 </div>   
                                 
 
@@ -169,41 +166,41 @@
 								
 								
                                 <div id="right" >                  
-					                <a href="activityPage.controller"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
+					                <a href="activityPage.controller?actid=1"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
                                     <img src="images/activityPageImages/click2.png" width="50" > ${actBean.click}
                                    
                                 </div>                            
                             </div>
                             <div>
-                               <img src="data:image/jpg;base64,${base64Image}"  width="400" > 
+                               <img src="data:image/jpg;base64,${actPicList.get(0)}"  width="400" > 
                             </div>
                             <div style="padding-top: 10px;">
-                                    <a href="#"> <img src="images/activityPageImages/p1.jpg" width="100" height="80"></a>
-                                    <a href="#"> <img src="images/activityPageImages/p2.jpg" width="100"  height="80"></a>
-                                    <a href="#"> <img src="images/activityPageImages/p3.jpg" width="100"  height="80"></a>
-                                    <a href="#"> <img src="images/activityPageImages/p4.jpg" width="100"  height="80"></a>
+                            
+                             	<c:forEach var="obj" items="${actPicList}">
+							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="100"  height="80"></a>
+								</c:forEach>
+                                   
                             </div>
                         </div>  <!-- left end -->
 
                         
                         <div id="right">
                             <h3>${actBean.title}</h3><!-- right1 end -->
-                            <p>${actBean.actbegin}</p><!-- right2 end -->
+                            <p>${actbegin}</p><!-- right2 end -->
                             <p>${actBean.addr}</p><!-- right3 end -->
                             <div>
-                                    <img src="images/activityPageImages/people.png" width="20" > ${actBean.numberlimit}人 &emsp;
-                                    <img src="images/activityPageImages/fees.png" width="20" >${actBean.feed}元 &emsp;
-                                    <img src="images/activityPageImages/deadline.png" width="40" >${actBean.dateline} 
+                                    <img src="images/activityPageImages/people.png" width="20" >&nbsp;${actBean.numberlimit}人 &emsp;
+                                    <img src="images/activityPageImages/fees.png" width="20" >&nbsp;${actBean.feed}元 &emsp;
+                                    <img src="images/activityPageImages/deadline.png" width="40" >&nbsp;${dateline} 
                             </div><!-- right4 end -->
                             <div>
-                                    <a href="#"><img src="images/activityPageImages/fans1.png" width="40" ></a> &emsp; 
-                                    <a href="#"><img src="images/activityPageImages/fans2.png" width="40" ></a> &emsp; 
-                                    <a href="#"><img src="images/activityPageImages/fans3.png" width="40" ></a> &emsp; 
-                                    <a href="#"><img src="images/activityPageImages/fans4.png" width="40" ></a> 
-                                    <a href="#"><img src="images/activityPageImages/fans5.png" width="40" ></a>  
+                            	<c:forEach var="obj" items="${memPicList}">
+							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="50" ></a> &emsp; 
+								</c:forEach>
+                           
 
                             </div><!-- right5 end -->
-                            <p style="text-align: center" >7 個申請人</p><!-- right6 end -->
+                            <p style="text-align: center" >${attedNumber} </p><!-- right6 end -->
                             <div style="text-align: center">
                                 <input   type="button" value="      報名     " >
                             </div><!-- right7 end -->
@@ -211,15 +208,28 @@
                         </div>  <!-- right end -->
                    </div>   <!-- up end -->
 
-
+ 					
                      <div id="down">
-                            <h2>${actBean.title}</h2>
-                            <p > ${actBean.content} </p>
-                            <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>                       
-                            <div id="msgid">
-                               <img src="images/activityPageImages/msgs.png" width="600" >
-                             </div>
-                    </div> <!-- down end -->
+                          <h2>${actBean.title}</h2>
+                          <p > ${actBean.content} </p>
+                          </br>
+                          <h4>留下意見:</h4>
+                          <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>    </br> </br>   
+                          	<a href="#"><img  src="images/activityPageImages/msgbuttonstr.png" width="200"></a> 
+                          <!-- msg begin -->                 
+                      <div id="msgid">
+                    
+                        
+                        <c:forEach var="obj" items="${msgsList}">
+					 		
+                        ${obj.nickname} ${obj.msgtime}</br>
+                        ${obj.content}</br>
+						</c:forEach>
+                        
+                       </div>
+                             <!-- msg end -->
+                    </div> 
+                    <!-- down end -->
                     
                 </div>
                 <!--       寫在這以上 -->
