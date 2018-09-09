@@ -258,7 +258,7 @@
 }
 
 #about_ActRank li:first-child a::before{
-	content: "12345";
+	content: "";
 	background-image: url(../images/champ1.png);
 	background-size: contain; 
 	background-repeat: no-repeat;
