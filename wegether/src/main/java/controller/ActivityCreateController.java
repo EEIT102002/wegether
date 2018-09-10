@@ -98,6 +98,7 @@ public class ActivityCreateController {
 
 		activityDAO.insert(activityBean);
 
+
 		return "actCreateSuc.page";
 	}
 
