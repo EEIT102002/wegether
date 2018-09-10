@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
@@ -62,51 +63,6 @@ public class TestActivityDAOServlet extends HttpServlet {
 		// activityDAOHibernate.selectOfIndex(0,0,beginDate,endDate,"戶外活動","山");
 
 		// insert
-<<<<<<< HEAD
-		ActivityBean bean = new ActivityBean();
-		bean.setActbegin(new java.util.Date());
-		bean.setActend(new java.util.Date());
-		bean.setAddr("象山");
-		bean.setCity(102);
-		bean.setClasstype("戶外活動");
-		bean.setClick(97);
-		bean.setContent("一起去爬山Content");
-		bean.setCreatetime(new java.util.Date());
-		bean.setDateline(new java.util.Date());
-		bean.setFeed(500);
-		bean.setForm("Activityform");
-		bean.setHostid(1);
-		bean.setJudges(101);
-		bean.setNumberlimit(100);
-
-		// File defultPic = new
-		// File("..\\repository\\wegether\\src\\main\\webapp\\images\\actcreate.jpg");
-		// long length = defultPic.length();
-		// byte[] pic = new byte[(int) length];
-		//
-		// bean.setPicture(pic);
-		byte[] ewet = null;
-		File img = new File("..\\repository\\wegether\\src\\main\\webapp\\images\\avatar.jpg");
-//		file:///C:/JavaFramework/repository/wegether/src/main/webapp/images/avatar.jpg
-		try {
-			ewet = fileToByte(img);
-			System.out.println("try:"+ewet);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("File:"+ img);
-		System.out.println(ewet);
-		bean.setPicture(ewet);
-
-		// bean.setPicture(null);
-		bean.setRank1(3.0);
-		bean.setRank2(3.0);
-		bean.setRank3(3.0);
-		// bean.setState(1);
-		bean.setTitle("一起去爬山title7");
-		ActivityBean result = activityDAOHibernate.insert(bean);
-=======
 //		ActivityBean bean = new ActivityBean();
 //		String beginDate = "2018-10-06 18:30:00";
 //		 String endDate = "2018-10-06 21:00:00";
@@ -154,7 +110,6 @@ public class TestActivityDAOServlet extends HttpServlet {
 //		 bean.setState(0);
 //		bean.setTitle("EEIT102 謝師宴");
 //		ActivityBean result = activityDAOHibernate.insert(bean);
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether.git
 
 		// update
 //		ActivityBean bean = new ActivityBean();
@@ -260,7 +215,6 @@ public class TestActivityDAOServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
 
-<<<<<<< HEAD
 		String relativelyPath = System.getProperty("user.dir");
 		out.println("relativelyPath" + relativelyPath);
 		// result.forEach(temp->{
@@ -268,13 +222,6 @@ public class TestActivityDAOServlet extends HttpServlet {
 		// out.println("===============<br><br>");
 		// });
 		//
-=======
-		 result.forEach(temp->{
-		 out.println(temp+"<br><br>");
-		 out.println("===============<br><br>");
-		 });
-		
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether.git
 		System.out.println(result);
 //		out.println(result);
 		out.close();
