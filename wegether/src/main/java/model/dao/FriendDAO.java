@@ -11,7 +11,11 @@ public interface FriendDAO {
 	
 	public abstract List<FriendBean> selectByMemberFState(int memberidf, int state ,int first);
 	
+	public abstract FriendBean selectById(int id);
+	
 	public abstract FriendBean insert(FriendBean friendBean);
 
 	public abstract boolean updateState(FriendBean friendBean);
+	
+	public abstract boolean delete(FriendBean friendBean);
 }

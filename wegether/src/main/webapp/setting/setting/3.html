@@ -9,6 +9,7 @@
             $.ajax({
                 type: "GET",
                 url: "/wegether/member/Setting",
+//                 url : "../template/setting.txt",
                 dataType: "json",
                 success: function (json) {
                     setting = json;
@@ -79,7 +80,7 @@
                 }
             });
 
-            $('#setting3').on('click', 'table tr > td > span', function () {
+            $('#setting3').on('click', 'table tr > td > button', function () {
                 $(this).closest('tr').siblings("tr:has(form)").each(function () {
                     if ($(this.children[3].children).text() == '取消') {
                         $(this.children[3].children).text('編輯').parent().prev().children().eq(0).show().next().hide();
@@ -92,6 +93,28 @@
                 select.val($(setting).attr(select[0].name));
             });
 
+             $('#setting3').on('click', 'table tr > td > form button', function(){
+                 
+                var form = $(this).parent('form');
+                var message = form.serialize();
+                var name = form.children('select').attr('name');
+                $.post(
+                    "/wegether/member/Setting/setting"
+                    , message
+                    , function (data) {
+                        if (data.state) {
+                            setting = data.setting;
+                            form.toggle().prev().text(settingText(name)).toggle().parent().next().children('button').text('編輯');
+                        }else{
+                            form.toggle().prev().toggle().parent().next().children('button').text('編輯');
+                        }
+                    }
+                    , "json"
+                );
+                
+                
+             })
+
         });
 
         function createTr(obj) {
@@ -101,7 +124,7 @@
                 var tr = $('<tr><td><td><td><td></tr>');
                 tr.children().eq(1).text(value)
                     .next().html($('<div>').text(settingText(key)))
-                    .next().html('<span>編輯</span>');
+                    .next().html('<button type="button" >編輯</button>');
                 tr.children()[2].insertAdjacentHTML('beforeend', form[0].outerHTML);
                 tr.find('form').hide().children().eq(0).val($(setting).attr(key)).attr('name', key);
                 table.append(tr);
@@ -111,7 +134,11 @@
             $('table').append(table.children());
         };
         function settingText(name) {
-            var value = Number(setting[name]);
+            return switchText(name,setting[name]);
+        }
+
+        function switchText(name, value){
+            var value = Number(value);
             switch (name) {
                 case 'activitymsg':
                 case 'articlemsg':

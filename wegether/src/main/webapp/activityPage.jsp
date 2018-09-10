@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Home</title>
+<title>ActivityPage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/activityPage.css">
@@ -33,6 +33,21 @@
 		// 		$(this).addClass('animated');
 		// 	})
 	})
+	 var flag=0;
+	document.addEventListener("DOMContentLoaded", function () {
+              document.getElementById("favorButton").addEventListener("click",click); 
+              });
+    
+	function click(){
+		if(flag==0){
+				document.getElementById("favorButton").src="images/activityPageImages/favorites.png";   
+				flag=1;
+		}else{
+				document.getElementById("favorButton").src="images/activityPageImages/favoritesOff.png";   
+				flag=0;
+			}
+          }
+	$(function () { $("[data-toggle='tooltip']").tooltip(); });
 </script>
 <style>
     *{
@@ -81,6 +96,7 @@
     .container p{
         color: white;
     }
+   
 </style>
 </head>	
 <body>
@@ -156,7 +172,9 @@
                                 
                             <div id="up" >
                                 <div id="left" style="width: auto;">
-                                        <a href="#"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  width="70" > </a>
+
+                                        <a href="personal.controller?memberId=${hostBean.id}"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  class="img-circle" width="70" > </a>
+
                                 </div>
                                 <div  id="left" style="width: auto;">
                                     <p id="txtup" style="background-color:#FFBB73" >${hostBean.nickname}</p>
@@ -169,18 +187,51 @@
 								
 								
                                 <div id="right" >                  
-					                <a href="activityPage.controller?actid=1"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
-                                    <img src="images/activityPageImages/click2.png" width="50" > ${actBean.click}
-                                   
+
+					                <a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友"> 
+
+					                <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
+					                
+					                <span  class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
+                                    <img src="images/activityPageImages/click2.png" width="50" > </span>${actBean.click}&emsp; 
+                                    
+                             		<a  href="#" class="tooltip-test" data-toggle="tooltip" title="收藏活動資訊">
+                             		 <img id="favorButton"  src="images/activityPageImages/favoritesOff.png" width="50" ></a>
+                             		 
                                 </div>                            
                             </div>
                             <div>
-                               <img src="data:image/jpg;base64,${actPicList.get(0)}"  width="400" > 
+                         
+								       <!-- 輪播  start -->
+								  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+									<div class="carousel-inner">
+										<div class="item active">
+										<c:set var="actPicListSize" value="${actPicListSize}" />
+											<img  src="data:image/jpg;base64,${actPicList.get(actPicListSize)}"  class="img-thumbnail"  >
+										</div>
+											<c:forEach var="obj" items="${actPicList}">
+												<div  class="item ">
+										 			<img  src="data:image/jpg;base64,${obj}"   class="img-thumbnail" >
+										 		</div>
+											</c:forEach>
+									</div>
+								<!-- 輪播（Carousel）導航 -->
+<!-- 									<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> -->
+<!-- 										<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> -->
+<!-- 										<span class="sr-only">Previous</span> -->
+<!-- 									</a> -->
+<!-- 									<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" > -->
+<!-- 										<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> -->
+<!-- 										<span class="sr-only">Next</span> -->
+<!-- 									</a> -->
+								</div> 	
+									   <!-- 輪播  end -->
+	   
                             </div>
                             <div style="padding-top: 10px;">
                             
                              	<c:forEach var="obj" items="${actPicList}">
-							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="100"  height="80"></a>
+							 	<img  src="data:image/jpg;base64,${obj}"   class="img-rounded" width="100"  height="80">
 								</c:forEach>
                                    
                             </div>
@@ -198,28 +249,51 @@
                             </div><!-- right4 end -->
                             <div>
                             	<c:forEach var="obj" items="${memPicList}">
-							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="50" ></a> &emsp; 
+							 		<a href="#"><img  src="data:image/jpg;base64,${obj}" class="img-circle" width="50" ></a> &emsp; 
 								</c:forEach>
                            
 
                             </div><!-- right5 end -->
                             <p style="text-align: center" >${attedNumber} </p><!-- right6 end -->
                             <div style="text-align: center">
-                                <input   type="button" value="      報名     " >
+
+                            <button type="button" class="btn btn-warning"  > <a href="test.do"> &emsp; 編  &emsp;  輯  &emsp; 活  &emsp; 動 &emsp;</a></button>
+
                             </div><!-- right7 end -->
                             
                         </div>  <!-- right end -->
                    </div>   <!-- up end -->
 
-
+ 					
                      <div id="down">
-                            <h2>${actBean.title}</h2>
-                            <p > ${actBean.content} </p>
-                            <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>                       
-                            <div id="msgid">
-                               <img src="images/activityPageImages/msgs.png" width="600" >
-                             </div>
-                    </div> <!-- down end -->
+                          <h2>${actBean.title}</h2>
+                          <p > ${actBean.content} </p>
+                          </br>
+                          
+                          
+                          <h4>留下意見:</h4>
+                          <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>    </br> </br>   
+                          <button type="button" class="btn btn-warning"  >  &emsp; 留  &emsp;  &emsp; 言 &emsp;</button> </br> </br>   
+                          
+								
+                          
+                          
+                          <!-- msg begin -->                 
+       
+                    
+                        
+                        <c:forEach var="obj" items="${msgsList}">
+                        <div id="msgid" class="well" >
+							 	<a href="#"><img  src="data:image/jpg;base64,${obj.picMem}"  width="50" ></a> 	
+		                       <span style="color:blue;">${obj.nickname} </span> &emsp; <span style="font-size:small;">${obj.msgtime}</span></br>
+		                        ${obj.content}</br>
+                        </div>
+						</c:forEach>
+                        
+                       
+                             <!-- msg end -->
+                    </div> 
+                    <!-- down end -->
                     
                 </div>
                 <!--       寫在這以上 -->

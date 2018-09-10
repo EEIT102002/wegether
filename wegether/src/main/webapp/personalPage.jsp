@@ -236,11 +236,15 @@
                         </div>
                         <div style="text-align: center">
                            <br>
-                             <table style="margin-left:150px"border="0" align="center">
+                           <br>
+                             <table style="margin-left:135px"border="0" align="center">
                               <tr>
-                                 <td style="padding:20px;">追蹤人數</td>
-                                 <td style="padding:20px;">參加活動</td>
-                                 <td style="padding:20px;">好友</td>
+                                 <td style="padding:20px;font-weight:bold;font-family:微軟正黑體;color:#1E90FF;text-shadow: 2px 8px 6px rgba(0,0,0,0.2),0px -5px 35px rgba(255,255,255,0.3);">
+                                                                                        追蹤人數</td>
+                                 <td style="padding:20px;font-weight:bold;font-family:微軟正黑體;color:#1E90FF;text-shadow: 2px 8px 6px rgba(0,0,0,0.2),0px -5px 35px rgba(255,255,255,0.3);">
+                                                                                            參加活動</td>
+                                 <td style="padding:20px;font-weight:bold;font-family:微軟正黑體;color:#1E90FF;text-shadow: 2px 8px 6px rgba(0,0,0,0.2),0px -5px 35px rgba(255,255,255,0.3);">
+                                                                                        我的好友</td>
                               </tr> 
                               <tr>
                                  <td style="padding:10px;">${trackbean}</td>
@@ -248,6 +252,9 @@
                                  <td style="padding:10px;">${fribean}</td>
                               </tr>
                               </table>
+                              <br>
+                              <br>
+                              <p><a href="personal.controller">test</a></p>
                         </div>  
                            
 
