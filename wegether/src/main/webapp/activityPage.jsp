@@ -54,7 +54,6 @@
         list-style: none;
         margin: 0;
         padding: 0;
-
     }
     body{
         /* background-color: rgb(145, 145, 145);
@@ -77,12 +76,10 @@
         display: flex;
         width: 70%;
         margin: auto;
-
     }
     footer>ul>li{
         /* border: 2px solid green; */
         flex: 1;
-
     }
     footer>ul>li a{
         font-size: 1.2em;

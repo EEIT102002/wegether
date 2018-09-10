@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         var template;
-        var formDiv;
+        var formDiv_applyFrom;
         var formJson;
         var typeText = {
             "text": "簡答",
@@ -18,10 +18,10 @@
         }
         $(document).ready(function () {
             template = $("#template").hide();
-            formDiv = $("#formDiv");
-            formDiv.on("change", ".selectDiv > select", function () {
+            formDiv_applyFrom = $("#formDiv_applyFrom");
+            formDiv_applyFrom.on("change", ".selectDiv_applyFrom > select", function () {
                 var value = this.value;
-                var inputDD = $(this.parentNode).siblings('.inputDiv').children('div');
+                var inputDD = $(this.parentNode).siblings('.inputDiv_applyFrom').children('div');
                 switch (value) {
                     case "radio":
                     case "select":
@@ -36,7 +36,7 @@
                 }
 
             });
-            formDiv.on("click", ".inputDiv div .addOption", function () {
+            formDiv_applyFrom.on("click", ".inputDiv_applyFrom div .addOption", function () {
                 $(this).prev().append(inputOption());
                 checkOnly($(this).prev());
             })
@@ -44,7 +44,7 @@
 
             $(".add").click(addInput);
 
-            formDiv.on('click', '.delete', function () {
+            formDiv_applyFrom.on('click', '.delete_applyFrom', function () {
                 var p = this.parentNode;
                 var pp = p.parentNode;
                 $(p).remove();
@@ -53,17 +53,17 @@
             $('#save').click(function () {
                 var actForm = {};
                 actForm.questions = [];
-                $.each(formDiv.children('div'), function (i, e) {
+                $.each(formDiv_applyFrom.children('div'), function (i, e) {
                     var q = {};
                     var ele = $(e);
-                    q.title = ele.find('.inputDiv :text').val();
-                    q.type = ele.find('.selectDiv select').val();
-                    q.required = ele.find('.selectDiv :checkbox').prop('checked');
+                    q.title = ele.find('.inputDiv_applyFrom :text').val();
+                    q.type = ele.find('.selectDiv_applyFrom select').val();
+                    q.required = ele.find('.selectDiv_applyFrom :checkbox').prop('checked');
                     q.name = q.type + i.toString();
                     switch (q.type) {
                         case "radio": case "select": case "checkbox":
                             q.options = {};
-                            $.each(ele.find('.inputDiv ol input'), function (i, e) {
+                            $.each(ele.find('.inputDiv_applyFrom ol input'), function (i, e) {
                                 q.options[q.name + "_" + i] = e.value;
                             })
                     }
@@ -76,11 +76,11 @@
 
         function addInput() {
             var insert = template.clone().removeAttr("id").show();
-            formDiv.append(insert);
-            checkOnly(formDiv);
+            formDiv_applyFrom.append(insert);
+            checkOnly(formDiv_applyFrom);
         }
         function checkOnly(div) {
-            var del = $(div).children().children('.delete');
+            var del = $(div).children().children('.delete_applyFrom');
             if (del.length == 1) {
                 del.css('visibility', 'hidden');
             } else {
@@ -92,12 +92,17 @@
         }
         function inputOption() {
             return '<li><input type="text" placeholder="選項">' +
-                '<span class="delete">&times;</span>' +
+                '<span class="delete_applyFrom">&times;</span>' +
                 '</li>';
         }
     </script>
     <style>
-        #formDiv>div {
+
+        #applyForm{
+            font-size: 18px;
+            width: 450px;
+        }
+        #formDiv_applyFrom>div {
             width: 400px;
             background-color: rgba(200, 226, 255, 0.459);
             box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5);
@@ -107,7 +112,7 @@
             border-radius: 10px;
         }
 
-        .delete {
+        .delete_applyFrom {
             float: right;
             margin: 0 5px 0 5px;
             padding: 0 5px 0 5px;
@@ -118,33 +123,34 @@
             box-shadow: 1px 1px 6px -1px rgba(51, 51, 102, 0.5);
         }
 
-        .inputDiv {
+        .inputDiv_applyFrom {
             float: left;
             margin: 10px;
 
         }
-        .inputDiv p{
+        .inputDiv_applyFrom p{
             color:gray;
         }
-        .inputDiv li{
+        .inputDiv_applyFrom li{
             margin: 6px 0 0 0;
             padding: 0 0 6px 0;
             border-bottom: 1px solid rgba(64, 95, 131, 0.527);
             border-radius: 3px;
+            list-style: decimal;
            
         }
-        .inputDiv li:after {
+        .inputDiv_applyFrom li:after {
             content: '';
             display: block;
             clear: both;
         }
 
-        .selectDiv {
+        .selectDiv_applyFrom {
             float: right;
             margin: 10px;
         }
 
-        #formDiv>div:after {
+        #formDiv_applyFrom>div:after {
             clear: both;
             content: '.';
             display: block;
@@ -160,13 +166,13 @@
             min-height: 20px;
         }
 
-        .checkbox {
+        .checkbox_applyFrom {
             position: relative;
             display: inline-block;
         }
 
-        .checkbox:after,
-        .checkbox:before {
+        .checkbox_applyFrom:after,
+        .checkbox_applyFrom:before {
             font-family: FontAwesome;
             -webkit-font-feature-settings: normal;
             -moz-font-feature-settings: normal;
@@ -185,7 +191,7 @@
             text-rendering: auto;
         }
 
-        .checkbox label {
+        .checkbox_applyFrom label {
             width: 90px;
             height: 42px;
             background: #ccc;
@@ -196,7 +202,7 @@
             transition: 0.4s;
         }
 
-        .checkbox label:after {
+        .checkbox_applyFrom label:after {
             content: '';
             position: absolute;
             width: 50px;
@@ -211,7 +217,7 @@
             transition: 0.4s;
         }
 
-        .checkbox input {
+        .checkbox_applyFrom input {
             position: absolute;
             left: 0;
             top: 0;
@@ -222,33 +228,33 @@
             cursor: pointer;
         }
 
-        .checkbox input:hover+label:after {
+        .checkbox_applyFrom input:hover+label:after {
             box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
         }
 
-        .checkbox input:checked+label:after {
+        .checkbox_applyFrom input:checked+label:after {
             left: 40px;
         }
 
 
-        .model-4 .checkbox label {
+        .model-4 .checkbox_applyFrom label {
             background: #bbb;
             height: 10px;
             width: 40px;
         }
 
-        .model-4 .checkbox label:after {
+        .model-4 .checkbox_applyFrom label:after {
             background: #fff;
             /* top: -8px; */
             width: 20px;
             height: 20px;
         }
 
-        .model-4 .checkbox input:checked+label {
+        .model-4 .checkbox_applyFrom input:checked+label {
             background: rgb(125, 181, 255);
         }
 
-        .model-4 .checkbox input:checked+label:after {
+        .model-4 .checkbox_applyFrom input:checked+label:after {
             background: #0078e9;
             left: 22px;
         }
@@ -256,17 +262,17 @@
 </head>
 
 <body>
-    <div>
+    <div id="applyForm">
         <div id="template" style="display: none;">
-            <div class="inputDiv">
+            <div class="inputDiv_applyFrom">
                 <input type="text" placeholder="問題名稱">
                 <br>
                 <div>
                     <p>簡答</p>
                 </div>
             </div>
-            <span class="delete">&times;</span>
-            <div class="selectDiv">
+            <span class="delete_applyFrom">&times;</span>
+            <div class="selectDiv_applyFrom">
                 <span>問題類型</span>
                 <br>
                 <select name="type" id="">
@@ -280,14 +286,14 @@
                 </select>
                 <section class="model-4">
                     <label>必填</label>
-                    <div class="checkbox">
+                    <div class="checkbox_applyFrom">
                         <input type="checkbox">
                         <label></label>
                     </div>
                 </section>
             </div>
         </div>
-        <div id="formDiv">
+        <div id="formDiv_applyFrom">
         </div>
         <div>
             <button type="button" class="add">新增問題</button>
