@@ -88,10 +88,23 @@ public class indexRestController {
 			resultlist.add(obj);
 //			setBe成nullll
 			});
+
 			
 			return new ResponseEntity<List<Object[]>>(resultlist, HttpStatus.OK);
 		} else {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-	}// end
+	}
+//	@GetMapping( path= {"/member/memInfo"}, produces= {"application/json"})
+//	public ResponseEntity<?> getMemInfo(int id){
+//		MemberInfoBean result = memberInfoDAO.select(id);
+//		System.out.println(result);
+//		
+//		
+//		if(result!=null) {
+//			return new ResponseEntity<MemberInfoBean>(result, HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity(HttpStatus.NOT_FOUND);
+//		}
+//	}
 }

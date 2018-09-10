@@ -16,8 +16,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css"/>
-<script src="js/jquery.timepicker.min.js"></script>6
-<script type="text/javascript" src="js/createApplyForm.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
 <script>
 	$(function(){
 		$('#header_nav ul li').click(function(){
@@ -180,7 +179,7 @@
 </script>
 <style>
     *{
-/*         list-style: none; */
+        list-style: none;
         margin: 0;
         padding: 0;
 
@@ -232,24 +231,7 @@
     .actPic{
     height:100px;
     border-radius:10px;
-	}
-</style>
-
-<link rel="stylesheet" href="css/createApplyForm.css"/>
-<style>
-	.applyform {
-		min-width: 800px;
-		
-	}
-	.applyform #mid-body{
-		padding:20px;	
-		min-height: 200px;
-	} 
-	.applyform  #formDiv_applyForm>div{
-		
-		
-	 }
-    
+    }
 </style>
 <title>我要揪團</title>
 </head>
@@ -440,54 +422,18 @@
 		  </div>
 		  <div class="modal fade" id="setMyform" tabindex="-1" role="dialog">
 			<div class="modal-dialog modal-lg" role="document">
-			  <div class="modal-content applyform"><!--白色遮罩層-->
+			  <div class="modal-content"><!--白色遮罩層-->
 				  <div class="modal-body">
 		  <!--       // modal-body  有差padding -->
-					  <div class="modal-header">						  
+					  <div class="modal-header">
+						  
 						  <h5 class="modal-title lead"><strong>報名表單</strong></h5>
 						  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
 						  </button>
 					  </div>
 					  <div class="modal-body" id="mid-body">
-						<div id="applyForm" style="font-size: 16px;"x	>
-        <div id="template" style="display: none;">
-            <div class="inputDiv_applyForm">
-                <input type="text" placeholder="問題名稱">
-                <br>
-                <div>
-                    <p>簡答</p>
-                </div>
-            </div>
-            <span class="delete_applyForm">&times;</span>
-            <div class="selectDiv_applyForm">
-                <span>問題類型</span>
-                <br>
-                <select name="type" id="">
-                    <option value="text">簡答</option>
-                    <option value="textarea">詳答</option>
-                    <option value="radio">單選</option>
-                    <option value="checkbox">多選</option>
-                    <option value="select">下拉選單</option>
-                    <option value="date">日期</option>
-                    <option value="time">時間</option>
-                </select>
-                <section class="model-4">
-                    <label>必填</label>
-                    <div class="checkbox_applyForm">
-                        <input type="checkbox">
-                        <label></label>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <div id="formDiv_applyForm">
-        </div>
-        <div>
-            <button type="button" class="add">新增問題</button>
-            <button type="button" id="save">儲存</button>
-        </div>
-    </div>
+
 					  </div>
 					  <div class="modal-footer">
 						  <button type="submit" class="btn btn-primary">確認送出</button>

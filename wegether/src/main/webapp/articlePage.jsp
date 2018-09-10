@@ -1,9 +1,15 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="org.apache.commons.codec.binary.Base64" %>
+<%@ page import="org.apache.commons.codec.binary.StringUtils" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Home</title>
+<title>ArticlePage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/activityPage.css">
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -12,6 +18,7 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+
 <script>
 	$(function(){
 		$('#header_nav ul li').click(function(){
@@ -26,6 +33,20 @@
 		// 		$(this).addClass('animated');
 		// 	})
 	})
+	 var flag=0;
+	document.addEventListener("DOMContentLoaded", function () {
+              document.getElementById("favorButton").addEventListener("click",click); 
+              });
+    
+	function click(){
+		if(flag==0){
+				document.getElementById("favorButton").src="images/activityPageImages/favorites.png";   
+				flag=1;
+		}else{
+				document.getElementById("favorButton").src="images/activityPageImages/favoritesOff.png";   
+				flag=0;
+			}
+          }
 </script>
 <style>
     *{
@@ -141,7 +162,95 @@
 		  </div>
 	<div class="container">
         <div id="small_con">
-<!--       寫在這 -->
+<!--       寫在這以下 -->
+				<div id="core">
+            
+                    <div id="up" >
+                        <div id="left" >
+                                
+                            <div id="up" >
+                                <div id="left" style="width: auto;">
+                                        <a href="#"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  width="70" > </a>
+                                </div>
+                                <div  id="left" style="width: auto;">
+                                    <p id="txtup" style="background-color:#FFBB73" >${hostBean.nickname}</p>
+                                    <p id="txtup" >${hostBean.job}</p>
+                                </div>   
+                                
+
+                                   
+                                  
+								
+								
+                                <div id="right" >                  
+					                <a href="activityPage.controller?actid=8"> <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
+                                    <img src="images/activityPageImages/click2.png" width="50" > ${actBean.click}
+                             		<a href="#"> <img id="favorButton"  src="images/activityPageImages/favoritesOff.png" width="50" ></a>
+                                   
+                                </div>                            
+                            </div>
+                            <div>
+                               <img src="data:image/jpg;base64,${actPicList.get(0)}"  width="400" > 
+                            </div>
+                            <div style="padding-top: 10px;">
+                            
+                             	<c:forEach var="obj" items="${actPicList}">
+							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="100"  height="80"></a>
+								</c:forEach>
+                                   
+                            </div>
+                        </div>  <!-- left end -->
+
+                        
+                        <div id="right">
+                            <h3>${actBean.title}</h3><!-- right1 end -->
+                            <p>${actbegin}</p><!-- right2 end -->
+                            <p>${actBean.addr}</p><!-- right3 end -->
+                            <div>
+                                    <img src="images/activityPageImages/people.png" width="20" >&nbsp;${actBean.numberlimit}人 &emsp;
+                                    <img src="images/activityPageImages/fees.png" width="20" >&nbsp;${actBean.feed}元 &emsp;
+                                    <img src="images/activityPageImages/deadline.png" width="40" >&nbsp;${dateline} 
+                            </div><!-- right4 end -->
+                            <div>
+                            	<c:forEach var="obj" items="${memPicList}">
+							 		<a href="#"><img  src="data:image/jpg;base64,${obj}"  width="50" ></a> &emsp; 
+								</c:forEach>
+                           
+
+                            </div><!-- right5 end -->
+                            <p style="text-align: center" >${attedNumber} </p><!-- right6 end -->
+                            <div style="text-align: center">
+                                <input   type="button" value="      報名     " >
+                            </div><!-- right7 end -->
+                            
+                        </div>  <!-- right end -->
+                   </div>   <!-- up end -->
+
+ 					
+                     <div id="down">
+                          <h2>${actBean.title}</h2>
+                          <p > ${actBean.content} </p>
+                          </br>
+                          <h4>留下意見:</h4>
+                          <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>    </br> </br>   
+                          	<a href="#"><img  src="images/activityPageImages/msgbuttonstr.png" width="200"></a> </br> </br>   
+                          <!-- msg begin -->                 
+                      <div id="msgid">
+                    
+                        
+                        <c:forEach var="obj" items="${msgsList}">
+					 	<a href="#"><img  src="data:image/jpg;base64,${obj.picMem}"  width="50" ></a> 	
+                       <span style="color:blue;">${obj.nickname} </span> &emsp; <span>${obj.msgtime}</span></br>
+                        ${obj.content}</br></br>
+						</c:forEach>
+                        
+                       </div>
+                             <!-- msg end -->
+                    </div> 
+                    <!-- down end -->
+                    
+                </div>
+                <!--       寫在這以上 -->
         </div>
 	</div>
 

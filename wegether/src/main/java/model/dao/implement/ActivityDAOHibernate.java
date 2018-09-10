@@ -1,4 +1,3 @@
-
 package model.dao.implement;
 
 
@@ -171,19 +170,19 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	
 	
 	//indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋
-	
+	private  String selectOfIndex = "select * from Activity  WHERE ";
 	@Override
 	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype, String title) {
-		String selectOfIndex = "select * from Activity  WHERE ";
-		if(beginDate!="" && endDate!="" && beginDate.length()!=0 && endDate.length()!=0) {
-			selectOfIndex = selectOfIndex +"dateline BETWEEN "+beginDate+"AND "+endDate+"and state="+ state;
+		
+		if(beginDate!=null && endDate!=null && beginDate.length()!=0 && endDate.length()!=0) {
+			selectOfIndex = selectOfIndex +"dateline BETWEEN '"+beginDate+"' AND '"+endDate+"' and state="+ state;
 		}else selectOfIndex = selectOfIndex +"state="+state;		
 		
 		if(city!=0) selectOfIndex = selectOfIndex+" and city="+city;		
 		
-		if(classtype!="" && classtype.length()!=0) selectOfIndex = selectOfIndex+" and classtype=\'"+classtype+"\'";		
+		if(classtype!=null && classtype.length()!=0) selectOfIndex = selectOfIndex+" and classtype=\'"+classtype+"\'";		
 		
-		if(title!="" && title.length()!=0) selectOfIndex = selectOfIndex+" and title like \'%"+title+"%\'";
+		if(title!=null && title.length()!=0) selectOfIndex = selectOfIndex+" and title like \'%"+title+"%\'";
 		
 		return this.getSession().createNativeQuery(selectOfIndex,ActivityBean.class).list();
 	}
