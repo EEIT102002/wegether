@@ -256,11 +256,9 @@
                             </div><!-- right5 end -->
                             <p style="text-align: center" >${attedNumber} </p><!-- right6 end -->
                             <div style="text-align: center">
-<<<<<<< HEAD
+
                             <button type="button" class="btn btn-warning"  > <a href="test.do"> &emsp; 編  &emsp;  輯  &emsp; 活  &emsp; 動 &emsp;</a></button>
-=======
-                            <button type="button" class="btn btn-warning"  >  &emsp; 報  &emsp;  名  &emsp; 參 &emsp; 加 &emsp;</button>
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
+
                             </div><!-- right7 end -->
                             
                         </div>  <!-- right end -->
