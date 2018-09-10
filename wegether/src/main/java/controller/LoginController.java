@@ -79,6 +79,21 @@ public class LoginController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/logout.do", produces = "application/json")
+	public @ResponseBody Map<String, Object> checkLogout(Model model,
+			HttpServletResponse response, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		Integer id= cookieService.getId(request);
+		if(id != null) {
+			String token = cookieService.getValue(request, "token");
+			tokenMap.remove(token);
+			loginMap.get(id).getTokens().remove(token);
+			result.put("state", true);
+		}else {
+			result.put("state", false);
+		}
+		return result;
+	}
 	@RequestMapping(value = "/login.check", produces = "application/json")
 	public @ResponseBody Map<String, Object> checkLogin(Model model,
 			HttpServletResponse response, HttpServletRequest request) {
@@ -90,7 +105,6 @@ public class LoginController {
 		}
 		return result;
 	}
-	
 	
 	
 	public Cookie getCookie(HttpServletRequest request, String name) {

@@ -43,10 +43,11 @@ public class ActivityCreateController {
 			@RequestParam(value = "startTimepicker", required = false) String starttime,
 			@RequestParam(required = false) String dateline,
 			@RequestParam(value = "endTime", required = false) String endDate,
-			@RequestParam(value = "endTimepicker", required = false) String endTime)
+			@RequestParam(value = "endTimepicker", required = false) String endTime,
+			@RequestParam(value="applyform", required = false)String applyform)
 			throws ParseException, IOException {
 		System.out.println("actCreate()");
-
+		System.out.println(applyform);
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errMsgs", errors);
 
@@ -90,6 +91,7 @@ public class ActivityCreateController {
 		activityBean.setActbegin(aa);
 		activityBean.setActend(cc);
 		activityBean.setDateline(bb);
+		activityBean.setForm(applyform);
 		System.out.println(startDate);
 		System.out.println(starttime);
 		System.out.println(activityBean);
