@@ -110,11 +110,11 @@ public class TestPictureDAOServlet extends HttpServlet {
 
 		//insert
 		
-//		PictureBean pcB = new PictureBean();
-//		pcB.setPicture(new byte[20]);
-////		pcB.setActivityid(3);
-//		pcB.setMemberid(3);
-//		PictureBean xxx = pictureDAOHibernate.insert(pcB);
+		PictureBean pcB = new PictureBean();
+		pcB.setPicture(new byte[20]);
+//		pcB.setActivityid(3);
+		pcB.setMemberid(3);
+		PictureBean xxx = pictureDAOHibernate.insert(pcB);
 		
 		// delete
 		
@@ -126,15 +126,15 @@ public class TestPictureDAOServlet extends HttpServlet {
 		List<PictureBean> AP = pictureDAOHibernate.selectByMember(3);
 
 //		out.print(AP.get(1).getId());
-		int x = AP.get(0).getId();
-		
-		PictureBean finalresult = pictureDAOHibernate.Select(x);
-		
-		finalresult.setPicture(new byte[1]);
+//		int x = AP.get(0).getId();
 //		
+//		PictureBean finalresult = pictureDAOHibernate.Select(x);
 //		
-		PictureBean updateresult = pictureDAOHibernate.update(finalresult);
-		
+//		finalresult.setPicture(new byte[1]);
+////		
+////		
+//		PictureBean updateresult = pictureDAOHibernate.update(finalresult);
+//		
 		out.close();
 	}
 

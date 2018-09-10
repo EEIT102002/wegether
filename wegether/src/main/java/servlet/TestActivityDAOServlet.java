@@ -1,14 +1,13 @@
 package servlet;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,14 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
-import model.MemberBean;
-import model.PictureBean;
 import model.dao.implement.ActivityDAOHibernate;
 
 @WebServlet("/TestActivityDAOServlet")
@@ -82,10 +77,25 @@ public class TestActivityDAOServlet extends HttpServlet {
 		bean.setJudges(101);
 		bean.setNumberlimit(100);
 
-		File file = new File("images/actcreate.jpg");
-		FileInputStream defultPic = new FileInputStream(file);
-		byte[] pic = new byte[defultPic.available()];
-		bean.setPicture(pic);
+		// File defultPic = new
+		// File("..\\repository\\wegether\\src\\main\\webapp\\images\\actcreate.jpg");
+		// long length = defultPic.length();
+		// byte[] pic = new byte[(int) length];
+		//
+		// bean.setPicture(pic);
+		byte[] ewet = null;
+		File img = new File("..\\repository\\wegether\\src\\main\\webapp\\images\\avatar.jpg");
+//		file:///C:/JavaFramework/repository/wegether/src/main/webapp/images/avatar.jpg
+		try {
+			ewet = fileToByte(img);
+			System.out.println("try:"+ewet);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("File:"+ img);
+		System.out.println(ewet);
+		bean.setPicture(ewet);
 
 		// bean.setPicture(null);
 		bean.setRank1(3.0);
@@ -174,6 +184,8 @@ public class TestActivityDAOServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
 
+		String relativelyPath = System.getProperty("user.dir");
+		out.println("relativelyPath" + relativelyPath);
 		// result.forEach(temp->{
 		// out.println(temp+"<br><br>");
 		// out.println("===============<br><br>");
@@ -190,4 +202,21 @@ public class TestActivityDAOServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public static byte[] fileToByte(File img) throws Exception {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] bytes = null;
+		try {
+			BufferedImage bi;
+			bi = ImageIO.read(img);
+			ImageIO.write(bi, "jpg", baos);
+			bytes = baos.toByteArray();
+			System.err.println(bytes.length);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			baos.close();
+		}
+		return bytes;
+	}
 }
