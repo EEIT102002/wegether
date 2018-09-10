@@ -193,7 +193,7 @@ footer>ul>li ul {
 				<div class="AreaCon">
 					<label>問題類型 :</label> <select name="classtype" id="classtype"
 						required="required">
-						<option value="0">--請選擇--</option>
+						<option value="">--請選擇--</option>
 						<option value="1">會員(例如登入或密碼問題)</option>
 						<option value="2">系統錯誤回報</option>
 						<option value="3">建議</option>
