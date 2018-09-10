@@ -25,7 +25,6 @@
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
-6
 <script type="text/javascript" src="js/createApplyForm.js"></script>
 <script>
 	$(function() {
@@ -47,24 +46,28 @@
 			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
-		if ((now.getMonth() + 1) < 10 && now.getDate() > 10) {
+		if ((now.getMonth() + 1) < 10 && now.getDate() >= 10) {
 			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
-		if ((now.getMonth() + 1) > 10 && now.getDate() < 10) {
+		if ((now.getMonth() + 1) >= 10 && now.getDate() < 10) {
 			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
-		if ((now.getMonth() + 1) > 10 && now.getDate() > 10) {
+		if ((now.getMonth() + 1) >= 10 && now.getDate() >= 10) {
 			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 
@@ -125,7 +128,6 @@
 									d.getFullYear() + '-' + d.getMonth() + '-'
 											+ d.getDate())
 					}
-
 				})
 		$('#endTime').change(function() {
 			var startTimeV = $('#startTime').val();
@@ -133,18 +135,6 @@
 			$('#startTime').attr("max", endTimeV);
 			$('#startTime').attr('min', '2000-08-31');
 		})
-		var date = new Date();
-		if ((date.getMonth() + 1) < 10) {
-			var x = date.getFullYear() + '-0' + (date.getMonth() + 1) + '-'
-					+ date.getDate();
-			$('#startTime').val(x);
-			$('#endTime').val(x);
-		} else {
-			var x = date.getFullYear() + '-' + (date.getMonth() + 1) + '-'
-					+ date.getDate()
-			$('#startTime').val(x);
-			$('#endTime').val(x);
-		}
 	})
 
 	document.addEventListener("DOMContentLoaded", function() {
@@ -450,7 +440,7 @@ footer>ul>li ul {
 						<tr>
 							<td>開始時間</td>
 							<td>
-								<input type="date" id="startTime" name="startTime">
+								<input type="date" id="startTime" name="startTime" value="2018-09-12">
 								<input type="text" id="startTime2" name="startTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.starDateTime}
 							</td>
 						</tr>

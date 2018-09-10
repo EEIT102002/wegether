@@ -56,6 +56,10 @@
 		id="actCreateSuc.page">
 		<property value="true" name="contextRelative" />
 		<property value="/index.jsp" name="url" />
-
+	</bean>
+	<bean class="org.springframework.web.servlet.view.RedirectView"
+		id="actEditSuc.page">
+		<property value="true" name="contextRelative" />
+		<property value="/ActivityEdit.jsp" name="url" />
 	</bean>
 </beans>
