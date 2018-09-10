@@ -44,36 +44,47 @@ $(document).ready(function () {
         var p = this.parentNode;
         var pp = p.parentNode;
         $(p).remove();
-        checkOnly(pp);
+//        checkOnly(pp);
     });
     $('#save').click(function () {
-        var actForm = {};
-        actForm.questions = [];
-        $.each(formDiv_applyForm.children('div'), function (i, e) {
-            var q = {};
-            var ele = $(e);
-            q.title = ele.find('.inputDiv_applyForm :text').val();
-            q.type = ele.find('.selectDiv_applyForm select').val();
-            q.required = ele.find('.selectDiv_applyForm :checkbox').prop('checked');
-            q.name = q.type + i.toString();
-            switch (q.type) {
-                case "radio": case "select": case "checkbox":
-                    q.options = {};
-                    $.each(ele.find('.inputDiv_applyForm ol input'), function (i, e) {
-                        q.options[q.name + "_" + i] = e.value;
-                    })
-            }
-            actForm.questions.push(q);
-        })
-        formJson = JSON.stringify(actForm);
+       formJson = creatApplyForm();
         console.log(formJson);
     });
 })
 
+function creatApplyForm(){
+	var actForm = {};
+    actForm.questions = [];
+    var applyForm_div =formDiv_applyForm.children('div');
+    if(applyForm_div.length <= 0 || (applyForm_div.length == 1  && $(applyForm_div[0]).find('.inputDiv_applyForm :text').val() == "")){
+            // alert($(applyForm_div[0]).find('.inputDiv_applyForm :text').val());
+    	return false;
+    };
+    
+    $.each(applyForm_div, function (i, e) {
+        var q = {};
+        var ele = $(e);
+        q.title = ele.find('.inputDiv_applyForm :text').val();
+        q.type = ele.find('.selectDiv_applyForm select').val();
+        q.required = ele.find('.selectDiv_applyForm :checkbox').prop('checked');
+        q.name = q.type + i.toString();
+        switch (q.type) {
+            case "radio": case "select": case "checkbox":
+                q.options = {};
+                $.each(ele.find('.inputDiv_applyForm ol input'), function (i, e) {
+                    q.options[q.name + "_" + i] = e.value;
+                })
+        }
+        actForm.questions.push(q);
+    })
+    formJson = JSON.stringify(actForm);
+    return formJson;
+}
+
 function addInput() {
     var insert = template.clone().removeAttr("id").show();
     formDiv_applyForm.append(insert);
-    checkOnly(formDiv_applyForm);
+//    checkOnly(formDiv_applyForm);
 }
 function checkOnly(div) {
     var del = $(div).children().children('.delete_applyForm');

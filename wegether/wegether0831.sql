@@ -552,8 +552,8 @@ begin
 		where activityid = @id 
 		or (attendid is not null and attendid in (select id from attend where activityid = @id))
 
-		insert into notice (memberid, content , noticetime, ntype)
-		select memberid, @title, @date,12  --活動取消12
+		insert into notice (memberid, content , noticetime, ntype, activityid)
+		select memberid, @title, @date,12,@id  --活動取消12
 		from attend
 		where activityid = @id and state = 1
 

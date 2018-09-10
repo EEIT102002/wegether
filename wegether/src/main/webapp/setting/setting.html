@@ -15,53 +15,12 @@
     <script src="../js/bootstrap.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-    <script src="./js/setting.js"></script>
-	 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+	<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+	<script src="./js/setting.js"></script>
+	 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
+
     <script>
-   	 var logindiv;
-   	 var logoutSpan;
         $(function () {
-        	logouSpan =  $('#logoutSpan');
-        	var loginSpan =$('#loginSpan');
-        	 $.post(
-                     "/wegether/login.check"
-                     ,""
-                     ,function(data){
-                         if(data.state == true){
-                        	 loginSpan.toggle();
-                             logouSpan.toggle();
-                         }
-                     }
-                     ,"json"
-                 )    
-            $('#header_nav ul li').click(function () {
-                $(this).addClass('active').siblings().removeClass('active');
-            })
-            logindiv = $('#login');
-            $('#login').click(function () {      
-                var message = $('#loginform').serialize();
-                $.post(
-                    "/wegether/login.do"
-                    ,message
-                    ,function(data){
-                        if(data.state == true){
-                            console.log($.cookie('token'));
-                            loadIframe('./setting/1.html');
-                            var qqq = $(logindiv).closest('.modal');
-                            $(qqq).modal('hide');
-                            var qqq = $(logindiv).closest('.modal');
-                            $(qqq).modal('hide');
-                            loginSpan.toggle();
-                            logouSpan.toggle();
-                        }
-                    }
-                    ,"json"
-                )    
-            })
-            logouSpan.click(function(){
-            	loginSpan.toggle();
-                logouSpan.toggle();
-            })
             // $('#upTop').click(function(){
             // 	var body = $("html, body");
             // 	body.stop().animate({scrollTop:0}, 500, 'swing');
@@ -70,6 +29,9 @@
             // 	}).mouseout(function(){
             // 		$(this).addClass('animated');
             // 	})
+            $('#header_nav ul li').click(function () {
+        		$(this).addClass('active').siblings().removeClass('active');
+    		})
         })
     </script>
     <style>
@@ -180,7 +142,7 @@
                 </button>
                 <div class="logo">
                     <h1>
-                        <a class="navbar-brand" href="../index.html">Wegther</a>
+                        <a class="navbar-brand" href="/wegether/index.jsp">Wegther</a>
                     </h1>
                 </div>
             </div>

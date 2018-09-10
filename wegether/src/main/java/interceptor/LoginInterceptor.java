@@ -28,9 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String token = cookieService.getValue(request, "token");
 		if(token != null) {
 			Integer id = tokenMap.get(token);
-			if(id != null) {
-				request.setAttribute("memberid", id);
-			}
+			request.setAttribute("memberid", id);
 		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

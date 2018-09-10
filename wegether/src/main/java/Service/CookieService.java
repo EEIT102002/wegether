@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service
 public class CookieService {
@@ -28,4 +29,13 @@ public class CookieService {
 		}
 		
 	}
+	
+	public Integer getId(HttpServletRequest request) {
+		Object rs = request .getAttribute("memberid");
+		if(rs != null && rs.getClass() == Integer.class) {
+			return  (Integer ) rs;
+		}
+		return null;
+	}
+	
 }
