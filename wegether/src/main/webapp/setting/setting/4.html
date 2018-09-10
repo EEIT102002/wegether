@@ -4,8 +4,8 @@
     <script>
 
         var rowtemp = '<a href=""><div><img src="" alt=""><span class="name"></span></div></a>';
-        var applytemp =	'<div><a href=""><div><img src = ""alt=""><span class="name"></span></div></a><div class="friendButton"><button type="button">接受</button><br><button type="button">拒絕</button></div></div>';
-        var applyedtemp =	'<div><a href=""><div><img src = ""alt=""><span class="name"></span></div></a><div class="friendButton"><button type="button">取消</button></div></div>';
+        var applyedtemp =	'<div><a href=""><div><img src = ""alt=""><span class="name"></span></div></a><div class="friendButton"><button type="button">接受</button><br><button type="button">拒絕</button></div></div>';
+        var applytemp =	'<div><a href=""><div><img src = ""alt=""><span class="name"></span></div></a><div class="friendButton"><button type="button">取消</button></div></div>';
         var friendList;
         var friendsearch;
         $(document).ready(function () {
@@ -55,7 +55,8 @@
                         row.find(".name").html(e.nickname);
                         if (e.photo != null)
                             row.find('img').attr('src', e.photo);
-                        row.find('a').attr('href', e.id);
+                        row.attr('href', e.memberid);
+                        row.attr('friendid', e.id);
                         friendList.append(row);
                         iframe_auto_height();
                     })

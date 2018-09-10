@@ -42,13 +42,14 @@ public class FriendDAOHibernate implements FriendDAO {
 	public FriendBean insert(FriendBean friendBean) {
 		if (friendBean != null) {
 			getSession().save(friendBean);
-			return friendBean;
+			return selectById(friendBean.getId());
 		}
 		return null;
 	}
 
 	@Override
 	public boolean updateState(FriendBean friendBean) {
+		
 		if (friendBean != null) {
 			Query update = this.getSession().createQuery(HqlSelectPK);
 			if (update != null) {
@@ -74,6 +75,21 @@ public class FriendDAOHibernate implements FriendDAO {
 		return querybean.getBeanList(
 				querybean.getSelectQuery(Select.friendByMemberFState, memberidf, first, selectLimit, FriendBean.class)
 						.setParameter("state", state));
+	}
+
+	@Override
+	public FriendBean selectById(int id) {
+		return getSession().get(FriendBean.class, id);
+	}
+
+	@Override
+	public boolean delete(FriendBean friendBean) {
+		FriendBean delete = getSession().get(FriendBean.class, friendBean.getId());
+		if (delete != null && delete.getMemberid() == friendBean.getMemberid()) {
+			getSession().delete(delete);
+			return true;
+		}
+		return false;
 	}
 
 }

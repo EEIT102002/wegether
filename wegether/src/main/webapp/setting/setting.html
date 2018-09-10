@@ -15,33 +15,12 @@
     <script src="../js/bootstrap.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-    <script src="./js/setting.js"></script>
-	 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+	<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+	<script src="./js/setting.js"></script>
+	 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
+
     <script>
-    var logindiv;
         $(function () {
-            $('#header_nav ul li').click(function () {
-                $(this).addClass('active').siblings().removeClass('active');
-            })
-            logindiv = $('#login');
-            $('#login').click(function () {      
-                var message = $('#loginform').serialize();
-                $.post(
-                    "/wegether/login.do"
-                    ,message
-                    ,function(data){
-                        if(data.state == true){
-                            console.log($.cookie('token'));
-                            loadIframe('./setting/1.html');
-                            var qqq = $(logindiv).closest('.modal');
-                            $(qqq).modal('hide');
-                            var qqq = $(logindiv).closest('.modal');
-                            $(qqq).modal('hide');
-                        }
-                    }
-                    ,"json"
-                )    
-            })
             // $('#upTop').click(function(){
             // 	var body = $("html, body");
             // 	body.stop().animate({scrollTop:0}, 500, 'swing');
@@ -188,8 +167,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox">
+                            <a id="loginSpan" href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox">
                                 <span data-hover="登入">登入</span>
+                            </a>
+                            <a id="logoutSpan" href="#" class="scrol" style="display:none">
+                            	<span data-hover="登出">登出</span>
                             </a>
                         </li>
                     </ul>

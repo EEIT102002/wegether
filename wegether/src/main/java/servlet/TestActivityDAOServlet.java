@@ -20,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
 import model.dao.implement.ActivityDAOHibernate;
+import pictureconvert.PictureConvert;
 
 @WebServlet("/TestActivityDAOServlet")
 public class TestActivityDAOServlet extends HttpServlet {
@@ -41,10 +42,10 @@ public class TestActivityDAOServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// selectId(id)
-		// ActivityBean result = activityDAOHibernate.selectId(2);
+//		 ActivityBean result = activityDAOHibernate.selectId(8);
 
 		// selectAll()
-		// List<ActivityBean> result = activityDAOHibernate.selectAll();
+		 List<ActivityBean> result = activityDAOHibernate.selectAll();
 
 		// selectOfIndex
 		// String beginDate = "2018-08-01";
@@ -61,6 +62,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 		// activityDAOHibernate.selectOfIndex(0,0,beginDate,endDate,"戶外活動","山");
 
 		// insert
+<<<<<<< HEAD
 		ActivityBean bean = new ActivityBean();
 		bean.setActbegin(new java.util.Date());
 		bean.setActend(new java.util.Date());
@@ -104,31 +106,105 @@ public class TestActivityDAOServlet extends HttpServlet {
 		// bean.setState(1);
 		bean.setTitle("一起去爬山title7");
 		ActivityBean result = activityDAOHibernate.insert(bean);
+=======
+//		ActivityBean bean = new ActivityBean();
+//		String beginDate = "2018-10-06 18:30:00";
+//		 String endDate = "2018-10-06 21:00:00";
+//		 String dateLine ="2018-09-28";
+//		 Date actbegin = null, actend = null, dateline=null;
+//		 try {
+//			 actbegin = simpleDateFormat.parse(beginDate);
+//			 actend = simpleDateFormat.parse(endDate);
+//			 dateline = simpleDateFormat.parse(dateLine);
+//		 } catch (ParseException e) {
+//		 e.printStackTrace();
+//		 }
+//		bean.setActbegin(actbegin);
+//		bean.setActend(actend);
+//		bean.setAddr("台北市 中山北路二段37之一號");
+//		bean.setCity(102);
+//		bean.setClasstype("聚餐活動");
+//		bean.setClick(97);
+//		bean.setContent("鳳凰花開，驪歌輕唱，諄諄教誨，師恩難忘！\r\n" + 
+//				"\r\n" + 
+//				"台北老爺大酒店為莘莘學子及辛勞師長們，推出最新2018年謝師宴專案\r\n" + 
+//				"\r\n" + 
+//				"中西日三種風格任選，5月31日前訂席>>享早鳥優惠10%服務費減免\r\n" + 
+//				" \r\n" + 
+//				"台北老爺離中山捷運站僅5分鐘步行，不但老師同學前往都便利，\r\n" + 
+//				"\r\n" + 
+//				"並可品嚐道地粵式中華料理、食尚新穎的西式自助餐及忠於原味的日式宴席!\r\n" + 
+//				"\r\n" + 
+//				"謝師宴所需更一應俱全，提供免費停車、螢幕投影、音響、舞台及海報指引；\r\n" + 
+//				"\r\n" + 
+//				"達一定數量，更加贈空飄氣球、馬卡龍好禮、紅酒等，CP值爆高!");
+////		bean.setCreatetime(new java.util.Date());
+//		bean.setDateline(dateline);
+//		bean.setFeed(500);
+//		bean.setForm("Activityform");
+//		bean.setHostid(1);
+//		bean.setJudges(101);
+//		bean.setNumberlimit(100);
+//		
+//		File file = new File("wegether/act011.jpg");
+//		bean.setPicture(PictureConvert.converFileToByte(file));
+//		bean.setRank1(3.0);
+//		bean.setRank2(3.0);
+//		bean.setRank3(3.0);
+//		 bean.setState(0);
+//		bean.setTitle("EEIT102 謝師宴");
+//		ActivityBean result = activityDAOHibernate.insert(bean);
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether.git
 
 		// update
-		// ActivityBean bean = new ActivityBean();
-		// bean.setActbegin(new java.util.Date());
-		// bean.setActend(new java.util.Date());
-		// bean.setAddr("大屯山");
-		// bean.setCity(102);
-		// bean.setClasstype("戶外活動");
-		// bean.setClick(97);
-		// bean.setContent("一起去爬山Content");
-		// bean.setCreatetime(new java.util.Date());
-		// bean.setDateline(new java.util.Date());
-		// bean.setFeed(1000);
-		// bean.setForm("Activityform");
-		// bean.setHostid(3);
-		// bean.setJudges(101);
-		// bean.setNumberlimit(100);
-		// bean.setPicture(null);
-		// bean.setRank1(3.0);
-		// bean.setRank2(3.0);
-		// bean.setRank3(3.0);
-		// bean.setState(1);
-		// bean.setTitle("一起去爬山title7");
-		// bean.setId(3);
-		// ActivityBean result = activityDAOHibernate.update(bean);
+//		ActivityBean bean = new ActivityBean();
+//		String beginDate = "2018-10-06 18:30:00";
+//		 String endDate = "2018-10-06 21:00:00";
+//		 String dateLine ="2018-09-28";
+//		 Date actbegin = null, actend = null, dateline=null;
+//		 try {
+//			 actbegin = simpleDateFormat.parse(beginDate);
+//			 actend = simpleDateFormat.parse(endDate);
+//			 dateline = simpleDateFormat.parse(dateLine);
+//		 } catch (ParseException e) {
+//		 e.printStackTrace();
+//		 }
+//		bean.setActbegin(actbegin);
+//		bean.setActend(actend);
+//		bean.setAddr("台北市 中山北路二段37之一號");
+//		bean.setCity(102);
+//		bean.setClasstype("聚餐活動");
+//		bean.setClick(97);
+//		bean.setContent("鳳凰花開，驪歌輕唱，諄諄教誨，師恩難忘！\r\n" + 
+//				"\r\n" + 
+//				"台北老爺大酒店為莘莘學子及辛勞師長們，推出最新2018年謝師宴專案\r\n" + 
+//				"\r\n" + 
+//				"中西日三種風格任選，5月31日前訂席>>享早鳥優惠10%服務費減免\r\n" + 
+//				" \r\n" + 
+//				"台北老爺離中山捷運站僅5分鐘步行，不但老師同學前往都便利，\r\n" + 
+//				"\r\n" + 
+//				"並可品嚐道地粵式中華料理、食尚新穎的西式自助餐及忠於原味的日式宴席!\r\n" + 
+//				"\r\n" + 
+//				"謝師宴所需更一應俱全，提供免費停車、螢幕投影、音響、舞台及海報指引；\r\n" + 
+//				"\r\n" + 
+//				"達一定數量，更加贈空飄氣球、馬卡龍好禮、紅酒等，CP值爆高!");
+//		bean.setCreatetime(new java.util.Date());
+//		bean.setDateline(dateline);
+//		bean.setFeed(500);
+//		bean.setForm("Activityform");
+//		bean.setHostid(1);
+//		bean.setJudges(101);
+//		bean.setNumberlimit(100);
+//		
+//		File file = new File("wegether/act011.jpg");
+//		bean.setPicture(PictureConvert.converFileToByte(file));
+//		bean.setRank1(3.0);
+//		bean.setRank2(3.0);
+//		bean.setRank3(3.0);
+//		 bean.setState(0);
+//		bean.setTitle("EEIT102 謝師宴");
+//		bean.setId(8);
+//		 ActivityBean result = activityDAOHibernate.update(bean);
 
 		// delete
 		// boolean result = activityDAOHibernate.delete(7);
@@ -184,6 +260,7 @@ public class TestActivityDAOServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
 
+<<<<<<< HEAD
 		String relativelyPath = System.getProperty("user.dir");
 		out.println("relativelyPath" + relativelyPath);
 		// result.forEach(temp->{
@@ -191,8 +268,15 @@ public class TestActivityDAOServlet extends HttpServlet {
 		// out.println("===============<br><br>");
 		// });
 		//
+=======
+		 result.forEach(temp->{
+		 out.println(temp+"<br><br>");
+		 out.println("===============<br><br>");
+		 });
+		
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether.git
 		System.out.println(result);
-		out.println(result);
+//		out.println(result);
 		out.close();
 	}
 
