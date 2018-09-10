@@ -64,7 +64,7 @@ public class ActivityPageController {
 		System.out.println("actid="+actid);
 		List<String> actPicList = new ArrayList<>();		
 		List<String> hostPicList = new ArrayList<>();
-		List<String> memPicList = new ArrayList<>();
+		List<Map> memPicList = new ArrayList<>();
     	List<Map> msgsList = new ArrayList<>();
 		
 		
@@ -80,8 +80,12 @@ public class ActivityPageController {
 		if(attBean.size()!=0) 
 				attBean.forEach(att->{			
 					List<PictureBean> memPicBean = pictureDAO.selectByMember(att.getMemberid());	//報名人員的照片名單
+					Map<String, String> attMap = new HashMap<String,String>();
 						if(memPicBean.size()!=0)
-							memPicList.add(PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));//memPicBean.get(0) -->第一筆照片物件
+							attMap.put("memberId", att.getMemberid().toString());
+							attMap.put("memberPic", PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));
+							
+							memPicList.add(attMap);//memPicBean.get(0) -->第一筆照片物件
 					});
 		
 		if(actPicBean.size()!=0) 
@@ -102,6 +106,7 @@ public class ActivityPageController {
 				msgsMap.put("nickname", memberDAO.select(msg.getMemberid()).getNickname());
 				String picMemStr = PictureConvert.convertBase64Image(pictureDAO.selectByMember(msg.getMemberid()).get(0).getPicture());
 				msgsMap.put("picMem", picMemStr);
+				msgsMap.put("memberId",msg.getMemberid().toString());
 				msgsMap.put("content", msg.getContent());
 				
 				msgtime.setTime(msg.getMsgtime());
@@ -171,6 +176,7 @@ public class ActivityPageController {
 		if(memPicList.size()!=0) model.addAttribute("memPicList",memPicList);
 		else model.addAttribute("memPicList",null);
 		
+
 		if(attBean.size()!=0) 	model.addAttribute("attedNumber",attBean.size()+" 個人報名參加");//報名人數
 		else model.addAttribute("attedNumber",null);//報名人數
 		

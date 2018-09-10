@@ -17,6 +17,13 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
+<<<<<<< HEAD
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+<link rel="stylesheet" href="css/jquery.timepicker.min.css"/>
+<script src="js/jquery.timepicker.min.js"></script>
+=======
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -27,6 +34,7 @@
 <script src="js/jquery.timepicker.min.js"></script>
 6
 <script type="text/javascript" src="js/createApplyForm.js"></script>
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -235,11 +243,13 @@
 		});
 </script>
 <style>
+
 * {
 	/*         list-style: none; */
 	margin: 0;
 	padding: 0;
 }
+
 
 body {
 	/* background-color: rgb(145, 145, 145);
@@ -254,6 +264,7 @@ body {
 	min-height: 800px;
 	background-color: rgba(255, 255, 255, 0.363);
 }
+
 
 footer {
 	margin-top: 20px;
@@ -318,6 +329,7 @@ footer>ul>li ul {
 	-webkit-margin-end: 0px;
 	-webkit-padding-start: 40px;
 }
+
 </style>
 <title>我要揪團</title>
 </head>
@@ -480,6 +492,7 @@ footer>ul>li ul {
 						</tr>
 
 					</table>
+
 					<input type="botton" name="" value="預覽" id="preBotton"
 						data-target="#preview" data-toggle="modal" /> <input
 						type="botton" name="" value="報名表單" id="formBotton"
@@ -558,6 +571,7 @@ footer>ul>li ul {
 							</div>
 						</div>
 					</div>
+
 				</form>
 				<div class="modal fade" id="setMyform" tabindex="-1" role="dialog">
 					<div class="modal-dialog modal-lg" role="document">
