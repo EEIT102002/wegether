@@ -181,12 +181,13 @@ footer>ul>li ul {
 
 			<form action="<c:url value="/Service.controller" />">
 				<div class="AreaCon" id="keyword_search">
-					<span class="form-group">問題名稱 :</span><br> <input type="text"
+					<span class="form-group">問題名稱 :</span> <input type="text"
 						name="title" placeholder="請輸入-標題" required="required"
-						value="${param.title}">
-
-					<td>${errors.title}</td> <input type="text" name="memberid"
+						value="${param.title}"> <input type="text" name="memberid"
 						placeholder="memberid" value="${param.memberid}">
+
+
+					<td>${errors.title}</td>
 					<td>${errors.memberid}</td> <br>
 
 				</div>
@@ -209,17 +210,18 @@ footer>ul>li ul {
 				</div>
 
 				<div id="searchbarButton">
-					<input type="submit" name="servicemethod" value="提交" 
+					<input type="submit" name="servicemethod" value="提交"
 						class="btn btn-warning form-control "> <input type="reset"
-						value="清除" class="btn btn-warning form-control"> 
-<!-- 						<input type="submit" name="servicemethod" value="Select" -->
-<!-- 						class="btn btn-warning form-control "> -->
+						value="清除" class="btn btn-warning form-control">
+					<!-- 						<input type="submit" name="servicemethod" value="Select" -->
+					<!-- 						class="btn btn-warning form-control "> -->
 				</div>
 				<tr>
 					<td>${errors.action}</td>
 				</tr>
 			</form>
-			<a href="ServiceSelect.controller" class="btn btn-warning form-control">select</a>
+			<!-- 			<a href="ServiceSelect.controller" -->
+			<!-- 				class="btn btn-warning form-control">select</a> -->
 
 		</div>
 	</div>
