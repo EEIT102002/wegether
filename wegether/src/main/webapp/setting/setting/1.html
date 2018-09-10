@@ -17,9 +17,9 @@
             });
             function insertInfo(json) {
                 memberinfo = json;
-                var addr = memberinfo["city"];
-                addr += memberinfo["addr"];
-                if (addr != 0)
+                var addr = memberinfo["city"] != null ?city(memberinfo["city"])+" ":"";
+                addr += memberinfo["addr"] != null ? memberinfo["addr"]: "";
+                if (addr.length != 0)
                     memberinfo["addrs"] = addr;
                 $('div:eq(0) > table tr').each(function () {
                     var info = memberinfo[$(this).attr('id')]
@@ -54,23 +54,19 @@
 
             $('form > button').click(function () {
                 var td = $(this).parent().parent();
-             	td.toggle().prev().toggle();
-             var button = td.next().children('buttom');
-             button.text(
-                 button.text() == "編輯" ? "取消" : "編輯");
+                var button = td.next('td').children('button');
                 var form = $(this).parent('form').serialize();
-//                 $.post(
-//                     "/wegether/member/Info/setting"
-//                     , form
-//                     , function (data) {
-//                         insertInfo(data);
-//                         // td.toggle().prev().toggle();
-//                         // var button = td.next().children('buttom');
-//                         // button.text(
-//                         //     button.text() == "編輯" ? "取消" : "編輯");
-//                     }
-//                     , "json"
-//                 );
+                $.post(
+                    "/wegether/member/Info/setting"
+                    , form
+                    , function (data) {
+                        insertInfo(data);
+                        td.toggle().prev().toggle();
+                        button.text(
+                            button.text() == "編輯" ? "取消" : "編輯");
+                    }
+                    , "json"
+                );
 
             })
         });
@@ -94,6 +90,17 @@
                 $(tr).find('select[name="city"]').val(city);
                 $(tr).find('input').val($(memberinfo).attr("addr"));
             }
+        }
+
+        function city(i) {
+            switch (i) {
+                case 1:
+                    return "台北市";
+                case 2:
+                    return "新北市";
+                default:
+                    return null;
+        	}
         }
 
     </script>

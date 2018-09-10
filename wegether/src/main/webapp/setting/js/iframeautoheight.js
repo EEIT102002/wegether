@@ -13,8 +13,10 @@ function iframe_auto_height() {
 	});
 	if (!iframe)
 		return;// no parent
-	var content_height = $("body").height();
+	var content_height = $("html").height();
 	var content_width = $("body").width();
+	console.log(content_height);
+	console.log(content_width);
 	content_height = typeof content_height == 'number' ? content_height + "px"
 			: content_height;
 	content_width = typeof content_width == 'number' ? content_width + "px"

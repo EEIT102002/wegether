@@ -360,6 +360,18 @@ end
 end
 go
 
+create trigger check_friend_delete on friend
+for delete
+as
+begin
+	merge friend f
+	using deleted d
+	on d.memberid = f.memberidf and d.memberidf = f.memberid and d.state = 1 and f.state = 1
+	when matched then
+		delete;
+end
+go
+
 create function notice_name_title
 (@memberid int, @activityid int)
 returns nvarchar(max)
@@ -540,8 +552,8 @@ begin
 		where activityid = @id 
 		or (attendid is not null and attendid in (select id from attend where activityid = @id))
 
-		insert into notice (memberid, content , noticetime, ntype)
-		select memberid, @title, @date,12  --活動取消12
+		insert into notice (memberid, content , noticetime, ntype, activityid)
+		select memberid, @title, @date,12,@id  --活動取消12
 		from attend
 		where activityid = @id and state = 1
 
