@@ -314,7 +314,7 @@
 						<tr>
 							<td>聚會標題</td>
 							<td>
-								<input type="text" name="title" id="insertActname" value="${param.title}">
+								<input type="text" name="title" id="insertActname" value="${colVal.title}">${errMsgs.title}
 							</td>
 						</tr>
 						<tr>
@@ -347,20 +347,20 @@
 							<td>開始時間</td>
 							<td>
 								<input type="date" id="startTime" name="startTime">
-								<input type="text" id="startTime2" name="startTimepicker" class="timepicker" autocomplete="off"/>
+								<input type="text" id="startTime2" name="startTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.starDateTime}
 							</td>
 						</tr>
 						<tr>
 							<td>結束時間</td>
 							<td>
 								<input type="date" id="endTime" name="endTime">
-								<input type="text" id="endTime2" name="endTimepicker" class="timepicker" autocomplete="off"/>
+								<input type="text" id="endTime2" name="endTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.endDateTime}
 							</td>
 						</tr>
 						<tr>
 							<td>詳細描述</td>
 							<td>
-								<textarea name="content" id="insertDes" cols="30" rows="10"></textarea>
+								<textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${errMsgs.content}
 							</td>
 						</tr>
 						<tr>
