@@ -172,7 +172,7 @@
                                 
                             <div id="up" >
                                 <div id="left" style="width: auto;">
-                                        <a href="#"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  class="img-circle" width="70" > </a>
+                                        <a href="personal.controller?memberId=${hostBean.id}"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  class="img-circle" width="70" > </a>
                                 </div>
                                 <div  id="left" style="width: auto;">
                                     <p id="txtup" style="background-color:#FFBB73" >${hostBean.nickname}</p>
@@ -185,7 +185,7 @@
 								
 								
                                 <div id="right" >                  
-					                <a href="activityPage.controller?actid=1" class="tooltip-test" data-toggle="tooltip" title="推薦給好友"> 
+					                <a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友"> 
 					                <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
 					                
 					                <span  class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
@@ -252,7 +252,7 @@
                             </div><!-- right5 end -->
                             <p style="text-align: center" >${attedNumber} </p><!-- right6 end -->
                             <div style="text-align: center">
-                            <button type="button" class="btn btn-warning"  >  &emsp; 報  &emsp;  名  &emsp; 參 &emsp; 加 &emsp;</button>
+                            <button type="button" class="btn btn-warning"  > <a href="test.do"> &emsp; 編  &emsp;  輯  &emsp; 活  &emsp; 動 &emsp;</a></button>
                             </div><!-- right7 end -->
                             
                         </div>  <!-- right end -->
