@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
@@ -22,6 +23,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.web.socket.WebSocketSession;
 
 import Service.bean.LoginBean;
+import Service.bean.UniqueToken;
 import model.ActivityBean;
 import model.AttendBean;
 
@@ -83,9 +85,33 @@ public class SpringConfig {
 		return new HashMap<>();
 	}
 	
-	@Bean(name = "tokenMap")
+	@Bean({"tokenMap"})
 	public Map<String, Integer> tokenMap(){
 		return new HashMap<String, Integer>();
+	}
+	
+	@Bean({"noticeTokenMap"})
+	public Map<String, Integer> noticeTokenMap(){
+		return new HashMap<String, Integer>();
+	}
+	
+	@Bean({"uniqueToken"})
+	public UniqueToken uniqueToken(@Qualifier("tokenMap") Map<String, Integer> map) {
+		UniqueToken bean = new UniqueToken();
+		bean.setTokenMap(map);
+		return bean;
+	}
+	
+	@Bean({"noticeToken"})
+	public UniqueToken noticeToken(@Qualifier("noticeTokenMap") Map<String, Integer> map) {
+		UniqueToken bean = new UniqueToken();
+		bean.setTokenMap(map);
+		return bean;
+	}
+	
+	@Bean
+	public Map<WebSocketSession, Integer> sessionMap(){
+		return new HashMap<>();
 	}
 	
 }
