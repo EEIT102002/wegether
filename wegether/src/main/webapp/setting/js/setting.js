@@ -9,11 +9,15 @@ $(document).ready(function () {
 		loadIframe('./setting/' + i + '.html')
 
 	});
-	loadIframe('./setting/1.html');
 	$('#setting').bind('resize', function () {
 		console.log('Height changed to' + $(this).height());
 	});
+
 })
+
+function loginDo(){
+	loadIframe('./setting/1.html');
+}
 
 function loadIframe(url) {
 	iframe.attr('src', url);
@@ -22,3 +26,5 @@ function loadIframe(url) {
 function logoutDo() {
 	alert(123);
 }
+
+

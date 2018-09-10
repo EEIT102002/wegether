@@ -225,11 +225,13 @@
 		});
 </script>
 <style>
+
 * {
 	/*         list-style: none; */
 	margin: 0;
 	padding: 0;
 }
+
 
 body {
 	/* background-color: rgb(145, 145, 145);
@@ -244,6 +246,7 @@ body {
 	min-height: 800px;
 	background-color: rgba(255, 255, 255, 0.363);
 }
+
 
 footer {
 	margin-top: 20px;
@@ -308,6 +311,7 @@ footer>ul>li ul {
 	-webkit-margin-end: 0px;
 	-webkit-padding-start: 40px;
 }
+
 </style>
 <title>我要揪團</title>
 </head>
@@ -475,6 +479,7 @@ footer>ul>li ul {
 						</tr>
 
 					</table>
+
 					<input type="botton" name="" value="預覽" id="preBotton"
 						data-target="#preview" data-toggle="modal" /> <input
 						type="botton" name="" value="報名表單" id="formBotton"
@@ -553,6 +558,7 @@ footer>ul>li ul {
 							</div>
 						</div>
 					</div>
+
 				</form>
 				<div class="modal fade" id="setMyform" tabindex="-1" role="dialog">
 					<div class="modal-dialog modal-lg" role="document">

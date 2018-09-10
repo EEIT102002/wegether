@@ -71,77 +71,28 @@
 				$(this).addClass('animated');
 			})
 		$('#CitySelect').change(function(){
-// 			alert($(this).val().substr(7,3));
-			var x = $('#CitySelect').find('option:selected').index();
-// 			alert(x);
-			var y =$('#CitySelect').find('option:selected').attr("value",x);
-			alert("此選項的VAL:"+$('#CitySelect').find('option:selected').val());
-			})
+			alert($(this).val().substr(7,3));
+		})
+		$('#start_date').change(function(){
+			alert($(this).val());
+		})
+		$('#end_date').change(function(){
+			alert($(this).val());
+		})
+		$('#type_select').change(function(){
+			alert($(this).val());
 
-		$('#select_submit').click(function(){
-			//ajax 待定
-			$.ajax("${pageContext.request.contextPath}/select_activity",{
-				method:"GET",
-				data:$('#form_act').serialize(),
-				success:function(jsonArray){
-					console.log(jsonArray[0]);
-					if(jsonArray[0]=="查無符合資料"){
-// 						alert("查無符合資料");
-						var str2 ="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img alt='' class='img-responsive'src='images/noresult.jpg'/><figcaption>";
-						str2 += jsonArray[0]+"</figcaption></figure></div>";
-						$("#show_act_area").html(str2);
-					}else{
-						$.each(jsonArray, function() {
-							var i=0;
-					        var date = new Date(jsonArray[i][0].actbegin);
-								Y = date.getFullYear() + '-';
-								M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-								D = date.getDate() + ' ';
-				        	var str1="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure>";
-				        	 str1 += "<img alt='' class='img-responsive' src=\""+jsonArray[i][1]+"\"/>";
-				        	str1+="<figcaption>";
-			        		str1+="活動名稱:"+jsonArray[i][0].title+"<br>"+"活動地點:"+jsonArray[i][0].city+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"活動ID:"+jsonArray[i][0].id+"<br>"+"主揪:"+jsonArray[i][2]+"<br>";
-			        		str1+="</figcaption><figure></div>";
-				        	$("#show_act_area").html(str1);
-					        i++;
-					        });//each end
-					}//else end
-				}//success end
-			})//ajax end
-		})//searchbarButton 提交
-		$('#search_for_act').click(function(){
-			$('#form_po').css({
-				"display":"none"
-			})
-			$('#form_act').css({
-				"display":"block"
-			})
 		})
-		$('#search_for_po').click(function(){
-			$('#form_po').css({
-				"display":"block"
-			})
-			$('#form_act').css({
-				"display":"none"
-			})
+		$('#keyword_search_input').blur(function(){
+			alert($(this).val());
 		})
-	})// script end
+		$('#searchbarButton').change(function(){
 	
+		})
+	})
+
 </script>
 <style>
- 	#form_po{
- 		display: none;
- 	}
-	#search_for_act{
-		background-color: yellow;
-		width: 200px;
-		height: 50px;
-	}
-	#search_for_po{
-		background-color: green;
-		width: 200px;
-		height: 50px;
-	}
 </style>
 </head>	
 <body>
@@ -161,7 +112,7 @@
 					<nav class="header_nav" id="header_nav"> 
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="活動地圖">活動地圖</span></a></li>
+							<li><a href="#" class="scroll"><span data-hover="心得">心得</span></a></li>
 							<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
 							<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
 							<li><a href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
@@ -171,14 +122,10 @@
 			</nav>
 			<div class="banner-info">
 				<div class="from-group">
-						<div id="search_for_act">活動</div>
-						<div id="search_for_po">心得</div>
-						<form ng-app="myApp" ng-controller="myCtrl" id="form_act">
-<%-- 						<form action="<c:url value="/select_activity" />" ng-app="myApp" ng-controller="myCtrl" id="form_act"> --%>
-								<input type="hidden" value="0" name="state"/>
+						<form action="" ng-app="myApp" ng-controller="myCtrl">
 								<div class="AreaCon">
 								<label>地區 :</label>
-								<select name="cityselect_name" id="CitySelect" ng-model="selectedName" ng-options="x for x in names">
+								<select name="" id="CitySelect" ng-model="selectedName" ng-options="x for x in names">
 									<option value="">--請選擇--</option>
 									<script>
 											var app = angular.module('myApp', []);
@@ -188,7 +135,7 @@
 											});
 									</script>
 								</select>
-								<select name="areaselect_name" id="AreaSelect">
+								<select name="" id="AreaSelect">
 									<option value="">--請選擇--</option>
 									<option value="">A</option>
 									<option value="">B</option>
@@ -198,15 +145,15 @@
 								</div>
 								<div class="AreaCon">
 									<span class="form-group">活動開始日期 :</span><br>
-									<input type="date" class="form-control" id="start_date" name="start_date_name"><br>
+									<input type="date" class="form-control" id="start_date"><br>
 								</div>
 								<div class="AreaCon">
 									<span class="form-group">活動結束日期 :</span><br>
-									<input type="date" class="form-control" id="end_date" name="end_date_name"><br>
+									<input type="date" class="form-control" id="end_date"><br>
 								</div>
 								<div class="AreaCon">
 									<span>活動類型 :</span><br>
-									<select class="form-control" id="type_select" name="type_select_name">
+									<select class="form-control" id="type_select">
 										<option value="運動">運動</option>
 										<option value="休閒">休閒</option>
 										<option value="音樂" >音樂</option>
@@ -217,19 +164,13 @@
 								</div>
 								<div class="AreaCon" id="keyword_search">
 									<span class="form-group">關鍵字搜尋 :</span><br>
-									<input type="text" placeholder="搜尋-活動名稱" class="form-control" id="keyword_search_input" name="keyword_search_input_name"><br>
+									<input type="text" placeholder="搜尋-活動名稱" class="form-control" id="keyword_search_input"><br>
 								</div>
 								<div id="searchbarButton">	
-									<input id="select_submit" type="submit" value="搜尋" class="btn btn-warning form-control ">
+									<input type="submit" value="搜尋" class="btn btn-warning form-control ">
 									<input type="reset" value="清除" class="btn btn-warning form-control">
 								</div>
 							</form>
-						<form action="<c:url value="/select_activity" />" id="form_po">
-							<input type="hidden" value="1" name="state"/>
-							<input type="search" name="keyword_search_input_name"/>
-							<input type="submit" value="送出"/>
-							<input type="reset" value="清除"/>
-						</form>
 				</div>
 			</div>
 		</div>

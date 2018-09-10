@@ -171,6 +171,11 @@ public class ActivityPageController {
 		if(memPicList.size()!=0) model.addAttribute("memPicList",memPicList);
 		else model.addAttribute("memPicList",null);
 		
+
+		if(attBean.size()!=0) 	model.addAttribute("attBean",attBean);//報名人數
+		else model.addAttribute("attBean",null);//報名人數
+		
+
 		if(attBean.size()!=0) 	model.addAttribute("attedNumber",attBean.size()+" 個人報名參加");//報名人數
 		else model.addAttribute("attedNumber",null);//報名人數
 		

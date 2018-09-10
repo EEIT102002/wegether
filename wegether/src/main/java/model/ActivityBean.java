@@ -163,9 +163,7 @@ public class ActivityBean {
 	@Override
 	public String toString() {
 		return "ActivityBean [id=" + id + ", hostid=" + hostid + ", createtime=" + createtime + ", title=" + title
-				+ ", city=" + city + ", addr=" + addr + ", "
-//						+ "picture=" + Arrays.toString(picture) 
-						+ ", actbegin="
+				+ ", city=" + city + ", addr=" + addr + ", picture=" + Arrays.toString(picture) + ", actbegin="
 				+ actbegin + ", actend=" + actend + ", dateline=" + dateline + ", classtype=" + classtype + ", content="
 				+ content + ", numberlimit=" + numberlimit + ", feed=" + feed + ", state=" + state + ", rank1=" + rank1
 				+ ", rank2=" + rank2 + ", rank3=" + rank3 + ", judges=" + judges + ", form=" + form + ", click=" + click

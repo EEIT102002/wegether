@@ -31,6 +31,7 @@
 		class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/Service.jsp"></property>
+
 	</bean>
 	<bean id="Service.insertpage"
 		class="org.springframework.web.servlet.view.RedirectView">
