@@ -3,21 +3,22 @@ var logoutSpan;
 $(function () {
     logoutSpan = $('#logoutSpan');
     loginSpan = $('#loginSpan');
+    logindiv = $('#login');
+    
     $.post(
         "/wegether/login.check"
         , ""
         , function (data) {
             if (data.state == true) {
-                loginSpan.toggle();
-                logoutSpan.toggle();
+            	logtoggle();
+            	if(typeof window.loginDo === "function") {
+                loginDo();//登入後要做的方法放在loginDo()
+                }
             }
         }
         , "json"
     )
-    $('#header_nav ul li').click(function () {
-        $(this).addClass('active').siblings().removeClass('active');
-    })
-    logindiv = $('#login');
+   
     $('#login').click(function () {
         var message = $('#loginform').serialize();
         $.post(
@@ -26,39 +27,41 @@ $(function () {
             , function (data) {
                 if (data.state == true) {
                     console.log($.cookie('token'));
-                    loadIframe('./setting/1.html');
+                    if(typeof window.loginDo === "function") {
+                    	loginDo();//登入後要做的方法放在loginDo()
+                    }
                     var qqq = $(logindiv).closest('.modal');
                     $(qqq).modal('hide');
-                    var qqq = $(logindiv).closest('.modal');
-                    $(qqq).modal('hide');
-                    loginSpan.toggle();
-                    logoutSpan.toggle();
+                    logtoggle();
                 }
             }
             , "json"
         )
     })
     logoutSpan.click(function () {
-//        loginSpan.toggle();
-//        logoutSpan.toggle();
-        if(typeof logoutDo === "function"){
-        	alert(123);
-        }
-//        $.post(
-//            "/wegether/logout.do"
-//            , ""
-//            , function (data) {
-//                if (data.state == true) {
-//                    loginSpan.toggle();
-//                    logoutSpan.toggle();
-//                    alert(123);
-//                    if(window.logoutDo) {
-//                        logoutDo();
-//                    }
-//                }
-//            }
-//            , "json"
-//        )
+        logoutf();
     })
 
 })
+
+function logoutf(){//登出要執行的功能
+	$.post(
+            "/wegether/logout.do"
+            , ""
+            , function (data) {
+                if (data.state == true) {
+                	logtoggle();
+                    if(typeof window.logoutDo === "function") {
+                        logoutDo();//登出後要做的方法放在logoutDo()
+                    }
+                }
+            }
+            , "json"
+        )
+}
+
+function logtoggle(){ //login或logout後的顯示切換
+	 loginSpan.toggle();
+     logoutSpan.toggle();
+}
+

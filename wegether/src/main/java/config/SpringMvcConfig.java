@@ -16,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.XmlViewResolver;
 
 import interceptor.LoginInterceptor;
+import interceptor.NoticeInterceptor;
+import model.NoticeBean;
 
 @Configuration
 @ComponentScan(basePackages = { "controller", "webstock" })
@@ -48,6 +50,11 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localInterceptor());
+	}
+	
+	@Bean
+	NoticeInterceptor noticeInterceptor() {
+		return new NoticeInterceptor();
 	}
 
 }

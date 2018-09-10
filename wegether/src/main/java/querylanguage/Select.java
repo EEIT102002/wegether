@@ -9,8 +9,11 @@ public class Select {
 	public static final String noticeByMember = 
 			"select {n.*} from Notice n where memberid = :id order by noticetime desc "
 			+offset;
-	public static final String noticeByActivity = "from NoticeBean where activityid = :id and ntype = :ntype";
-	public static final String noticeByArticle = "from NoticeBean where articleid = :id and ntype = :ntype";
+	public static final String noticeByActivity = noticeSql("activityid");
+	public static final String noticeByArticle = noticeSql("articleid");
+	public static final String noticeByAttend = noticeSql("attendid");
+	public static final String noticeByFriend = noticeSql("friendid");
+	public static final String noticeByInvite = noticeSql("inviteid");
 	
 	public static final String msgByActivity = msgSql("activityid");
 	
@@ -32,6 +35,10 @@ public class Select {
 	}
 	private static String friendSql(String tableid) {
 		return "select {m.*} from Friend m WHERE "+tableid+" = :id AND STATE = :state order by state";
+	}
+	
+	private static String noticeSql(String tableid) {
+		return "from NoticeBean where "+tableid+" = :id and ntype = :ntype and state = 0";
 	}
 	
 }

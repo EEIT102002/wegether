@@ -14,7 +14,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.BlacklistBean;
@@ -50,9 +52,7 @@ public class MemberInfoRestController {
 	BlacklistDAO blacklistDAO;
 	
 	@GetMapping( path= {"/member/Info"}, produces= {"application/json"})
-	public ResponseEntity<?> getInfo(HttpServletRequest request){
-		
-		Integer id = getId(request);
+	public ResponseEntity<?> getInfo(@RequestAttribute("memberid") Integer id){
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -66,9 +66,7 @@ public class MemberInfoRestController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping( path= {"/member/Account"}, produces= {"application/json"})
-	public ResponseEntity<?> getAccount(HttpServletRequest request){
-		
-		Integer id = getId(request);
+	public ResponseEntity<?> getAccount(@RequestAttribute("memberid") Integer id){
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -85,9 +83,7 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Setting"}, produces= {"application/json"})
-	public ResponseEntity<?> getSetting(HttpServletRequest request){
-		
-		Integer id = getId(request);
+	public ResponseEntity<?> getSetting(@RequestAttribute("memberid") Integer id){
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -102,9 +98,8 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Friend"}, produces= {"application/json"})
-	public ResponseEntity<?> getFriend(HttpServletRequest request){
+	public ResponseEntity<?> getFriend(@RequestAttribute("memberid") Integer id){
 		
-		Integer id = getId(request);
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -126,9 +121,8 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Friend/Applyed"}, produces= {"application/json"})
-	public ResponseEntity<?> getFriendApplyed(HttpServletRequest request){
+	public ResponseEntity<?> getFriendApplyed(@RequestAttribute("memberid") Integer id){
 		
-		Integer id = getId(request);
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -150,9 +144,8 @@ public class MemberInfoRestController {
 	}
 	
 	@GetMapping( path= {"/member/Friend/Apply"}, produces= {"application/json"})
-	public ResponseEntity<?> getFriendApply(HttpServletRequest request){
+	public ResponseEntity<?> getFriendApply(@RequestAttribute("memberid") Integer id){
 		
-		Integer id = getId(request);
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -175,9 +168,8 @@ public class MemberInfoRestController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping( path= {"/member/Trackmember"}, produces= {"application/json"})
-	public ResponseEntity<?> getTrackmember(HttpServletRequest request){
+	public ResponseEntity<?> getTrackmember(@RequestAttribute("memberid") Integer id){
 		
-		Integer id = getId(request);
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -199,9 +191,8 @@ public class MemberInfoRestController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping( path= {"/member/Blacklist"}, produces= {"application/json"})
-	public ResponseEntity<?> getBlacklist(HttpServletRequest request){
+	public ResponseEntity<?> getBlacklist(@RequestAttribute("memberid") Integer id){
 		
-		Integer id = getId(request);
 		if(id == null) {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
@@ -222,14 +213,5 @@ public class MemberInfoRestController {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	private Integer getId(HttpServletRequest request) {
-		Object rs = request .getAttribute("memberid");
-		if(rs != null && rs.getClass() == Integer.class) {
-			return  (Integer ) rs;
-		}
-		return null;
-	}
-	
 	
 }

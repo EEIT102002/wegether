@@ -13,7 +13,7 @@ public class QueryBean {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	private Session getSession() {
+	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 	

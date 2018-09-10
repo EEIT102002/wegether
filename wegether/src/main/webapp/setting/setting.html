@@ -29,6 +29,9 @@
             // 	}).mouseout(function(){
             // 		$(this).addClass('animated');
             // 	})
+            $('#header_nav ul li').click(function () {
+        		$(this).addClass('active').siblings().removeClass('active');
+    		})
         })
     </script>
     <style>
@@ -139,7 +142,7 @@
                 </button>
                 <div class="logo">
                     <h1>
-                        <a class="navbar-brand" href="../index.html">Wegther</a>
+                        <a class="navbar-brand" href="/wegether/index.jsp">Wegther</a>
                     </h1>
                 </div>
             </div>

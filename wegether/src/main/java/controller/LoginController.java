@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,8 +42,7 @@ public class LoginController {
 	
 	@RequestMapping(value = "/login.do", produces = "application/json")
 	public @ResponseBody Map<String, Object> method(String account, String pwd, Model model,
-			HttpServletResponse response, HttpServletRequest request) {
-		System.out.println(request.getAttribute("memberid"));
+			HttpServletResponse response) {
 		account.trim();
 		pwd.trim();
 		Map<String, String> errors = new HashMap<String, String>();
@@ -80,10 +81,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/logout.do", produces = "application/json")
-	public @ResponseBody Map<String, Object> checkLogout(Model model,
-			HttpServletResponse response, HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> checkLogout(
+			HttpServletRequest request,@RequestAttribute("memberid") Integer id) {
 		Map<String, Object> result = new HashMap<>();
-		Integer id= cookieService.getId(request);
 		if(id != null) {
 			String token = cookieService.getValue(request, "token");
 			tokenMap.remove(token);
@@ -95,10 +95,9 @@ public class LoginController {
 		return result;
 	}
 	@RequestMapping(value = "/login.check", produces = "application/json")
-	public @ResponseBody Map<String, Object> checkLogin(Model model,
-			HttpServletResponse response, HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> checkLogin(@RequestAttribute("memberid") Integer id) {
 		Map<String, Object> result = new HashMap<>();
-		if(request.getAttribute("memberid") != null) {
+		if(id != null) {
 			result.put("state", true);
 		}else {
 			result.put("state", false);
