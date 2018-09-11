@@ -13,7 +13,7 @@
 	<a href="Service.jsp">Service 回報區</a>
 	<br>
 
-	<form action="<c:url value="/Trackmember.insert" />" method="GET">
+	<form action="<c:url value="/Trackmember.insert" />" method="POST">
 	<input type="text" name="Memberid">Memberid</input>
 	<input type="submit" name="insert" value="加追蹤">
 	</form><br>
