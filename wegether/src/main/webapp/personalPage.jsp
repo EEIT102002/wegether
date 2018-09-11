@@ -231,7 +231,7 @@
          <div id="core">
                     <div id="left">
                         <div style="text-align: center"  >
-                            <img src="data:image/jpg;base64,${picbean.get(0)}"  width="280" style="position:relative;top:20px;" > 
+                            <img class="img-circle" src="data:image/jpg;base64,${picbean.get(0)}"  width="280" style="position:relative;top:20px;" > 
                              
                         </div>
                         <div style="text-align: center">
@@ -269,8 +269,11 @@
                           <table border="0"  >
                               <tr>
                                 <td  type="button" class="btn btn-secondary " style="padding:4px;font-weight:bold;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">
-                                     <a href="activityPage.controller?actid=1" class="scroll"> 編輯個人資料</a>
-                                </td>                               
+                                     <a href="activityPage.controller?actid=1" class="scroll"> 編輯</a>
+                                </td>
+                                <td  type="button" class="btn btn-secondary " style="padding:4px;font-weight:bold;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">
+                                     <a href="activityPage.controller?actid=1" class="scroll"> 追蹤</a>
+                                </td>                                  
                                  <td  type="button" class="btn btn-secondary " style="padding:4px;font-weight:bold;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">
                                      <a href="activityPage.controller?actid=1" class="scroll"> 加入好友</a>
                                 </td> 

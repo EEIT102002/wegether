@@ -1,5 +1,6 @@
 package model.dao.implement;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -61,6 +62,8 @@ public class MemberDAOHibernate implements MemberDAO {
 		 }
 
 	}
+
+	
 
 	
 }
