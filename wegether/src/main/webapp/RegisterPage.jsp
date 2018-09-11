@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,6 +36,15 @@
 		// 		$(this).addClass('animated');
 		// 	})
 	})
+	
+	function clearForm() {
+	var inputs = document.getElementsByTagName("input");
+	for(var i=0; i<inputs.length; i++) {
+		if(inputs[i].type=="text") {
+			inputs[i].value="";
+		}
+	}
+}
 </script>
 <style>
 * {
@@ -178,91 +188,115 @@ footer>ul>li ul {
 		<div id="small_con">
 		
 			<div align="center">
-				<hr />
+				<hr >
 				註冊頁面
-				<hr>
-				<form action="" name="" method="post">
+				<hr/>
+				<form id="xxx" action="<c:url value="/register.controller" />" method="post">
 					<table border="0" align="center">
 						<tr>
 							<td colspan="2" align="center"></td>
 						</tr>
 						<tr>
 							<td>帳號(信箱):</td>
-							<td><input type="text" name="account"></td>
+							<td><input type="text" name="account" value="${param.account}" ></td>
+							<td>${inputRrrors.account}</td>
 						</tr>
 						<tr>
 							<td>密碼:</td>
-							<td><input type="password" name="pwd"></td>
+							<td><input type="password" name="pwd" value="${param.pwd}" ></td>
+							<td>${inputRrrors.pwd}</td>
 						</tr>
 						<tr>
 							<td>大頭照片:</td>
-							<td><input type="file" name="photo" multiple="multiple"></td>
+							<td><input type="file" name="photo" multiple="multiple" value="${param.photo}"></td>
+							<td>${inputRrrors.photo}</td>
 						</tr>
 						<tr>
 							<td>姓名:</td>
-							<td><input type="text" name="name"></td>
+							<td><input type="text" name="name" value="${param.name}"></td>
+							<td>${inputRrrors.name}</td>
 						</tr>
 						<tr>
 							<td>暱稱:</td>
-							<td><input type="text" name="nickname"></td>
+							<td><input type="text" name="nickname" value="${param.nickname}"></td>
+							<td>${inputRrrors.nickname}</td>
 						</tr>
 						<tr>
 							<td>出生日期:</td>
-							<td><input type="date" name="birthday"></td>
+							<td><input type="date" name="birthday" value="${param.birthday}"></td>
+							<td>${inputRrrors.birthday}</td>
 						</tr>
 						
 						<tr>
 							<td>性别:</td>
-							<td><input type="radio" name="sex" />男 <input
-								type="radio" name="sex" />女</td>
+							<td>
+							      <select name="sex" size="1">
+									<option value="0">男生</option>
+									<option value="1">女生</option>
+									
+							  </select>
+							</td>
+							<td>${inputRrrors.sex}</td>
 						</tr>
 						<tr>
 							<td>職業:</td>
-							<td><select name="job" size="1">
+							<td>
+							  <select name="job" size="1">
 									<option value="學生">學生</option>
 									<option value="保險員">保險員</option>
 									<option value="其他">其他</option>
-							</select></td>
+							  </select>
+							</td>
+<%-- 							<td>${inputRrrors.job}</td> --%>
 						</tr>
 						
 						<tr>
-							<td>城市/所在地</td>
+							<td>城市/所在地:</td>
 							<td>
-								<select name="city" >
+								<select name="city"  >
 									<option value="0">台北市</option>
 									<option value="1">新北市</option>
 								</select>
+								
 							</td>
+<%-- 							<td>${inputRrrors.city}</td> --%>
 						</tr>
 						
 						<tr>
 							<td>詳細地址:</td>
-							<td><input type="text" name="addr"></td>
+							<td><input type="text" name="addr" value="${param.addr}"></td>
+							<td>${inputRrrors.addr}</td>
 						</tr>
 						
 						<tr>
 							<td>電話:</td>
-							<td><input type="text" name="tel"></td>
+							<td><input type="text" name="tel" value="${param.tel}"></td>
+							<td>${inputRrrors.tel}</td>
 						</tr>
 												
 						<tr>
 							<td>自我介紹:</td>
-							<td><textarea rows="5" cols="30"></textarea></td>
+							<td><textarea rows="5" cols="30" name="content" value="${param.content}"></textarea></td>
+							<td>${inputRrrors.content}</td>
 						</tr>
 						<tr>
-							<td>聚會類型</td>
+							<td>聚會類型:</td>
 							<td>
 							<input type="checkbox" name="favorite" value="輕鬆聊">輕鬆聊
 							<input type="checkbox" name="favorite" value="浪漫約會">浪漫約會
 							<input type="checkbox" name="favorite" value="寵物">寵物
+							<br>
 							<input type="checkbox" name="favorite" value="桌遊">桌遊
 							<input type="checkbox" name="favorite" value="郊遊踏青">郊遊踏青
 							<input type="checkbox" name="favorite" value="電影">電影
 							</td>
+							<td>${inputRrrors.favorite}</td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center" ><input type="submit" name="submit"
-								value="送出"> <input type="reset" name="reset" value="重置"></td>
+							<td colspan="2" align="center" >
+							  <input type="submit" name="prodaction" value="送出"> 
+							  <input type="button" value="Clear" onclick="clearForm()">
+							</td>
 						</tr>
 					</table>
 				</form>

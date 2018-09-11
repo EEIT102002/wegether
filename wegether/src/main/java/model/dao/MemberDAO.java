@@ -14,4 +14,6 @@ public interface MemberDAO {
 	public abstract MemberBean insert(MemberBean memberBean);
 
 	public abstract boolean update(MemberBean memberBean);
+	
+	public abstract List<MemberBean> selectByNickname(String nickname);
 }

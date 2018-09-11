@@ -26,7 +26,7 @@ public class TrackmemberService {
 		id.setFanid(2); // 後端抓Fanid
 		id.setMemberid(mid);
 
-		if (mid != fid) {
+		if (mid != fid && mid != 0) {
 			TrackmemberBean bean = new TrackmemberBean();// NEW TrackmemberBean 來放TrackmemberId id
 			bean.setId(id);
 

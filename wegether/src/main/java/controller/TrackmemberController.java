@@ -26,20 +26,23 @@ public class TrackmemberController {
 	@RequestMapping(path = { "/Trackmember.insert" })
 	protected void doGet(Model model, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		List<TrackmemberBean> result =null;
+		int mid=0;
 		response.setContentType("text/html; charset=UTF-8");
+		
 		// 接收資料
-
-		int mid = Integer.valueOf(request.getParameter("Memberid"));
-		System.out.println(mid);
-		List<TrackmemberBean> result = trackmemberService.insert(mid);// 加追蹤
-
+		if (request.getParameter("Memberid")!="") {
+			mid = Integer.valueOf(request.getParameter("Memberid"));
+			System.out.println(mid);
+			result = trackmemberService.insert(mid);// 加追蹤
+		}
 		if (result != null) {
 			PrintWriter out = response.getWriter();
 			out.println("追蹤成功");
 			out.close();
 		} else {
 			PrintWriter out = response.getWriter();
-			out.println("以追蹤");
+			out.println("追蹤失敗");
 			out.close();
 		}
 		System.out.println(result);
@@ -51,9 +54,12 @@ public class TrackmemberController {
 		response.setContentType("text/html; charset=UTF-8");
 		boolean result = false;
 		// 接收資料
-		int mid = Integer.valueOf(request.getParameter("Memberid"));
-		System.out.println(mid);
-		result = trackmemberService.delete(mid);//取消追蹤
+		
+		if(request.getParameter("Memberid")!="") {
+			int mid = Integer.valueOf(request.getParameter("Memberid"));
+			System.out.println(mid);
+			result = trackmemberService.delete(mid);//取消追蹤
+		}
 		if (result != false) {
 			PrintWriter out = response.getWriter();
 			out.println("取消追蹤成功");
