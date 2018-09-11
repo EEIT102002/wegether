@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import Service.ServiceService;
 import model.ServiceBean;
-import model.dao.ServiceDAO;
+
 
 @Controller
 @SessionAttributes(names = { "select", "action" })
@@ -27,8 +26,7 @@ public class ServiceController {
 	@Autowired
 	private ServiceService serviceService;
 
-	@Autowired
-	private ServiceDAO serviceDAO;
+
 
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {

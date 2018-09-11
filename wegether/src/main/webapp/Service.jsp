@@ -180,7 +180,7 @@ footer>ul>li ul {
 			<!--       寫在這 -->
 
 			<form action="<c:url value="/Service.controller" />">
-				<div class="AreaCon" id="keyword_search">
+				<div  id="keyword_search">
 					<span class="form-group">問題名稱 :</span> <input type="text"
 						name="title" placeholder="請輸入-標題" required="required"
 						value="${param.title}"> <input type="text" name="memberid"
@@ -203,14 +203,14 @@ footer>ul>li ul {
 					<td>${errors.classtype}</td>
 				</div>
 				<div class="Content" id="Content">
-					<span class="form-group">問題描述 :</span>
-					<td>${errors.Content}</td>
-					<textarea rows="5" cols="70" placeholder="請輸入問題" name="content"
+					<label>問題描述 :</label>
+					<textarea rows="5" cols="105" placeholder="請輸入問題" name="content"
 						required="required"></textarea>
 				</div>
 
 				<div id="searchbarButton">
 					<input type="submit" name="servicemethod" value="提交"
+					
 						class="btn btn-warning form-control "> <input type="reset"
 						value="清除" class="btn btn-warning form-control">
 					<!-- 						<input type="submit" name="servicemethod" value="Select" -->

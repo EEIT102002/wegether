@@ -8,10 +8,11 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import model.ServiceBean;
 import model.TrackmemberBean;
+import model.TrackmemberId;
 import model.dao.TrackmemberDAO;
 import querylanguage.QueryBean;
-import querylanguage.Select;
 
 @Repository
 public class TrackmemberDAOHibernate implements TrackmemberDAO{
@@ -39,6 +40,32 @@ public class TrackmemberDAOHibernate implements TrackmemberDAO{
 		query.setParameter("MID", memberid);
 		return query.list();
 	}
+
+
+	@Override
+	public List<TrackmemberBean> insert(TrackmemberBean bean) {
+		List<TrackmemberBean> result = null;
+		if(bean!=null) {
+			this.getSession().save(bean);
+			 result=selectByFan(bean.getId().getFanid());
+			return result;
+		}
+		return result;
+	}
+
+	@Override
+	public boolean delete(TrackmemberBean bean) {
+		TrackmemberBean temp = this.getSession().get(TrackmemberBean.class, bean.getId());
+		if (temp != null&&temp.getId()==bean.getId()) {
+			this.getSession().delete(temp);
+			return true;
+		}
+
+		return false;
+	}
+	
+	
+	
 	
 
 }
