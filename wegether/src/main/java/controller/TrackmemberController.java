@@ -53,7 +53,7 @@ public class TrackmemberController {
 		// 接收資料
 		int mid = Integer.valueOf(request.getParameter("Memberid"));
 		System.out.println(mid);
-		result = trackmemberService.delete(mid);
+		result = trackmemberService.delete(mid);//取消追蹤
 		if (result != false) {
 			PrintWriter out = response.getWriter();
 			out.println("取消追蹤成功");
