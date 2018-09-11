@@ -20,6 +20,10 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="./js/setting.js"></script>
+<script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
+<script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 
 <script>
 	$(function(){
@@ -126,68 +130,111 @@ var timerObj=setInterval(autoPlay,1500);
 </style>
 </head>	
 <body>
-		<div class="container">
-			<nav class="navbar navbar-default" id="stickytop">
-				<div class="navbar-header">
-				  <button type="button" class="
+  <div class="container">
+        <nav class="navbar navbar-default" id="stickytop">
+            <div class="navbar-header">
+                <button type="button" class="
 				   collapsed" data-toggle="collapse" data-target="#dropdown_munu" id="hum">
-					<span><i class="fa fa-bars" aria-hidden="true"></i></span>
-				  </button>
-					<div class="logo">
-						<h1><a class="navbar-brand" href="index.html">Wegether</a></h1>
-					</div>
-				</div>
-				<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
-					<nav class="header_nav" id="header_nav"> 
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="心得">心得</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
-							<li><a href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
-						</ul>
-					</nav>
-				</div>
-			</nav>
-		</div>
-	<div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
-			<div class="modal-dialog modal-lg" role="document">
-			  <div class="modal-content"><!--白色遮罩層-->
-				  <div class="modal-body">
-		  <!--       // modal-body  有差padding -->
-					  <div class="modal-header">
-						  
-						  <h5 class="modal-title lead"><strong>請選擇登入方式</strong></h5>
-						  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							  <span aria-hidden="true">&times;</span>
-						  </button>
-					  </div>
-					  <div class="modal-body" id="mid-body">
-						  <div class="form-group" id="ACT">
-							  <label for="recipient-name" class="col-form-label">帳號:</label>
-							  <input type="text" class="form-control" id="account">
-						  </div>
-						  <div class="form-group" id="PWD">
-							  <label for="recipient-name" class="col-form-label">密碼:</label>
-							  <input type="text" class="form-control" id="password">
-						  </div>
-						  <div id="or" class="bg-primary text-white"><h4>or</h4></div>
-						  <button type="button" class="btn big_use Google_i"><i class="fa fa-google" aria-hidden="true"></i>Google 登入</button>
-						  <button type="button" class="btn big_use Fb_i"><i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入</button>
-						  <div class="AreaCon">
-						  <button type="button" class="btn small_use Google_i"><i class="fa fa-google" aria-hidden="true"></i></button>
-						  <button type="button" class="btn small_use Fb_i"><i class="fa fa-facebook-official" aria-hidden="true"></i></button>
-						  </div>
-					  </div>
-					  <div class="modal-footer">
-						  <p class="small text-left" >還沒註冊嗎?趕緊註冊一個帳號吧! <a href="javascript:void(0)">點我註冊</a></p>
-						  <button type="button" class="btn btn-primary">登入</button>
-						  <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-					  </div>
-				  </div>
-			  </div>
-			</div>
-		  </div>
+                    <span>
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </span>
+                </button>
+                <div class="logo">
+                    <h1>
+                        <a class="navbar-brand" href="/wegether/index.jsp">Wegther</a>
+                    </h1>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
+                <nav class="header_nav" id="header_nav">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">
+                                <span data-hover="活動">活動</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="scroll">
+                                <span data-hover="心得">心得</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="scroll">
+                                <span data-hover="發起活動">發起活動</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="scroll">
+                                <span data-hover="發起心得">發起心得</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="loginSpan" href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox">
+                                <span data-hover="登入">登入</span>
+                            </a>
+                            <a id="logoutSpan" href="#" class="scrol" style="display:none">
+                            	<span data-hover="登出">登出</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!--白色遮罩層-->
+                <div class="modal-body">
+                    <!--       // modal-body  有差padding -->
+                    <div class="modal-header">
+
+                        <h5 class="modal-title lead">
+                            <strong>請選擇登入方式</strong>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="mid-body">
+                        <form id="loginform">
+                            <div class="form-group" id="ACT">
+                                <label for="recipient-name" class="col-form-label">帳號:</label>
+                                <input type="text" class="form-control" id="account" name="account">
+                            </div>
+                            <div class="form-group" id="PWD">
+                                <label for="recipient-name" class="col-form-label">密碼:</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="login">登入</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        </form>
+                        <div id="or" class="bg-primary text-white">
+                            <h4>or</h4>
+                        </div>
+                        <button type="button" class="btn big_use Google_i">
+                            <i class="fa fa-google" aria-hidden="true"></i>Google 登入</button>
+                        <button type="button" class="btn big_use Fb_i">
+                            <i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入</button>
+                        <div class="AreaCon">
+                            <button type="button" class="btn small_use Google_i">
+                                <i class="fa fa-google" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn small_use Fb_i">
+                                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="small text-left">還沒註冊嗎?趕緊註冊一個帳號吧!
+                            <a href="javascript:void(0)">點我註冊</a>
+                        </p>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 	<div class="container">
         <div id="small_con">
 <!--       寫在這以下 -->
