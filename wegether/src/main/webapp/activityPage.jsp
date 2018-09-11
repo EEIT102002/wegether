@@ -10,6 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/activityPage.css">
+<script src="js/activityPage.js"></script>
+
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -48,6 +50,30 @@
 			}
           }
 	$(function () { $("[data-toggle='tooltip']").tooltip(); });
+	
+//activityPage 輪播使用
+var picNo=1;
+document.addEventListener("DOMContentLoaded", function () {  
+     selectPic();                
+     });
+var timerObj=setInterval(autoPlay,1500);
+ function autoPlay(){
+     picNo++;  if(picNo>"${actPicList.size()}") picNo=1;                    
+     selectPic();  
+ }
+
+ function selectPic(){
+	     for(var i=1;i<="${actPicList.size()}";i++)    	 
+	             document.getElementById("imd"+i).style="border:2px solid #FFBB00"; 
+	     document.getElementById("imd"+picNo).style="border:3px solid red";     	
+	 	document.getElementById("imd0").src= $("#imd"+picNo).attr("src");     
+	}
+//activityPage 輪播使用  end	
+//留言、心得分享
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+//留言、心得分享 end
 </script>
 <style>
     *{
@@ -166,78 +192,50 @@
         <div id="small_con">
 <!--       寫在這以下 -->
 				<div id="core">
-            
+               <!-- 上面區塊 -->
                     <div id="up" >
+                     <!-- 上左區塊 -->
                         <div id="left" >
                                 
                             <div id="up" >
                                 <div id="left" style="width: auto;">
-
-                                        <a href="personal.controller?memberId=${hostBean.id}"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  class="img-circle" width="70" > </a>
-
-                                </div>
+									<a href="personal.controller?memberId=${hostBean.id}"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  class="img-circle" width="70" > </a>
+								</div>
                                 <div  id="left" style="width: auto;">
                                     <p id="txtup" style="background-color:#FFBB73" >${hostBean.nickname}</p>
                                     <p id="txtup" >${hostBean.job}</p>
-                                </div>   
-                                
-
-                                   
-                                  
-								
-								
+                                </div>   	
                                 <div id="right" >                  
-
-					                <a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友"> 
-
-					                <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
-					                
+									<a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友"> 
+									<img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
 					                <span  class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
                                     <img src="images/activityPageImages/click2.png" width="50" > </span>${actBean.click}&emsp; 
-                                    
-                             		<a  href="#" class="tooltip-test" data-toggle="tooltip" title="收藏活動資訊">
+                                    <a  href="#" class="tooltip-test" data-toggle="tooltip" title="收藏活動資訊">
                              		 <img id="favorButton"  src="images/activityPageImages/favoritesOff.png" width="50" ></a>
-                             		 
-                                </div>                            
+                             	</div>                            
                             </div>
-                            <div>
-                         
-								       <!-- 輪播  start -->
-								  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-									<div class="carousel-inner">
-										<div class="item active">
-										<c:set var="actPicListSize" value="${actPicListSize}" />
-											<img  src="data:image/jpg;base64,${actPicList.get(actPicListSize)}"  class="img-thumbnail"  >
-										</div>
-											<c:forEach var="obj" items="${actPicList}">
-												<div  class="item ">
-										 			<img  src="data:image/jpg;base64,${obj}"   class="img-thumbnail" >
-										 		</div>
-											</c:forEach>
-									</div>
-								<!-- 輪播（Carousel）導航 -->
-<!-- 									<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> -->
-<!-- 										<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> -->
-<!-- 										<span class="sr-only">Previous</span> -->
-<!-- 									</a> -->
-<!-- 									<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" > -->
-<!-- 										<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> -->
-<!-- 										<span class="sr-only">Next</span> -->
-<!-- 									</a> -->
-								</div> 	
-									   <!-- 輪播  end -->
+                    
+					 <!-- 	照片輪播 -->				   
+						<div class="content">
+						    	<div class="div1">                             
+						        		<img id="imd0" src="data:image/jpg;base64,${actPicList.get(0)}"  class="img-thumbnail"  >
+						        </div>
+						        <div class="div2">
+										<c:set var="salary"  value="1"/>		
+										<c:forEach var="obj" items="${actPicList}"> 
+									 			<img id="imd${salary}" src="data:image/jpg;base64,${obj}"   class="img-thumbnail" >
+									 				<c:set var="salary"  value="${salary+1}"/>
+										</c:forEach>
+								</div>
+						    </div>
+  
+	   	 <!-- 	照片輪播  end-->		
 	   
-                            </div>
-                            <div style="padding-top: 10px;">
-                            
-                             	<c:forEach var="obj" items="${actPicList}">
-							 	<img  src="data:image/jpg;base64,${obj}"   class="img-rounded" width="100"  height="80">
-								</c:forEach>
-                                   
-                            </div>
-                        </div>  <!-- left end -->
+  
+ </div>  
+ <!-- 上左區塊 end -->
 
-                        
+                         <!-- 上右區塊  -->
                         <div id="right">
                             <h3>${actBean.title}</h3><!-- right1 end -->
                             <p>${actbegin}</p><!-- right2 end -->
@@ -261,10 +259,12 @@
 
                             </div><!-- right7 end -->
                             
-                        </div>  <!-- right end -->
-                   </div>   <!-- up end -->
-
- 					
+                        </div> 
+					 <!-- 上右區塊 end -->
+					 
+                   </div>   
+                   <!-- 上面區 end -->
+ 				 <!-- 下面區塊 -->
                      <div id="down">
                           <h2>${actBean.title}</h2>
                           <p > ${actBean.content} </p>
@@ -273,27 +273,35 @@
                           
                           <h4>留下意見:</h4>
                           <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>    </br> </br>   
-                          <button type="button" class="btn btn-warning"  >  &emsp; 留  &emsp;  &emsp; 言 &emsp;</button> </br> </br>   
-                          
-								
-                          
-                          
+                          <button type="button" class="btn btn-warning"  >  &emsp; 留  &emsp;  &emsp; 言 &emsp;</button>
+                             <button type="button" class="btn btn-warning"  >  &emsp; 心&emsp;  得  &emsp; 分&emsp;享 &emsp;</button> </br> </br>     
+                            
+						<!--  留言、心得分享 -->
+                            <div id="tabs">
+								  <ul>
+								    <li><a href="#tabs-1">Nunc tincidunt</a></li>
+								    <li><a href="#tabs-2">Proin dolor</a></li>
+								  </ul>
+								  <div id="tabs-1">
+								    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+								  </div>
+								  <div id="tabs-2">
+								    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+								  </div>
+								</div>
+                            <!--  留言、心得分享  end-->
                           <!-- msg begin -->                 
-       
-                    
-                        
-                        <c:forEach var="obj" items="${msgsList}">
+       				   <c:forEach var="obj" items="${msgsList}">
                         <div id="msgid" class="well" >
 							 	<a href="personal.controller?memberId=${obj.memberId}"><img  src="data:image/jpg;base64,${obj.picMem}"  width="50" ></a> 	
 		                       <span style="color:blue;">${obj.nickname} </span> &emsp; <span style="font-size:small;">${obj.msgtime}</span></br>
 		                        ${obj.content}</br>
                         </div>
 						</c:forEach>
-                        
-                       
-                             <!-- msg end -->
+                         <!-- msg end -->
+                         
                     </div> 
-                    <!-- down end -->
+                   <!-- 下面區塊  end-->
                     
                 </div>
                 <!--       寫在這以上 -->
