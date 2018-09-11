@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +55,8 @@ public class MemberBean {
 
 	// Activity
 	@OneToMany(mappedBy = "memberBean",
-			   cascade = { CascadeType.REMOVE })
+			   cascade = { CascadeType.REMOVE },
+			   fetch = FetchType.LAZY)
 	private Set<ActivityBean> activityBean;
 	public Set<ActivityBean> getActivityBean() {
 		return activityBean;
@@ -65,7 +67,8 @@ public class MemberBean {
 	
 	// Attend
 	@OneToMany(mappedBy = "memberBean",
-			   cascade = { CascadeType.REMOVE })
+			   cascade = { CascadeType.REMOVE },
+			   fetch = FetchType.LAZY)
 	private Set<AttendBean> attendBean;
 	public Set<AttendBean> getAttendBean() {
 			return attendBean;
@@ -76,7 +79,8 @@ public class MemberBean {
 
 	// Article
 	@OneToMany(mappedBy = "memberBean",
-			   cascade = {CascadeType.REMOVE})
+			   cascade = {CascadeType.REMOVE},
+			   fetch = FetchType.LAZY)
 	private Set<ArticleBean> articleBean;
 	public Set<ArticleBean> getArticleBean() {
 		return articleBean;
@@ -87,7 +91,8 @@ public class MemberBean {
 	
 	//Friend
 	@OneToMany(mappedBy = "memberBean",
-			   cascade = {CascadeType.REMOVE})
+			   cascade = {CascadeType.REMOVE},
+			   fetch = FetchType.LAZY)
 	private Set<FriendBean> friendBean;
 	public Set<FriendBean> getFriendBean() {
 		return friendBean;
@@ -99,7 +104,8 @@ public class MemberBean {
 	//Picture
 	@OneToMany(
 			mappedBy="memberBean",
-			cascade= {CascadeType.REMOVE}
+			cascade= {CascadeType.REMOVE},
+			fetch = FetchType.LAZY
 			)
 	private Set<PictureBean> pictureBean;
 	public Set<PictureBean> getPictureBean() {
@@ -108,7 +114,7 @@ public class MemberBean {
 	public void setPictureBean(Set<PictureBean> pictureBean) {
 		this.pictureBean = pictureBean;
 	}
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(
 			name="id",
 			referencedColumnName="memberid",

@@ -28,6 +28,9 @@ $(function () {
                     $(qqq).modal('hide');
                     
                     logingroup(data);
+                }else{
+                	$('.loginerror').text("登入失敗");
+                	$('#pwd').val("");
                 }
             }
             , "json"
@@ -35,6 +38,9 @@ $(function () {
     })
     logoutSpan.click(function () {
         logoutf();
+    })
+    $('#loginform').on("click","input",function(){
+    	$('.loginerror').text("");
     })
 
 })

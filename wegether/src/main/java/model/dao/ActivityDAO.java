@@ -43,5 +43,10 @@ public interface ActivityDAO {
 	
 	//indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋	
 	public abstract List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype, String title);
+
+	public abstract List<ActivityBean> selectOfIndexPo(int state, int city, String beginDate, String endDate, String classtype,
+			String title, List<Integer> Actid);
+
+	public abstract List<ActivityBean> selectAllState();
 }
 
