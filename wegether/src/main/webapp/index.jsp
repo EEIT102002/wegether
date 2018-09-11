@@ -16,33 +16,12 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script type="text/javascript" src="js/batch.js"></script>
 <script>
 	$(function(){
 		$.ajax("${pageContext.request.contextPath}/activity",{
 			method:"GET",
 			success:function(jsonArray){
-// ===========================單筆 測試
-// 				console.log(jsonArray);
-// 				console.log(data[0]);
-// 				console.log(data[6][1]);
-// 				console.log(jsonArray[6][0].id);
-// 				console.log(jsonArray[6][2])
-				
-// 				var str1 = "<img alt='' class='img-responsive' src=\""+data[6][1]+"\"/>";
-// 				str1+="<div>";
-				
-// 				str1+="id:"+data[6][0].id+"title:"+data[6][0].title;
-// 				str1+="</div>";
-// 				alert("A")
-// 				if($("#show_act_area").html!=null){
-// 					alert("A-1");
-// 				}else{
-// 					alert("A-2");
-// 				}
-
-// 				$("#show_act_area").append(str1);
-// 				alert('A的append');
-// ===========================單筆 測試
 				var i = 0;
 		        $.each(jsonArray, function() {
 		        var date = new Date(jsonArray[i][0].actbegin);
@@ -78,21 +57,25 @@
 			alert("此選項的VAL:"+$('#CitySelect').find('option:selected').val());
 			})
 
-		$('#select_submit').click(function(){
+		$('#select_act_submit').click(function(){
 			//ajax 待定
 			$.ajax("${pageContext.request.contextPath}/select_activity",{
 				method:"GET",
 				data:$('#form_act').serialize(),
 				success:function(jsonArray){
-					console.log(jsonArray[0]);
+// 					console.log(jsonArray[0]);
 					if(jsonArray[0]=="查無符合資料"){
 // 						alert("查無符合資料");
 						var str2 ="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img alt='' class='img-responsive'src='images/noresult.jpg'/><figcaption>";
+				
+						
 						str2 += jsonArray[0]+"</figcaption></figure></div>";
 						$("#show_act_area").html(str2);
 					}else{
+						var i=0;
+						$("#show_act_area").empty();
 						$.each(jsonArray, function() {
-							var i=0;
+							
 					        var date = new Date(jsonArray[i][0].actbegin);
 								Y = date.getFullYear() + '-';
 								M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
@@ -102,13 +85,14 @@
 				        	str1+="<figcaption>";
 			        		str1+="活動名稱:"+jsonArray[i][0].title+"<br>"+"活動地點:"+jsonArray[i][0].city+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"活動ID:"+jsonArray[i][0].id+"<br>"+"主揪:"+jsonArray[i][2]+"<br>";
 			        		str1+="</figcaption><figure></div>";
-				        	$("#show_act_area").html(str1);
 					        i++;
+					        $("#show_act_area").append(str1);
 					        });//each end
 					}//else end
 				}//success end
 			})//ajax end
-		})//searchbarButton 提交
+		})//select_act_submit 提交
+
 		$('#search_for_act').click(function(){
 			$('#form_po').css({
 				"display":"none"
@@ -118,6 +102,13 @@
 			})
 		})
 		$('#search_for_po').click(function(){
+			var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+				,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']			
+			for(var i = 1; i <= array_for_city.length; i++) {
+// 	            console.log(array_for_city[i-1]);
+				var x1 ="<option value="+i+">"+array_for_city[i-1]+"</option>"		
+				$('#CitySelect_po').append(x1);
+			}
 			$('#form_po').css({
 				"display":"block"
 			})
@@ -125,8 +116,42 @@
 				"display":"none"
 			})
 		})
+		
+		$('#form_po').submit(function(){
+			$.ajax("${pageContext.request.contextPath}/select_po",{
+				method:"GET",
+				data:	$('#form_po').serialize(),
+				success:function(jsonArray){
+					if(jsonArray[0]=="查無符合資料"){
+// 						alert("查無符合資料");
+						var str2 ="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img alt='' class='img-responsive'src='images/noresult.jpg'/><figcaption>";
+				
+						
+						str2 += jsonArray[0]+"</figcaption></figure></div>";
+						$("#show_act_area").html(str2);
+					}else{
+						var i=0;
+						$("#show_act_area").empty();
+						$.each(jsonArray, function() {
+							
+					        var date = new Date(jsonArray[i][0].actbegin);
+								Y = date.getFullYear() + '-';
+								M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+								D = date.getDate() + ' ';
+				        	var str1="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure>";
+				        	 str1 += "<img alt='' class='img-responsive' src=\""+jsonArray[i][1]+"\"/>";
+				        	str1+="<figcaption>";
+			        		str1+="活動名稱:"+jsonArray[i][0].title+"<br>"+"活動地點:"+jsonArray[i][0].city+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"活動ID:"+jsonArray[i][0].id+"<br>"+"主揪:"+jsonArray[i][2]+"<br>";
+			        		str1+="</figcaption><figure></div>";
+					        i++;
+					        $("#show_act_area").append(str1);
+					        });//each end
+					}//else end
+				}//success end
+			})//ajax end
+			return false;
+		})
 	})// script end
-	
 </script>
 <style>
  	#form_po{
@@ -145,6 +170,7 @@
 </style>
 </head>	
 <body>
+
 	<div class="banner">
 		<div class="container">
 			<nav class="navbar navbar-default">
@@ -154,14 +180,14 @@
 					<span><i class="fa fa-bars" aria-hidden="true"></i></span>
 				  </button>
 					<div class="logo">
-						<h1><a class="navbar-brand" href="index.html">Wegther</a></h1>
+						<h1><a class="navbar-brand" href="<c:url value="/index.jsp"/>">Wegther</a></h1>
 					</div>
 				</div>
 				<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
 					<nav class="header_nav" id="header_nav"> 
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="活動地圖">活動地圖</span></a></li>
+<!-- 							<li><a href="#" class="scroll"><span data-hover="活動地圖">活動地圖</span></a></li> -->
 							<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
 							<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
 							<li><a href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
@@ -188,13 +214,6 @@
 											});
 									</script>
 								</select>
-								<select name="areaselect_name" id="AreaSelect">
-									<option value="">--請選擇--</option>
-									<option value="">A</option>
-									<option value="">B</option>
-									<option value="">C</option>
-									<option value="">D</option>
-								</select>
 								</div>
 								<div class="AreaCon">
 									<span class="form-group">活動開始日期 :</span><br>
@@ -206,28 +225,58 @@
 								</div>
 								<div class="AreaCon">
 									<span>活動類型 :</span><br>
-									<select class="form-control" id="type_select" name="type_select_name">
-										<option value="運動">運動</option>
-										<option value="休閒">休閒</option>
-										<option value="音樂" >音樂</option>
-										<option value="美食">美食</option>
-										<option value="商業">商業</option>
-										<option value="聊天">聊天</option>
-									</select><br>
+									<input type="checkbox" value="運動" name="type_select_name">運動</input>
+									<input type="checkbox" value="休閒" name="type_select_name">休閒</input>
+									<input type="checkbox" value="音樂" name="type_select_name">音樂</input>
+									<input type="checkbox" value="美食" name="type_select_name">美食</input>
+									<input type="checkbox" value="聊天" name="type_select_name">聊天</input>				
+<!-- 									<select class="form-control" id="type_select" name="type_select_name"> -->
+<!-- 										<option value="運動">運動</option> -->
+<!-- 										<option value="休閒">休閒</option> -->
+<!-- 										<option value="音樂" >音樂</option> -->
+<!-- 										<option value="美食">美食</option> -->
+<!-- 										<option value="商業">商業</option> -->
+<!-- 										<option value="聊天">聊天</option> -->
+<!-- 									</select><br> -->
 								</div>
 								<div class="AreaCon" id="keyword_search">
 									<span class="form-group">關鍵字搜尋 :</span><br>
 									<input type="text" placeholder="搜尋-活動名稱" class="form-control" id="keyword_search_input" name="keyword_search_input_name"><br>
 								</div>
 								<div id="searchbarButton">	
-									<input id="select_submit" type="submit" value="搜尋" class="btn btn-warning form-control ">
+									<input id="select_act_submit" type="submit" value="搜尋" class="btn btn-warning form-control">
 									<input type="reset" value="清除" class="btn btn-warning form-control">
 								</div>
 							</form>
-						<form action="<c:url value="/select_activity" />" id="form_po">
-							<input type="hidden" value="1" name="state"/>
-							<input type="search" name="keyword_search_input_name"/>
-							<input type="submit" value="送出"/>
+							
+						<form id="form_po" >
+							<div class="AreaCon">
+								<label>地區 :</label>
+								<select name="cityselect_name_po" id="CitySelect_po" >
+									<option value="">--請選擇--</option>
+								</select>
+								</div>
+								<div class="AreaCon">
+									<span class="form-group">活動開始日期 :</span><br>
+									<input type="date" class="form-control" id="start_date_po" name="start_date_name_po"><br>
+								</div>
+								<div class="AreaCon">
+									<span class="form-group">活動結束日期 :</span><br>
+									<input type="date" class="form-control" id="end_date_po" name="end_date_name_po"><br>
+								</div>
+								<div class="AreaCon">
+									<span>活動類型 :</span><br>
+									<input type="checkbox" value="運動" name="type_select_name_po">運動</input>
+									<input type="checkbox" value="休閒" name="type_select_name_po">休閒</input>
+									<input type="checkbox" value="音樂" name="type_select_name_po">音樂</input>
+									<input type="checkbox" value="美食" name="type_select_name_po">美食</input>
+									<input type="checkbox" value="聊天" name="type_select_name_po">聊天</input>				
+								</div>
+						
+							<input type="hidden" value="1" name="state_po" />
+							<input type="search" name="keyword_search_input_name_po" id="keyword_search_input_po"/>
+							<input id="select_po_submit" type="submit" value="搜尋"/>
+							
 							<input type="reset" value="清除"/>
 						</form>
 				</div>
@@ -282,90 +331,6 @@
 					<li><a href="">地區</a></li>
 				</ul>
 					<div class="row  masonry" id="show_act_area">
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/01.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption>join us</figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/02.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption>that's go </figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/03.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption>party</figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/04.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/05.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/06.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/07.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/08.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/09.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/010.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/013.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/014.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/011.jpg" alt="" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 item"> -->
-<!-- 							<figure> -->
-<!-- 							<img src="images/012.jpg" alt="12" class="img-responsive"> -->
-<!-- 							<figcaption></figcaption> -->
-<!-- 							</figure> -->
-<!-- 						</div> -->
 					</div>
 				</div>
 			<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
