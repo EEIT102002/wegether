@@ -231,7 +231,7 @@
          <div id="core">
                     <div id="left">
                         <div style="text-align: center"  >
-                            <img src="data:image/jpg;base64,${picbean.get(0)}"  width="280" style="position:relative;top:20px;" > 
+                            <img class="img-circle" src="data:image/jpg;base64,${picbean.get(0)}"  width="280" style="position:relative;top:20px;" > 
                              
                         </div>
                         <div style="text-align: center">

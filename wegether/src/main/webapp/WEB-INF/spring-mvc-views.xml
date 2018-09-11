@@ -61,6 +61,10 @@
 	
 	<bean id="register.success"
 		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/personalPage.jsp"></property>
+	</bean>
+	
+	<bean id="register.error" class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/RegisterPage.jsp"></property>
 	</bean>
 	
