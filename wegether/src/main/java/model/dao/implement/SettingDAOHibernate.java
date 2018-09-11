@@ -23,11 +23,7 @@ public class SettingDAOHibernate implements SettingDAO{
 	
 	@Override
 	public SettingBean select(int memberid) {
-		System.out.println("SettingBean  select");
 		return this.getSession().get(SettingBean.class, memberid);
-		// TODO Auto-generated method stub
-		
-		
 	}
 	@Override
 	public SettingBean update(SettingBean settingBean) {

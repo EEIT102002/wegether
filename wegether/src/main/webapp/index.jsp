@@ -170,7 +170,6 @@
 </style>
 </head>	
 <body>
-
 	<div class="banner">
 		<div class="container">
 			<nav class="navbar navbar-default">
@@ -180,7 +179,7 @@
 					<span><i class="fa fa-bars" aria-hidden="true"></i></span>
 				  </button>
 					<div class="logo">
-						<h1><a class="navbar-brand" href="<c:url value="/index.jsp"/>">Wegther</a></h1>
+						<h1><a class="navbar-brand" href="index.html">Wegther</a></h1>
 					</div>
 				</div>
 				<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
@@ -206,13 +205,6 @@
 								<label>地區 :</label>
 								<select name="cityselect_name" id="CitySelect" ng-model="selectedName" ng-options="x for x in names">
 									<option value="">--請選擇--</option>
-									<script>
-											var app = angular.module('myApp', []);
-											app.controller('myCtrl', function($scope) {
-												$scope.names = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
-												,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖'];
-											});
-									</script>
 								</select>
 								</div>
 								<div class="AreaCon">
@@ -230,14 +222,6 @@
 									<input type="checkbox" value="音樂" name="type_select_name">音樂</input>
 									<input type="checkbox" value="美食" name="type_select_name">美食</input>
 									<input type="checkbox" value="聊天" name="type_select_name">聊天</input>				
-<!-- 									<select class="form-control" id="type_select" name="type_select_name"> -->
-<!-- 										<option value="運動">運動</option> -->
-<!-- 										<option value="休閒">休閒</option> -->
-<!-- 										<option value="音樂" >音樂</option> -->
-<!-- 										<option value="美食">美食</option> -->
-<!-- 										<option value="商業">商業</option> -->
-<!-- 										<option value="聊天">聊天</option> -->
-<!-- 									</select><br> -->
 								</div>
 								<div class="AreaCon" id="keyword_search">
 									<span class="form-group">關鍵字搜尋 :</span><br>

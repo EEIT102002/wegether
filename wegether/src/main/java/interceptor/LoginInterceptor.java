@@ -2,6 +2,7 @@ package interceptor;
 
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +16,7 @@ import Service.CookieService;
 
 
 public class LoginInterceptor implements HandlerInterceptor {
-	@Autowired
-	@Qualifier("tokenMap")
+	@Resource(name = "tokenMap")
 	private Map<String, Integer> tokenMap;
 	@Autowired
 	private CookieService cookieService;
@@ -28,9 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String token = cookieService.getValue(request, "token");
 		if(token != null) {
 			Integer id = tokenMap.get(token);
-			if(id != null) {
-				request.setAttribute("memberid", id);
-			}
+			request.setAttribute("memberid", id);
 		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

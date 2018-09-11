@@ -10,19 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
 public class UniqueToken {
-	@Autowired
-	@Qualifier("tokenMap")
 	private Map<String, Integer> tokenMap;
 	
-	public String randomToken() {
+	public Map<String, Integer> getTokenMap() {
+		return tokenMap;
+	}
+
+	public void setTokenMap(Map<String, Integer> tokenMap) {
+		this.tokenMap = tokenMap;
+	}
+
+	public String randomToken(Integer id) {
 		String token = null;
 			
 		do{
 			token = UUID.randomUUID().toString();
 		}while(tokenMap.get(token) != null);
-		tokenMap.put(token, 0);
+		tokenMap.put(token, id);
 		return token;
 	}
 }
