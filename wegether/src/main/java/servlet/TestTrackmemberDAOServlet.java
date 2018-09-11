@@ -2,10 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
-
 
 import model.TrackmemberBean;
 import model.dao.TrackmemberDAO;
@@ -40,8 +35,8 @@ public class TestTrackmemberDAOServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// select(id)
-		 List<TrackmemberBean> result = dao.selectByFan(2);
+//		 select(id)
+		 List<TrackmemberBean> result = dao.selectByFan(4);
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
