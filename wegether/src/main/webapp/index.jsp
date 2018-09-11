@@ -15,7 +15,6 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script type="text/javascript" src="js/batch.js"></script>
 <script>
 	$(function(){
@@ -38,17 +37,18 @@
 		        });
 			}
 		})//ajax end
+		var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+			,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']			
+		for(var i = 1; i <= array_for_city.length; i++) {
+//	            console.log(array_for_city[i-1]);
+			var x1 ="<option value="+i+">"+array_for_city[i-1]+"</option>"		
+			$('#CitySelect').append(x1);
+		}
+		
 		$('#header_nav ul li').click(function(){
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-		$('#upTop').click(function(){
-			var body = $("html, body");
-			body.stop().animate({scrollTop:0}, 500, 'swing');
-			}).mouseover(function(){
-				$(this).removeClass('animated');
-			}).mouseout(function(){
-				$(this).addClass('animated');
-			})
+
 		$('#CitySelect').change(function(){
 // 			alert($(this).val().substr(7,3));
 			var x = $('#CitySelect').find('option:selected').index();
@@ -57,25 +57,24 @@
 			alert("此選項的VAL:"+$('#CitySelect').find('option:selected').val());
 			})
 
-		$('#select_act_submit').click(function(){
+		$('#form_act').submit(function(){
+// 			alert('A');
 			//ajax 待定
 			$.ajax("${pageContext.request.contextPath}/select_activity",{
 				method:"GET",
 				data:$('#form_act').serialize(),
 				success:function(jsonArray){
-// 					console.log(jsonArray[0]);
+// 					alert("Act")
+					console.log(jsonArray[0]);
 					if(jsonArray[0]=="查無符合資料"){
 // 						alert("查無符合資料");
 						var str2 ="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img alt='' class='img-responsive'src='images/noresult.jpg'/><figcaption>";
-				
-						
 						str2 += jsonArray[0]+"</figcaption></figure></div>";
 						$("#show_act_area").html(str2);
 					}else{
 						var i=0;
 						$("#show_act_area").empty();
 						$.each(jsonArray, function() {
-							
 					        var date = new Date(jsonArray[i][0].actbegin);
 								Y = date.getFullYear() + '-';
 								M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
@@ -91,7 +90,8 @@
 					}//else end
 				}//success end
 			})//ajax end
-		})//select_act_submit 提交
+			return false;
+		})//#form_act 提交
 
 		$('#search_for_act').click(function(){
 			$('#form_po').css({
@@ -125,8 +125,6 @@
 					if(jsonArray[0]=="查無符合資料"){
 // 						alert("查無符合資料");
 						var str2 ="<div class='col-xs-12 col-sm-6 col-md-4 item'><figure><img alt='' class='img-responsive'src='images/noresult.jpg'/><figcaption>";
-				
-						
 						str2 += jsonArray[0]+"</figcaption></figure></div>";
 						$("#show_act_area").html(str2);
 					}else{
@@ -150,7 +148,28 @@
 				}//success end
 			})//ajax end
 			return false;
-		})
+		})//form_po end
+		$('#upTop').click(function(){
+			var body = $("html, body");
+			body.stop().animate({scrollTop:0}, 500, 'swing');
+			}).mouseover(function(){
+				$(this).removeClass('animated');
+			}).mouseout(function(){
+				$(this).addClass('animated');
+			})
+			//日期限制
+			$('#start_date').change(function() {
+				var startTimeV = $('#start_date').val();
+				var endTimeV = $('#end_date').val();
+				$('#end_date').attr("min", startTimeV);
+				$('#end_date').attr('max', '2200-08-31');
+			 })
+			$('#end_date').change(function() {
+				var startTimeV = $('#start_date').val();
+				var endTimeV = $('#end_date').val();
+				$('#start_date').attr("max", endTimeV);
+				$('#start_date').attr('min', '2000-08-31');
+					  })
 	})// script end
 </script>
 <style>
@@ -179,7 +198,7 @@
 					<span><i class="fa fa-bars" aria-hidden="true"></i></span>
 				  </button>
 					<div class="logo">
-						<h1><a class="navbar-brand" href="index.html">Wegther</a></h1>
+						<h1><a class="navbar-brand" href="/index.jsp">Wegther</a></h1>
 					</div>
 				</div>
 				<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
@@ -198,12 +217,11 @@
 				<div class="from-group">
 						<div id="search_for_act">活動</div>
 						<div id="search_for_po">心得</div>
-						<form ng-app="myApp" ng-controller="myCtrl" id="form_act">
-<%-- 						<form action="<c:url value="/select_activity" />" ng-app="myApp" ng-controller="myCtrl" id="form_act"> --%>
+						<form id="form_act">
 								<input type="hidden" value="0" name="state"/>
 								<div class="AreaCon">
 								<label>地區 :</label>
-								<select name="cityselect_name" id="CitySelect" ng-model="selectedName" ng-options="x for x in names">
+								<select name="cityselect_name" id="CitySelect">
 									<option value="">--請選擇--</option>
 								</select>
 								</div>

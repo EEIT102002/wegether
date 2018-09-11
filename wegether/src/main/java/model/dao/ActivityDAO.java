@@ -46,5 +46,7 @@ public interface ActivityDAO {
 
 	public abstract List<ActivityBean> selectOfIndexPo(int state, int city, String beginDate, String endDate, String classtype,
 			String title, List<Integer> Actid);
+
+	public abstract List<ActivityBean> selectAllState();
 }
 
