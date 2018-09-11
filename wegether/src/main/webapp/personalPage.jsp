@@ -251,8 +251,9 @@
                                  <td style="padding:10px;">${attbean}</td>
                                  <td style="padding:10px;">${fribean}</td>
                               </tr>
+                            
                               </table>
-                              <br>
+
                               <br>
                               <p><a href="personal.controller">test</a></p>
                         </div>  
@@ -261,19 +262,28 @@
                     </div>
                     <div id="right">
                         <div id="core1">
-                            <div id="left">
-<%--                                 <p >${mem.nickname}</p> --%>
-                                <p >台灣-${mem.city} ${mem.nickname}</p>
-                            </div>
-                            <div id="right">
-<!--                                 <p >編輯個人資料</p> -->
-                                <a href="#" class="scroll"><span data-hover="編輯個人資料">編輯個人資料</span></a>
-                            </div>
+                            <div id="left" style="padding-top:6px;">
+                                <span style="font-weight:bold;font-style:italic;padding-top:4px;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">台灣-${mem.city} </span>
+                            </div>                           
+  
+                          <table border="0"  >
+                              <tr>
+                                <td  type="button" class="btn btn-secondary " style="padding:4px;font-weight:bold;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">
+                                     <a href="activityPage.controller?actid=1" class="scroll"> 編輯個人資料</a>
+                                </td>                               
+                                 <td  type="button" class="btn btn-secondary " style="padding:4px;font-weight:bold;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">
+                                     <a href="activityPage.controller?actid=1" class="scroll"> 加入好友</a>
+                                </td> 
+                                 <td  type="button" class="btn btn-secondary " style="padding:4px;font-weight:bold;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">
+                                     <a href="activityPage.controller?actid=1" class="scroll"> 黑名單</a>
+                                </td>                                  
+                              </tr>
+                           </table>      
                         </div>
                          <div>
                            <table style="border-bottom:3px #87cefa solid;" border="0" >
                               <tr>
-<!--                          <a href="personal.controller?memberid=1">1234 </a> -->
+
                                 <td  type="button" class="btn btn-secondary changePage" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">個人資料</td>                              
                                  <td  type="button" class="btn btn-secondary changePage" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">活動評價</td>
                                  <td  type="button" class="btn btn-secondary changePage" style="padding:20px;font-weight:bold;font-size: 16px;font-style: italic;text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;">主辦活動</td>
@@ -282,13 +292,12 @@
                            </table>      
                          </div>
                          <div id="change_one">
-                            <h4 style="font-weight:bold" >自我簡介:</h4>
-                              <span style="font-size: 15px;" id="core1">${mem.content}</span>
-                            <h4 style="font-weight:bold">個人姓名:</h4>
+                          
+                            <h4 style="font-weight:bold">暱稱:</h4>
                               <span style="font-size: 15px;">${mem.name}</span> 
                             <h4 style="font-weight:bold">出生日期:</h4>
                               <span style="font-size: 15px;">
-                              <fmt:formatDate value="${mem.birthday}" pattern="yyyy 年 MM 月 dd 日"/>
+                              <fmt:formatDate value="${mem.birthday}" pattern=" MM 月 dd 日"/>
                               </span>   
                            <h4 style="font-weight:bold">性別:</h4>
                               <span style="font-size: 15px;">
@@ -304,12 +313,10 @@
                               <span style="font-size: 15px;">${mem.job}</span>   
                            <h4 style="font-weight:bold">居住縣市:</h4>
                               <span style="font-size: 15px;">${mem.city}</span>
-                          <h4 style="font-weight:bold">詳細地址:</h4>
-                              <span style="font-size: 15px;">${mem.addr}</span>
-                           <h4 style="font-weight:bold">電話:</h4>
-                              <span style="font-size: 15px;">${mem.tel}</span>   
                            <h4 style="font-weight:bold">喜好活動類型:</h4>
                               <span style="font-size: 15px;" id="core1">${mem.favorite}</span>
+                           <h4 style="font-weight:bold" >自我簡介:</h4>
+                              <span style="font-size: 15px;">${mem.content}</span>
                               
                               
                               

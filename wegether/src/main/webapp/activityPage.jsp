@@ -249,7 +249,7 @@
                             </div><!-- right4 end -->
                             <div>
                             	<c:forEach var="obj" items="${memPicList}">
-							 		<a href="#"><img  src="data:image/jpg;base64,${obj}" class="img-circle" width="50" ></a> &emsp; 
+							 		<a href="personal.controller?memberId=${obj.memberId}"><img  src="data:image/jpg;base64,${obj.memberPic}" class="img-circle" width="50" ></a> &emsp; 
 								</c:forEach>
                            
 
@@ -284,7 +284,7 @@
                         
                         <c:forEach var="obj" items="${msgsList}">
                         <div id="msgid" class="well" >
-							 	<a href="#"><img  src="data:image/jpg;base64,${obj.picMem}"  width="50" ></a> 	
+							 	<a href="personal.controller?memberId=${obj.memberId}"><img  src="data:image/jpg;base64,${obj.picMem}"  width="50" ></a> 	
 		                       <span style="color:blue;">${obj.nickname} </span> &emsp; <span style="font-size:small;">${obj.msgtime}</span></br>
 		                        ${obj.content}</br>
                         </div>
