@@ -1,5 +1,6 @@
 package model.dao.implement;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -69,6 +70,8 @@ public class MemberDAOHibernate implements MemberDAO {
 		return getSession().createQuery(Select.memberByNickname,MemberBean.class)
 				.setParameter("nickname", "%"+nickname+"%").list();
 	}
+	
+
 	
 
 	

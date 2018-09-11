@@ -180,20 +180,21 @@ footer>ul>li ul {
 			<!--       寫在這 -->
 
 			<form action="<c:url value="/Service.controller" />">
-				<div class="AreaCon" id="keyword_search">
-					<span class="form-group">問題名稱 :</span><br> <input type="text"
+				<div  id="keyword_search">
+					<span class="form-group">問題名稱 :</span> <input type="text"
 						name="title" placeholder="請輸入-標題" required="required"
-						value="${param.title}">
-
-					<td>${errors.title}</td> <input type="text" name="memberid"
+						value="${param.title}"> <input type="text" name="memberid"
 						placeholder="memberid" value="${param.memberid}">
+
+
+					<td>${errors.title}</td>
 					<td>${errors.memberid}</td> <br>
 
 				</div>
 				<div class="AreaCon">
 					<label>問題類型 :</label> <select name="classtype" id="classtype"
 						required="required">
-						<option value="0">--請選擇--</option>
+						<option value="">--請選擇--</option>
 						<option value="1">會員(例如登入或密碼問題)</option>
 						<option value="2">系統錯誤回報</option>
 						<option value="3">建議</option>
@@ -202,24 +203,25 @@ footer>ul>li ul {
 					<td>${errors.classtype}</td>
 				</div>
 				<div class="Content" id="Content">
-					<span class="form-group">問題描述 :</span>
-					<td>${errors.Content}</td>
-					<textarea rows="5" cols="70" placeholder="請輸入問題" name="content"
+					<label>問題描述 :</label>
+					<textarea rows="5" cols="105" placeholder="請輸入問題" name="content"
 						required="required"></textarea>
 				</div>
 
 				<div id="searchbarButton">
-					<input type="submit" name="servicemethod" value="提交" 
+					<input type="submit" name="servicemethod" value="提交"
+					
 						class="btn btn-warning form-control "> <input type="reset"
-						value="清除" class="btn btn-warning form-control"> 
-<!-- 						<input type="submit" name="servicemethod" value="Select" -->
-<!-- 						class="btn btn-warning form-control "> -->
+						value="清除" class="btn btn-warning form-control">
+					<!-- 						<input type="submit" name="servicemethod" value="Select" -->
+					<!-- 						class="btn btn-warning form-control "> -->
 				</div>
 				<tr>
 					<td>${errors.action}</td>
 				</tr>
 			</form>
-			<a href="ServiceSelect.controller" class="btn btn-warning form-control">select</a>
+			<!-- 			<a href="ServiceSelect.controller" -->
+			<!-- 				class="btn btn-warning form-control">select</a> -->
 
 		</div>
 	</div>
