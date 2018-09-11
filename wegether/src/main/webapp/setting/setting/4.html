@@ -1,6 +1,8 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
+    <script src="/wegether/js/bootstrap.js"></script>
+    <script src="../js/iframeautoheight.js" type="text/javascript"></script>
     <script>
 
         var rowtemp = '<a href=""><div><img src="" alt=""><span class="name"></span></div></a>';
@@ -27,7 +29,6 @@
                         break;
                 }
             })
-
         })
 
         function friendlist() {
@@ -63,8 +64,13 @@
                 }
             });
         }
+        
+        function inputSearch(formData){
+        	searchServer(formData,"/wegether/member/search/nickname/friend", rowtemp)
+        }
+        
+       
     </script>
-    <script src="../js/iframeautoheight.js" type="text/javascript"></script>
     <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
     <style>
         * {
@@ -163,8 +169,8 @@
         </div>
         <div id="blocklist">
             <div class="friendsearch">
-                <form>
-                    <input type="text" name="" id="">
+                <form id="search">
+                    <input type="text" name="nickname" id="">
                     <input type="submit" value="增加好友">
                 </form>
             </div>
