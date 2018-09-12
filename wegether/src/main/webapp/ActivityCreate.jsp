@@ -407,7 +407,7 @@ footer>ul>li ul {
 					<table>
 						<tr>
 							<td>聚會封面</td>
-							<td><img src="images/actcreate.jpg" id="picZone"
+							<td><img src="images/actcreate.png" id="picZone"
 								class="selPic"> <input type="file" name="picture"
 								id="actPic" accept="image/*"></td>
 						</tr>
