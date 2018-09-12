@@ -21,7 +21,7 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-<link rel="stylesheet" href="css/jquery.timepicker.min.css" />
+	<link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
 <script>
 	$(function() {
@@ -37,11 +37,108 @@
 
 		var dade = $('#deathLine').val();
 	})
-	
-	$(document).ready(function() {
+
+		$(document).ready(function() {
 		$('input.timepicker').timepicker({});
 	});
+	
+	$(function() {
+		var now = new Date();
+		if ((now.getMonth() + 1) < 10 && now.getDate() < 10) {
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0'
+					+ now.getDate();
+			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
+			$('#deathLine').attr('min', min);
+		}
+		if ((now.getMonth() + 1) < 10 && now.getDate() >= 10) {
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-'
+					+ now.getDate();
+			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
+			$('#deathLine').attr('min', min);
+		}
+		if ((now.getMonth() + 1) >= 10 && now.getDate() < 10) {
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0'
+					+ now.getDate();
+			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
+			$('#deathLine').attr('min', min);
+		}
+		if ((now.getMonth() + 1) >= 10 && now.getDate() >= 10) {
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
+					+ now.getDate();
+			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
+			$('#deathLine').attr('min', min);
+		}
 
+		$('#startTime').change(
+				function() {
+					var startTimeV = $('#startTime').val();
+					var endTimeV = $('#endTime').val();
+					$('#endTime').attr("min", startTimeV);
+					$('#endTime').attr('max', '2200-08-31');
+
+					var v1 = startTimeV.substring(0, 4);
+					var v2 = startTimeV.substring(5, 7);
+					var v3 = (startTimeV.substring(8, 10) - 1);
+
+					if (v3 == 0) {
+						v2 = v2 - 1;
+						var d = new Date(v1, v2, v3);
+						if (d.getDate() < 10 && (d.getMonth() + 1) > 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + (d.getMonth() + 1)
+											+ '-0' + d.getDate())
+						else if (d.getDate() > 10 && (d.getMonth() + 1) < 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + (d.getMonth() + 1)
+											+ '-' + d.getDate())
+						else if (d.getDate() < 10 && (d.getMonth() + 1) < 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + (d.getMonth() + 1)
+											+ '-0' + d.getDate())
+						else if (d.getDate() > 10 && (d.getMonth() + 1) > 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + (d.getMonth() + 1)
+											+ '-' + d.getDate())
+					} else {
+						var d = new Date(v1, v2, v3);
+						if (d.getDate() < 10 && d.getMonth() > 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + d.getMonth() + '-0'
+											+ d.getDate())
+						else if (d.getDate() > 10 && d.getMonth() < 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + d.getMonth() + '-'
+											+ d.getDate())
+						else if (d.getDate() < 10 && d.getMonth() < 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + d.getMonth()
+											+ '-0' + d.getDate())
+						else if (d.getDate() > 10 && d.getMonth() > 10)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + d.getMonth() + '-'
+											+ d.getDate())
+					}
+				})
+		$('#endTime').change(function() {
+			var startTimeV = $('#startTime').val();
+			var endTimeV = $('#endTime').val();
+			$('#startTime').attr("max", endTimeV);
+			$('#startTime').attr('min', '2000-08-31');
+		})
+	})
+	
 	$(function() {
 		$('#preBotton').click(
 				function() {
@@ -169,6 +266,14 @@ footer>ul>li ul {
 .container p {
 	color: white;
 }
+.selPic {
+	height: 180px;
+	border-radius: 15px;
+}
+.actPic {
+	height: 100px;
+	border-radius: 10px;
+}
 </style>
 </head>
 <body>
@@ -294,10 +399,9 @@ footer>ul>li ul {
 					</tr>
 					<tr>
 						<td>開始時間</td>
-						<td><input type="date" id="startTime" name="startTime"
-							value="${startTime}${param.startTime}"> <input type="text" id="startTime2"
-							name="startTimepicker" value="${startTimepicker}${param.startTimepicker}"
-							class="timepicker" autocomplete="off" />${errMsgs.starDateTime}
+						<td><input type="date" id="startTime" name="startTime" value="${startTime}${param.startTime}">
+							<input type="text" id="startTime2" name="startTimepicker" value="${startTimepicker}${param.startTimepicker}"
+							placeholder="例  01:25 pm" class="timepicker" />${errMsgs.starDateTime}
 						</td>
 					</tr>
 					<tr>
@@ -305,7 +409,7 @@ footer>ul>li ul {
 						<td><input type="date" id="endTime" name="endTime"
 							value="${endTime}${param.endTime}"> <input type="text" id="endTime2"
 							name="endTimepicker" class="timepicker" value="${endTimepicker}${param.endTimepicker}"
-							autocomplete="off" />${errMsgs.endDateTime}</td>
+							autocompelete="off" placeholder="例  01:25 pm" />${errMsgs.endDateTime}</td>
 					</tr>
 					<tr>
 						<td>詳細描述</td>
@@ -319,7 +423,7 @@ footer>ul>li ul {
 					</tr>
 					<tr>
 						<td>聚會預算</td>
-						<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" value="${result.feed}${param.feed}"></td>
+						<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" value="${result.feed}${param.feed}"></td>
 					</tr>
 					<tr>
 						<td>報名截止日期</td>
