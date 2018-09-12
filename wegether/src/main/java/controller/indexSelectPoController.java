@@ -49,8 +49,6 @@ public class indexSelectPoController {
 		System.out.println("keyword_search_input_name:"+keyword_search_input_name_po);
 		System.out.println("cityselect_name:"+cityselect_name_po);
 		
-		
-		
 		if(cityselect_name_po==""&&start_date_name_po==""&&end_date_name_po==""&&type_select_name_po==null&&keyword_search_input_name_po =="") {
 			List<String> result_fail = new ArrayList<>();
 			result_fail.add("查無符合資料");

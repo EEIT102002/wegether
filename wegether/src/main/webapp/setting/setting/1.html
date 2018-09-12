@@ -3,6 +3,10 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
         crossorigin="anonymous"></script>
+    <script src="/wegether/js/ImageCompress.js" type="text/javascript"></script>
+    <script src="../js/iframeautoheight.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         var memberinfo = null;
         $(document).ready(function () {
@@ -17,11 +21,15 @@
             });
             function insertInfo(json) {
                 memberinfo = json;
-                var addr = memberinfo["city"] != null ?city(memberinfo["city"])+" ":"";
-                addr += memberinfo["addr"] != null ? memberinfo["addr"]: "";
+                var photo = memberinfo["photo"];
+                if (photo != null) {
+                    $('#photoShow').html($('<img/>').attr('src', byteToUrl(photo)));
+                }
+                var addr = memberinfo["city"] != null ? city(memberinfo["city"]) + " " : "";
+                addr += memberinfo["addr"] != null ? memberinfo["addr"] : "";
                 if (addr.length != 0)
                     memberinfo["addrs"] = addr;
-                $('div:eq(0) > table tr').each(function () {
+                $('.setting1 > table tr').each(function () {
                     var info = memberinfo[$(this).attr('id')]
                     if (info != null) {
                         if ($(this).attr('id') == "birthday")
@@ -33,7 +41,7 @@
                 });
             }
 
-            $('div:eq(0) > table tr > td > button').click(function () {
+            $('.setting1 > table tr > td > button').click(function () {
                 var prevtd = $(this).parent().prev();
                 var tr = prevtd.parent();
                 $(tr).siblings("tr:has(form)").each(function () {
@@ -52,7 +60,7 @@
                 };
             });
 
-            $('form > button').click(function () {
+            $('.setting1 form > button').click(function () {
                 var td = $(this).parent().parent();
                 var button = td.next('td').children('button');
                 var form = $(this).parent('form').serialize();
@@ -69,12 +77,28 @@
                 );
 
             })
-            
-            $('#photoForm button').submit(function(){
-                console.log($(this).serialize())
-                return false;
+
+            $('#photo').change(function () {
+                fileViewer($('#photo')[0].files[0], $('#photoUpdateShow'));
             })
+            $('#photoUpdata').click(photoUpdata)
+
         });
+
+        function photoUpdata() {
+            var file = $('#photo')[0].files[0];
+            if (file != null)
+                fileResizetoFile(file, 0.6, function (file) {
+                    photoUpdate("/wegether/member/photo", file, function (data) {
+                        var photo = data["photo"];
+                        if (photo != null) {
+                            $('#photoShow').html($('<img/>').attr('src', byteToUrl(photo)));
+                        }
+                    });
+                })
+
+        }
+
         function editInput(td, key) {
             var val = $(memberinfo).attr(key);
             var input = $(td).find('input')
@@ -105,11 +129,10 @@
                     return "新北市";
                 default:
                     return null;
-        	}
+            }
         }
-
     </script>
-    <script src="../js/iframeautoheight.js"></script>
+
     <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
     <style>
         * {
@@ -119,11 +142,21 @@
 
         body {
             width: 800px;
+            min-hight:450px;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .body {
+            line-height: 1.42857143;
+            color: #333;
+            padding:display;
+            font-size:display;
         }
 
         .setting1 {
             display: inline-block;
             vertical-align: top;
+            /* padding:10px; */
         }
 
         .setting1 table {
@@ -146,136 +179,206 @@
             width: 360px;
         }
 
-        .photo {
+        .photoDiv {
             display: inline-block;
             vertical-align: top;
-            background-color: blue;
+            width: 150px;
+            margin-left: 20px;
+        }
+        .photoDiv>div{
+        	position: relative;
+        	display: table;
+        	background:rgba(255, 255, 255,0.3);
+        }
+        .photoDiv div, img, canvas{
+            border-radius: 100px;
+             height: 150px;
+            width: 150px;
+        }
+        
+        .photoDiv p {
+            margin :0 0 0 0;
+            text-align: center;
+            font-size:18px;
+            vertical-align: middle;
+            display: table-cell; 
         }
 
         .notinput {
             color: grey
         }
+
+        #photoShow {       
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+        
+
+        #photobutton {
+            background: rgba(0, 0, 0,0);
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            padding: 50px;
+
+        }
+
+        #photobutton:hover {
+            background: rgba(0, 0, 0, 0.185);
+        }
+        
+        .modal-backdrop{
+        	background-color: rgba(0,0, 0, 0);
+        }
+        
     </style>
 </head>
 
 <body>
-    <div class="setting1">
-        <table>
-            <tr id="name">
-                <td>姓名</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr id="nickname">
-                <td>暱稱</td>
-                <td></td>
-                <td style="display: none;">
-                    <form>
-                        <input type="text" name="nickname" id="" value="" />
-                        <br/>
-                        <button type="button">儲存</button>
-                    </form>
-                </td>
-                <td>
-                    <button type="button">編輯</button>
-                </td>
-            </tr>
-            <tr id="birthday">
-                <td>生日</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr id="sex">
-                <td>性別</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr id="job">
-                <td>職業</td>
-                <td></td>
-                <td style="display: none;">
-                    <form>
-                        <input type="text" name="job" id="" value="" />
-                        <br/>
-                        <button type="button">儲存</button>
-                    </form>
-                </td>
-                <td>
-                    <button type="button">編輯</button>
-                </td>
-            </tr>
-            <tr id="addrs">
-                <td>居住地區</td>
-                <td></td>
-                <td style="display: none;">
-                    <form>
-                        <select name="city">
-                            <option value="1">台北</option>
-                            <option value="2">新北</option>
-                        </select>
-                        <input type="text" name="addr" id="" value="" />
-                        <br/>
-                        <button type="button">儲存</button>
-                    </form>
-                </td>
-                <td>
-                    <button type="button">編輯</button>
-                </td>
-            </tr>
-            <tr id="tel">
-                <td>電話</td>
-                <td></td>
-                <td style="display: none;">
-                    <form>
-                        <input type="text" name="tel" id="" value="" />
-                        <br/>
-                        <button type="button">儲存</button>
-                    </form>
-                </td>
-                <td>
-                    <button type="button">編輯</button>
-                </td>
-            </tr>
-            <tr id="content">
-                <td>自我介紹</td>
-                <td></td>
-                <td style="display: none;">
-                    <form>
-                        <textarea name="content" id="" cols="40" rows="5"> </textarea>
-                        <br/>
-                        <button type="button">儲存</button>
-                    </form>
-                </td>
-                <td>
-                    <button type="button">編輯</button>
-                </td>
-            </tr>
-            <tr id="favorite">
-                <td>喜好活動類型</td>
-                <td></td>
-                <td style="display: none;">
-                    <form>
-                        <input type="text" name="favorite" id="" value="" />
-                        <br/>
-                        <button type="button">儲存</button>
-                    </form>
-                </td>
-                <td>
-                    <button type="button">編輯</button>
-                </td>
-            </tr>
-        </table>
+    <div class='body'>
+        <div class="setting1">
+            <table>
+                <tr id="name">
+                    <td>姓名</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr id="nickname">
+                    <td>暱稱</td>
+                    <td></td>
+                    <td style="display: none;">
+                        <form>
+                            <input type="text" name="nickname" id="" value="" />
+                            <br/>
+                            <button type="button">儲存</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button type="button">編輯</button>
+                    </td>
+                </tr>
+                <tr id="birthday">
+                    <td>生日</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr id="sex">
+                    <td>性別</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr id="job">
+                    <td>職業</td>
+                    <td></td>
+                    <td style="display: none;">
+                        <form>
+                            <input type="text" name="job" id="" value="" />
+                            <br/>
+                            <button type="button">儲存</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button type="button">編輯</button>
+                    </td>
+                </tr>
+                <tr id="addrs">
+                    <td>居住地區</td>
+                    <td></td>
+                    <td style="display: none;">
+                        <form>
+                            <select name="city">
+                                <option value="1">台北</option>
+                                <option value="2">新北</option>
+                            </select>
+                            <input type="text" name="addr" id="" value="" />
+                            <br/>
+                            <button type="button">儲存</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button type="button">編輯</button>
+                    </td>
+                </tr>
+                <tr id="tel">
+                    <td>電話</td>
+                    <td></td>
+                    <td style="display: none;">
+                        <form>
+                            <input type="text" name="tel" id="" value="" />
+                            <br/>
+                            <button type="button">儲存</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button type="button">編輯</button>
+                    </td>
+                </tr>
+                <tr id="content">
+                    <td>自我介紹</td>
+                    <td></td>
+                    <td style="display: none;">
+                        <form>
+                            <textarea name="content" id="" cols="40" rows="5"> </textarea>
+                            <br/>
+                            <button type="button">儲存</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button type="button">編輯</button>
+                    </td>
+                </tr>
+                <tr id="favorite">
+                    <td>喜好活動類型</td>
+                    <td></td>
+                    <td style="display: none;">
+                        <form>
+                            <input type="text" name="favorite" id="" value="" />
+                            <br/>
+                            <button type="button">儲存</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button type="button">編輯</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="photoDiv">
+        	<div>
+        	<p>大頭照</p>
+            <div id="photoShow">
+            </div>
+            <div id="photobutton" data-toggle="modal" data-target="#myModal"></div>   
+            </div>  
+        </div>
     </div>
-    <div class="photo">
-        <form id="photoForm">
-            <img src="" alt="">
-            <br>
-             <input type="file" name="picture" id="actPic" accept="image/*">
-            <br>
-            <button type="button">上傳</button>
-            <br>
-            <p>編輯</p>
-        </form>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">挑選一張相片</h4>
+                </div>
+                <div class="modal-body">
+                 	<div id="photoUpdateShow">
+            		</div>
+                   <input type="file" name="photo" id="photo" accept="image/*">
+            		<br>
+           
+            <img id='test' />
+                </div>
+                <div class="modal-footer">
+                 	<button type="button" id='photoUpdata' class="btn btn-default" data-dismiss="modal">上傳</button>
+                </div>
+            </div>
+
+        </div>
     </div>
+
 
 </body>

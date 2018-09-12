@@ -120,7 +120,6 @@ public class TestPictureDAOServlet extends HttpServlet {
 		PictureBean temp = pictureDAOHibernate.insert(pcB);
 	 	out.println(temp);		
 	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
-	 	
 		
 		// delete
 //		boolean deleresult = pictureDAOHibernate.delete(7);
@@ -135,6 +134,7 @@ public class TestPictureDAOServlet extends HttpServlet {
 //		int x = AP.get(0).getId();
 //		
 //		PictureBean finalresult = pictureDAOHibernate.Select(x);
+
 //		File picfile = new File("wegether/act014.jpg");
 //		finalresult.setPicture(PictureConvert.converFileToByte(picfile));
 //		PictureBean updateresult = pictureDAOHibernate.update(finalresult);
