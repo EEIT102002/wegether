@@ -20,11 +20,18 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+<!-- 登入使用 -->
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="./js/setting.js"></script>
+<script src="setting/js/setting.js"></script>
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
-
+<!-- 登入使用 END -->
+<!-- 留言 /心得心享 視窗  -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- 留言 /心得心享 視窗 END -->
 <script>
 	$(function(){
 		$('#header_nav ul li').click(function(){
@@ -276,7 +283,7 @@ var timerObj=setInterval(autoPlay,1500);
 								</div>
 						    </div>
   
-	   	 <!-- 	照片輪播  end-->		
+	   	 			<!-- 	照片輪播  end-->		
 	   
   
  </div>  

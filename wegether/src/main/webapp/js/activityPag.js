@@ -19,3 +19,6 @@ var timerObj=setInterval(autoPlay,1500);
      document.getElementById("imd"+picNo).style="border:3px solid red";    
 }
 
+ function logoutDo() {
+		alert(777);
+	}
