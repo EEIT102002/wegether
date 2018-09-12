@@ -17,24 +17,14 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
-<<<<<<< HEAD
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-<link rel="stylesheet" href="css/jquery.timepicker.min.css"/>
-<script src="js/jquery.timepicker.min.js"></script>
-=======
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
-6
 <script type="text/javascript" src="js/createApplyForm.js"></script>
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -55,24 +45,28 @@
 			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
-		if ((now.getMonth() + 1) < 10 && now.getDate() > 10) {
+		if ((now.getMonth() + 1) < 10 && now.getDate() >= 10) {
 			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
-		if ((now.getMonth() + 1) > 10 && now.getDate() < 10) {
+		if ((now.getMonth() + 1) >= 10 && now.getDate() < 10) {
 			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
-		if ((now.getMonth() + 1) > 10 && now.getDate() > 10) {
+		if ((now.getMonth() + 1) >= 10 && now.getDate() >= 10) {
 			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
 					+ now.getDate();
 			$('#startTime').attr('min', min);
+			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 
@@ -133,7 +127,6 @@
 									d.getFullYear() + '-' + d.getMonth() + '-'
 											+ d.getDate())
 					}
-
 				})
 		$('#endTime').change(function() {
 			var startTimeV = $('#startTime').val();
@@ -141,23 +134,10 @@
 			$('#startTime').attr("max", endTimeV);
 			$('#startTime').attr('min', '2000-08-31');
 		})
-		var date = new Date();
-		if ((date.getMonth() + 1) < 10) {
-			var x = date.getFullYear() + '-0' + (date.getMonth() + 1) + '-'
-					+ date.getDate();
-			$('#startTime').val(x);
-			$('#endTime').val(x);
-		} else {
-			var x = date.getFullYear() + '-' + (date.getMonth() + 1) + '-'
-					+ date.getDate()
-			$('#startTime').val(x);
-			$('#endTime').val(x);
-		}
 	})
 
 	document.addEventListener("DOMContentLoaded", function() {
-		document.getElementById("actPic")
-				.addEventListener("change", fileViewer);
+		document.getElementById("actPic").addEventListener("change", fileViewer);
 	});
 
 	function fileViewer() {
@@ -433,8 +413,10 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>聚會標題</td>
-							<td><input type="text" name="title" id="insertActname"
-								value="${param.title}"></td>
+
+							<td>
+								<input type="text" name="title" id="insertActname" value="${colVal.title}">${errMsgs.title}
+							</td>
 						</tr>
 						<tr>
 							<td>聚會類型</td>
@@ -459,20 +441,23 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>開始時間</td>
-							<td><input type="date" id="startTime" name="startTime">
-								<input type="text" id="startTime2" name="startTimepicker"
-								class="timepicker" autocomplete="off" /></td>
+							<td>
+								<input type="date" id="startTime" name="startTime" value="2018-09-12">
+								<input type="text" id="startTime2" name="startTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.starDateTime}
+							</td>
 						</tr>
 						<tr>
 							<td>結束時間</td>
-							<td><input type="date" id="endTime" name="endTime">
-								<input type="text" id="endTime2" name="endTimepicker"
-								class="timepicker" autocomplete="off" /></td>
+							<td>
+								<input type="date" id="endTime" name="endTime">
+								<input type="text" id="endTime2" name="endTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.endDateTime}
+							</td>
 						</tr>
 						<tr>
 							<td>詳細描述</td>
-							<td><textarea name="content" id="insertDes" cols="30"
-									rows="10"></textarea></td>
+							<td>
+								<textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${errMsgs.content}
+							</td>
 						</tr>
 						<tr>
 							<td>聚會人數</td>
@@ -493,10 +478,8 @@ footer>ul>li ul {
 
 					</table>
 
-					<input type="botton" name="" value="預覽" id="preBotton"
-						data-target="#preview" data-toggle="modal" /> <input
-						type="botton" name="" value="報名表單" id="formBotton"
-						data-target="#setMyform" data-toggle="modal" />
+					<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
+					<input type="botton" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
