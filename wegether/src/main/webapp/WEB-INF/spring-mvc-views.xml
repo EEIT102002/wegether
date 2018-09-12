@@ -58,9 +58,19 @@
 		<property value="true" name="contextRelative" />
 		<property value="/index.jsp" name="url" />
 	</bean>
-	<bean class="org.springframework.web.servlet.view.RedirectView"
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceView"
+		id="actGetBeanSuc.page">
+		<property value="/ActivityEdit.jsp" name="url" />
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceView"
 		id="actEditSuc.page">
-		<property value="true" name="contextRelative" />
+		<property value="/index.jsp" name="url" />
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceView"
+		id="actEditErr.page">
 		<property value="/ActivityEdit.jsp" name="url" />
 	</bean>
 </beans>

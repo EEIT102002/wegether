@@ -21,8 +21,7 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
 <script type="text/javascript" src="js/createApplyForm.js"></script>
@@ -138,8 +137,7 @@
 	})
 
 	document.addEventListener("DOMContentLoaded", function() {
-		document.getElementById("actPic")
-				.addEventListener("change", fileViewer);
+		document.getElementById("actPic").addEventListener("change", fileViewer);
 	});
 
 	function fileViewer() {
@@ -480,10 +478,8 @@ footer>ul>li ul {
 
 					</table>
 
-					<input type="botton" name="" value="預覽" id="preBotton"
-						data-target="#preview" data-toggle="modal" /> <input
-						type="botton" name="" value="報名表單" id="formBotton"
-						data-target="#setMyform" data-toggle="modal" />
+					<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
+					<input type="botton" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">

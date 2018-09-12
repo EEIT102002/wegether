@@ -3,16 +3,9 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Base64.Decoder;
-import java.util.Base64.Encoder;
 
 import javax.imageio.ImageIO;
 
@@ -24,11 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,8 +41,7 @@ public class ActivityCreateController {
 			@RequestParam(required = false) String dateline,
 			@RequestParam(value = "endTime", required = false) String endDate,
 			@RequestParam(value = "endTimepicker", required = false) String endTime,
-			@RequestParam(value="applyform", required = false)String applyform)
-			throws ParseException, IOException {
+			@RequestParam(value = "applyform", required = false) String applyform) throws ParseException, IOException {
 		System.out.println("actCreate()");
 		System.out.println(applyform);
 		Map<String, String> errors = new HashMap<>();
@@ -87,9 +77,19 @@ public class ActivityCreateController {
 				errors.put("starDateTime", "請輸入正確時間 ex 07:30 PM");
 			else if (startDate.isEmpty() || starttime.isEmpty())
 				errors.put("starDateTime", "請輸入開始時間");
+			else if (!startDate.isEmpty()) {
+				String[] year = startDate.split("-");
+				if (Integer.parseInt(year[0]) >= 2200)
+					errors.put("starDateTime", "請輸入正確年份");
+			}
 
 			if (!endTime.isEmpty() && !":".equals(endTime.substring(2, 3))) // 結束日期判定
 				errors.put("endDateTime", "請輸入正確時間 ex 07:30 PM");
+			else if (!endDate.isEmpty()) {
+				String[] year2 = endDate.split("-");
+				if (Integer.parseInt(year2[0]) >= 2200)
+					errors.put("endDateTime", "請輸入正確年份");
+			}
 
 			if (activityBean.getContent().isEmpty()) // 內容判定
 				errors.put("content", "請輸入詳細描述");

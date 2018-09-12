@@ -257,7 +257,7 @@
                             <p style="text-align: center" >${attedNumber} </p><!-- right6 end -->
                             <div style="text-align: center">
 
-                            <button type="button" class="btn btn-warning"  > <a href="<c:url value="/actEdit.getBean.controller"/>"> &emsp; 編  &emsp;  輯  &emsp; 活  &emsp; 動 &emsp;</a></button>
+                            <button type="button" class="btn btn-warning"  > <a href="<c:url value="/actEdit.getBean.controller?actid=66"/>"> &emsp; 編  &emsp;  輯  &emsp; 活  &emsp; 動 &emsp;</a></button>
 
                             </div><!-- right7 end -->
                             

@@ -173,17 +173,75 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	private  String selectOfIndex = "select * from Activity  WHERE ";
 	@Override
 	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype, String title) {
+		String selectOfIndex = "select * from Activity  WHERE ";
+		if(beginDate!="" && endDate!="" && beginDate.length()!=0 && endDate.length()!=0) {
+			selectOfIndex = selectOfIndex +"dateline BETWEEN '"+beginDate+"'AND '"+endDate+"'and state="+ state;
+		}else if(beginDate=="" && endDate!="") {
+			selectOfIndex = selectOfIndex +"dateline <'"+endDate+"'and state="+ state;
+		}else if(endDate=="" && beginDate!="") {
+			selectOfIndex = selectOfIndex +"dateline >'"+beginDate+"'and state="+ state;
+		}else selectOfIndex = selectOfIndex +"[state]="+state;		
+		
+		if(city!=0) selectOfIndex = selectOfIndex+" and city="+city;		
+		if(classtype!=null && classtype.length()!=0){
+			String[] CTArray = classtype.split(",");
+			if(CTArray.length==1) {
+				selectOfIndex = selectOfIndex+" and classtype=\'"+CTArray[0]+"\'";
+			}else {
+				selectOfIndex = selectOfIndex+" and classtype in(\'"+CTArray[0]+"\'";
+				for(int i=1;i< CTArray.length;i++) {
+					selectOfIndex += ",'"+CTArray[i]+"\'";
+				}
+				selectOfIndex += ")";
+			}
+		}
+		if(title!="" && title.length()!=0) selectOfIndex = selectOfIndex+" and title like \'%"+title+"%\'";
+		
+		return this.getSession().createNativeQuery(selectOfIndex,ActivityBean.class).list();
+	}
+	@Override
+	public List<ActivityBean> selectOfIndexPo(int state, int city, String beginDate, String endDate, String classtype, String title, List<Integer> Actid) {
+		String selectOfIndex = "select * from Activity  WHERE ";
+		if(beginDate!="" && endDate!="" && beginDate.length()!=0 && endDate.length()!=0) {
+			selectOfIndex = selectOfIndex +"dateline BETWEEN '"+beginDate+"'AND '"+endDate+"'and state="+ state;
+		}else if(beginDate=="" && endDate!="") {
+			selectOfIndex = selectOfIndex +"dateline <'"+endDate+"'and state="+ state;
+		}else if(endDate=="" && beginDate!="") {
+			selectOfIndex = selectOfIndex +"dateline >'"+beginDate+"'and state="+ state;
+		}else selectOfIndex = selectOfIndex +"[state]="+state;		
 		
 		if(beginDate!=null && endDate!=null && beginDate.length()!=0 && endDate.length()!=0) {
 			selectOfIndex = selectOfIndex +"dateline BETWEEN '"+beginDate+"' AND '"+endDate+"' and state="+ state;
-		}else selectOfIndex = selectOfIndex +"state="+state;		
-		
+		}else selectOfIndex = selectOfIndex +"state="+state;			
 		if(city!=0) selectOfIndex = selectOfIndex+" and city="+city;		
-		
+
+		if(classtype!=null && classtype.length()!=0){
+			String[] CTArray = classtype.split(",");
+			if(CTArray.length==1) {
+				selectOfIndex = selectOfIndex+" and classtype=\'"+CTArray[0]+"\'";
+			}else {
+				selectOfIndex = selectOfIndex+" and classtype in(\'"+CTArray[0]+"\'";
+				for(int i=1;i< CTArray.length;i++) {
+					selectOfIndex += ",'"+CTArray[i]+"\'";
+				}
+				selectOfIndex += ")";
+			}
+			
+		}
+		if(title!="" && title.length()!=0) selectOfIndex = selectOfIndex+" and title like \'%"+title+"%\'";
+		if(Actid.size()==1) {
+			selectOfIndex = selectOfIndex + " and id=\'"+ Actid.get(0)+"\'";
+		}else {
+			selectOfIndex = selectOfIndex + " and id  in(\'"+ Actid.get(0)+"\'";
+			for(int i =1; i < Actid.size();i++) {
+				selectOfIndex += ",'"+Actid.get(i)+"\'";
+			}
+			selectOfIndex += ")";
+		}
 		if(classtype!=null && classtype.length()!=0) selectOfIndex = selectOfIndex+" and classtype=\'"+classtype+"\'";		
 		
 		if(title!=null && title.length()!=0) selectOfIndex = selectOfIndex+" and title like \'%"+title+"%\'";
-		
+
 		return this.getSession().createNativeQuery(selectOfIndex,ActivityBean.class).list();
 	}
 
@@ -193,9 +251,4 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(Hqlactivitymemberid, ActivityBean.class)
 				.setParameter("hostid", memberid).list();
 	}
-	
-	
-	
-
-
 }

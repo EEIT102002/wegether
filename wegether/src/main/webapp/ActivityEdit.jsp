@@ -21,12 +21,101 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+<link rel="stylesheet" href="css/jquery.timepicker.min.css" />
+<script src="js/jquery.timepicker.min.js"></script>
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
+
+		var types = $('#hidecheckbox').val();
+		var ss = types.split(',');
+		for (i = 0; i < ss.length; i++) {
+			$(':checkbox[value="' + ss[i] + '"]').attr('checked', 'checked');
+		}
+
+		var dade = $('#deathLine').val();
 	})
+	
+	$(document).ready(function() {
+		$('input.timepicker').timepicker({});
+	});
+
+	$(function() {
+		$('#preBotton').click(
+				function() {
+					var selCityVal = $('#selCity').val();
+					if (selCityVal == 0)
+						var city = '台北市';
+					if (selCityVal == 1)
+						var city = '新北市';
+
+					var datas = [];
+					$(':checked[name="classtype"]').each(function() {
+						datas.push($(this).val())
+					})
+
+					var length = datas.length;
+					var typeArr = '';
+
+					if (length == 0)
+						typeArr = '';
+					else if (length == 1)
+						typeArr = datas;
+					else {
+						for (var i = 0; i < (length - 1); i++)
+							typeArr += datas[i] + ',';
+						typeArr += datas[length - 1];
+					}
+
+					$('#actName').empty().append($('#insertActname').val());
+					$('#actType').empty().append(typeArr);
+					$('#actCity').empty().append(city);
+					$('#actWhere').empty().append($('#insertWhere').val());
+					$('#actStarttime').empty().append(
+							$('#startTime').val() + ' '
+									+ $('#startTime2').val());
+					$('#actEndtime').empty().append(
+							$('#endTime').val() + ' ' + $('#endTime2').val());
+					$('#actDescription').empty().append($('#insertDes').val());
+					$('#actNumber').empty().append($('#selNum').val());
+					$('#actBudget').empty().append($('#selBud').val());
+					$('#actDeathline').empty().append($('#deathLine').val());
+				})
+// 		$('#ActivityCreateForm').submit(function(){
+// 			console.log($(this).serialize())
+// 			return false;
+// 		})
+		
+				
+	})
+		document.addEventListener("DOMContentLoaded", function() {
+		document.getElementById("actPic").addEventListener("change", fileViewer);
+	});
+
+	function fileViewer() {
+		//取得使用者在檔案選擇標籤中選取檔案
+		var theFiles = document.getElementById("actPic").files
+		for (var i = 0; i < theFiles.length; i++) {
+			//1. 建立FileReader物件
+			var reader = new FileReader();
+			//3.onload資料讀取成功完成時觸發
+			reader.addEventListener("load", function(e) {
+				//4. 將檔案內容暫存
+				var fileContent = e.target.result
+				// alert(fileContent)
+				//5. 找到img標籤
+				var imgobj = document.getElementById("picZone");
+				var imgobj2 = document.getElementById("actPiczone");
+				//6. 設定img的src屬性
+				imgobj.setAttribute("src", fileContent);
+				imgobj2.setAttribute("src", fileContent);
+			});
+			//2. 使用readAsDataURL方法，讀取檔案內容
+			reader.readAsDataURL(theFiles[i]);
+		}
+	}
 </script>
 <style>
 * {
@@ -169,7 +258,7 @@ footer>ul>li ul {
 	<div class="container">
 		<div id="small_con">
 			<form id="ActivityCreateForm"
-				action="<c:url value="/actCreate.controller"/>" method="post"
+				action="<c:url value="/actEdit.edit.controller"/>" method="post"
 				accept-charset="ISO-8859-1" enctype="multipart/form-data">
 				<table>
 					<tr>
@@ -182,19 +271,18 @@ footer>ul>li ul {
 						<td>聚會標題</td>
 
 						<td><input type="text" name="title" id="insertActname"
-							value="${colVal.title}">${errMsgs.title}</td>
+							value="${result.title}${param.title}">${errMsgs.title}</td>
 					</tr>
-					<tr>
-						<td>聚會類型</td>
+					<tr><td>聚會類型</td>
 						<td><input type="checkbox" name="classtype" value="輕鬆聊">輕鬆聊
 							<input type="checkbox" name="classtype" value="浪漫約會">浪漫約會
-							<input type="checkbox" name="classtype" value="寵物">寵物 <input
-							type="checkbox" name="classtype" value="桌遊">桌遊 <input
-							type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青 <input
-							type="checkbox" name="classtype" value="電影">電影</td>
+							<input type="checkbox" name="classtype" value="寵物">寵物
+							<input type="checkbox" name="classtype" value="桌遊">桌遊
+							<input type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青
+							<input type="checkbox" name="classtype" value="電影">電影</td>
+							<input type="hidden" name="hidecheckbox" id="hidecheckbox" value="${type}">
 					</tr>
-					<tr>
-						<td>城市/所在地</td>
+					<tr><td>城市/所在地</td>
 						<td><select name="city" id="selCity">
 								<option value="0">台北市</option>
 								<option value="1">新北市</option>
@@ -202,44 +290,118 @@ footer>ul>li ul {
 					</tr>
 					<tr>
 						<td>地點</td>
-						<td><input type="text" name="addr" id="insertWhere"
-							value="館前路36號"></td>
+						<td><input type="text" name="addr" id="insertWhere" value="${result.addr}${param.addr}"></td>
 					</tr>
 					<tr>
 						<td>開始時間</td>
 						<td><input type="date" id="startTime" name="startTime"
-							value="2018-09-12"> <input type="text" id="startTime2"
-							name="startTimepicker" class="timepicker" autocomplete="off" />${errMsgs.starDateTime}
+							value="${startTime}${param.startTime}"> <input type="text" id="startTime2"
+							name="startTimepicker" value="${startTimepicker}${param.startTimepicker}"
+							class="timepicker" autocomplete="off" />${errMsgs.starDateTime}
 						</td>
 					</tr>
 					<tr>
 						<td>結束時間</td>
-						<td><input type="date" id="endTime" name="endTime"> <input
-							type="text" id="endTime2" name="endTimepicker" class="timepicker"
+						<td><input type="date" id="endTime" name="endTime"
+							value="${endTime}${param.endTime}"> <input type="text" id="endTime2"
+							name="endTimepicker" class="timepicker" value="${endTimepicker}${param.endTimepicker}"
 							autocomplete="off" />${errMsgs.endDateTime}</td>
 					</tr>
 					<tr>
 						<td>詳細描述</td>
-						<td><textarea name="content" id="insertDes" cols="30"
-								rows="10"></textarea>${errMsgs.content}</td>
+						<td><textarea name="content" id="insertDes" cols="30" rows="10">
+							${result.content}${param.content}</textarea>${errMsgs.content}</td>
 					</tr>
 					<tr>
 						<td>聚會人數</td>
-						<td><input step="1" type="number" id="selNum"
-							name="numberlimit" ng-model="peoplemax" ng-init="peoplemax = 5">
-						</td>
+						<td><input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax"
+							min="1" value="${result.numberlimit}${param.numberlimit}"></td>
 					</tr>
 					<tr>
 						<td>聚會預算</td>
-						<td><input step="50" type="number" id="selBud" name="feed"
-							ng-model="fee" ng-init="fee = 100"></td>
+						<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" value="${result.feed}${param.feed}"></td>
 					</tr>
 					<tr>
 						<td>報名截止日期</td>
-						<td><input type="date" id="deathLine" name="dateline">${errMsgs.deathline}
-						</td>
+						<td><input type="date" id="deathLine" name="dateline"
+							value="${deathLine}${param.dateline}">${errMsgs.deathline}</td>
 					</tr>
 				</table>
+				<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
+				<div class="modal fade" id="preview" tabindex="-1" role="dialog">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<!--白色遮罩層-->
+							<div class="modal-body">
+								<!--       // modal-body  有差padding -->
+								<div class="modal-header">
+
+									<h5 class="modal-title lead">
+										<strong>預覽</strong>
+									</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body" id="mid-body">
+									<table>
+										<tr>
+											<td>聚會封面</td>
+											<td id="actPicture"><img src="images/actcreate.jpg"
+												id="actPiczone" class="actPic"></td>
+										</tr>
+										<tr>
+											<td>聚會標題</td>
+											<td id="actName"></td>
+										</tr>
+										<tr>
+											<td>聚會類型</td>
+											<td id="actType"></td>
+										</tr>
+										<tr>
+											<td>城市/所在地</td>
+											<td id="actCity"></td>
+										</tr>
+										<tr>
+											<td>地點</td>
+											<td id="actWhere"></td>
+										</tr>
+										<tr>
+											<td>開始時間</td>
+											<td id="actStarttime"></td>
+										</tr>
+										<tr>
+											<td>結束時間</td>
+											<td id="actEndtime"></td>
+										</tr>
+										<tr>
+											<td>詳細描述</td>
+											<td id="actDescription"></td>
+										</tr>
+										<tr>
+											<td>聚會人數</td>
+											<td id="actNumber"></td>
+										</tr>
+										<tr>
+											<td>聚會預算</td>
+											<td id="actBudget"></td>
+										</tr>
+										<tr>
+											<td>報名截止日期</td>
+											<td id="actDeathline"></td>
+										</tr>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">確認送出</button>
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">修改</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
