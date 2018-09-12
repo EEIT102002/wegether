@@ -1,5 +1,8 @@
 package model.dao;
 
+import java.util.List;
+
+import model.ActivityBean;
 import model.ArticleBean;
 
 public interface ArticleDAO {
@@ -10,4 +13,7 @@ public interface ArticleDAO {
 	public abstract boolean update(int id, String content);
 
 	public abstract boolean delete(int id);
+
+	public abstract List<Integer> selectAllForActid();
+
 }

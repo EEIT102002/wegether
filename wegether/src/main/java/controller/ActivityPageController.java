@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import model.ActivityBean;
@@ -51,8 +52,8 @@ public class ActivityPageController {
 	}
 	
 	@RequestMapping("/activityPage.controller")
-		public String method(Model model,String actid) {
-		
+		public String method(Model model,String actid,@RequestAttribute("memberid") Integer id) {
+			System.out.println("id :"+id);
 		//時間轉換
 				String[] months = {"一 月", "二 月", "三 月", "四 月",
 		                "五 月", "六 月", "七 月", "八 月",
