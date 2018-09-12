@@ -17,13 +17,6 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
-<<<<<<< HEAD
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-<link rel="stylesheet" href="css/jquery.timepicker.min.css"/>
-<script src="js/jquery.timepicker.min.js"></script>
-=======
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -32,9 +25,7 @@
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
-6
 <script type="text/javascript" src="js/createApplyForm.js"></script>
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
