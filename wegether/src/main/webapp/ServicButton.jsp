@@ -21,6 +21,16 @@
 	<form action="<c:url value="/Trackmember.delete" />" method="POST">
 	<input type="text" name="Memberid">Memberid</input>
 	<input type="submit" name="delete" value="取消追蹤">
+	</form><br>
+	
+		<form action="<c:url value="/BlackList.insert" />" method="POST">
+	<input type="text" name="blackid">Memberid</input>
+	<input type="submit" name="insert" value="加黑名單">
+	</form><br>
+	
+	<form action="<c:url value="/BlackList.delete" />" method="POST">
+	<input type="text" name="blackid">Memberid</input>
+	<input type="submit" name="delete" value="取消黑名單">
 	</form>
 
 	<!-- <a href="Trackmember.controller" class="btn btn-warning form-control">selecttrack</a><br> -->
