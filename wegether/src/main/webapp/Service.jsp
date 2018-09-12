@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home</title>
+<title>問題回報</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -18,6 +19,10 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
+<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="./js/setting.js"></script>
+<script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
+<script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -98,23 +103,32 @@ footer>ul>li ul {
 				<button type="button" class="
 				   collapsed"
 					data-toggle="collapse" data-target="#dropdown_munu" id="hum">
-					<span><i class="fa fa-bars" aria-hidden="true"></i></span>
+					<span> <i class="fa fa-bars" aria-hidden="true"></i>
+					</span>
 				</button>
 				<div class="logo">
 					<h1>
-						<a class="navbar-brand" href="index.html">Wegther</a>
+						<a class="navbar-brand" href="/wegether/index.jsp">Wegther</a>
 					</h1>
 				</div>
 			</div>
 			<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
 				<nav class="header_nav" id="header_nav">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
-						<li><a href="#" class="scroll"><span data-hover="心得">心得</span></a></li>
-						<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
-						<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
-						<li><a href="#" class="scrol" data-toggle="modal"
-							data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
+						<li class="active"><a href="#"> <span data-hover="活動">活動</span>
+						</a></li>
+						<li><a href="#" class="scroll"> <span data-hover="心得">心得</span>
+						</a></li>
+						<li><a href="#" class="scroll"> <span data-hover="發起活動">發起活動</span>
+						</a></li>
+						<li><a href="#" class="scroll"> <span data-hover="發起心得">發起心得</span>
+						</a></li>
+						<li><a id="loginSpan" href="#" class="scrol"
+							data-toggle="modal" data-target="#ActPageBox"> <span
+								data-hover="登入">登入</span>
+						</a> <a id="logoutSpan" href="#" class="scrol" style="display: none">
+								<span data-hover="登出">登出</span>
+						</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -137,14 +151,20 @@ footer>ul>li ul {
 						</button>
 					</div>
 					<div class="modal-body" id="mid-body">
-						<div class="form-group" id="ACT">
-							<label for="recipient-name" class="col-form-label">帳號:</label> <input
-								type="text" class="form-control" id="account">
-						</div>
-						<div class="form-group" id="PWD">
-							<label for="recipient-name" class="col-form-label">密碼:</label> <input
-								type="text" class="form-control" id="password">
-						</div>
+						<form id="loginform">
+							<p class="loginerror"></p>
+							<div class="form-group" id="ACT">
+								<label for="recipient-name" class="col-form-label">帳號:</label> <input
+									type="text" class="form-control" id="account" name="account">
+							</div>
+							<div class="form-group" id="PWD">
+								<label for="recipient-name" class="col-form-label">密碼:</label> <input
+									type="password" class="form-control" id="pwd" name="pwd">
+							</div>
+							<button type="button" class="btn btn-primary" id="login">登入</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">取消</button>
+						</form>
 						<div id="or" class="bg-primary text-white">
 							<h4>or</h4>
 						</div>
@@ -167,9 +187,7 @@ footer>ul>li ul {
 						<p class="small text-left">
 							還沒註冊嗎?趕緊註冊一個帳號吧! <a href="javascript:void(0)">點我註冊</a>
 						</p>
-						<button type="button" class="btn btn-primary">登入</button>
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">取消</button>
+
 					</div>
 				</div>
 			</div>
@@ -180,12 +198,10 @@ footer>ul>li ul {
 			<!--       寫在這 -->
 
 			<form action="<c:url value="/Service.controller" />">
-				<div  id="keyword_search">
+				<div id="keyword_search">
 					<span class="form-group">問題名稱 :</span> <input type="text"
 						name="title" placeholder="請輸入-標題" required="required"
-						value="${param.title}"> <input type="text" name="memberid"
-						placeholder="memberid" value="${param.memberid}">
-
+						value="${param.title}">
 
 					<td>${errors.title}</td>
 					<td>${errors.memberid}</td> <br>
@@ -210,16 +226,37 @@ footer>ul>li ul {
 
 				<div id="searchbarButton">
 					<input type="submit" name="servicemethod" value="提交"
-					
 						class="btn btn-warning form-control "> <input type="reset"
 						value="清除" class="btn btn-warning form-control">
-					<!-- 						<input type="submit" name="servicemethod" value="Select" -->
-					<!-- 						class="btn btn-warning form-control "> -->
 				</div>
 				<tr>
 					<td>${errors.action}</td>
 				</tr>
 			</form>
+				<span>
+					<form action="<c:url value="/Trackmember.insert" />" method="POST">
+						<input type="text" name="Memberid">Memberid</input> <input
+							type="submit" name="insert" value="加追蹤">
+					</form>
+					<br>
+
+					<form action="<c:url value="/Trackmember.delete" />" method="POST">
+						<input type="text" name="Memberid">Memberid</input> <input
+							type="submit" name="delete" value="取消追蹤">
+					</form>
+					<br>
+
+					<form action="<c:url value="/BlackList.insert" />" method="POST">
+						<input type="text" name="blackid">Memberid</input> <input
+							type="submit" name="insert" value="加黑名單">
+					</form>
+					<br>
+
+					<form action="<c:url value="/BlackList.delete" />" method="POST">
+						<input type="text" name="blackid">Memberid</input> <input
+							type="submit" name="delete" value="取消黑名單">
+					</form>
+					</span>
 			<!-- 			<a href="ServiceSelect.controller" -->
 			<!-- 				class="btn btn-warning form-control">select</a> -->
 

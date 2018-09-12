@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import model.ActivityBean;
 import model.AttendBean;
@@ -19,7 +19,6 @@ import model.FriendBean;
 import model.MemberBean;
 import model.PictureBean;
 import model.TrackmemberBean;
-import model.dao.PictureDAO;
 import model.dao.implement.ActivityDAOHibernate;
 import model.dao.implement.AttendDAOHibernate;
 import model.dao.implement.FriendDAOHibernate;
@@ -52,26 +51,27 @@ public class MemberPersonalController {
 	}
 
 	@RequestMapping(path = { "/personal.controller" })
-	public String processTest(Model model,String memberId) {
-
-
-
-		MemberBean membean = memberDaoHibernate.select(Integer.parseInt(memberId));
+	public String processTest(Model model, @RequestAttribute("memberid") Integer id) {
+		
+		System.out.println("memberId="+id);
+		
+		
+		MemberBean membean = memberDaoHibernate.select(id);
 
 		// 好友人數 參加次數 追蹤人數 主辦活動
-		List<FriendBean> fribean = friendDaoHibernate.select(Integer.parseInt(memberId));
-		List<AttendBean> attbean = attendDaoHibernate.selectBymemberid(Integer.parseInt(memberId));
-		List<TrackmemberBean> trackbean = trackmemberDaoHibernate.selectBymemberid(Integer.parseInt(memberId));
-		List<ActivityBean> actbean = activityDAOHibernate.selectBymemberid(Integer.parseInt(memberId));
+		List<FriendBean> fribean = friendDaoHibernate.select(id);
+		List<AttendBean> attbean = attendDaoHibernate.selectBymemberid(id);
+		List<TrackmemberBean> trackbean = trackmemberDaoHibernate.selectBymemberid(id);
+		List<ActivityBean> actbean = activityDAOHibernate.selectBymemberid(id);
 
 		// 大頭照
 		List<String> memPicList = new ArrayList<>();
-		List<PictureBean> picbean = pictureDaoHibernate.selectByMember(Integer.parseInt(memberId));
+		List<PictureBean> picbean = pictureDaoHibernate.selectByMember(id);
 		picbean.forEach(pic -> {
 			memPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 
 		});
-		;
+		
 		// 參加活動
 		List<String> attsum = new ArrayList<>();
 		attbean.forEach(temp -> {// 會員所參加的活動id

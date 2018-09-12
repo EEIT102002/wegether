@@ -18,15 +18,13 @@ public class TrackmemberService {
 	@Autowired
 	private TrackmemberDAO trackmemberDAO;
 
-	public List<TrackmemberBean> insert(int mid) {
+	public List<TrackmemberBean> insert(int mid, int fid) {
 		List<TrackmemberBean> result = null;
-		int fid = 2; // 手動帶入FanId
-
-		TrackmemberId id = new TrackmemberId();
-		id.setFanid(2); // 後端抓Fanid
-		id.setMemberid(mid);
 
 		if (mid != fid && mid != 0) {
+			TrackmemberId id = new TrackmemberId();
+			id.setFanid(fid); // 追蹤者ID
+			id.setMemberid(mid);// 被追蹤ID
 			TrackmemberBean bean = new TrackmemberBean();// NEW TrackmemberBean 來放TrackmemberId id
 			bean.setId(id);
 
@@ -40,14 +38,13 @@ public class TrackmemberService {
 		return result;
 	}
 
-	public boolean delete(int mid) {
+	public boolean delete(int mid, int fid) {
 		boolean result = false;
-		TrackmemberId id = new TrackmemberId();
-		int fid = 2; // 手動帶入FanId
 
 		if (mid != fid) {
-			id.setFanid(fid); // 系統抓資料
-			id.setMemberid(mid);
+			TrackmemberId id = new TrackmemberId();
+			id.setFanid(fid); // 追蹤者ID
+			id.setMemberid(mid);// 被追蹤ID
 			TrackmemberBean bean = new TrackmemberBean();// NEW TrackmemberBean 來放TrackmemberId id
 			bean.setId(id);
 

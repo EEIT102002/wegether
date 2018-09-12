@@ -14,9 +14,8 @@ public class BlackListService {
 	@Autowired
 	private BlacklistDAO blacklistDAO;
 
-	public List<BlacklistBean> insert(int bid) {
+	public List<BlacklistBean> insert(int bid,int mid) {
 		List<BlacklistBean> result = null;
-		int mid = 2; // 手動帶入FanId
 
 		if (mid != bid && bid != 0) {
 			BlacklistId id = new BlacklistId();// NEW TrackmemberBean 來放TrackmemberId id
@@ -38,12 +37,11 @@ public class BlackListService {
 		return result;
 	}
 
-	public boolean delete(int bid) {
+	public boolean delete(int bid,int mid) {
 		boolean result = false;
-		BlacklistId id = new BlacklistId();
-		int mid = 2; // 手動帶入FanId
-
+		
 		if (bid != mid) {
+			BlacklistId id = new BlacklistId();// NEW TrackmemberBean 來放TrackmemberId id
 			id.setBlackid(bid);; // 系統抓資料
 			id.setMemberid(mid);;
 			BlacklistBean bean = new BlacklistBean();// NEW TrackmemberBean 來放TrackmemberId id

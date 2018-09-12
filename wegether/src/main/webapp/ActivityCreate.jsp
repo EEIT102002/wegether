@@ -17,13 +17,7 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
-<<<<<<< HEAD
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-<link rel="stylesheet" href="css/jquery.timepicker.min.css"/>
-<script src="js/jquery.timepicker.min.js"></script>
-=======
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -32,9 +26,8 @@
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
-6
 <script type="text/javascript" src="js/createApplyForm.js"></script>
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
+
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -230,26 +223,27 @@
 				})
 	})
 
-		$(function(){
-			//添加applyform在submit時
-			$('#ActivityCreateForm').submit(function(){
-				var applyForm = creatApplyForm();
-				alert(applyForm);
-				if(applyForm != false){
-					$(this).append($('<input/>').attr('name','applyform').val(applyForm));
-				}
-			    return true;
-			})
-		});
+	$(function() {
+		//添加applyform在submit時
+		$('#ActivityCreateForm').submit(
+				function() {
+					var applyForm = creatApplyForm();
+					alert(applyForm);
+					if (applyForm != false) {
+						$(this).append(
+								$('<input/>').attr('name', 'applyform').val(
+										applyForm));
+					}
+					return true;
+				})
+	});
 </script>
 <style>
-
 * {
 	/*         list-style: none; */
 	margin: 0;
 	padding: 0;
 }
-
 
 body {
 	/* background-color: rgb(145, 145, 145);
@@ -264,7 +258,6 @@ body {
 	min-height: 800px;
 	background-color: rgba(255, 255, 255, 0.363);
 }
-
 
 footer {
 	margin-top: 20px;
@@ -329,7 +322,6 @@ footer>ul>li ul {
 	-webkit-margin-end: 0px;
 	-webkit-padding-start: 40px;
 }
-
 </style>
 <title>我要揪團</title>
 </head>
@@ -622,8 +614,7 @@ footer>ul>li ul {
 										</div>
 									</div>
 								</div>
-								<div class="modal-footer">
-								</div>
+								<div class="modal-footer"></div>
 							</div>
 						</div>
 					</div>
