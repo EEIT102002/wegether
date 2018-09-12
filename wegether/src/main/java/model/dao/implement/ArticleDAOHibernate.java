@@ -1,11 +1,14 @@
 package model.dao.implement;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import model.ActivityBean;
 import model.ArticleBean;
 import model.dao.ArticleDAO;
 
@@ -51,5 +54,10 @@ public class ArticleDAOHibernate implements ArticleDAO {
 		}
 		return false;
 	}
-
+	
+	private final String getActid = "select distinct activityid from ArticleBean";
+	@Override
+	public List<Integer> selectAllForActid() {
+		return  this.getSession().createQuery(getActid).list();
+	}
 }

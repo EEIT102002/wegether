@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import model.MemberBean;
 import model.dao.MemberDAO;
+import querylanguage.Select;
 
 @Repository
 public class MemberDAOHibernate implements MemberDAO {
@@ -29,6 +30,7 @@ public class MemberDAOHibernate implements MemberDAO {
 	public List<MemberBean> select() {
 		return this.getSession().createQuery("from MemberBean",MemberBean.class).list();
 	}
+	
 	@Override
 	public MemberBean insert(MemberBean memberBean) {
 		if (memberBean != null) {
@@ -62,6 +64,13 @@ public class MemberDAOHibernate implements MemberDAO {
 		 }
 
 	}
+
+	@Override
+	public List<MemberBean> selectByNickname(String nickname) {
+		return getSession().createQuery(Select.memberByNickname,MemberBean.class)
+				.setParameter("nickname", "%"+nickname+"%").list();
+	}
+	
 
 	
 

@@ -28,25 +28,41 @@ public class NoticeDAOHibernate implements NoticeDAO {
 	@Override
 	public List<NoticeBean> selectByMemberId(Integer id, Integer first) {
 
-		return (List<NoticeBean>) getSession().createSQLQuery(Select.noticeByMember).addEntity("n", NoticeBean.class)
+		return (List<NoticeBean>) getSession().createSQLQuery(Select.noticeByMember)
+				.addEntity("n", NoticeBean.class)
 				.setParameter("id", id).setParameter("offset_first", first)
 				.setParameter("offset_max", noticeSelectLimit).list();
 	}
 
 	public List<NoticeBean> selectByActivityId(Integer id, Integer ntype) {
-		
-		return getSession().createQuery(Select.noticeByActivity,NoticeBean.class)
-				.setParameter("id", id)
-				.setParameter("ntype", ntype)
-				.list();
+		return selectyByIdAndType(Select.noticeByActivity, id,ntype);
 	}
 
 	public List<NoticeBean> selectByArticleId(Integer id, Integer ntype) {
-		
-		return getSession().createQuery(Select.noticeByArticle,NoticeBean.class)
-				.setParameter("id", id)
-				.setParameter("ntype", ntype)
-				.list();
+		return selectyByIdAndType(Select.noticeByArticle, id,ntype);
+	}
+
+	@Override
+	public List<NoticeBean> selectByFriendId(Integer id, Integer ntype) {
+		return selectyByIdAndType(Select.noticeByFriend, id,ntype);
+	}
+
+	@Override
+	public List<NoticeBean> selectByInviteId(Integer id, Integer ntype) {
+		return selectyByIdAndType(Select.noticeByInvite, id,ntype);
+	}
+
+	@Override
+	public List<NoticeBean> selectByAttendId(Integer id, Integer ntype) {
+		return selectyByIdAndType(Select.noticeByAttend, id,ntype);
+	}
+
+	private Query<NoticeBean> selectByHql(String hql) {
+		return getSession().createQuery(hql, NoticeBean.class);
+	}
+	
+	private List<NoticeBean> selectyByIdAndType(String hql, Integer id, Integer ntype){
+		return selectByHql(hql).setParameter("id", id).setParameter("ntype", ntype).list();
 	}
 
 }

@@ -10,6 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/activityPage.css">
+<script src="js/activityPage.js"></script>
+
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -18,6 +20,10 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="./js/setting.js"></script>
+<script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
+<script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 
 <script>
 	$(function(){
@@ -48,6 +54,30 @@
 			}
           }
 	$(function () { $("[data-toggle='tooltip']").tooltip(); });
+	
+//activityPage 輪播使用
+var picNo=1;
+document.addEventListener("DOMContentLoaded", function () {  
+     selectPic();                
+     });
+var timerObj=setInterval(autoPlay,1500);
+ function autoPlay(){
+     picNo++;  if(picNo>"${actPicList.size()}") picNo=1;                    
+     selectPic();  
+ }
+
+ function selectPic(){
+	     for(var i=1;i<="${actPicList.size()}";i++)    	 
+	             document.getElementById("imd"+i).style="border:2px solid #FFBB00"; 
+	     document.getElementById("imd"+picNo).style="border:3px solid red";     	
+	 	document.getElementById("imd0").src= $("#imd"+picNo).attr("src");     
+	}
+//activityPage 輪播使用  end	
+//留言、心得分享
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+//留言、心得分享 end
 </script>
 <style>
     *{
@@ -100,144 +130,159 @@
 </style>
 </head>	
 <body>
-		<div class="container">
-			<nav class="navbar navbar-default" id="stickytop">
-				<div class="navbar-header">
-				  <button type="button" class="
+  <div class="container">
+        <nav class="navbar navbar-default" id="stickytop">
+            <div class="navbar-header">
+                <button type="button" class="
 				   collapsed" data-toggle="collapse" data-target="#dropdown_munu" id="hum">
-					<span><i class="fa fa-bars" aria-hidden="true"></i></span>
-				  </button>
-					<div class="logo">
-						<h1><a class="navbar-brand" href="index.html">Wegether</a></h1>
-					</div>
-				</div>
-				<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
-					<nav class="header_nav" id="header_nav"> 
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="心得">心得</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
-							<li><a href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
-						</ul>
-					</nav>
-				</div>
-			</nav>
-		</div>
-	<div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
-			<div class="modal-dialog modal-lg" role="document">
-			  <div class="modal-content"><!--白色遮罩層-->
-				  <div class="modal-body">
-		  <!--       // modal-body  有差padding -->
-					  <div class="modal-header">
-						  
-						  <h5 class="modal-title lead"><strong>請選擇登入方式</strong></h5>
-						  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							  <span aria-hidden="true">&times;</span>
-						  </button>
-					  </div>
-					  <div class="modal-body" id="mid-body">
-						  <div class="form-group" id="ACT">
-							  <label for="recipient-name" class="col-form-label">帳號:</label>
-							  <input type="text" class="form-control" id="account">
-						  </div>
-						  <div class="form-group" id="PWD">
-							  <label for="recipient-name" class="col-form-label">密碼:</label>
-							  <input type="text" class="form-control" id="password">
-						  </div>
-						  <div id="or" class="bg-primary text-white"><h4>or</h4></div>
-						  <button type="button" class="btn big_use Google_i"><i class="fa fa-google" aria-hidden="true"></i>Google 登入</button>
-						  <button type="button" class="btn big_use Fb_i"><i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入</button>
-						  <div class="AreaCon">
-						  <button type="button" class="btn small_use Google_i"><i class="fa fa-google" aria-hidden="true"></i></button>
-						  <button type="button" class="btn small_use Fb_i"><i class="fa fa-facebook-official" aria-hidden="true"></i></button>
-						  </div>
-					  </div>
-					  <div class="modal-footer">
-						  <p class="small text-left" >還沒註冊嗎?趕緊註冊一個帳號吧! <a href="javascript:void(0)">點我註冊</a></p>
-						  <button type="button" class="btn btn-primary">登入</button>
-						  <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-					  </div>
-				  </div>
-			  </div>
-			</div>
-		  </div>
+                    <span>
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </span>
+                </button>
+                <div class="logo">
+                    <h1>
+                        <a class="navbar-brand" href="/wegether/index.jsp">Wegther</a>
+                    </h1>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
+                <nav class="header_nav" id="header_nav">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">
+                                <span data-hover="活動">活動</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="scroll">
+                                <span data-hover="心得">心得</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="scroll">
+                                <span data-hover="發起活動">發起活動</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="scroll">
+                                <span data-hover="發起心得">發起心得</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="loginSpan" href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox">
+                                <span data-hover="登入">登入</span>
+                            </a>
+                            <a id="logoutSpan" href="#" class="scrol" style="display:none">
+                            	<span data-hover="登出">登出</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!--白色遮罩層-->
+                <div class="modal-body">
+                    <!--       // modal-body  有差padding -->
+                    <div class="modal-header">
+
+                        <h5 class="modal-title lead">
+                            <strong>請選擇登入方式</strong>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="mid-body">
+                        <form id="loginform">
+                            <div class="form-group" id="ACT">
+                                <label for="recipient-name" class="col-form-label">帳號:</label>
+                                <input type="text" class="form-control" id="account" name="account">
+                            </div>
+                            <div class="form-group" id="PWD">
+                                <label for="recipient-name" class="col-form-label">密碼:</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="login">登入</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        </form>
+                        <div id="or" class="bg-primary text-white">
+                            <h4>or</h4>
+                        </div>
+                        <button type="button" class="btn big_use Google_i">
+                            <i class="fa fa-google" aria-hidden="true"></i>Google 登入</button>
+                        <button type="button" class="btn big_use Fb_i">
+                            <i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入</button>
+                        <div class="AreaCon">
+                            <button type="button" class="btn small_use Google_i">
+                                <i class="fa fa-google" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn small_use Fb_i">
+                                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="small text-left">還沒註冊嗎?趕緊註冊一個帳號吧!
+                            <a href="javascript:void(0)">點我註冊</a>
+                        </p>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 	<div class="container">
         <div id="small_con">
 <!--       寫在這以下 -->
 				<div id="core">
-            
+               <!-- 上面區塊 -->
                     <div id="up" >
+                     <!-- 上左區塊 -->
                         <div id="left" >
                                 
                             <div id="up" >
                                 <div id="left" style="width: auto;">
-
-                                        <a href="personal.controller?memberId=${hostBean.id}"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  class="img-circle" width="70" > </a>
-
-                                </div>
+									<a href="personal.controller?memberId=${hostBean.id}"><img src="data:image/jpg;base64,${hostPicList.get(0)}"  class="img-circle" width="70" > </a>
+								</div>
                                 <div  id="left" style="width: auto;">
                                     <p id="txtup" style="background-color:#FFBB73" >${hostBean.nickname}</p>
                                     <p id="txtup" >${hostBean.job}</p>
-                                </div>   
-                                
-
-                                   
-                                  
-								
-								
+                                </div>   	
                                 <div id="right" >                  
-
-					                <a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友"> 
-
-					                <img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
-					                
+									<a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友"> 
+									<img src="images/activityPageImages/invite.png" width="50" ></a>&emsp; 
 					                <span  class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
                                     <img src="images/activityPageImages/click2.png" width="50" > </span>${actBean.click}&emsp; 
-                                    
-                             		<a  href="#" class="tooltip-test" data-toggle="tooltip" title="收藏活動資訊">
+                                    <a  href="#" class="tooltip-test" data-toggle="tooltip" title="收藏活動資訊">
                              		 <img id="favorButton"  src="images/activityPageImages/favoritesOff.png" width="50" ></a>
-                             		 
-                                </div>                            
+                             	</div>                            
                             </div>
-                            <div>
-                         
-								       <!-- 輪播  start -->
-								  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-									<div class="carousel-inner">
-										<div class="item active">
-										<c:set var="actPicListSize" value="${actPicListSize}" />
-											<img  src="data:image/jpg;base64,${actPicList.get(actPicListSize)}"  class="img-thumbnail"  >
-										</div>
-											<c:forEach var="obj" items="${actPicList}">
-												<div  class="item ">
-										 			<img  src="data:image/jpg;base64,${obj}"   class="img-thumbnail" >
-										 		</div>
-											</c:forEach>
-									</div>
-								<!-- 輪播（Carousel）導航 -->
-<!-- 									<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> -->
-<!-- 										<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> -->
-<!-- 										<span class="sr-only">Previous</span> -->
-<!-- 									</a> -->
-<!-- 									<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" > -->
-<!-- 										<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> -->
-<!-- 										<span class="sr-only">Next</span> -->
-<!-- 									</a> -->
-								</div> 	
-									   <!-- 輪播  end -->
+                    
+					 <!-- 	照片輪播 -->				   
+						<div class="content">
+						    	<div class="div1">                             
+						        		<img id="imd0" src="data:image/jpg;base64,${actPicList.get(0)}"  class="img-thumbnail"  >
+						        </div>
+						        <div class="div2">
+										<c:set var="salary"  value="1"/>		
+										<c:forEach var="obj" items="${actPicList}"> 
+									 			<img id="imd${salary}" src="data:image/jpg;base64,${obj}"   class="img-thumbnail" >
+									 				<c:set var="salary"  value="${salary+1}"/>
+										</c:forEach>
+								</div>
+						    </div>
+  
+	   	 <!-- 	照片輪播  end-->		
 	   
-                            </div>
-                            <div style="padding-top: 10px;">
-                            
-                             	<c:forEach var="obj" items="${actPicList}">
-							 	<img  src="data:image/jpg;base64,${obj}"   class="img-rounded" width="100"  height="80">
-								</c:forEach>
-                                   
-                            </div>
-                        </div>  <!-- left end -->
+  
+ </div>  
+ <!-- 上左區塊 end -->
 
-                        
+                         <!-- 上右區塊  -->
                         <div id="right">
                             <h3>${actBean.title}</h3><!-- right1 end -->
                             <p>${actbegin}</p><!-- right2 end -->
@@ -261,10 +306,12 @@
 
                             </div><!-- right7 end -->
                             
-                        </div>  <!-- right end -->
-                   </div>   <!-- up end -->
-
- 					
+                        </div> 
+					 <!-- 上右區塊 end -->
+					 
+                   </div>   
+                   <!-- 上面區 end -->
+ 				 <!-- 下面區塊 -->
                      <div id="down">
                           <h2>${actBean.title}</h2>
                           <p > ${actBean.content} </p>
@@ -273,27 +320,35 @@
                           
                           <h4>留下意見:</h4>
                           <textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>    </br> </br>   
-                          <button type="button" class="btn btn-warning"  >  &emsp; 留  &emsp;  &emsp; 言 &emsp;</button> </br> </br>   
-                          
-								
-                          
-                          
+                          <button type="button" class="btn btn-warning"  >  &emsp; 留  &emsp;  &emsp; 言 &emsp;</button>
+                             <button type="button" class="btn btn-warning"  >  &emsp; 心&emsp;  得  &emsp; 分&emsp;享 &emsp;</button> </br> </br>     
+                            
+						<!--  留言、心得分享 -->
+                            <div id="tabs">
+								  <ul>
+								    <li><a href="#tabs-1">Nunc tincidunt</a></li>
+								    <li><a href="#tabs-2">Proin dolor</a></li>
+								  </ul>
+								  <div id="tabs-1">
+								    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+								  </div>
+								  <div id="tabs-2">
+								    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+								  </div>
+								</div>
+                            <!--  留言、心得分享  end-->
                           <!-- msg begin -->                 
-       
-                    
-                        
-                        <c:forEach var="obj" items="${msgsList}">
+       				   <c:forEach var="obj" items="${msgsList}">
                         <div id="msgid" class="well" >
 							 	<a href="personal.controller?memberId=${obj.memberId}"><img  src="data:image/jpg;base64,${obj.picMem}"  width="50" ></a> 	
 		                       <span style="color:blue;">${obj.nickname} </span> &emsp; <span style="font-size:small;">${obj.msgtime}</span></br>
 		                        ${obj.content}</br>
                         </div>
 						</c:forEach>
-                        
-                       
-                             <!-- msg end -->
+                         <!-- msg end -->
+                         
                     </div> 
-                    <!-- down end -->
+                   <!-- 下面區塊  end-->
                     
                 </div>
                 <!--       寫在這以上 -->

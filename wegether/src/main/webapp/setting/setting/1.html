@@ -69,6 +69,11 @@
                 );
 
             })
+            
+            $('#photoForm button').submit(function(){
+                console.log($(this).serialize())
+                return false;
+            })
         });
         function editInput(td, key) {
             var val = $(memberinfo).attr(key);
@@ -262,8 +267,15 @@
         </table>
     </div>
     <div class="photo">
-        <img src="" alt="">
-        <p>編輯</p>
+        <form id="photoForm">
+            <img src="" alt="">
+            <br>
+             <input type="file" name="picture" id="actPic" accept="image/*">
+            <br>
+            <button type="button">上傳</button>
+            <br>
+            <p>編輯</p>
+        </form>
     </div>
 
 </body>
