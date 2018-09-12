@@ -24,7 +24,7 @@ function loadIframe(url) {
 }
 
 function logoutDo() {
-	alert(123);
+	alert(5566);
 }
 
 
