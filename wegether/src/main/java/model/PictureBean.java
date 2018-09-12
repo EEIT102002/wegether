@@ -16,13 +16,13 @@ public class PictureBean {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "PICTURE_sq")
 	@SequenceGenerator(allocationSize = 1, name = "PICTURE_sq")
-	public Integer id;
+	private Integer id;
 	
 	
-	public byte[] picture;
-	public Integer activityid;
-	public Integer articleid;
-	public Integer memberid;
+	private byte[] picture;
+	private Integer activityid;
+	private Integer articleid;
+	private Integer memberid;
 
 
 	//activity
