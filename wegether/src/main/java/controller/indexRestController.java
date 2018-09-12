@@ -48,48 +48,35 @@ public class indexRestController {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	
-	
 	@GetMapping( path= {"/activity"}, produces= {"application/json"})
 	public ResponseEntity<?> getInfo(){
 	
-		List<ActivityBean> result = activityDAO.selectAll();
+		List<ActivityBean> result = activityDAO.selectAllState();
 //		System.out.println(result);
 		List<Object[]> resultlist = new ArrayList<>();
 		if(result.size()>0) {
 			result.forEach(bean->{
+			
+				Object[] obj = new Object[3];
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/jpg;base64,");
+				sb.append(org.apache.commons.codec.binary.StringUtils
+						.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(bean.getPicture(), false)));
+				sessionFactory.getCurrentSession().evict(bean);
+				obj[0] = bean;
+				obj[1] = sb.toString();
+				obj[2] = bean.getMemberBean().getNickname();
+				// System.out.println(bean.getMemberBean().getNickname());
+				bean.setMemberBean(null);
+				bean.setArticleBean(null);
+				bean.setPictureBean(null);
+				bean.setAttendBean(null);
+				bean.setInviteBean(null);
 				
-//	        System.out.println(bean.getHostid());
-//	        
-//	        MemberBean mem_result = memberDAO.select(bean.getHostid());
-//	        
-//	        System.out.println(mem_result.getName());
-	        Object[] obj = new Object[3];
- 	        StringBuilder sb = new StringBuilder();
- 			sb.append("data:image/jpg;base64,");
- 			sb.append(
- 						org.apache.commons.codec.binary.StringUtils.newStringUtf8(
- 								org.apache.commons.codec.binary.Base64.encodeBase64(
- 										bean.getPicture(), false)));				
-			sessionFactory.getCurrentSession().evict(bean);
-//			System.out.println(bean.getMemberBean().getNickname());
-			obj[2] = bean.getMemberBean().getNickname();
-			bean.setMemberBean(null);
-			bean.setArticleBean(null);
-			bean.setPictureBean(null);
-			bean.setAttendBean(null);
-			bean.setInviteBean(null);
-//			bean.setHostid(Integer.parseInt(mem_result.getName()));
-			
-			System.out.println(bean+"<br>");
-			
-			obj[0]= bean;
-			obj[1]=sb.toString();
-			resultlist.add(obj);
-//			setBe成nullll
-			});
+	
 
-			
+				resultlist.add(obj);
+			});
 			return new ResponseEntity<List<Object[]>>(resultlist, HttpStatus.OK);
 		} else {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);

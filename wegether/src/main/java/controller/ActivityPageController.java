@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import model.ActivityBean;
@@ -51,8 +52,8 @@ public class ActivityPageController {
 	}
 	
 	@RequestMapping("/activityPage.controller")
-		public String method(Model model,String actid) {
-		
+		public String method(Model model,String actid,@RequestAttribute("memberid") Integer id) {
+			System.out.println("id :"+id);
 		//時間轉換
 				String[] months = {"一 月", "二 月", "三 月", "四 月",
 		                "五 月", "六 月", "七 月", "八 月",
@@ -64,7 +65,7 @@ public class ActivityPageController {
 		System.out.println("actid="+actid);
 		List<String> actPicList = new ArrayList<>();		
 		List<String> hostPicList = new ArrayList<>();
-		List<String> memPicList = new ArrayList<>();
+		List<Map> memPicList = new ArrayList<>();
     	List<Map> msgsList = new ArrayList<>();
 		
 		
@@ -80,8 +81,12 @@ public class ActivityPageController {
 		if(attBean.size()!=0) 
 				attBean.forEach(att->{			
 					List<PictureBean> memPicBean = pictureDAO.selectByMember(att.getMemberid());	//報名人員的照片名單
+					Map<String, String> attMap = new HashMap<String,String>();
 						if(memPicBean.size()!=0)
-							memPicList.add(PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));//memPicBean.get(0) -->第一筆照片物件
+							attMap.put("memberId", att.getMemberid().toString());
+							attMap.put("memberPic", PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));
+							
+							memPicList.add(attMap);//memPicBean.get(0) -->第一筆照片物件
 					});
 		
 		if(actPicBean.size()!=0) 
@@ -102,6 +107,7 @@ public class ActivityPageController {
 				msgsMap.put("nickname", memberDAO.select(msg.getMemberid()).getNickname());
 				String picMemStr = PictureConvert.convertBase64Image(pictureDAO.selectByMember(msg.getMemberid()).get(0).getPicture());
 				msgsMap.put("picMem", picMemStr);
+				msgsMap.put("memberId",msg.getMemberid().toString());
 				msgsMap.put("content", msg.getContent());
 				
 				msgtime.setTime(msg.getMsgtime());
@@ -170,10 +176,6 @@ public class ActivityPageController {
 			
 		if(memPicList.size()!=0) model.addAttribute("memPicList",memPicList);
 		else model.addAttribute("memPicList",null);
-		
-
-		if(attBean.size()!=0) 	model.addAttribute("attBean",attBean);//報名人數
-		else model.addAttribute("attBean",null);//報名人數
 		
 
 		if(attBean.size()!=0) 	model.addAttribute("attedNumber",attBean.size()+" 個人報名參加");//報名人數

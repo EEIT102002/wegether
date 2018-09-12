@@ -54,7 +54,10 @@ public class MemberPersonalController {
 	@RequestMapping(path = { "/personal.controller" })
 	public String processTest(Model model,String memberId) {
 
+
+
 		MemberBean membean = memberDaoHibernate.select(Integer.parseInt(memberId));
+
 		// 好友人數 參加次數 追蹤人數 主辦活動
 		List<FriendBean> fribean = friendDaoHibernate.select(Integer.parseInt(memberId));
 		List<AttendBean> attbean = attendDaoHibernate.selectBymemberid(Integer.parseInt(memberId));

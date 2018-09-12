@@ -4,7 +4,19 @@ $(document).ready(function() {
 	$('body').click(function() {
 		iframe_auto_height();
 	});
+	
+	$('#search').submit(function(){
+    	if(typeof window.inputSearch === "function"){
+    		inputSearch($(this).serialize());
+    	}
+        
+    	return false;
+    });
+	
 });
+
+
+
 function iframe_auto_height() {
 	var iframe;
 	$(parent.document).find("iframe").map(function() { // 找到自己的iframe
@@ -15,8 +27,6 @@ function iframe_auto_height() {
 		return;// no parent
 	var content_height = $("html").height();
 	var content_width = $("body").width();
-	console.log(content_height);
-	console.log(content_width);
 	content_height = typeof content_height == 'number' ? content_height + "px"
 			: content_height;
 	content_width = typeof content_width == 'number' ? content_width + "px"
@@ -24,4 +34,31 @@ function iframe_auto_height() {
 	iframe.style.height = content_height;
 	iframe.style.width = content_width;
 	// 當下層iframe自身完成高度調整後, 再通知上層去調整高度, 直到每一層都完成高度調整.
+}
+
+function searchServer(formData, url, rowtemp){
+	var searchbox = $(parent.document).find("#searchBox");
+	var minbody = $(parent.document).find("#searchBox").find('.modal-body');
+    $.post({
+        url: url,
+        data: formData,
+        success: function(data){
+            minbody.html("");
+            $.each(data, function(i, e){
+                var row = $(rowtemp);
+                row.find(".name").html(e.nickname);
+                if (e.photo != null)
+                    row.find('img').attr('src', e.photo);
+                row.attr('href', e.memberid);
+                minbody.append(row);
+                searchbox.modal('show');
+            })
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+        	minbody.html("");
+        	minbody.append($('<p/>').text("沒有查詢結果"));
+        	searchbox.modal('show');
+        },
+        dataType:"json"
+    })
 }

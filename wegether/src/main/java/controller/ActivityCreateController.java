@@ -126,7 +126,7 @@ public class ActivityCreateController {
 
 		activityDAO.insert(activityBean);
 
-		return "actCreateErr.page";
+		return "actCreateSuc.page";
 	}
 
 	public String startDateFormat(String startDate, String starttime) {

@@ -1,73 +1,68 @@
 package interceptor;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
 import Service.CookieService;
+import Service.NoticeService;
 import Service.bean.LoginBean;
+import model.NoticeBean;
 import model.dao.NoticeDAO;
 import querylanguage.QueryBean;
 import querylanguage.Select;
 
 public class NoticeInterceptor implements HandlerInterceptor {
-	@Autowired
-	@Qualifier("tokenMap")
-	private Map<String, Integer> tokenMap;
-	@Autowired
-	@Qualifier("loginMap")
+	@Resource(name = "loginMap")
 	private Map<Integer, LoginBean> loginMap;
 	@Autowired
 	private CookieService cookieService;
 	@Autowired
 	private QueryBean queryBean;
 	@Autowired
-	private NoticeDAO noticeDAO;
-	
+	private NoticeService noticeService;
+	private TextMessage text = new TextMessage("1");
+
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		
+
 		queryBean.getSession().flush();
-		Integer id = (Integer) modelAndView.getModel().get("id");
-		String ntype = (String) modelAndView.getModel().get("ntype"); 
-		switch(id) {
-			case 1:
-			case 2:
-				//friend
-				break;
-			case 3:
-				//invite
-				break;
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-				//attend
-				break;
-			case 10:
-			case 15:
-				//article
-				break;
-			case 11:
-			case 12:
-			case 13:
-			case 14:
-				//activity
-				break;
+		if ( modelAndView.getModel().get("id") == null || modelAndView.getModel().get("ntype") == null) {
+			HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+			return;
 		}
-		
-		// TODO Auto-generated method stub
+		Integer id = (Integer) modelAndView.getModel().get("id");
+		Integer ntype = (Integer) modelAndView.getModel().get("ntype");
+		List<NoticeBean> beans = noticeService.getNotice(id, ntype);
+		if (beans != null) {
+			beans.forEach(bean -> {
+				List<WebSocketSession> sessions = loginMap.get(bean.getMemberid()).getSessions();
+				synchronized (sessions) {
+					sessions.forEach(x -> {
+						try {
+							x.sendMessage(text);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					});
+				}
+			});
+		}
+
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}
-	
-	
+
 }

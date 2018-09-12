@@ -4,16 +4,13 @@ $(function () {
     logoutSpan = $('#logoutSpan');
     loginSpan = $('#loginSpan');
     logindiv = $('#login');
-    
     $.post(
         "/wegether/login.check"
         , ""
         , function (data) {
             if (data.state == true) {
-            	logtoggle();
-            	if(typeof window.loginDo === "function") {
-                loginDo();//登入後要做的方法放在loginDo()
-                }
+            	
+            	logingroup(data);
             }
         }
         , "json"
@@ -27,12 +24,13 @@ $(function () {
             , function (data) {
                 if (data.state == true) {
                     console.log($.cookie('token'));
-                    if(typeof window.loginDo === "function") {
-                    	loginDo();//登入後要做的方法放在loginDo()
-                    }
                     var qqq = $(logindiv).closest('.modal');
                     $(qqq).modal('hide');
-                    logtoggle();
+                    
+                    logingroup(data);
+                }else{
+                	$('.loginerror').text("登入失敗");
+                	$('#pwd').val("");
                 }
             }
             , "json"
@@ -41,8 +39,19 @@ $(function () {
     logoutSpan.click(function () {
         logoutf();
     })
+    $('#loginform').on("click","input",function(){
+    	$('.loginerror').text("");
+    })
 
 })
+
+function logingroup(data){
+	 if(typeof window.loginDo === "function") {
+     	loginDo();//登入後要做的方法放在loginDo()
+     }                   
+     logtoggle();//login或logout後的顯示切換
+     connectNotice(data.ntoken);
+}
 
 function logoutf(){//登出要執行的功能
 	$.post(
@@ -64,4 +73,8 @@ function logtoggle(){ //login或logout後的顯示切換
 	 loginSpan.toggle();
      logoutSpan.toggle();
 }
+
+
+
+
 

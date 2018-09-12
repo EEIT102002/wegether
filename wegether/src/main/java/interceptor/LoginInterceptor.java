@@ -2,6 +2,7 @@ package interceptor;
 
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +16,7 @@ import Service.CookieService;
 
 
 public class LoginInterceptor implements HandlerInterceptor {
-	@Autowired
-	@Qualifier("tokenMap")
+	@Resource(name = "tokenMap")
 	private Map<String, Integer> tokenMap;
 	@Autowired
 	private CookieService cookieService;
