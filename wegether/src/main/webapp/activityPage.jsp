@@ -29,17 +29,16 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <!-- 登入使用 -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="js/jquery.cookie.js" type="text/javascript"></script>
-<script src="js/activityPag.js"></script>
-<script src="js/noticeWebStocket.js" type="text/javascript"></script>
-<script src="js/logMethod.js" type="text/javascript"></script>
+<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="/wegether/js/activityPag.js"></script>
+<script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
+<script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 
 <!-- 登入使用 END -->
 <!-- 留言 /心得心享 視窗  -->
 <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <script>
@@ -47,14 +46,14 @@
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-		// $('#upTop').click(function(){
-		// 	var body = $("html, body");
-		// 	body.stop().animate({scrollTop:0}, 500, 'swing');
-		// 	}).mouseover(function(){
-		// 		$(this).removeClass('animated');
-		// 	}).mouseout(function(){
-		// 		$(this).addClass('animated');
-		// 	})
+		$('#upTop').click(function(){
+			var body = $("html, body");
+			body.stop().animate({scrollTop:0}, 500, 'swing');
+			}).mouseover(function(){
+				$(this).removeClass('animated');
+			}).mouseout(function(){
+				$(this).addClass('animated');
+			})
 	})
 	var flag = 0;
 	document.addEventListener("DOMContentLoaded",
@@ -212,6 +211,7 @@ footer>ul>li ul {
 					</div>
 					<div class="modal-body" id="mid-body">
 						<form id="loginform">
+							<p class="loginerror" ></p>
 							<div class="form-group" id="ACT">
 								<label for="recipient-name" class="col-form-label">帳號:</label> <input
 									type="text" class="form-control" id="account" name="account">
