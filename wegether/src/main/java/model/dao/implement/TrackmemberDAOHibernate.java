@@ -41,13 +41,24 @@ public class TrackmemberDAOHibernate implements TrackmemberDAO{
 		return query.list();
 	}
 
+	private final String HQLSelectMidAndFid = "FROM TrackmemberBean WHERE MEMBERID = :MID AND FANID=:FID";
+	@Override
+	public TrackmemberBean selectByMemberidAndFanid(int memberid, int fanid) {
+		
+		Query<TrackmemberBean> query = getSession().createQuery(HQLSelectMidAndFid);
+		
+		TrackmemberBean result=query.setParameter("MID",memberid).setParameter("FID",fanid).uniqueResult();
+		
+		return result;
+	}
 
 	@Override
-	public List<TrackmemberBean> insert(TrackmemberBean bean) {
-		List<TrackmemberBean> result = null;
+	public TrackmemberBean insert(TrackmemberBean bean) {
+		TrackmemberBean result = null;
 		if(bean!=null) {
 			this.getSession().save(bean);
-			 result=selectByFan(bean.getId().getFanid());
+			result = selectByMemberidAndFanid(bean.getId().getMemberid(), bean.getId().getFanid());
+//			result = selectByMemberidAndFanid(bean.getMemberByMemberid().getId(), bean.getId().getFanid());
 			return result;
 		}
 		return result;

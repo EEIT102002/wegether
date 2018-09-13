@@ -1,17 +1,17 @@
 package controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import Service.TrackmemberService;
@@ -23,52 +23,45 @@ public class TrackmemberController {
 	@Autowired
 	private TrackmemberService trackmemberService;
 
-	@RequestMapping(path = { "/Trackmember.insert" })
-	protected void doGet(Model model, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<TrackmemberBean> result =null;
-		int mid=0;
-		response.setContentType("text/html; charset=UTF-8");
+
+	@RequestMapping(path = { "/Trackmember/insert" })
+	protected @ResponseBody ResponseEntity<?>  insertTrack(
+			@RequestParam Integer memberid,@RequestAttribute("memberid") Integer fanid){
+		Map<String, Object>result = new HashMap<>();
+		if(memberid == null || fanid == null) {
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+			TrackmemberBean bean = trackmemberService.insert(memberid,fanid);// 加追蹤
 		
-		// 接收資料
-		if (request.getParameter("Memberid")!="") {
-			mid = Integer.valueOf(request.getParameter("Memberid"));
-			System.out.println(mid);
-			result = trackmemberService.insert(mid);// 加追蹤
-		}
-		if (result != null) {
-			PrintWriter out = response.getWriter();
-			out.println("追蹤成功");
-			out.close();
+		if (bean != null) {
+			result.put("state", true);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		} else {
-			PrintWriter out = response.getWriter();
-			out.println("追蹤失敗");
-			out.close();
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-		System.out.println(result);
+
 	}
 
-	@RequestMapping(path = { "/Trackmember.delete" })
-	protected void doGet1(Model model, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		boolean result = false;
-		// 接收資料
+
+	@RequestMapping(path = { "/Trackmember/delete" })
+	protected @ResponseBody ResponseEntity<?>  deleteTrack(
+			@RequestParam Integer memberid,@RequestAttribute("memberid") Integer fanid){
+		Map<String, Object>result = new HashMap<>();
+		if(memberid == null || fanid == null) {
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+		boolean state = trackmemberService.delete(memberid, fanid);// 加追蹤
 		
-		if(request.getParameter("Memberid")!="") {
-			int mid = Integer.valueOf(request.getParameter("Memberid"));
-			System.out.println(mid);
-			result = trackmemberService.delete(mid);//取消追蹤
-		}
-		if (result != false) {
-			PrintWriter out = response.getWriter();
-			out.println("取消追蹤成功");
-			out.close();
+		if (state) {
+			result.put("state", true);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+
 		} else {
-			PrintWriter out = response.getWriter();
-			out.println("未追蹤");
-			out.close();
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-		System.out.println(result);
 	}
 }

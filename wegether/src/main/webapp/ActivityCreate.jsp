@@ -16,6 +16,7 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
+
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -237,26 +238,27 @@
 				})
 	})
 
-		$(function(){
-			//添加applyform在submit時
-			$('#ActivityCreateForm').submit(function(){
-				var applyForm = creatApplyForm();
-				alert(applyForm);
-				if(applyForm != false){
-					$(this).append($('<input/>').attr('name','applyform').val(applyForm));
-				}
-			    return true;
-			})
-		});
+	$(function() {
+		//添加applyform在submit時
+		$('#ActivityCreateForm').submit(
+				function() {
+					var applyForm = creatApplyForm();
+					alert(applyForm);
+					if (applyForm != false) {
+						$(this).append(
+								$('<input/>').attr('name', 'applyform').val(
+										applyForm));
+					}
+					return true;
+				})
+	});
 </script>
 <style>
-
 * {
 	/*         list-style: none; */
 	margin: 0;
 	padding: 0;
 }
-
 
 body {
 	/* background-color: rgb(145, 145, 145);
@@ -271,7 +273,6 @@ body {
 	min-height: 800px;
 	background-color: rgba(255, 255, 255, 0.363);
 }
-
 
 footer {
 	margin-top: 20px;
@@ -336,7 +337,6 @@ footer>ul>li ul {
 	-webkit-margin-end: 0px;
 	-webkit-padding-start: 40px;
 }
-
 </style>
 <title>我要揪團</title>
 </head>
@@ -509,9 +509,17 @@ footer>ul>li ul {
 						</tr>
 
 					</table>
+<<<<<<< HEAD
+
+					<input type="botton" name="" value="預覽" id="preBotton"
+						data-target="#preview" data-toggle="modal" /> <input
+						type="botton" name="" value="報名表單" id="formBotton"
+						data-target="#setMyform" data-toggle="modal" />
+=======
 
 					<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
 					<input type="botton" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
@@ -637,8 +645,7 @@ footer>ul>li ul {
 										</div>
 									</div>
 								</div>
-								<div class="modal-footer">
-								</div>
+								<div class="modal-footer"></div>
 							</div>
 						</div>
 					</div>

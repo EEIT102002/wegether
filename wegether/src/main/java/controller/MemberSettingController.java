@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +22,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import Service.MemberService;
 import Service.SettingService;
@@ -65,29 +69,39 @@ public class MemberSettingController {
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
 		webDataBinder.registerCustomEditor(java.util.Date.class,
-				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-		
+				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));	
 		webDataBinder.registerCustomEditor(Double.class,
 				new CustomNumberEditor(Double.class, true));
-		
 		webDataBinder.registerCustomEditor(Integer.class,
 				new CustomNumberEditor(Integer.class, true));
+		webDataBinder.registerCustomEditor(byte[].class, 
+				new ByteArrayMultipartFileEditor());
 	}
 	
 	@RequestMapping( path= {"/member/Info/setting"}, produces= {"application/json"})
-	public @ResponseBody ResponseEntity<?> setInfo(MemberBean bean, HttpServletRequest request){
-		bean.setId((Integer) request.getAttribute("memberid"));
+	public @ResponseBody ResponseEntity<?> setInfo(
+			MemberBean bean
+			, @RequestAttribute("memberid") Integer id
+			,BindingResult bindingResult){
+		if(id == null || bindingResult.hasFieldErrors()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		bean.setId(id);
 		MemberInfoBean result = memberServic.setMemberInfo(bean);
 
 		if(result!=null) {
 			return new ResponseEntity<MemberInfoBean>(result, HttpStatus.OK);
 		} else {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@RequestMapping( path= {"/member/Info/account"}, produces= {"application/json"})
-	public @ResponseBody ResponseEntity<?> setInfo(String oldpwd, String pwd, String pwdrepeat, HttpServletRequest request){
+	public @ResponseBody ResponseEntity<?> setInfo(String oldpwd, String pwd, String pwdrepeat, @RequestAttribute("memberid") Integer id){
+		if(id == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		
 		Map<String, String> errors = new HashMap<String, String>();
 		Map<String, Object> result = new HashMap<>();
@@ -103,8 +117,8 @@ public class MemberSettingController {
 			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 		}
 		
-		Integer changed = memberServic.changePassword(
-				(Integer) request.getAttribute("memberid"), oldpwd, pwd);
+		
+		Integer changed = memberServic.changePassword(id, oldpwd, pwd);
 
 		if(changed == 1) {
 			result.put("state", true);
@@ -126,7 +140,10 @@ public class MemberSettingController {
 	
 	@RequestMapping( path= {"/member/Setting/setting"}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?> setSetting(SettingBean bean, 
-			HttpServletRequest request, BindingResult bindingResult){
+			@RequestAttribute("memberid") Integer id, BindingResult bindingResult){
+		if(id == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		
 		Map<String, Object> result = new HashMap<>();
 		System.out.println(bean);
@@ -136,7 +153,7 @@ public class MemberSettingController {
 			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 		}
 		
-		bean.setMemberid((Integer) request.getAttribute("memberid"));
+		bean.setMemberid(id);
 		
 		
 		SettingBean settingbean = settingService.setSetting(bean);
@@ -150,4 +167,25 @@ public class MemberSettingController {
 		}
 	}
 	
+	@RequestMapping( path= {"/member/photo"}, produces= {"application/json"})
+	public @ResponseBody ResponseEntity<?> updatePhoto(
+			MemberBean bean
+			,@RequestAttribute("memberid") Integer id 
+			) throws IOException{
+		if(id == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		bean.setId(id);
+		MemberInfoBean check = memberServic.setMemberInfo(bean);
+		
+		if(check!=null) {
+			Map<String, Object> result = new HashMap<>();
+			result.put("photoSrc", check.getPhotoSrc());
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+	}
 }

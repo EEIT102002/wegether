@@ -13,6 +13,8 @@ $(document).ready(function() {
     	return false;
     });
 	
+	
+
 });
 
 
@@ -37,8 +39,8 @@ function iframe_auto_height() {
 }
 
 function searchServer(formData, url, rowtemp){
-	var searchbox = $(parent.document).find("#searchBox");
-	var minbody = $(parent.document).find("#searchBox").find('.modal-body');
+	var searchbox = window.parent.$('#searchBox');
+	var minbody = searchbox.find('.friendList');
     $.post({
         url: url,
         data: formData,
@@ -51,13 +53,13 @@ function searchServer(formData, url, rowtemp){
                     row.find('img').attr('src', e.photo);
                 row.attr('href', e.memberid);
                 minbody.append(row);
-                searchbox.modal('show');
+                searchbox.modal();
             })
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
         	minbody.html("");
         	minbody.append($('<p/>').text("沒有查詢結果"));
-        	searchbox.modal('show');
+        	searchbox.modal();
         },
         dataType:"json"
     })

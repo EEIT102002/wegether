@@ -38,10 +38,13 @@ public class MemberInfoRestController {
 	@GetMapping(path = { "/member/Info" }, produces = { "application/json" })
 	public ResponseEntity<?> getInfo(@RequestAttribute("memberid") Integer id) {
 		if (id == null) {
+			System.out.println("is null");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		MemberInfoBean result = memberInfoDAO.select(id);
+		
 		if (result != null) {
+			System.out.println(result.getPhotoSrc());
 			return new ResponseEntity<MemberInfoBean>(result, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

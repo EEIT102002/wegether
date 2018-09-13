@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -19,60 +20,40 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import Service.ServiceService;
 import model.ServiceBean;
 
-
 @Controller
 @SessionAttributes(names = { "select", "action" })
 public class ServiceController {
 	@Autowired
 	private ServiceService serviceService;
 
-
-
-	@InitBinder
-	public void registerPropertyEditor(WebDataBinder webDataBinder) {
-		webDataBinder.registerCustomEditor(java.util.Date.class,
-				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-
-		// webDataBinder.registerCustomEditor(double.class, "price",
-		// new PrimitiveNumberEditor(Double.class, true));
-		//
-		// webDataBinder.registerCustomEditor(int.class,
-		// new PrimitiveNumberEditor(Integer.class, true));
-
-		// webDataBinder.registerCustomEditor(double.class,
-		// new PrimitiveNumberEditor(Double.class, true));
-		//
-		// webDataBinder.registerCustomEditor(int.class,
-		// new PrimitiveNumberEditor(Integer.class, true));
-	}
-
 	@RequestMapping(path = { "/Service.controller" })
-	public String method(Model model, String servicemethod, ServiceBean bean, BindingResult bindingResult,
-			@RequestParam("memberid") String temp1) {
+	public String method(Model model, String servicemethod,  @RequestAttribute(name = "memberid",required = false) Integer id, ServiceBean bean,
+			BindingResult bindingResult) {
 		System.out.println("Service.controller");
+		System.out.println("id=" + id); // 取得登入的memberid
 
 		// 接收資料
 		// 轉換資料
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
 
-//		 if (bindingResult != null && bindingResult.hasFieldErrors()) {
-////		 if (bindingResult.hasFieldErrors("memberid")) {
-////		 errors.put("memberid", "memberid must be an integer");
-////		 }
-//		
-//		 if (bindingResult.hasFieldErrors("title")) {
-//		 errors.put("title", "title must write");
-//		 }
-//		
-//		 if (bindingResult.hasFieldErrors("classtype")) {
-//		 errors.put("classtype", "classtype must select");
-//		 }
-//		
-//		 if (bindingResult.hasFieldErrors("Content")) {
-//		 errors.put("Content", "Content must write");
-//		 }
-//		 }
+		// if (bindingResult != null && bindingResult.hasFieldErrors()) {
+		//// if (bindingResult.hasFieldErrors("memberid")) {
+		//// errors.put("memberid", "memberid must be an integer");
+		//// }
+		//
+		// if (bindingResult.hasFieldErrors("title")) {
+		// errors.put("title", "title must write");
+		// }
+		//
+		// if (bindingResult.hasFieldErrors("classtype")) {
+		// errors.put("classtype", "classtype must select");
+		// }
+		//
+		// if (bindingResult.hasFieldErrors("Content")) {
+		// errors.put("Content", "Content must write");
+		// }
+		// }
 
 		// 驗證資料
 		// if("insert".equals(servicemethod)) {
@@ -84,26 +65,35 @@ public class ServiceController {
 		if (errors != null && !errors.isEmpty()) {
 			return "Service.errors";
 		}
+		if (id==null) {
+			return "Service.errors";
+		}
 
 		if ("Select".equals(servicemethod)) {
+			bean.setMemberid(id); // 把memberid寫入到bean
+			System.out.println(bean);
+			
 			List<ServiceBean> result = serviceService.select(bean);
+			
 			if (result != null) {
-				
 				System.out.println(result.size());
-				if (result.size()!=0) {
+				if (result.size() != 0) {
 					model.addAttribute("select", result);
 					return "Service.List";
-				}else {
+				} else {
 					errors.put("SelectResult", "查無資料");
 					return "Service.List";
 				}
 			}
 			return "Service.errors";
 
-		} if ("提交".equals(servicemethod)) {
+		}
+		if ("提交".equals(servicemethod)) {
 			// bean.setAsktime(new java.util.Date());
+			bean.setMemberid(id); // 把memberid寫入到bean
 			System.out.println(bean);
-			ServiceBean result = serviceService.insert(bean);
+
+			ServiceBean result = serviceService.insert(bean);// 寫入DB
 
 			if (result == null) {
 
@@ -119,10 +109,13 @@ public class ServiceController {
 			}
 		} else if ("更新".equals(servicemethod)) {
 			// bean.setAsktime(new java.util.Date());
+			bean.setAsktime(new java.util.Date());// 更新編輯時間
+			bean.setMemberid(id); // 把memberid寫入到bean
 			System.out.println(bean);
-			bean.setAsktime(new java.util.Date());
-			ServiceBean result = serviceService.update(bean);
-			List<ServiceBean> insertresult = serviceService.select(bean);
+
+			ServiceBean result = serviceService.update(bean);// update到資料庫
+
+			List<ServiceBean> insertresult = serviceService.select(bean);// 列出清單
 			model.addAttribute("select", insertresult);
 			return "Service.List";
 		}
@@ -130,10 +123,9 @@ public class ServiceController {
 		return "Service.errors";
 	}
 
-	@RequestMapping(
-				path= {"/ServiceSelect.controller"}
-			)
-	public String selectMethod(Model model,ServiceBean bean) {
+	@RequestMapping(path = { "/ServiceSelect.controller" })
+	public String selectMethod(Model model, @RequestAttribute("memberid") Integer id, ServiceBean bean) {
+		bean.setMemberid(id);
 		List<ServiceBean> result = serviceService.select(bean);
 		model.addAttribute("select", result);
 		return "Service.List";

@@ -1,6 +1,7 @@
 package Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,12 @@ public class TrackmemberService {
 	@Autowired
 	private TrackmemberDAO trackmemberDAO;
 
-	public List<TrackmemberBean> insert(int mid) {
-		List<TrackmemberBean> result = null;
-		int fid = 2; // 手動帶入FanId
-
-		TrackmemberId id = new TrackmemberId();
-		id.setFanid(2); // 後端抓Fanid
-		id.setMemberid(mid);
-
+	public TrackmemberBean insert(int mid, int fid) {
+		TrackmemberBean result = null;
 		if (mid != fid && mid != 0) {
+			TrackmemberId id = new TrackmemberId();
+			id.setFanid(fid); // 追蹤者ID
+			id.setMemberid(mid);// 被追蹤ID
 			TrackmemberBean bean = new TrackmemberBean();// NEW TrackmemberBean 來放TrackmemberId id
 			bean.setId(id);
 
@@ -34,20 +32,19 @@ public class TrackmemberService {
 			try {
 				result = trackmemberDAO.insert(bean);// 加追蹤
 			} catch (Exception e) {
-
+				return result;
 			}
 		}
 		return result;
 	}
 
-	public boolean delete(int mid) {
+	public boolean delete(int mid, int fid) {
 		boolean result = false;
-		TrackmemberId id = new TrackmemberId();
-		int fid = 2; // 手動帶入FanId
 
 		if (mid != fid) {
-			id.setFanid(fid); // 系統抓資料
-			id.setMemberid(mid);
+			TrackmemberId id = new TrackmemberId();
+			id.setFanid(fid); // 追蹤者ID
+			id.setMemberid(mid);// 被追蹤ID
 			TrackmemberBean bean = new TrackmemberBean();// NEW TrackmemberBean 來放TrackmemberId id
 			bean.setId(id);
 
@@ -55,7 +52,7 @@ public class TrackmemberService {
 			try {
 				result = trackmemberDAO.delete(bean);// 取消追蹤
 			} catch (Exception e) {
-
+				return result;
 			}
 		}
 		return result;
