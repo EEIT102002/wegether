@@ -112,8 +112,11 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public List<ActivityBean> selectByTime(int state, Date begin, Date end) {
 		System.out.println(selectByTime);
-		return this.getSession().createQuery(selectByTime, ActivityBean.class).setParameter("state", state)
-				.setParameter("begin", begin).setParameter("end", end).list();
+		return this.getSession().createQuery(selectByTime, ActivityBean.class)
+				.setParameter("state", state)
+				.setParameter("begin", begin)
+				.setParameter("end", end)
+				.list();
 	}
 
 	private final String selectByActbegin = "from ActivityBean  WHERE state=:state and Convert(DateTime,actbegin) =Convert(DateTime,:actbegin)";

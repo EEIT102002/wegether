@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class BlackListController {
 	private BlackListService blackListService;
 
 	@RequestMapping(path = { "/BlackList.insert" })
-	protected void doGet(Model model, HttpServletRequest request, HttpServletResponse response,@RequestAttribute("memberid") Integer id)
+	protected void doGet(Model model, HttpServletRequest request, HttpServletResponse response, @RequestAttribute(name = "memberid",required = false) Integer id)
 			throws ServletException, IOException {
 		List<BlacklistBean> result = null;
 		System.out.print("mid="+id);//userid

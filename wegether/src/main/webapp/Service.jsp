@@ -234,9 +234,9 @@ footer>ul>li ul {
 				</tr>
 			</form>
 				<span>
-					<form action="<c:url value="/Trackmember.insert" />" method="POST">
+					<form action="<c:url value="/Trackmember.insert" />" method="GET">
 						<input type="text" name="Memberid">Memberid</input> <input
-							type="submit" name="insert" value="加追蹤">
+							type="submit" name="insert" value="加追蹤">${output.result}
 					</form>
 					<br>
 
