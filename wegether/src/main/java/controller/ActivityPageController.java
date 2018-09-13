@@ -68,8 +68,9 @@ public class ActivityPageController {
 		List<Map> memPicList = new ArrayList<>();
     	List<Map> msgsList = new ArrayList<>();
 		
-		
+    	
 		ActivityBean actBean = activityDAO.selectId(Integer.parseInt(actid));
+		System.out.println(actBean);
 		MemberBean hostBean = memberDAO.select(actBean.getHostid());		
 		List<AttendBean> attBean = attendDAO.selectByActID(Integer.parseInt(actid));//報名人員名單
 		

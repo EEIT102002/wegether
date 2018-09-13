@@ -191,40 +191,40 @@ footer>ul>li ul {
 				<hr >
 				註冊頁面
 				<hr/>
-				<form id="xxx" action="<c:url value="/register.controller" />" method="post">
+				<form id="xxx" action="<c:url value="/register.controller" />" method="post"
+					accept-charset="ISO-8859-1" enctype="multipart/form-data">
 					<table border="0" align="center">
 						<tr>
 							<td colspan="2" align="center"></td>
 						</tr>
 						<tr>
 							<td>帳號(信箱):</td>
-							<td><input type="text" name="account" value="${param.account}" ></td>
+							<td><input  type="text" name="account" value="${param.account}" required="required"></td>
 							<td>${inputRrrors.account}</td>
 						</tr>
 						<tr>
 							<td>密碼:</td>
-							<td><input type="password" name="pwd" value="${param.pwd}" ></td>
+							<td><input type="password" name="pwd" value="${param.pwd}" required="required" ></td>
 							<td>${inputRrrors.pwd}</td>
 						</tr>
 						<tr>
 							<td>大頭照片:</td>
-							<td><input type="file" name="photo" multiple="multiple" value="${param.photo}"></td>
+							<td><input type="file" name="photo1" multiple="multiple" accept="image/*"></td>
 							<td>${inputRrrors.photo}</td>
 						</tr>
 						<tr>
 							<td>姓名:</td>
-							<td><input type="text" name="name" value="${param.name}"></td>
+							<td><input type="text" name="name" value="${param.name}" required="required"></td>
 							<td>${inputRrrors.name}</td>
 						</tr>
 						<tr>
 							<td>暱稱:</td>
-							<td><input type="text" name="nickname" value="${param.nickname}"></td>
+							<td><input  type="text" name="nickname" value="${param.nickname}"></td>
 							<td>${inputRrrors.nickname}</td>
 						</tr>
 						<tr>
 							<td>出生日期:</td>
-							<td><input type="date" name="birthday" value="${param.birthday}"></td>
-							<td>${inputRrrors.birthday}</td>
+							<td><input type="date" name="birthday" value="${param.birthday}" required="required"></td>
 						</tr>
 						
 						<tr>
@@ -232,11 +232,9 @@ footer>ul>li ul {
 							<td>
 							      <select name="sex" size="1">
 									<option value="0">男生</option>
-									<option value="1">女生</option>
-									
+									<option value="1">女生</option>		
 							  </select>
 							</td>
-							<td>${inputRrrors.sex}</td>
 						</tr>
 						<tr>
 							<td>職業:</td>
@@ -247,9 +245,7 @@ footer>ul>li ul {
 									<option value="其他">其他</option>
 							  </select>
 							</td>
-<%-- 							<td>${inputRrrors.job}</td> --%>
-						</tr>
-						
+						</tr>						
 						<tr>
 							<td>城市/所在地:</td>
 							<td>
@@ -259,15 +255,13 @@ footer>ul>li ul {
 								</select>
 								
 							</td>
-<%-- 							<td>${inputRrrors.city}</td> --%>
 						</tr>
 						
 						<tr>
 							<td>詳細地址:</td>
 							<td><input type="text" name="addr" value="${param.addr}"></td>
 							<td>${inputRrrors.addr}</td>
-						</tr>
-						
+						</tr>						
 						<tr>
 							<td>電話:</td>
 							<td><input type="text" name="tel" value="${param.tel}"></td>
@@ -282,7 +276,7 @@ footer>ul>li ul {
 						<tr>
 							<td>聚會類型:</td>
 							<td>
-							<input type="checkbox" name="favorite" value="輕鬆聊">輕鬆聊
+							<input type="checkbox" name="favorite" value="輕鬆聊" checked>輕鬆聊
 							<input type="checkbox" name="favorite" value="浪漫約會">浪漫約會
 							<input type="checkbox" name="favorite" value="寵物">寵物
 							<br>
@@ -290,7 +284,6 @@ footer>ul>li ul {
 							<input type="checkbox" name="favorite" value="郊遊踏青">郊遊踏青
 							<input type="checkbox" name="favorite" value="電影">電影
 							</td>
-							<td>${inputRrrors.favorite}</td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center" >

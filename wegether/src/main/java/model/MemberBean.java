@@ -28,7 +28,7 @@ public class MemberBean {
 	private Integer id;
 	private String account;
 	private byte[] pwd;
-	private Byte[] photo;
+	private byte[] photo;
 	private String name;
 	private String nickname;
 	private java.util.Date birthday;
@@ -203,11 +203,11 @@ public class MemberBean {
 		this.pwd = pwd;
 	}
 
-	public Byte[] getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(Byte[] photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 
