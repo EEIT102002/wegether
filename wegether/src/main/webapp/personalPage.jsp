@@ -29,7 +29,7 @@
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 
-
+ 
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
