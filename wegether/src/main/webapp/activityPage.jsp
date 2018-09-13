@@ -330,10 +330,7 @@ footer>ul>li ul {
 								</c:forEach>
 							</div>
 						</div>
-
 						<!-- 	照片輪播  end-->
-
-
 					</div>
 					<!-- 上左區塊 end -->
 
