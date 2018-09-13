@@ -4,17 +4,21 @@ $(function () {
     logoutSpan = $('#logoutSpan');
     loginSpan = $('#loginSpan');
     logindiv = $('#login');
-    $.post(
-        "/wegether/login.check"
-        , ""
-        , function (data) {
-            if (data.state == true) {
-            	
-            	logingroup(data);
-            }
-        }
-        , "json"
-    )
+    loginSub = $('#logoutSubSpanA');
+    loginRing = $('#loginRing');
+    	$.post(
+    	        "/wegether/login.check"
+    	        , ""
+    	        , function (data) {
+    	            if (data.state == true) {
+    	            	
+    	            	logingroup(data);
+    	            }
+    	        }
+    	        , "json"
+    	    )
+
+    
    
     $('#login').click(function () {
         var message = $('#loginform').serialize();
@@ -36,7 +40,7 @@ $(function () {
             , "json"
         )
     })
-    logoutSpan.click(function () {
+    loginSub.click(function () {
         logoutf();
     })
     $('#loginform').on("click","input",function(){
@@ -46,6 +50,7 @@ $(function () {
 })
 
 function logingroup(data){
+
 	 if(typeof window.loginDo === "function") {
      	loginDo();//登入後要做的方法放在loginDo()
      }                   
@@ -72,6 +77,7 @@ function logoutf(){//登出要執行的功能
 function logtoggle(){ //login或logout後的顯示切換
 	 loginSpan.toggle();
      logoutSpan.toggle();
+     loginRing.toggle();
 }
 
 

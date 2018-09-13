@@ -16,10 +16,10 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
-<!-- <script src="js/jquery.cookie.js" type="text/javascript"></script> -->
-<!-- <script src="js/indexlogin.js"></script> -->
-<!-- <script src="js/noticeWebStocket.js" type="text/javascript"></script> -->
-<!-- <script src="js/logMethod.js" type="text/javascript"></script> -->
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<script src="js/indexlogin.js"></script>
+<script src="js/noticeWebStocket.js" type="text/javascript"></script>
+<script src="js/logMethod.js" type="text/javascript"></script>
 <style>
  	#form_po{
  		display: none;
@@ -34,9 +34,52 @@
 		width: 200px;
 		height: 50px;
 	}
-	#header_nav li {
-	border: 2px solid;
+	#dropdownMenuButton{
+		display: flex;
+		cursor: pointer;
+/*  		border: 2px solid green; */
+		width: 160px;
+		padding-left: 5px;
 	}
+	#dropdownMenuButton img{
+		flex:0.2;
+		margin-right: 5px;
+	}
+	#dropdownMenuButton #userinfo{
+/* 	border:2px solid;  */
+		flex:0.7;
+		text-align: center;
+	}
+	.header_nav li{
+/* 		border:2px solid; */
+		height: 50px;
+		line-height: 50px
+	}
+	.header_nav a span{
+/* 		border:2px dotted; */
+		height: 50px;
+		line-height: 50px;
+	}
+	#userinfo{
+		color:white;
+	}
+	.dropdown-menu> a{
+		width: 80%;
+		height: 42px;
+		display:block;
+/* 		border: 2px solid; */
+		margin: auto;
+		text-align: center;
+	
+	}
+	.dropdown-menu> a:hover{
+		background-color: #ccc;
+	}
+	.dropdown-menu> a , .dropdown-menu> a:hover , .dropdown-menu> a :active,.dropdown-menu> a :checked {
+	text-decoration: none;
+	list-style: none;
+	color:black;
+}
 </style>
 </head>	
 <body>
@@ -53,16 +96,30 @@
 					</div>
 				</div>
 				<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
-					<nav class="header_nav" id="header_nav"> 
+					<nav class="header_nav"> 
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
 <!-- 							<li><a href="#" class="scroll"><span data-hover="活動地圖">活動地圖</span></a></li> -->
 							<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
 							<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
-							<li>
-							<a id="loginSpan" href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
-							<li><a id="logoutSpan" href="#" class="scrol" style="display:none"><span data-hover="登出">登出</span></a></li>
-                            
+							<li><a id="loginRing" href="#" class="scroll" style="display:none;"><span data-hover="提醒">提醒</span></a></li>
+							<li><a id="loginSpan" href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
+							<li >
+							<div class="dropdown" id="logoutSpan" style="display:none;">
+								<div class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img src='images/01.jpg' alt=''class='img-circle' style='width:50px;height: 50px'> 
+									<div id="userinfo">XXX</div>
+								</div>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								    <a class="dropdown-item" href="#">會員資料</a>
+								    <a class="dropdown-item" href="#">好友名單</a>
+								    <a class="dropdown-item" href="#">個人設定</a>
+								    <a class="dropdown-item" href="#">我的活動</a>
+								    <a class="dropdown-item" href="#">我的心得</a>
+								    <a class="dropdown-item" id="logoutSubSpanA" class="scrol dropdown-item" href="#">登出</a>
+								 </div>
+							</div>
+                            </li>
 						</ul>
 					</nav>
 				</div>
@@ -240,5 +297,6 @@
 		</div>
 	</footer> -->
 	<i  id="upTop" class="fa fa-chevron-circle-up animated infinite bounce" aria-hidden="true"></i>
+	<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
 </body>
 </html>

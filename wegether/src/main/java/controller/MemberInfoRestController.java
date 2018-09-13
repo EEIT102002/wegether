@@ -1,6 +1,8 @@
 package controller;
 
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -156,5 +158,25 @@ public class MemberInfoRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+//	@GetMapping(path = { "/member/Info/index" }, produces = { "application/json" })
+//	public ResponseEntity<?> getInfoIndex(@RequestAttribute("memberid") Integer id) {
+//		if (id == null) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//		MemberInfoBean result = memberInfoDAO.select(id);
+//		if (result != null) {
+//			StringBuilder sb = new StringBuilder();
+//			sb.append("data:image/jpg;base64,");
+//			sb.append(org.apache.commons.codec.binary.StringUtils
+//					.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(result.getPhoto(), false)));
+//			sessionFactory.getCurrentSession().evict(result);
+//			Object[] obj = new Object[2];
+//			obj[0] = result;
+//			obj[1]= sb.toString();
+//			return new ResponseEntity<List<Object[]>>(obj, HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//	}
 
 }
