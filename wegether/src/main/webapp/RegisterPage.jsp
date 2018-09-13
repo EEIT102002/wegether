@@ -37,6 +37,9 @@
 		// 	})
 	})
 	
+ 
+	
+	
 	function clearForm() {
 	var inputs = document.getElementsByTagName("input");
 	for(var i=0; i<inputs.length; i++) {
@@ -45,6 +48,28 @@
 		}
 	}
 }
+	  document.addEventListener("DOMContentLoaded", function () {
+          document.getElementById("idName").addEventListener("blur",chkName);  //事件繫結，焦點離開                                    
+                            });
+       
+     
+      //姓名驗證
+      function chkName() {            
+          var idName = document.getElementById("idName").value;
+          var re=/^[\u4e00-\u9fff]{2,}$/; //中文字在unicode的區間
+          if(idName==""){
+              document.getElementById("idspName").
+              innerHTML=" <i > 姓名不可為空白</i>";
+          }else  if (re.test(idName)) 
+              document.getElementById("idspName").
+              innerHTML="";
+          else              
+              document.getElementById("idspName").
+              innerHTML=" <i > 必須兩個字以上的中文字！</i>";
+      }
+
+      
+    
 </script>
 <style>
 * {
@@ -199,23 +224,19 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>帳號(信箱):</td>
-							<td><input  type="text" name="account" value="${param.account}" required="required"></td>
+							<td><input  type="text" name="account" value="${param.account}" ></td>
 							<td>${inputRrrors.account}</td>
 						</tr>
 						<tr>
 							<td>密碼:</td>
-							<td><input type="password" name="pwd" value="${param.pwd}" required="required" ></td>
-							<td>${inputRrrors.pwd}</td>
-						</tr>
-						<tr>
-							<td>大頭照片:</td>
-							<td><input type="file" name="photo1" multiple="multiple" accept="image/*"></td>
-							<td>${inputRrrors.photo}</td>
+							<td><input id="idPwd" type="password" name="pwd" value="${param.pwd}"  ></td>
+							<td id="idspPwd"></td>
 						</tr>
 						<tr>
 							<td>姓名:</td>
-							<td><input type="text" name="name" value="${param.name}" required="required"></td>
-							<td>${inputRrrors.name}</td>
+							<td><input id="idName" type="text" name="name" value="${param.name}" ></td>
+							<td id="idspName"></td>
+							
 						</tr>
 						<tr>
 							<td>暱稱:</td>
@@ -237,14 +258,8 @@ footer>ul>li ul {
 							</td>
 						</tr>
 						<tr>
-							<td>職業:</td>
-							<td>
-							  <select name="job" size="1">
-									<option value="學生">學生</option>
-									<option value="保險員">保險員</option>
-									<option value="其他">其他</option>
-							  </select>
-							</td>
+							<td>職業:</td>							
+							 <td><input  type="text" name="job" value="${param.name}"></td>		
 						</tr>						
 						<tr>
 							<td>城市/所在地:</td>
