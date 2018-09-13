@@ -145,6 +145,7 @@
 // 			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
 // 					       ' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
 // 		}
+
 	}
 	//登入身分驗證 END
 	
