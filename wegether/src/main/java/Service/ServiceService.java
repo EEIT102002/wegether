@@ -18,7 +18,7 @@ public class ServiceService {
 	public List<ServiceBean> select(ServiceBean bean) {
 		System.out.println("ServiceService");
 		List<ServiceBean> result = null;
-		if (bean != null && bean.getMemberid() != null) {
+		if (bean.getMemberid() != null) {
 
 			System.out.println(bean.getMemberid());
 			result = serviceDAO.selectMemberId(bean.getMemberid());
