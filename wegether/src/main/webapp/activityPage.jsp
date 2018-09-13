@@ -111,15 +111,15 @@
 			}else if(attflag==1){
 				document.getElementById("memBut")
 				.innerHTML='<a href="#" style="text-decoration:none;">'+
-								' &emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>';
+							' &emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>';
 			}else if(attflag==2){
 		 		document.getElementById("memBut")
 			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
-						' &emsp; 取 &emsp; 消 &emsp; 報 &emsp; 名 &emsp;</a>';
+						    ' &emsp; 取 &emsp; 消 &emsp; 報 &emsp; 名 &emsp;</a>';
 			}else if(attflag==3){
 				document.getElementById("memBut")
 			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
-					' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
+					       ' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
 				}
 	}
 	//登入身分驗證 END
