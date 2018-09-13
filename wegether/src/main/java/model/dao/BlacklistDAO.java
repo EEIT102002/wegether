@@ -3,8 +3,9 @@ package model.dao;
 import java.util.List;
 
 import model.BlacklistBean;
-import model.TrackmemberBean;
 
 public interface BlacklistDAO {
 	public List<BlacklistBean> selectByMember(int fanid);
+	public List<BlacklistBean> insert(BlacklistBean bean);
+	public boolean delete(BlacklistBean bean);
 }

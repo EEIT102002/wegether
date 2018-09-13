@@ -9,11 +9,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import model.ActivityBean;
 import model.AttendBean;
@@ -44,6 +49,8 @@ public class ActivityPageController {
 	@Autowired
 	private MsgDAO msgDAO;
 	
+	private Integer memberid,flag; //0:未登入  1:主辦人  2:已報名者  3:未報名者
+	
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
 		webDataBinder.registerCustomEditor(java.util.Date.class,
@@ -51,8 +58,10 @@ public class ActivityPageController {
 	}
 	
 	@RequestMapping("/activityPage.controller")
-		public String method(Model model,String actid) {
-		
+		public String method(Model model,String actid, @RequestAttribute(name = "memberid",required = false) Integer id) {
+			System.out.println("id :"+id);
+			 memberid=id;
+			 flag=0;
 		//時間轉換
 				String[] months = {"一 月", "二 月", "三 月", "四 月",
 		                "五 月", "六 月", "七 月", "八 月",
@@ -60,14 +69,13 @@ public class ActivityPageController {
 				
 				String[] week = {"(日)","(一)", "(二)", "(三)", "(四)",
 		                "(五)", "(六)"};
-				
 		System.out.println("actid="+actid);
 		List<String> actPicList = new ArrayList<>();		
 		List<String> hostPicList = new ArrayList<>();
 		List<Map> memPicList = new ArrayList<>();
     	List<Map> msgsList = new ArrayList<>();
 		
-		
+    	if(actid==null) actid="1";
 		ActivityBean actBean = activityDAO.selectId(Integer.parseInt(actid));
 		MemberBean hostBean = memberDAO.select(actBean.getHostid());		
 		List<AttendBean> attBean = attendDAO.selectByActID(Integer.parseInt(actid));//報名人員名單
@@ -85,6 +93,12 @@ public class ActivityPageController {
 							attMap.put("memberId", att.getMemberid().toString());
 							attMap.put("memberPic", PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));
 							
+							// flag= 0:未登入  1:主辦人  2:已報名者  3:未報名者
+							if(memberid != null) {
+								if(memberid==actBean.getHostid()) flag=1;									
+								else if(memberid==att.getMemberid()) flag=2;
+								else if(flag == 0) flag=3;								
+							}
 							memPicList.add(attMap);//memPicBean.get(0) -->第一筆照片物件
 					});
 		
@@ -98,7 +112,7 @@ public class ActivityPageController {
 					hostPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 				});
 		
-		
+		 
 		if(msgBean.size()!=0) 
 			msgBean.forEach(msg->{
 				Calendar msgtime = Calendar.getInstance();
@@ -125,7 +139,7 @@ public class ActivityPageController {
 				msgsMap.put("msgtime",msgtimeStr );
 				msgsList.add(msgsMap);
 				
-				System.out.println(memberDAO.select(msg.getMemberid()).getNickname()+" : "+msgtimeStr+" : "+ msg.getContent());
+//				System.out.println(memberDAO.select(msg.getMemberid()).getNickname()+" : "+msgtimeStr+" : "+ msg.getContent());
 			});
 		
 		
@@ -189,13 +203,14 @@ public class ActivityPageController {
 		if(msgsList!=null) model.addAttribute("msgsList", msgsList);
 		else model.addAttribute("msgsList",null);
 		
-		msgsList.forEach(x->{
-		System.out.println( x.get("nickname") + " : " + x.get("msgtime") + " : " + x.get("content"));	
+		if(flag!=null) model.addAttribute("flag", flag);
+		else model.addAttribute("attMemberId",null);
 		
-		});
+//		msgsList.forEach(x->{
+//		System.out.println( x.get("nickname") + " : " + x.get("msgtime") + " : " + x.get("content"));	
+//		});
 		
 		return "activityPage";
  
-
 	}
 }

@@ -1,14 +1,14 @@
 package servlet;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,14 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
 import model.ActivityBean;
-import model.MemberBean;
-import model.PictureBean;
 import model.dao.implement.ActivityDAOHibernate;
 import pictureconvert.PictureConvert;
 
@@ -219,11 +215,13 @@ public class TestActivityDAOServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<p>ActivityTest</p>");
 
-		 result.forEach(temp->{
-		 out.println(temp+"<br><br>");
-		 out.println("===============<br><br>");
-		 });
-		
+		String relativelyPath = System.getProperty("user.dir");
+		out.println("relativelyPath" + relativelyPath);
+		// result.forEach(temp->{
+		// out.println(temp+"<br><br>");
+		// out.println("===============<br><br>");
+		// });
+		//
 		System.out.println(result);
 //		out.println(result);
 		out.close();
@@ -235,4 +233,21 @@ public class TestActivityDAOServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public static byte[] fileToByte(File img) throws Exception {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] bytes = null;
+		try {
+			BufferedImage bi;
+			bi = ImageIO.read(img);
+			ImageIO.write(bi, "jpg", baos);
+			bytes = baos.toByteArray();
+			System.err.println(bytes.length);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			baos.close();
+		}
+		return bytes;
+	}
 }

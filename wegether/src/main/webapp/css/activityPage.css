@@ -25,3 +25,25 @@
     margin: 0 0 10px 0;
     border-radius: 20px;
 }      
+
+
+ .div1 img{
+     width: 500px;
+     height: 350px;
+     border: 3px solid #FFBB00;
+     margin: 10px;
+     border-radius: 15px;
+ }
+ .div2 img{
+     width: 100px;
+     height: 70px;
+     border: 2px solid #FFBB00;
+     margin-top: 10px;
+     margin-bottom: 10px;
+ }
+ 
+  #tabs{
+     width: 500px;
+     height: 350px;
+  }
+  
