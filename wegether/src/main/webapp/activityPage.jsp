@@ -100,34 +100,27 @@
 	//留言、心得分享 end
 	
 	//身分驗證	
-	var attflag=0;
-	var memberid="${memberid}";
-	var hostid="${hostBean.id}";
-	var array="${attMemberId}";
-	
+	var attflag="${flag}"; //0:未登入  1:主辦人  2:已報名者  3:未報名者
 	function idCheck(){
-		
-	//	document.write(array+"<br>"); 		
-		for (var i = 1; i < "${attMemberId.size()*3}"; i=i+3){	
-		 //document.write(i+":"+array[i]+"<br>")
-		if(memberid==array[i]) attflag=1;
-	}
-		
-		if(attflag==1){
-			 	if(memberid==hostid){
-					document.getElementById("memBut")
-					.innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
+				
+		//0:未登入  1:主辦人  2:已報名者  3:未報名者
+		if(attflag==0){
+				document.getElementById("memBut")
+				.innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
+							' &emsp; 請 先 登 入 才 能 報 名 &emsp;</a>';
+			}else if(attflag==1){
+				document.getElementById("memBut")
+				.innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
 								' &emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>';
-				}else{
-			 		document.getElementById("memBut")
-				 	 .innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
+			}else if(attflag==2){
+		 		document.getElementById("memBut")
+			 	 .innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
 						' &emsp; 取 &emsp; 消 &emsp; 報 &emsp; 名 &emsp;</a>';
-			 		}
-		}else{
-			document.getElementById("memBut")
-		 	 .innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
-				' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
-		}
+			}else if(attflag==3){
+				document.getElementById("memBut")
+			 	 .innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
+					' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
+				}
 	}
 	//登入身分驗證 END
 
