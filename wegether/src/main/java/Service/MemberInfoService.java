@@ -101,7 +101,7 @@ public class MemberInfoService {
 	private JSONObject createRow(MemberBean bean) {
 		JSONObject row = (JSONObject)applicationContext.getBean("newJson");
 		row.put("nickname", bean.getNickname());
-		row.put("photo",bean.getPhoto());
+		row.put("photoSrc","/wegether/member/photo/"+bean.getId());
 		row.put("memberid",bean.getId());
 		return row;
 	}

@@ -69,14 +69,12 @@ public class MemberSettingController {
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
 		webDataBinder.registerCustomEditor(java.util.Date.class,
-				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-		
+				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));	
 		webDataBinder.registerCustomEditor(Double.class,
 				new CustomNumberEditor(Double.class, true));
-		
 		webDataBinder.registerCustomEditor(Integer.class,
 				new CustomNumberEditor(Integer.class, true));
-		webDataBinder.registerCustomEditor(Byte[].class, 
+		webDataBinder.registerCustomEditor(byte[].class, 
 				new ByteArrayMultipartFileEditor());
 	}
 	
@@ -179,10 +177,12 @@ public class MemberSettingController {
 		}
 		
 		bean.setId(id);
-		MemberInfoBean result = memberServic.setMemberInfo(bean);
-
-		if(result!=null) {
-			return new ResponseEntity<MemberInfoBean>(result, HttpStatus.OK);
+		MemberInfoBean check = memberServic.setMemberInfo(bean);
+		
+		if(check!=null) {
+			Map<String, Object> result = new HashMap<>();
+			result.put("photoSrc", check.getPhotoSrc());
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

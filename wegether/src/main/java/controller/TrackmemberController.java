@@ -1,18 +1,17 @@
 package controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import Service.TrackmemberService;
@@ -24,71 +23,45 @@ public class TrackmemberController {
 	@Autowired
 	private TrackmemberService trackmemberService;
 
-	@RequestMapping(path = { "/Trackmember.insert" })
-	protected void follow(Model model, int Memberid, HttpServletRequest request, HttpServletResponse response,
-			@RequestAttribute(name = "memberid", required = false) Integer id) throws ServletException, IOException {
-		Map<String,String>result1=null;
-		TrackmemberBean result = null;
-		System.out.println("id=" + id);// 使用者ID
-		System.out.println(Memberid);
-		int fid = id;
-		int mid = 0; // 被追蹤ID 歸0
-		 response.setContentType("text/html; charset=UTF-8");
-		mid = Memberid;
-		// 接收資料
-//		if (request.getParameter("Memberid") != "") {
-		if (request.getParameter("Memberid") != "") {
-			 mid = Integer.valueOf(request.getParameter("Memberid"));
-			 System.out.println("mid="+mid);
-			 result = trackmemberService.insert(mid,fid);// 加追蹤
-			 System.out.println("result結果="+result);
-			 System.out.print(result);
 
-			if (result != null) {
-				 PrintWriter out = response.getWriter();
-				 out.println("追蹤成功"+result);
-				 out.close();
-				model.addAttribute("result", result);
-//				result1.put("result", "追蹤成功");
-			} else {
-				 PrintWriter out = response.getWriter();
-				 out.println("追蹤失敗"+result);
-				 out.close();
-				model.addAttribute("result", result);
-//				result1.put("result", "追蹤失敗");
-			}
+	@RequestMapping(path = { "/Trackmember/insert" })
+	protected @ResponseBody ResponseEntity<?>  insertTrack(
+			@RequestParam Integer memberid,@RequestAttribute("memberid") Integer fanid){
+		Map<String, Object>result = new HashMap<>();
+		if(memberid == null || fanid == null) {
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-//		if(result1!=null) {
-//			model.addAttribute("output",result1);
-//			return "Service.insertpage";
-//		}
-//		return "Service.insertpage";
+			TrackmemberBean bean = trackmemberService.insert(memberid,fanid);// 加追蹤
+		
+		if (bean != null) {
+			result.put("state", true);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} else {
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+
 	}
 
-	@RequestMapping(path = { "/Trackmember.delete" })
-	protected void unfollow(Model model, HttpServletRequest request, HttpServletResponse response,
-			@RequestAttribute("memberid") Integer id) throws ServletException, IOException {
-		System.out.println("id=" + id);// 使用者ID
-		int fid = id;
-		int mid = 0; // 被追蹤ID
-		response.setContentType("text/html; charset=UTF-8");
-		boolean result = false;
-		// 接收資料
 
-		if (request.getParameter("Memberid") != "") {
-			mid = Integer.valueOf(request.getParameter("Memberid"));
-			System.out.println(mid);
-			result = trackmemberService.delete(mid, fid);// 取消追蹤
+	@RequestMapping(path = { "/Trackmember/delete" })
+	protected @ResponseBody ResponseEntity<?>  deleteTrack(
+			@RequestParam Integer memberid,@RequestAttribute("memberid") Integer fanid){
+		Map<String, Object>result = new HashMap<>();
+		if(memberid == null || fanid == null) {
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-		if (result != false) {
-			PrintWriter out = response.getWriter();
-			out.println("取消追蹤成功");
-			out.close();
+		boolean state = trackmemberService.delete(memberid, fanid);// 加追蹤
+		
+		if (state) {
+			result.put("state", true);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+
 		} else {
-			PrintWriter out = response.getWriter();
-			out.println("未追蹤");
-			out.close();
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-		System.out.println(result);
 	}
 }
