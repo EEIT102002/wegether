@@ -28,7 +28,6 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <!-- 登入使用 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
 <script src="/wegether/js/activityPag.js"></script>
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
@@ -41,10 +40,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <script>
+
 	$(function() {
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
+		
 		$('#upTop').click(function(){
 			var body = $("html, body");
 			body.stop().animate({scrollTop:0}, 500, 'swing');
@@ -53,78 +54,116 @@
 			}).mouseout(function(){
 				$(this).addClass('animated');
 			})
+// 		$('body').on('click','');	
 	})
-	var flag = 0;
+// 	var flag = 0;
 	document.addEventListener("DOMContentLoaded",
 			function() {
-				document.getElementById("favorButton").addEventListener(
-						"click", click);
-				selectPic();//activityPage 輪播使用				
+// 				document.getElementById("favorButton").addEventListener(
+// 						"click", click);
+// 				selectPic();//activityPage 輪播使用				
 				idCheck();//身分驗證
+			   
 			});
 
-	function click() {
-		if (flag == 0) {
-			document.getElementById("favorButton").src = "images/activityPageImages/favorites.png";
-			flag = 1;
-		} else {
-			document.getElementById("favorButton").src = "images/activityPageImages/favoritesOff.png";
-			flag = 0;
-		}
-	}
-	$(function() {
-		$("[data-toggle='tooltip']").tooltip();
-	});
+// 	function click() {
+// 		if (flag == 0) {
+// 			document.getElementById("favorButton").src = "images/activityPageImages/favorites.png";
+// 			flag = 1;
+// 		} else {
+// 			document.getElementById("favorButton").src = "images/activityPageImages/favoritesOff.png";
+// 			flag = 0;
+// 		}
+// 	}
+// 	$(function() {
+// 		$("[data-toggle='tooltip']").tooltip();
+// 	});
 
-	//activityPage 輪播使用
-	var picNo = 1;
-	var timerObj = setInterval(autoPlay, 1500);
-	function autoPlay() {
-		picNo++;
-		if (picNo > "${actPicList.size()}")
-			picNo = 1;
-		selectPic();
-	}
+// 	//activityPage 輪播使用
+// 	var picNo = 1;
+// 	var timerObj = setInterval(autoPlay, 1500);
+// 	function autoPlay() {
+// 		picNo++;
+// 		if (picNo > "${actPicList.size()}")
+// 			picNo = 1;
+// 		selectPic();
+// 	}
 
-	function selectPic() {
-		for (var i = 1; i <= "${actPicList.size()}"; i++)
-			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
-		document.getElementById("imd" + picNo).style = "border:3px solid red";
-		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
-	}
-	//activityPage 輪播使用  end	
-	//留言、心得分享
-	$(function() {
-		$("#tabs").tabs();		
-	});
-	//留言、心得分享 end
+// 	function selectPic() {
+// 		for (var i = 1; i <= "${actPicList.size()}"; i++)
+// 			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
+// 		document.getElementById("imd" + picNo).style = "border:3px solid red";
+// 		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
+// 	}
+// 	//activityPage 輪播使用  end	
+// 	//留言、心得分享
+// 	$(function() {
+// 		$("#tabs").tabs();		
+// 	});
+// 	//留言、心得分享 end
 	
-	//身分驗證	
-	var attflag="${flag}"; //0:未登入  1:主辦人  2:已報名者  3:未報名者
+// 	//身分驗證	
+	var attflag= ${flag}; //0:未登入  1:主辦人  2:已報名者  3:未報名者
 	function idCheck(){
-				
 		//0:未登入  1:主辦人  2:已報名者  3:未報名者
-		if(attflag==0){
-				document.getElementById("memBut")
-				.innerHTML='<a href="#" style="text-decoration:none;">'+
-							' &emsp; 請 先 登 入 才 能 報 名 &emsp;</a>';
-			}else if(attflag==1){
-				document.getElementById("memBut")
-				.innerHTML='<a href="#" style="text-decoration:none;">'+
-							' &emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>';
-			}else if(attflag==2){
-		 		document.getElementById("memBut")
-			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
-						    ' &emsp; 取 &emsp; 消 &emsp; 報 &emsp; 名 &emsp;</a>';
-			}else if(attflag==3){
-				document.getElementById("memBut")
-			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
-					       ' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
-				}
+		
+		if(attflag == 0){
+			$('#memBut').text('請 先 登 入 才 能 報 名 ').click(function(){
+				
+			});
+		}
+		if(attflag == 1){
+			$('#memBut').text('編 輯 活 動 ').click(function(){
+				
+			});
+		}
+		if(attflag == 2){
+			$('#memBut').text('取 消 報 名 ').click(function(){
+				
+			});
+		}
+		if(attflag == 3){
+			$('#memBut').text('報 名 ').click(function(){
+				
+			});
+		}
+		
+// 		if(attflag == 0){
+// 				$('#memBut').val('&emsp; s請 先 登 入 才 能 報 名 &emsp;');
+// // 					document.getElementById("memBut")
+// // 					.innerHTML='&emsp; 請 先 登 入 才 能 報 名 &emsp;';
+// 		}else if(attflag==1){
+// 				document.getElementById("memBut")
+// 				.innerHTML='<a href="#" style="text-decoration:none;">'+
+// 							' &emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>';
+// 		}else if(attflag==2){
+// 		 		document.getElementById("memBut")
+// 			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
+// 						    ' &emsp; 取 &emsp; 消 &emsp; 報 &emsp; 名 &emsp;</a>';
+// 		}else if(attflag==3){
+// 				document.getElementById("memBut").val())
+// 			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
+// 					       ' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
+// 		}
+
 	}
 	//登入身分驗證 END
-
-
+	
+// 	//留言 / 心得分享
+// 	function msgclick(){
+// 		 document.getElementById("msgButId").className = "btn btn-warning";   	   //留言按鍵
+// 		    document.getElementById("articleButId").className = "btn btn-secondary";    //心得分享按鍵   
+// 		    location.href = 'index.jsp';
+                 
+//             }
+	
+// 	function articleclick(){
+// 		 document.getElementById("msgButId").className = "btn btn-secondary";   	   //留言按鍵
+// 		    document.getElementById("articleButId").className = "btn btn-warning";    //心得分享按鍵   
+	
+                
+//            }
+// 	//留言 / 心得分享  END
 </script>
 <style>
 * {
@@ -236,7 +275,7 @@ footer>ul>li ul {
 					</div>
 					<div class="modal-body" id="mid-body">
 						<form id="loginform">
-							<p class="loginerror" ></p>
+							<p class="loginerror"></p>
 							<div class="form-group" id="ACT">
 								<label for="recipient-name" class="col-form-label">帳號:</label> <input
 									type="text" class="form-control" id="account" name="account">
@@ -297,8 +336,8 @@ footer>ul>li ul {
 								<p id="txtup">${hostBean.job}</p>
 							</div>
 							<div id="right">
-								<a href="activityPage.controller?actid=1" class="tooltip-test" data-toggle="tooltip"
-									title="推薦給好友"> <img
+								<a href="activityPage.controller?actid=1" class="tooltip-test"
+									data-toggle="tooltip" title="推薦給好友"> <img
 									src="images/activityPageImages/invite.png" width="50"></a>&emsp;
 								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
 									<img src="images/activityPageImages/click2.png" width="50">
@@ -358,10 +397,10 @@ footer>ul>li ul {
 						<div style="text-align: center">
 
 							<!-- 報名按鍵 -->
-							<button id="memBut" type="button" class="btn btn-warning"/>
-						
-							
-						
+							<button id="memBut" type="button" class="btn btn-warning"></button>
+
+
+
 						</div>
 						<!-- right7 end -->
 
@@ -380,44 +419,16 @@ footer>ul>li ul {
 					<h4>留下意見:</h4>
 					<textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
 					</br> </br>
-					<button type="button" class="btn btn-warning">&emsp; 留
-						&emsp; &emsp; 言 &emsp;</button>
-					<button type="button" class="btn btn-warning">&emsp;
-						心&emsp; 得 &emsp; 分&emsp;享 &emsp;</button>
+					<button id="msgButId" type="button" class="btn btn-warning"
+						onclick="msgclick();">&emsp; 留 &emsp; &emsp; 言 &emsp;</button>
+
+					<button id="articleButId" type="button" class="btn btn-warning"
+						onclick="articleclick();">&emsp; 心&emsp; 得 &emsp;
+						分&emsp;享 &emsp;</button>
 					</br> </br>
 
 					<!--  留言、心得分享 -->
-					<div id="tabs">
-						<ul>
-							<li><a href="#tabs-1">Nunc tincidunt</a></li>
-							<li><a href="#tabs-2">Proin dolor</a></li>
-						</ul>
-						<div id="tabs-1">
-							<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo
-								a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet
-								mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa
-								et lorem. Mauris dapibus lacus auctor risus. Aenean tempor
-								ullamcorper leo. Vivamus sed magna quis ligula eleifend
-								adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum.
-								Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede
-								varius sollicitudin. Sed ut dolor nec orci tincidunt interdum.
-								Phasellus ipsum. Nunc tristique tempus lectus.</p>
-						</div>
-						<div id="tabs-2">
-							<p>Morbi tincidunt, dui sit amet facilisis feugiat, odio
-								metus gravida ante, ut pharetra massa metus id nunc. Duis
-								scelerisque molestie turpis. Sed fringilla, massa eget luctus
-								malesuada, metus eros molestie lectus, ut tempus eros massa ut
-								dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in
-								ligula suscipit aliquam. Praesent in eros vestibulum mi
-								adipiscing adipiscing. Morbi facilisis. Curabitur ornare
-								consequat nunc. Aenean vel metus. Ut posuere viverra nulla.
-								Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat,
-								tellus pellentesque pretium posuere, felis lorem euismod felis,
-								eu ornare leo nisi vel felis. Mauris consectetur tortor et
-								purus.</p>
-						</div>
-					</div>
+
 					<!--  留言、心得分享  end-->
 					<!-- msg begin -->
 					<c:forEach var="obj" items="${msgsList}">
