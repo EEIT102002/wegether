@@ -1,10 +1,6 @@
 package model.dao.implement;
 
-import static org.junit.Assert.fail;
-
 import java.util.List;
-
-import javax.persistence.Id;
 
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -12,9 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import model.ActivityBean;
 import model.PictureBean;
-import model.SettingBean;
 import model.dao.PictureDAO;
 
 @Repository
@@ -70,7 +64,7 @@ public class PictureDAOHibernate implements PictureDAO{
 	public PictureBean insert(PictureBean picturebean) {
 		if(picturebean!=null) {
 				this.getSession().save(picturebean);
-				return picturebean;
+				return Select(picturebean.getId());
 		}
 		return null;
 	}
