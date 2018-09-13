@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,17 +17,17 @@ public class PictureBean {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "PICTURE_sq")
 	@SequenceGenerator(allocationSize = 1, name = "PICTURE_sq")
-	public Integer id;
+	private Integer id;
 	
 	
-	public byte[] picture;
-	public Integer activityid;
-	public Integer articleid;
-	public Integer memberid;
+	private byte[] picture;
+	private Integer activityid;
+	private Integer articleid;
+	private Integer memberid;
 
 
 	//activity
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(
 			name="ACTIVITYID",
 			referencedColumnName="ID",
@@ -41,7 +42,7 @@ public class PictureBean {
 	}
 	
 	//article
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(
 			name="ARTICLEID",
 			referencedColumnName="ID",
@@ -56,7 +57,7 @@ public class PictureBean {
 	}
 	
 	//member
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(
 			name="MEMBERID",
 			referencedColumnName="ID",
