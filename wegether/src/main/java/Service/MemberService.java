@@ -105,6 +105,7 @@ public class MemberService {
 			i++;
 		}
 		getSession().flush();
+		
 		if (i > 0) {
 			return memberInfoDAO.select(result.getId());
 		} else {

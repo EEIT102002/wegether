@@ -41,7 +41,9 @@ public class MemberInfoRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		MemberInfoBean result = memberInfoDAO.select(id);
+		
 		if (result != null) {
+			System.out.println(result.getPhotoSrc());
 			return new ResponseEntity<MemberInfoBean>(result, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

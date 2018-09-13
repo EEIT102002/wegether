@@ -52,7 +52,7 @@ public class MemberSearchService {
 	private JSONObject createRow(MemberInfoBean bean) {
 		JSONObject row = (JSONObject)applicationContext.getBean("newJson");
 		row.put("nickname", bean.getNickname());
-		row.put("photo",bean.getPhoto());
+		row.put("photo",bean.getId());
 		row.put("memberid",bean.getId());
 		return row;
 	}

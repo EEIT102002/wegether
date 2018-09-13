@@ -23,7 +23,7 @@ public class TrackmemberBean implements java.io.Serializable {
 			@AttributeOverride(name = "fanid", column = @Column(name = "fanid", nullable = false)) })
 	private TrackmemberId id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "memberid", insertable = false, updatable = false)
 	private MemberBean memberByMemberid;
 

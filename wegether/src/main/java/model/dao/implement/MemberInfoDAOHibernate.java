@@ -27,9 +27,10 @@ public class MemberInfoDAOHibernate implements MemberInfoDAO {
 	}
 
 	public MemberInfoBean select(int id) {
-		
-		return getSession().get(MemberInfoBean.class, id);
+		MemberInfoBean result = getSession().get(MemberInfoBean.class, id);
+		return result;
 	}
+	
 	@Override
 	public List<MemberInfoBean> selectByNickname(String nickname) {
 		return getSession().createQuery(Select.memberInfoByNickname,MemberInfoBean.class)

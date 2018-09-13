@@ -1,0 +1,99 @@
+<head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+        <script src="/wegether/js/bootstrap.js"></script>
+        <script src="../js/iframeautoheight.js" type="text/javascript"></script>
+        <script src="/wegether/js/imageError.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../css/friendlist.css">
+    
+        <script>
+            var rowtemp = '<a href=""><div><div class="photoDiv"><img src="" alt=""></div><span class="name"></span></div></a>';
+            var applyedtemp = '<div><a href=""><div class="photoDiv"><img src = ""alt=""></div><div><span class="name"></span></div></a><div class="friendButton"><button type="button">接受</button><br><button type="button">拒絕</button></div></div>';
+            var applytemp = '<div><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button">取消</button></div></div>';
+            var friendList;
+            var friendsearch;
+        </script>
+        <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+    
+            body {
+                width: 800px;
+            }
+    
+    
+            .setting4ul {
+                margin: 0;
+            }
+    
+            .setting4ul li {
+                float: left;
+                padding: 4px;
+                padding-left: 10px;
+                padding-right: 20px;
+                display: inline;
+            }
+    
+            .setting4ul li:hover {
+                color: white;
+                background-color: rgba(0, 44, 95, 0.100);
+    
+            }
+    
+            .setting4list:after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+        </style>
+    
+    </head>
+    
+    <body>
+        <div class="setting4">
+            <div class="setting4list">
+                <ul class="setting4ul">
+                    <li>好友</li>
+                    <li>好友邀請</li>
+                    <li>已提出邀請</li>
+                </ul>
+                <br>
+            </div>
+            <div id="blocklist">
+                <div class="friendsearch">
+                    <form id="search">
+                        <input type="text" name="nickname" id="">
+                        <input type="submit" value="增加好友">
+                    </form>
+                </div>
+                <div class="friendList">
+                    <a href="">
+                        <div>
+                            <div class="photoDiv">
+                                <img src="" alt="">
+                            </div>
+                            <span class="name">adsf</span>
+                        </div>
+                    </a>
+                    <div>
+                        <a href="">
+                            <div class="photoDiv">
+                                <img src="" alt="">
+                            </div>
+                            <div>
+                                <span class="name">asdf</span>
+                            </div>
+                        </a>
+                        <div class="friendButton">
+                            <button type="button">接受</button>
+                            <br>
+                            <button type="button">拒絕</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
