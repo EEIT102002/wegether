@@ -38,7 +38,6 @@
 <!-- 留言 /心得心享 視窗  -->
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <script>
@@ -88,10 +87,10 @@
 	}
 
 	function selectPic() {
-		for (var i = 1; i <= "${actPicList.size()}"; i++)
-			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
-		document.getElementById("imd" + picNo).style = "border:3px solid red";
-		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
+// 		for (var i = 1; i <= "${actPicList.size()}"; i++)
+// 			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
+// 		document.getElementById("imd" + picNo).style = "border:3px solid red";
+// 		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
 	}
 	//activityPage 輪播使用  end	
 	//留言、心得分享

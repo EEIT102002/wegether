@@ -15,26 +15,26 @@ public class SettingBean {
 	@Id
 	@TableGenerator(name = "memberid", table = "member")
 	@GeneratedValue(generator = "memberid", strategy = GenerationType.TABLE)
-	public Integer memberid;
-	public Integer birthday;
-	public Integer sex;
-	public Integer job;
-	public Integer city;
-	public Integer addr;
-	public Integer tel;
-	public Integer content;
-	public Integer favorite;
-	public Integer showarticle;
-	public Integer showhost;
-	public Integer showactivity;
-	public Integer rankscore;
-	public Integer invite;
-	public Integer addfriend;
-	public Integer activitymsg;
-	public Integer articlemsg;
-	public Integer activitychange;
-	public Integer friendarticle;
-	public Integer friendactivity;
+	private Integer memberid;
+	private Integer birthday;
+	private Integer sex;
+	private Integer job;
+	private Integer city;
+	private Integer addr;
+	private Integer tel;
+	private Integer content;
+	private Integer favorite;
+	private Integer showarticle;
+	private Integer showhost;
+	private Integer showactivity;
+	private Integer rankscore;
+	private Integer invite;
+	private Integer addfriend;
+	private Integer activitymsg;
+	private Integer articlemsg;
+	private Integer activitychange;
+	private Integer friendarticle;
+	private Integer friendactivity;
 
 	@OneToOne(mappedBy = "settingBean", cascade = { CascadeType.REMOVE })
 
