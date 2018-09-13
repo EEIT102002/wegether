@@ -8,8 +8,7 @@ $(function () {
         "/wegether/login.check"
         , ""
         , function (data) {
-            if (data.state == true) {
-            	
+            if (data.state == true) {           	
             	logingroup(data);
             }
         }
