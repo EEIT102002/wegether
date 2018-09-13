@@ -70,9 +70,11 @@ function creatApplyForm(){
         q.name = q.type + i.toString();
         switch (q.type) {
             case "radio": case "select": case "checkbox":
-                q.options = {};
+                q.options = [];
                 $.each(ele.find('.inputDiv_applyForm ol input'), function (i, e) {
-                    q.options[q.name + "_" + i] = e.value;
+                	var option = {};
+                	option[q.name + "_" + i] = e.value
+                    q.options.push(option);
                 })
         }
         actForm.questions.push(q);
