@@ -38,7 +38,6 @@
 <!-- 留言 /心得心享 視窗  -->
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <script>
@@ -60,6 +59,8 @@
 			function() {
 				document.getElementById("favorButton").addEventListener(
 						"click", click);
+				selectPic();//activityPage 輪播使用				
+				idCheck();//身分驗證
 			});
 
 	function click() {
@@ -77,9 +78,6 @@
 
 	//activityPage 輪播使用
 	var picNo = 1;
-	document.addEventListener("DOMContentLoaded", function() {
-		selectPic();
-	});
 	var timerObj = setInterval(autoPlay, 1500);
 	function autoPlay() {
 		picNo++;
@@ -89,17 +87,51 @@
 	}
 
 	function selectPic() {
-		for (var i = 1; i <= "${actPicList.size()}"; i++)
-			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
-		document.getElementById("imd" + picNo).style = "border:3px solid red";
-		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
+// 		for (var i = 1; i <= "${actPicList.size()}"; i++)
+// 			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
+// 		document.getElementById("imd" + picNo).style = "border:3px solid red";
+// 		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
 	}
 	//activityPage 輪播使用  end	
 	//留言、心得分享
 	$(function() {
-		$("#tabs").tabs();
+		$("#tabs").tabs();		
 	});
 	//留言、心得分享 end
+	
+	//身分驗證	
+	var attflag=0;
+	var memberid="${memberid}";
+	var hostid="${hostBean.id}";
+	var array="${attMemberId}";
+	
+	function idCheck(){
+		
+	//	document.write(array+"<br>"); 		
+		for (var i = 1; i < "${attMemberId.size()*3}"; i=i+3){	
+		 //document.write(i+":"+array[i]+"<br>")
+		if(memberid==array[i]) attflag=1;
+	}
+		
+		if(attflag==1){
+			 	if(memberid==hostid){
+					document.getElementById("memBut")
+					.innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
+								' &emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>';
+				}else{
+			 		document.getElementById("memBut")
+				 	 .innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
+						' &emsp; 取 &emsp; 消 &emsp; 報 &emsp; 名 &emsp;</a>';
+			 		}
+		}else{
+			document.getElementById("memBut")
+		 	 .innerHTML='<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>" style="text-decoration:none;">'+
+				' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
+		}
+	}
+	//登入身分驗證 END
+
+
 </script>
 <style>
 * {
@@ -272,7 +304,7 @@ footer>ul>li ul {
 								<p id="txtup">${hostBean.job}</p>
 							</div>
 							<div id="right">
-								<a href="#" class="tooltip-test" data-toggle="tooltip"
+								<a href="activityPage.controller?actid=1" class="tooltip-test" data-toggle="tooltip"
 									title="推薦給好友"> <img
 									src="images/activityPageImages/invite.png" width="50"></a>&emsp;
 								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
@@ -332,11 +364,12 @@ footer>ul>li ul {
 						<!-- right6 end -->
 						<div style="text-align: center">
 
-							<button type="button" class="btn btn-warning">
-								<a href="<c:url value="/actEdit.getBean.controller?actid=66"/>">
-									&emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>
-							</button>
-
+							<!-- 報名按鍵 -->
+							<button id="memBut" type="button" class="btn btn-warning">
+							
+							<button>
+							
+						
 						</div>
 						<!-- right7 end -->
 
