@@ -38,6 +38,7 @@ public class MemberInfoRestController {
 	@GetMapping(path = { "/member/Info" }, produces = { "application/json" })
 	public ResponseEntity<?> getInfo(@RequestAttribute("memberid") Integer id) {
 		if (id == null) {
+			System.out.println("is null");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		MemberInfoBean result = memberInfoDAO.select(id);
