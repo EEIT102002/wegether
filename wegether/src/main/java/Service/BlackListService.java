@@ -14,8 +14,8 @@ public class BlackListService {
 	@Autowired
 	private BlacklistDAO blacklistDAO;
 
-	public List<BlacklistBean> insert(int bid,int mid) {
-		List<BlacklistBean> result = null;
+	public BlacklistBean insert(int bid,int mid) {
+		BlacklistBean result = null;
 
 		if (mid != bid && bid != 0) {
 			BlacklistId id = new BlacklistId();// NEW TrackmemberBean 來放TrackmemberId id

@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +24,7 @@ public class BlackListController {
 	@RequestMapping(path = { "/BlackList.insert" })
 	protected void doGet(Model model, HttpServletRequest request, HttpServletResponse response, @RequestAttribute(name = "memberid",required = false) Integer id)
 			throws ServletException, IOException {
-		List<BlacklistBean> result = null;
+		BlacklistBean result = null;
 		System.out.print("mid="+id);//userid
 		int mid =id;
 		int bid = 0;         //被黑名單
@@ -40,14 +38,14 @@ public class BlackListController {
 			 }
 			 if (result != null) {
 			 PrintWriter out = response.getWriter();
-			 out.println("加黑名單成功");
+			 out.println("加黑名單成功"+result);
 			 out.close();
 			 } else {
 			 PrintWriter out = response.getWriter();
-			 out.println("加黑名單失敗");
+			 out.println("加黑名單失敗"+result);
 			 out.close();
 			 }
-			 System.out.println(result);
+			 System.out.println("result="+result);
 		}
 
 
