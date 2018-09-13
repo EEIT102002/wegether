@@ -53,7 +53,7 @@ public class ActivityPageController {
 	
 	@RequestMapping("/activityPage.controller")
 		public String method(Model model,String actid,@RequestAttribute("memberid") Integer id) {
-			System.out.println("id :"+id);
+			//System.out.println("id :"+id);
 		//時間轉換
 				String[] months = {"一 月", "二 月", "三 月", "四 月",
 		                "五 月", "六 月", "七 月", "八 月",
@@ -65,6 +65,7 @@ public class ActivityPageController {
 		System.out.println("actid="+actid);
 		List<String> actPicList = new ArrayList<>();		
 		List<String> hostPicList = new ArrayList<>();
+		List<String> attMemberId = new ArrayList<>();
 		List<Map> memPicList = new ArrayList<>();
     	List<Map> msgsList = new ArrayList<>();
 		
@@ -85,7 +86,7 @@ public class ActivityPageController {
 						if(memPicBean.size()!=0)
 							attMap.put("memberId", att.getMemberid().toString());
 							attMap.put("memberPic", PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));
-							
+							attMemberId.add(att.getMemberid().toString());
 							memPicList.add(attMap);//memPicBean.get(0) -->第一筆照片物件
 					});
 		
@@ -189,6 +190,9 @@ public class ActivityPageController {
 		
 		if(msgsList!=null) model.addAttribute("msgsList", msgsList);
 		else model.addAttribute("msgsList",null);
+		
+		if(attMemberId!=null) model.addAttribute("attMemberId", attMemberId);
+		else model.addAttribute("attMemberId",null);
 		
 		msgsList.forEach(x->{
 		System.out.println( x.get("nickname") + " : " + x.get("msgtime") + " : " + x.get("content"));	
