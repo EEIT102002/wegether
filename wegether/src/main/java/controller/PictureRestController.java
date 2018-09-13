@@ -22,19 +22,19 @@ public class PictureRestController{
 	@Autowired
 	ActivityDAO activityDAO;
 	
-	@GetMapping(value = "/picture/{id}", produces = { "image/jpg, image/jpeg, image/png" })
+	@GetMapping(value = "/picture/{id}", produces = { "image/jpg", "image/jpeg", "image/png" })
 	public @ResponseBody byte[] getPicture(@PathVariable Integer id){
 		PictureBean bean = pictureDAO.Select(id);
 		return bean.getPicture();
 	}
 	
-	@GetMapping(value = "/member/photo/{id}" ,produces = { "image/jpg, image/jpeg, image/png" })
-	public @ResponseBody Byte[] getMemberPicture(@PathVariable Integer id){
+	@GetMapping(value = "/member/photo/{id}" ,produces = { "image/jpg", "image/jpeg", "image/png" })
+	public @ResponseBody byte[] getMemberPicture(@PathVariable Integer id){
 		 MemberBean bean = memberDAO.select(id);
 		return bean.getPhoto();
 	}
 	
-	@GetMapping(value = "/activity/photo/{id}" ,produces = { "image/jpg, image/jpeg, image/png" })
+	@GetMapping(value = "/activity/photo/{id}" ,produces = { "image/jpg", "image/jpeg", "image/png" })
 	public @ResponseBody byte[] getActivityPicture(@PathVariable Integer id){
 		ActivityBean bean = activityDAO.selectId(id);
 		return bean.getPicture();

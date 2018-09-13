@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class PictureBean {
 
 
 	//activity
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(
 			name="ACTIVITYID",
 			referencedColumnName="ID",
@@ -41,7 +42,7 @@ public class PictureBean {
 	}
 	
 	//article
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(
 			name="ARTICLEID",
 			referencedColumnName="ID",
@@ -56,7 +57,7 @@ public class PictureBean {
 	}
 	
 	//member
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(
 			name="MEMBERID",
 			referencedColumnName="ID",

@@ -87,10 +87,10 @@
 	}
 
 	function selectPic() {
-// 		for (var i = 1; i <= "${actPicList.size()}"; i++)
-// 			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
-// 		document.getElementById("imd" + picNo).style = "border:3px solid red";
-// 		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
+		for (var i = 1; i <= "${actPicList.size()}"; i++)
+			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
+		document.getElementById("imd" + picNo).style = "border:3px solid red";
+		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
 	}
 	//activityPage 輪播使用  end	
 	//留言、心得分享
@@ -330,10 +330,7 @@ footer>ul>li ul {
 								</c:forEach>
 							</div>
 						</div>
-
 						<!-- 	照片輪播  end-->
-
-
 					</div>
 					<!-- 上左區塊 end -->
 
