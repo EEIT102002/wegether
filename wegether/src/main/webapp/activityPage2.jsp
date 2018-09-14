@@ -43,6 +43,7 @@
 
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/wegether/css/applyForm.css">
 
 <script>
 	$(function() {
@@ -416,23 +417,7 @@ footer>ul>li ul {
 			<!--       寫在這以上 -->
 		</div>
 	</div>
-	<div class="modal fade" id="applyForm" role="dialog">
-		<div class="modal-dialog">
 
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">報名表單</h4>
-				</div>
-				<div class="modal-body"></div>
-				<div class="modal-footer">
-					<button type="button" id='sendApply' class="btn btn-default">上傳</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
 
 	<!-- <footer>
 		<div class="container">

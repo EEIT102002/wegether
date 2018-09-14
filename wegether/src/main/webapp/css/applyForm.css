@@ -1,0 +1,91 @@
+#applyForm .modal-content{
+    width:inherit;
+    
+}
+
+#applyForm .modal-footer{
+    padding: 20px;
+}
+
+#applyForm form {
+	margin:0;
+	padding:0;
+}
+
+#applyForm form label{
+	display: initial;
+    max-width: 100%;
+    margin: 0px;
+    font-weight: inherit;
+}
+
+#applyForm form input,
+#applyForm form textarea {
+    padding: 8px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font: inherit;
+    width: 90%;
+    margin: 0;
+    max-height: 100px;
+    max-width: 90%;
+}
+
+
+#applyForm form input[type="radio"], 
+#applyForm form input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+    display: inline;
+    position: relative;
+    top: 5px;
+    margin-right:15px;
+}
+
+#applyForm form>div {
+    width: 100%;
+    margin: 10px;
+    padding: 10px 10px 20px 10px;
+    border-bottom: 1px solid #ccc;
+     font-size:16px !important;
+}
+
+#applyForm form>div>label {
+    line-height: 2em;
+    font-size: 18px
+}
+
+#applyForm form>div p>label {
+    font-size: 16px;
+}
+
+#applyForm form button,
+#applyForm form input,
+#applyForm form select,
+#applyForm form textarea {
+    margin: 0;
+}
+
+#applyForm form select {
+    padding: 9px 0;
+    width: 50%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+#applyForm form span {
+    margin-left: 10px;
+    font-size: 12px ;
+}
+
+#applyForm form .error {
+    color: red;
+    font-size: 14px ;
+}
+
+#applyForm form  p{
+	margin:0;
+	padding:0;
+}
