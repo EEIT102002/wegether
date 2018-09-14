@@ -36,7 +36,7 @@ public class ServiceController {
 		// 轉換資料
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
-
+		
 		// if (bindingResult != null && bindingResult.hasFieldErrors()) {
 		//// if (bindingResult.hasFieldErrors("memberid")) {
 		//// errors.put("memberid", "memberid must be an integer");
@@ -61,11 +61,16 @@ public class ServiceController {
 		// errors.put("memberid", "請先登入 " + servicemethod+" (FormBean)");
 		// }
 		// }
-
+		
+		
+		
 		if (errors != null && !errors.isEmpty()) {
 			return "Service.errors";
 		}
-		if (id==null) {
+		
+		//登入驗證
+		if (id==null&&id==null) {
+			System.out.println("未登入");
 			return "Service.errors";
 		}
 

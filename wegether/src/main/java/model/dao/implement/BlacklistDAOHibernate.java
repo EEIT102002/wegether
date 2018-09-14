@@ -3,6 +3,8 @@ package model.dao.implement;
 import java.util.List;
 import java.util.Set;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -41,10 +43,14 @@ public class BlacklistDAOHibernate implements BlacklistDAO {
 
 	@Override
 	public BlacklistBean insert(BlacklistBean bean) {
+		BlacklistBean result=null;
 		if (bean != null) {
-			this.getSession().save(bean);
-			return selectByMemberidAndBlackid(bean.getId().getMemberid(),bean.getId().getBlackid());
-//			return selectByMember(bean.getId().getMemberid());
+			result= selectByMemberidAndBlackid(bean.getId().getMemberid(),bean.getId().getBlackid());
+			if(result==null) {
+				this.getSession().save(bean);
+				result= selectByMemberidAndBlackid(bean.getId().getMemberid(),bean.getId().getBlackid());
+				return result;
+			}
 		}
 		return null;
 	}

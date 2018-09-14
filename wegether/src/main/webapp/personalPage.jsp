@@ -28,8 +28,12 @@
 <script src="./js/setting.js"></script>
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/raty/2.8.0/jquery.raty.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/raty/2.8.0/jquery.raty.min.css
 
- 
+">
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -87,6 +91,34 @@
 			$('#fourth').css({
 				'display' : 'none'
 			});
+
+			var ck = "${mem.rank1}";//要帶入的分數
+			for (var i = 1; i <= 5; i++) {
+				if (i <= ck) {
+					document.getElementById("idstar" + i).className = "n";
+				} else {
+					document.getElementById("idstar" + i).className = "s";
+				}
+			}
+
+			var ck = "${mem.rank2}";//要帶入的分數
+			for (var i = 1; i <= 5; i++) {
+				if (i <= ck) {
+					document.getElementById("1dstar" + i).className = "n";
+				} else {
+					document.getElementById("1dstar" + i).className = "s";
+				}
+			}
+
+			var ck = "${mem.rank3}";//要帶入的分數
+			for (var i = 1; i <= 5; i++) {
+				if (i <= ck) {
+					document.getElementById("2dstar" + i).className = "n";
+				} else {
+					document.getElementById("2dstar" + i).className = "s";
+				}
+			}
+
 		})
 
 		$('.changePage:eq(2)').click(function() {
@@ -121,13 +153,27 @@
 			});
 		})
 	})
-	
-	$('#fixed').raty({
-  readOnly:  true,
-  start:     2
-});
-	
+
+	//星級評分
+
+	// http://blog.shihshih.com/css-filter/
+	//         document.addEventListener("DOMContentLoaded", function () {
+	//             var areas=document.querySelectorAll("img")
+	//             var a=areas.length;
+	//             var ck= "${mem.rank1}";//要帶入的分數
+	//           //  var x = parseFloat('${mem.rank1}');
+	//             alert(ck);
+
+	// 			for(var i=1;i<=a;i++){
+	//                 if(i<=ck){
+	//                 document.getElementById("idstar"+i).className = "n";
+	//                 }else{
+	//                 document.getElementById("idstar"+i).className = "s";
+	//                 }
+	//             }
+	//         });
 </script>
+
 <style>
 * {
 	list-style: none;
@@ -211,6 +257,17 @@ footer>ul>li ul {
 
 #second, #third, #fourth {
 	display: none;
+}
+
+/* 星級評分 */
+.s {
+	-webkit-filter: grayscale(1); /*沒有任何色彩的黑白影像*/
+	width: 50px;
+}
+
+.n {
+	-webkit-filter: grayscale(0); /*顏色不變*/
+	width: 50px;
 }
 </style>
 </head>
@@ -432,19 +489,31 @@ footer>ul>li ul {
 						<table border="0">
 							<tr>
 								<td style="padding: 20px; font-weight: bold">活動滿意度:</td>
-								<td style="padding: 20px;">${mem.rank1}
+								<td style="padding: 20px;"><img id="idstar1" class="s"
+									src="images/star.png" /> <img id="idstar2" class="s"
+									src="images/star.png" /> <img id="idstar3" class="s"
+									src="images/star.png" /> <img id="idstar4" class="s"
+									src="images/star.png" /> <img id="idstar5" class="s"
+									src="images/star.png" /></td>
 
-									<div id="fixed"></div>
-
-								</td>
 							</tr>
 							<tr>
 								<td style="padding: 20px; font-weight: bold">溝通安排:</td>
-								<td style="padding: 20px;">${mem.rank2}</td>
+								<td style="padding: 20px;"><img id="1dstar1" class="s"
+									src="images/star.png" /> <img id="1dstar2" class="s"
+									src="images/star.png" /> <img id="1dstar3" class="s"
+									src="images/star.png" /> <img id="1dstar4" class="s"
+									src="images/star.png" /> <img id="1dstar5" class="s"
+									src="images/star.png" /></td>
 							</tr>
 							<tr>
 								<td style="padding: 20px; font-weight: bold">時間地點選擇</td>
-								<td style="padding: 20px;">${mem.rank3}</td>
+								<td style="padding: 20px;"><img id="2dstar1" class="s"
+									src="images/star.png" /> <img id="2dstar2" class="s"
+									src="images/star.png" /> <img id="2dstar3" class="s"
+									src="images/star.png" /> <img id="2dstar4" class="s"
+									src="images/star.png" /> <img id="2dstar5" class="s"
+									src="images/star.png" /></td>
 							</tr>
 						</table>
 
@@ -502,4 +571,7 @@ footer>ul>li ul {
 	<p class="text-center">- Wegther 2018 EEIT10202 -</p>
 	</footer>
 </body>
+<script>
+	
+</script>
 </html>

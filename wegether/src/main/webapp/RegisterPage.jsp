@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,27 +24,43 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <script>
 	$(function() {
+		var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+		    ,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']   
+		   for(var i = 1; i <= array_for_city.length; i++) {
+//		              console.log(array_for_city[i-1]);
+		    var x1 ="<option value="+i+">"+array_for_city[i-1]+"</option>"  
+		    $('#zzz').append(x1);
+		   }
+		
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-		// $('#upTop').click(function(){
-		// 	var body = $("html, body");
-		// 	body.stop().animate({scrollTop:0}, 500, 'swing');
-		// 	}).mouseover(function(){
-		// 		$(this).removeClass('animated');
-		// 	}).mouseout(function(){
-		// 		$(this).addClass('animated');
-		// 	})
-	})
 	
+	})
+
 	function clearForm() {
-	var inputs = document.getElementsByTagName("input");
-	for(var i=0; i<inputs.length; i++) {
-		if(inputs[i].type=="text") {
-			inputs[i].value="";
+		var inputs = document.getElementsByTagName("input");
+		for (var i = 0; i < inputs.length; i++) {
+			if (inputs[i].type == "text") {
+				inputs[i].value = "";
+			}
 		}
 	}
-}
+	document.addEventListener("DOMContentLoaded", function() {
+		document.getElementById("idName").addEventListener("blur", chkName); //事件繫結，焦點離開                                    
+	});
+
+	//姓名驗證
+	function chkName() {
+		var idName = document.getElementById("idName").value;
+		var re = /^[\u4e00-\u9fff]{2,}$/; //中文字在unicode的區間
+		if (idName == "") {
+			document.getElementById("idspName").innerHTML = " <i > 姓名不可為空白</i>";
+		} else if (re.test(idName))
+			document.getElementById("idspName").innerHTML = "";
+		else
+			document.getElementById("idspName").innerHTML = " <i > 必須兩個字以上的中文字！</i>";
+	}
 </script>
 <style>
 * {
@@ -97,6 +113,14 @@ footer>ul>li ul {
 
 .container p {
 	color: white;
+}
+
+.s1 {
+	font-size: 13px;
+	font-style:italic;
+	margin-top: 4px;
+	color: grey;
+	padding-bottom: 4px;
 }
 </style>
 </head>
@@ -186,117 +210,120 @@ footer>ul>li ul {
 	</div>
 	<div class="container">
 		<div id="small_con">
-		
+
 			<div align="center">
-				<hr >
+				<hr>
 				註冊頁面
-				<hr/>
-				<form id="xxx" action="<c:url value="/register.controller" />" method="post">
-					<table border="0" align="center">
+				<hr />
+				<form id="xxx" action="<c:url value="/register.controller" />"
+					method="post" accept-charset="ISO-8859-1"
+					enctype="multipart/form-data">
+					<table border="0" align="center" style="border-collapse:separate; border-spacing:0px 6px;">
 						<tr>
 							<td colspan="2" align="center"></td>
 						</tr>
 						<tr>
 							<td>帳號(信箱):</td>
-							<td><input type="text" name="account" value="${param.account}" ></td>
-							<td>${inputRrrors.account}</td>
+							<td><input type="text" name="account"
+								value="${param.account}">${inputRrrors.account}</td>
+							
+						</tr>
+						<tr>
+							<td ></td>
+							<td class="s1" >(例如:stvc@yahoo.com.tw)</td>
 						</tr>
 						<tr>
 							<td>密碼:</td>
-							<td><input type="password" name="pwd" value="${param.pwd}" ></td>
-							<td>${inputRrrors.pwd}</td>
+							<td><input  type="password" name="pwd"
+								value="${param.pwd}">${inputRrrors.pwd}
+							</td>		
 						</tr>
 						<tr>
-							<td>大頭照片:</td>
-							<td><input type="file" name="photo" multiple="multiple" value="${param.photo}"></td>
-							<td>${inputRrrors.photo}</td>
+							<td>確認密碼:</td>
+							<td><input  type="password" name="pwd2"
+								value="${param.pwd2}">${inputRrrors.pwd2}
+							</td>		
+						</tr>
+						<tr>
+							<td ></td>
+							<td class="s1" >(1.密碼長度8~16碼、2.不能有特殊符號、3.必須要有英文及數字)</td>
 						</tr>
 						<tr>
 							<td>姓名:</td>
-							<td><input type="text" name="name" value="${param.name}"></td>
-							<td>${inputRrrors.name}</td>
+							<td><input id="idName" type="text" name="name"
+								value="${param.name}">
+								<span id="idspName">${inputRrrors.name}</span>
+							</td>
+						</tr>
+						<tr>
+							<td ></td>
+							<td class="s1" >(1.不可空白，2.至少兩個字以上，3.必須全部為中文字)</td>
+
 						</tr>
 						<tr>
 							<td>暱稱:</td>
-							<td><input type="text" name="nickname" value="${param.nickname}"></td>
+							<td><input type="text" name="nickname"
+								value="${param.nickname}"></td>
 							<td>${inputRrrors.nickname}</td>
 						</tr>
 						<tr>
 							<td>出生日期:</td>
-							<td><input type="date" name="birthday" value="${param.birthday}"></td>
-							<td>${inputRrrors.birthday}</td>
+							<td><input  style="width:155px;height:25px;"  type="date" name="birthday"
+								value="${param.birthday}" required="required" min="1900-09-06" ></td>
 						</tr>
-						
+
 						<tr>
 							<td>性别:</td>
-							<td>
-							      <select name="sex" size="1">
+							<td><select name="sex" size="1">
 									<option value="0">男生</option>
 									<option value="1">女生</option>
-									
-							  </select>
-							</td>
-							<td>${inputRrrors.sex}</td>
+							</select></td>
 						</tr>
 						<tr>
 							<td>職業:</td>
-							<td>
-							  <select name="job" size="1">
-									<option value="學生">學生</option>
-									<option value="保險員">保險員</option>
-									<option value="其他">其他</option>
-							  </select>
-							</td>
-<%-- 							<td>${inputRrrors.job}</td> --%>
+							<td><input type="text" name="job" value="${param.name}"></td>
 						</tr>
-						
 						<tr>
-							<td>城市/所在地:</td>
+							<td>城市/地址:</td>
 							<td>
-								<select name="city"  >
-									<option value="0">台北市</option>
-									<option value="1">新北市</option>
-								</select>
-								
+							<select name="city" id="zzz" >
+									<option value="0" >請選擇</option>
+							</select>
+							<input style="width:110px;height:25px;" type="text" name="addr" value="${param.addr}">${inputRrrors.addr}
 							</td>
-<%-- 							<td>${inputRrrors.city}</td> --%>
+							
 						</tr>
-						
-						<tr>
-							<td>詳細地址:</td>
-							<td><input type="text" name="addr" value="${param.addr}"></td>
-							<td>${inputRrrors.addr}</td>
-						</tr>
-						
+
 						<tr>
 							<td>電話:</td>
-							<td><input type="text" name="tel" value="${param.tel}"></td>
-							<td>${inputRrrors.tel}</td>
+							<td><input   type="text"  name="tel" value="${param.tel}">${inputRrrors.tel}</td>
+						
 						</tr>
-												
+						<tr>
+							<td ></td>
+							<td class="s1" >(手機電話 : 0939905649)</td>
+						</tr>
+
 						<tr>
 							<td>自我介紹:</td>
-							<td><textarea rows="5" cols="30" name="content" value="${param.content}"></textarea></td>
+							<td><textarea rows="4" cols="24" name="content"
+									value="${param.content}"></textarea></td>
 							<td>${inputRrrors.content}</td>
 						</tr>
 						<tr>
 							<td>聚會類型:</td>
-							<td>
-							<input type="checkbox" name="favorite" value="輕鬆聊">輕鬆聊
-							<input type="checkbox" name="favorite" value="浪漫約會">浪漫約會
-							<input type="checkbox" name="favorite" value="寵物">寵物
-							<br>
-							<input type="checkbox" name="favorite" value="桌遊">桌遊
-							<input type="checkbox" name="favorite" value="郊遊踏青">郊遊踏青
-							<input type="checkbox" name="favorite" value="電影">電影
-							</td>
-							<td>${inputRrrors.favorite}</td>
+							<td><input type="checkbox" name="favorite" value="輕鬆聊"
+								checked>輕鬆聊 <input type="checkbox" name="favorite"
+								value="浪漫約會">浪漫約會 <input type="checkbox" name="favorite"
+								value="寵物">寵物 <br> <input type="checkbox"
+								name="favorite" value="桌遊">桌遊 <input type="checkbox"
+								name="favorite" value="郊遊踏青">郊遊踏青 <input type="checkbox"
+								name="favorite" value="電影">電影</td>
 						</tr>
-						<tr>
-							<td colspan="2" align="center" >
-							  <input type="submit" name="prodaction" value="送出"> 
-							  <input type="button" value="Clear" onclick="clearForm()">
-							</td>
+						<tr >
+							<td  colspan="2" align="center"><input style="margin-top: 4px;" type="submit"
+								name="prodaction" value="送出"> <input type="button"
+								value="Clear" onclick="clearForm()"></td>
 						</tr>
 					</table>
 				</form>
