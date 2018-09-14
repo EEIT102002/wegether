@@ -51,104 +51,96 @@ public class MemberRegisterController extends HttpServlet {
 			@RequestParam(value = "account", required = false) String account1) throws IOException {
 
 		// 圖片轉換
-//		byte[] pic = null;
-//		if (!file.isEmpty()) { // 圖片判定
-//			pic = file.getBytes();
-//			bean.setPhoto(pic);
-//		} else {
-//			File defultPic = new File("C:/temp/2.jpg");
-//			try {
-//				// pic = ((MultipartFile) defultPic).getBytes();
-//				pic = PictureConvert.converFileToByte(defultPic);
-//				bean.setPhoto(pic);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
+		// byte[] pic = null;
+		// if (!file.isEmpty()) { // 圖片判定
+		// pic = file.getBytes();
+		// bean.setPhoto(pic);
+		// } else {
+		// File defultPic = new File("C:/temp/2.jpg");
+		// try {
+		// // pic = ((MultipartFile) defultPic).getBytes();
+		// pic = PictureConvert.converFileToByte(defultPic);
+		// bean.setPhoto(pic);
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		// }
 
 		// // 帳號信箱驗證
-		 String email = bean.getAccount();
-		 Pattern patternemail =
-		 Pattern.compile("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$");
-		 Matcher matcheremail = patternemail.matcher(email);
-		 boolean checkemail = matcheremail.matches();
-		 if (!checkemail) {
-		 System.out.println("信箱格式不正確");
-		 } else {
-		 System.out.println("信箱格式正確");
-		
-		 }
-		
-		// // 手機格式驗證
-		 String cellphone = bean.getTel();
-		 Pattern patterncell = Pattern.compile("[0-9]{10}");
-		 Matcher matchercell = patterncell.matcher(cellphone);
-		 boolean checkcel = matchercell.matches();
-		 if (!checkcel) {
-		 System.out.println("手機號碼格式不正確");
-		 } else {
-		 System.out.println("手機號碼格式正確");
-		 }
-		 
-//		// // 密碼格式驗證
-//				 byte[] code = bean.getPwd();
-//				 Pattern patterncode = Pattern.compile("\"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$\"");
-//				 Matcher matchercode = patterncell.matcher(bean.getp);
-//				 boolean checkcode = matchercell.matches();
-//				 if (!checkcel) {
-//				 System.out.println("手機號碼格式不正確");
-//				 } else {
-//				 System.out.println("手機號碼格式正確");
-//				 }
+		String email = bean.getAccount();
+		Pattern patternemail = Pattern.compile("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$");
+		Matcher matcheremail = patternemail.matcher(email);
+		boolean checkemail = matcheremail.matches();
+		if (!checkemail) {
+			System.out.println("信箱格式不正確");
+		} else {
+			System.out.println("信箱格式正確");
 
+		}
 
+		// 手機格式驗證
+		String cellphone = bean.getTel();
+		Pattern patterncell = Pattern.compile("[0-9]{10}");
+		Matcher matchercell = patterncell.matcher(cellphone);
+		boolean checkcel = matchercell.matches();
+		if (!checkcel) {
+			System.out.println("手機號碼格式不正確");
+		} else {
+			System.out.println("手機號碼格式正確");
+		}
+
+		// 密碼格式驗證 密碼長度8~16碼、不能有特殊符號、必須要有英文及數字
+
+		String code = new String(bean.getPwd());
+		Pattern patterncode = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$");
+
+		Matcher matchercode = patterncode.matcher(code);
+		boolean checkcode = matchercode.matches();
+		System.out.println(checkcode);
+		if (!checkcode) {
+			System.out.println("密碼錯誤");
+		} else {
+			System.out.println("密碼正確");
+		}
 
 		Map<String, String> errors = new HashMap<>();
 
-		 if (bean.getPwd() == null || bean.getPwd().length == 0) {
-		 errors.put("pwd", "密碼未輸入");
-		 System.out.println(errors.get("pwd"));
-		 }
+		
 
 		// 帳號錯誤訊息
-		 if (bean.getAccount() == null || bean.getAccount().length() == 0) {
-		 errors.put("account", "帳號未輸入");
-		 } else if (!checkemail) {
-		 errors.put("account", "帳號格式錯誤");
-		 System.out.println(bean.getAccount());
-		 }
+		if (bean.getAccount() == null || bean.getAccount().length() == 0) {
+			errors.put("account", "帳號未輸入");
+		} else if (!checkemail) {
+			errors.put("account", "帳號格式錯誤");
+		}
+
+		// 密碼錯誤訊息
+		if (bean.getPwd() == null || bean.getPwd().length == 0) {
+			errors.put("pwd", "密碼未輸入");
+		} else if (!checkcode) {
+			errors.put("pwd", "密碼格式錯誤");
+		}
 
 		// 電話錯誤訊息
-		 if (bean.getTel() == null || bean.getTel().length() == 0) {
-		 errors.put("tel", "請輸入手機號碼");
-		 } else if (!checkcel) {
-		 errors.put("tel", "電話格式錯誤");
-		 }
+		if (bean.getTel() == null || bean.getTel().length() == 0) {
+			errors.put("tel", "請輸入手機號碼");
+		} else if (!checkcel) {
+			errors.put("tel", "電話格式錯誤");
+		}
 
 		// 姓名錯誤訊息
 		if (bean.getName() == null || bean.getName().length() == 0) {
 			errors.put("name", "姓名未輸入");
-			System.out.println("姓名:" + bean.getName());
 		}
-		//
-		if (bean.getName() == null || bean.getName().length() == 0) {
-			errors.put("name", "姓名未輸入");
-			System.out.println("姓名:" + bean.getName());
-		}
-		
-		
-
 
 		if (errors != null && !errors.isEmpty()) {
 			model.addAttribute("inputRrrors", errors);
 			System.out.println("a" + bean);
 			System.out.println("erroers" + errors);
-			
 
 			return "register.error";
 		} else {
 			System.out.println(bean);
-		
 
 			memberDAOHibernate.insert(bean);
 

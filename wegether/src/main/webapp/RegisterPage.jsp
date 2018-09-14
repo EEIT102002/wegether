@@ -230,12 +230,12 @@ footer>ul>li ul {
 						<tr>
 							<td>密碼:</td>
 							<td><input id="idPwd" type="password" name="pwd" value="${param.pwd}"  ></td>
-							<td id="idspPwd"></td>
+							<td id="idspPwd">${inputRrrors.pwd}</td>
 						</tr>
 						<tr>
 							<td>姓名:</td>
 							<td><input id="idName" type="text" name="name" value="${param.name}" ></td>
-							<td id="idspName"></td>
+							<td id="idspName">${inputRrrors.name}</td>
 							
 						</tr>
 						<tr>
@@ -285,7 +285,7 @@ footer>ul>li ul {
 												
 						<tr>
 							<td>自我介紹:</td>
-							<td><textarea rows="5" cols="30" name="content" value="${param.content}"></textarea></td>
+							<td><textarea rows="4" cols="24" name="content" value="${param.content}"></textarea></td>
 							<td>${inputRrrors.content}</td>
 						</tr>
 						<tr>

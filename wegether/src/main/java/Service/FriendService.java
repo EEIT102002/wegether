@@ -19,7 +19,7 @@ public class FriendService {
 
 
 	
-	public boolean changeFriend(FriendBean bean) {
+	public boolean changeStateByMemberF(FriendBean bean) {
 		if(bean.getState() == null && bean.getMemberidf() == null) {
 			return false;
 		}
@@ -29,8 +29,6 @@ public class FriendService {
 			return true;
 		}else {
 			return false;
-		}
-		
-		
+		}		
 	}
 }

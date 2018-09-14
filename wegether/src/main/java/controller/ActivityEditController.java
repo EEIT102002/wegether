@@ -48,11 +48,15 @@ public class ActivityEditController {
 		int startHour = Integer.parseInt(startTime.substring(0, 2));
 		if (startHour == 0)
 			startTime = (startHour + 12) + ":" + startTime.substring(3, 5) + " AM";
-		else if (startHour >= 1 && startHour <= 11)
+		else if (startHour >= 1 && startHour <= 9)
+			startTime = "0" + startHour + ":" + startTime.substring(3, 5) + " AM";
+		else if (startHour == 10 || startHour == 11)
 			startTime = startHour + ":" + startTime.substring(3, 5) + " AM";
 		else if (startHour == 12)
 			startTime = startHour + ":" + startTime.substring(3, 5) + " PM";
-		else
+		else if (startHour >= 13 && startHour <= 21)
+			startTime = "0" + (startHour - 12) + ":" + startTime.substring(3, 5) + " PM";
+		else if (startHour == 22 || startHour == 23)
 			startTime = (startHour - 12) + ":" + startTime.substring(3, 5) + " PM";
 		model.addAttribute("startTimepicker", startTime);
 
@@ -64,6 +68,8 @@ public class ActivityEditController {
 			if (endHour == 0)
 				endTime = (endHour + 12) + ":" + endTime.substring(3, 5) + " AM";
 			else if (endHour >= 1 && endHour <= 11)
+				endTime = "0" + endHour + ":" + endTime.substring(3, 5) + " AM";
+			else if (endHour == 11)
 				endTime = endHour + ":" + endTime.substring(3, 5) + " AM";
 			else if (endHour == 12)
 				endTime = endHour + ":" + endTime.substring(3, 5) + " PM";
@@ -90,7 +96,7 @@ public class ActivityEditController {
 
 		System.out.println(activityBean);
 		System.out.println(dateline);
-		System.out.println("content=" + activityBean.getContent());
+		System.out.println("content=" + activityBean.getContent().trim());
 
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errMsgs", errors);
@@ -110,9 +116,14 @@ public class ActivityEditController {
 		if (activityBean.getClasstype() == null || activityBean.getClasstype().isEmpty()) // 活動類別判定
 			activityBean.setClasstype(null);
 
-		if (starttime != null && !":".equals(starttime.substring(2, 3))) // 開始日期判定
-			errors.put("starDateTime", "請輸入正確時間 ex 07:30 PM");
-		else if (startDate == null || starttime == null)
+		System.out.println("startDate: " + startDate);
+		System.out.println("starttime.length: " + starttime.length());
+		System.out.println("status of starttime= " + starttime.isEmpty());
+
+		if (!starttime.isEmpty()) { // 開始日期判定
+			if (!":".equals(starttime.substring(2, 3)))
+				errors.put("starDateTime", "請輸入正確時間 ex 07:30 PM");
+		} else if (startDate.isEmpty() || starttime.isEmpty())
 			errors.put("starDateTime", "請輸入開始時間");
 		else if (startDate != null) {
 			String[] year = startDate.split("-");
@@ -120,28 +131,33 @@ public class ActivityEditController {
 				errors.put("starDateTime", "請輸入正確年份");
 		}
 
-		System.out.println("startDate: " + startDate);
-		System.out.println("starttime: " + starttime);
 		System.out.println("endDate: " + endDate);
 		System.out.println("endTime: " + endTime);
 
 		String[] year2 = null;
-		if (endDate != null)
+		int year3 = 0;
+		if (!endDate.isEmpty()) {
 			year2 = endDate.split("-");
-		if ((endTime != null) && !":".equals(endTime.substring(2, 3))) // 結束日期判定
-			errors.put("endDateTime", "請輸入正確時間 ex 07:30 PM");
-		else if ((endDate != null) && Integer.parseInt(year2[0]) >= 2200)
+			System.out.println("year2[0]= " + year2[0]);
+			year3 = Integer.parseInt(year2[0]);
+		}
+		if (!endTime.isEmpty()) { // 結束日期判定
+			System.out.println("endtime is not empty");
+			if (!":".equals(endTime.substring(2, 3)))
+				errors.put("endDateTime", "請輸入正確時間 ex 07:30 PM");
+		} else if (endDate != null && year3 >= 2200) {
 			errors.put("endDateTime", "請輸入正確年份");
-		else if (endDate == null || endTime == null)
-			activityBean.setActend(null);
+		}
 
-		if (activityBean.getContent().isEmpty()) // 內容判定
+		System.out.println("before content");
+		if (activityBean.getContent() == null) // 內容判定
 			errors.put("content", "請輸入詳細描述");
 
-		if (dateline.isEmpty()) // 截止日期判定
+		System.out.println("before dateline");
+		if (dateline == null) // 截止日期判定
 			errors.put("deathline", "請輸入截止日期");
 
-		if (errors != null && !errors.isEmpty()) {
+		if (!errors.isEmpty()) {
 			System.out.println("has error msgs");
 			System.out.println(errors);
 			return "actEditErr.page";
@@ -149,25 +165,20 @@ public class ActivityEditController {
 
 		String startDateTime = startDateFormat(startDate, starttime);
 		Date aa = simpleDateFormat.parse(startDateTime);
-		// Date bb = simpleDateFormat2.parse(dateline);
-		//
-		// if (endDate.isEmpty() || endTime.isEmpty()) {
-		// activityBean.setActend(null);
-		// } else if (!endDate.isEmpty() && !endTime.isEmpty()) {
-		// String endDateTime = endDateFormat(endDate, endTime);
-		// Date cc = simpleDateFormat.parse(endDateTime);
-		// activityBean.setActend(cc);
-		// }
+		Date bb = simpleDateFormat2.parse(dateline);
 
+		if (endDate.isEmpty() || endTime.isEmpty()) {
+			activityBean.setActend(null);
+		} else if (!endDate.isEmpty() && !endTime.isEmpty()) {
+			String endDateTime = endDateFormat(endDate, endTime);
+			Date cc = simpleDateFormat.parse(endDateTime);
+			activityBean.setActend(cc);
+		}
+		activityBean.setId(71);  //整合時須修改
 		activityBean.setTitle(activityBean.getTitle());
 		activityBean.setActbegin(aa);
-		// activityBean.setDateline(bb);
-		//
-		// System.out.println(startDate);
-		// System.out.println(starttime);
-		// System.out.println(activityBean);
-		//
-		// activityDAO.update(activityBean);
+		activityBean.setDateline(bb);
+		activityDAO.update(activityBean);
 
 		return "actEditErr.page";
 	}

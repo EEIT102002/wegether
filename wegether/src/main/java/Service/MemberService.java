@@ -72,6 +72,10 @@ public class MemberService {
 			return null;
 		}
 		int i = 0;
+		if(bean.getPhoto() != null) {
+			result.setPhoto(bean.getPhoto());
+			i++;
+		}
 		if (bean.getNickname() != null ) {
 			result.setNickname(bean.getNickname());
 			i++;
@@ -101,6 +105,7 @@ public class MemberService {
 			i++;
 		}
 		getSession().flush();
+		
 		if (i > 0) {
 			return memberInfoDAO.select(result.getId());
 		} else {

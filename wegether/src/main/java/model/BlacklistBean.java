@@ -55,7 +55,7 @@ public class BlacklistBean implements java.io.Serializable {
 		this.memberByBlackid = memberByBlackid;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "memberid", nullable = false, insertable = false, updatable = false)
 	public MemberBean getMemberByMemberid() {
 		return this.memberByMemberid;

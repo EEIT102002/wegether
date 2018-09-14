@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "MEMBER")
@@ -13,9 +14,7 @@ public class MemberInfoBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
     	generator = "MEMBER_sq")
-	
 	private Integer id;
-	private Byte[] photo;
 	private String name;
 	private String nickname;
 	private java.util.Date birthday;
@@ -26,18 +25,23 @@ public class MemberInfoBean {
 	private String tel;
 	private String content;
 	private String favorite;
+	@Transient
+	private String photoSrc;
+	
+	
+	public String getPhotoSrc() {
+		this.photoSrc = "/wegether/member/photo/"+id;
+		return photoSrc;
+	}
+	public void setPhotoSrc(Integer id) {
+		this.photoSrc = "/wegether/member/photo/"+id;
+	}
 	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
-		this.id = id;
-	}
-	public Byte[] getPhoto() {
-		return photo;
-	}
-	public void setPhoto(Byte[] photo) {
-		this.photo = photo;
+		this.id = id;	
 	}
 	public String getName() {
 		return name;
