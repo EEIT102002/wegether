@@ -32,7 +32,6 @@ public class TrackmemberService {
 			try {
 				result = trackmemberDAO.insert(bean);// 加追蹤
 			} catch (Exception e) {
-				return result;
 			}
 		}
 		return result;
@@ -52,7 +51,6 @@ public class TrackmemberService {
 			try {
 				result = trackmemberDAO.delete(bean);// 取消追蹤
 			} catch (Exception e) {
-				return result;
 			}
 		}
 		return result;

@@ -590,7 +590,7 @@ as
 begin
 	update member
 	set notices+=1
-	where id in (select memberid from inserted)
+	where id in (select memberid from inserted where state = 0)
 end
 go
 
@@ -735,3 +735,5 @@ begin
 	EXEC('ENABLE TRIGGER member_notice_update ON notice')
 end
 go
+
+
