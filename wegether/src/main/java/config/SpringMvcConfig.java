@@ -60,6 +60,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localInterceptor());
+		registry.addInterceptor(noticeInterceptor()).addPathPatterns("/Rest/activity/apply/*");
 	}
 	
 	@Bean

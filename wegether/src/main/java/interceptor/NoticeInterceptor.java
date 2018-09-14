@@ -28,8 +28,6 @@ public class NoticeInterceptor implements HandlerInterceptor {
 	@Resource(name = "loginMap")
 	private Map<Integer, LoginBean> loginMap;
 	@Autowired
-	private CookieService cookieService;
-	@Autowired
 	private QueryBean queryBean;
 	@Autowired
 	private NoticeService noticeService;
@@ -38,15 +36,15 @@ public class NoticeInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-
-		queryBean.getSession().flush();
-		if ( modelAndView.getModel().get("id") == null || modelAndView.getModel().get("ntype") == null) {
+		if (request.getAttribute("id") == null || request.getAttribute("ntype") == null) {
 			HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 			return;
 		}
-		Integer id = (Integer) modelAndView.getModel().get("id");
-		Integer ntype = (Integer) modelAndView.getModel().get("ntype");
+		queryBean.getSession().flush();
+		Integer id = (Integer) request.getAttribute("id");
+		Integer ntype = (Integer) request.getAttribute("ntype");
 		List<NoticeBean> beans = noticeService.getNotice(id, ntype);
+		System.out.println(id+","+ntype);
 		if (beans != null) {
 			beans.forEach(bean -> {
 				List<WebSocketSession> sessions = loginMap.get(bean.getMemberid()).getSessions();
@@ -64,5 +62,7 @@ public class NoticeInterceptor implements HandlerInterceptor {
 
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}
+	
+	
 
 }

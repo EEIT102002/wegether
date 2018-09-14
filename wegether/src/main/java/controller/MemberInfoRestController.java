@@ -1,6 +1,11 @@
 package controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.crypto.Data;
+
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -155,6 +160,24 @@ public class MemberInfoRestController {
 		
 		if (result != null) {
 			return new ResponseEntity<>(result, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	@GetMapping(path = { "/member/Info/index" }, produces = { "application/json" })
+	public ResponseEntity<?> getInfoIndex(@RequestAttribute("memberid") Integer id) {
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		List<Object[]> resultlist = new ArrayList<>();
+		MemberInfoBean result = memberInfoDAO.select(id);
+		if (result != null) {
+			Object[] obj = new Object[2];
+			obj[0] = result;
+			obj[1]= "/wegether/member/photo/"+ id;
+			
+			resultlist.add(obj);
+			return new ResponseEntity<List<Object[]>>(resultlist, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
