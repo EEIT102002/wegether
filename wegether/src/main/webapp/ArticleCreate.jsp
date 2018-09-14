@@ -33,6 +33,7 @@
 	});
 	function fileMultiViewer() {
 		$('#picZone2').empty();
+		$('#artPic').empty();
 		//取得使用者在檔案選擇標籤中選取檔案
 		var theFiles = document.getElementById("actPic2").files
 		for (var i = 0; i < theFiles.length; i++) {
@@ -217,7 +218,7 @@ footer>ul>li ul {
 					<tr>
 						<td>心得</td>
 						<td><textarea name="content" id="insertDes" cols="30"
-								rows="10"></textarea>${errMsgs.content}</td>
+								rows="10"></textarea>${content}</td>
 					</tr>
 					<tr>
 						<td>上傳活動照片</td>

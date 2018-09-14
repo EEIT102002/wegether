@@ -31,14 +31,6 @@
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-		// $('#upTop').click(function(){
-		// 	var body = $("html, body");
-		// 	body.stop().animate({scrollTop:0}, 500, 'swing');
-		// 	}).mouseover(function(){
-		// 		$(this).removeClass('animated');
-		// 	}).mouseout(function(){
-		// 		$(this).addClass('animated');
-		// 	})
 	})
 	$(function() {
 		var now = new Date();
@@ -166,6 +158,8 @@
 	}
 	
 	function fileMultiViewer() {
+		$('#picZone2').empty();
+		$('#otherPic').empty();
 		//取得使用者在檔案選擇標籤中選取檔案
 		var theFiles = document.getElementById("actPic2").files
 		for (var i = 0; i < theFiles.length; i++) {
@@ -175,16 +169,16 @@
 			reader.addEventListener("load", function(e) {
 				//4. 將檔案內容暫存
 				var fileMultiContent = e.target.result
-				// alert(fileContent)
 				//5. 找到img標籤
-				var imgobj=document.createElement("img");
-				//var imgobj = document.getElementById("picZone2");
-				//var imgobj2 = document.getElementById("actPiczone");
+				var imgobj = document.createElement("img");
+				var imgobj2 = document.createElement("img");
 				//6. 設定img的src屬性
 				imgobj.setAttribute("src", fileMultiContent);
-				//imgobj2.setAttribute("src", fileMultiContent);
-				
-				document.getElementById("picZone2").appendChild(imgobj)
+				imgobj.setAttribute("height","150px");
+				imgobj2.setAttribute("src", fileMultiContent);
+				imgobj2.setAttribute("height","100px");
+				document.getElementById("picZone2").appendChild(imgobj);
+				document.getElementById("otherPic").appendChild(imgobj2);
 			});
 			//2. 使用readAsDataURL方法，讀取檔案內容
 			reader.readAsDataURL(theFiles[i]);
@@ -433,19 +427,16 @@ footer>ul>li ul {
 					<table>
 						<tr>
 							<td>聚會封面</td>
-							<td><img src="images/actcreate.png" id="picZone"
-								class="selPic"> <input type="file" name="picture"
-								id="actPic" accept="image/*"></td>
+							<td><img src="images/actcreate.png" id="picZone" class="selPic">
+								<input type="file" name="picture" id="actPic" accept="image/*"></td>
 						</tr>
 						<tr>
 							<td>其他照片</td>
-							<td><div id="picZone2"
-								class="selPic2"></div> <input type="file" name="multipicture"
-								multiple id="actPic2" accept="image/*"></td>
+							<td><div id="picZone2" class="selPic2"></div>
+								<input type="file" name="multipicture" multiple id="actPic2" accept="image/*"></td>
 						</tr>
 						<tr>
 							<td>聚會標題</td>
-
 							<td>
 								<input type="text" name="title" id="insertActname" value="${colVal.title}">${errMsgs.title}
 							</td>
@@ -454,10 +445,10 @@ footer>ul>li ul {
 							<td>聚會類型</td>
 							<td><input type="checkbox" name="classtype" value="輕鬆聊">輕鬆聊
 								<input type="checkbox" name="classtype" value="浪漫約會">浪漫約會
-								<input type="checkbox" name="classtype" value="寵物">寵物 <input
-								type="checkbox" name="classtype" value="桌遊">桌遊 <input
-								type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青 <input
-								type="checkbox" name="classtype" value="電影">電影</td>
+								<input type="checkbox" name="classtype" value="寵物">寵物
+								<input type="checkbox" name="classtype" value="桌遊">桌遊
+								<input type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青
+								<input type="checkbox" name="classtype" value="電影">電影</td>
 						</tr>
 						<tr>
 							<td>城市/所在地</td>
@@ -468,8 +459,7 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>地點</td>
-							<td><input type="text" name="addr" id="insertWhere"
-								value="館前路36號"></td>
+							<td><input type="text" name="addr" id="insertWhere" value="館前路36號"></td>
 						</tr>
 						<tr>
 							<td>開始時間</td>
@@ -493,33 +483,21 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>聚會人數</td>
-							<td><input step="1" type="number" id="selNum"
-								name="numberlimit" ng-model="peoplemax" min="1" ng-init="peoplemax = 5">
+							<td><input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax" min="1" ng-init="peoplemax = 5">
 							</td>
 						</tr>
 						<tr>
 							<td>聚會預算</td>
-							<td><input step="50" type="number" id="selBud" name="feed"
-								ng-model="fee" min="0" ng-init="fee = 100"></td>
+							<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" ng-init="fee = 100"></td>
 						</tr>
 						<tr>
 							<td>報名截止日期</td>
-							<td><input type="date" id="deathLine" name="dateline">${errMsgs.deathline}
-							</td>
+							<td><input type="date" id="deathLine" name="dateline">${errMsgs.deathline}</td>
 						</tr>
 
 					</table>
-<<<<<<< HEAD
-
-					<input type="botton" name="" value="預覽" id="preBotton"
-						data-target="#preview" data-toggle="modal" /> <input
-						type="botton" name="" value="報名表單" id="formBotton"
-						data-target="#setMyform" data-toggle="modal" />
-=======
-
 					<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
 					<input type="botton" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
@@ -527,7 +505,6 @@ footer>ul>li ul {
 								<div class="modal-body">
 									<!--       // modal-body  有差padding -->
 									<div class="modal-header">
-
 										<h5 class="modal-title lead">
 											<strong>預覽</strong>
 										</h5>
@@ -540,8 +517,12 @@ footer>ul>li ul {
 										<table>
 											<tr>
 												<td>聚會封面</td>
-												<td id="actPicture"><img src="images/actcreate.jpg"
+												<td id="actPicture"><img src="images/actcreate.png"
 													id="actPiczone" class="actPic"></td>
+											</tr>
+											<tr>
+												<td>其他照片</td>
+												<td><div id="otherPic"></div></td>
 											</tr>
 											<tr>
 												<td>聚會標題</td>

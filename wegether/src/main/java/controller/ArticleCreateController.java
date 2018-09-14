@@ -1,12 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +32,8 @@ public class ArticleCreateController {
 			@RequestParam(value = "multipicture", required = false) MultipartFile[] files) throws IOException {
 		System.out.println("articleCreate()");
 
-		Map<String, String> errors = new HashMap<>();
-		model.addAttribute("errMsgs", errors);
-
 		if (content.isEmpty()) {
-			errors.put("content", "請輸入內容");
+			model.addAttribute("content", "請輸入內容");
 			return "artCreSuc.page";
 		}
 
