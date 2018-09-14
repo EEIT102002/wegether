@@ -5,6 +5,7 @@
 <%@ page import="org.apache.commons.codec.binary.StringUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <title>ActivityPage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +16,7 @@
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <link
 	href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
 	rel='stylesheet' type='text/css'>
@@ -39,22 +40,30 @@
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
-<script>
 
+<!-- applyForm -->
+<script src="/wegether/js/applyForm.js" type="text/javascript"></script>
+
+<script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-		
-		$('#upTop').click(function(){
+
+		$('#upTop').click(function() {
 			var body = $("html, body");
-			body.stop().animate({scrollTop:0}, 500, 'swing');
-			}).mouseover(function(){
-				$(this).removeClass('animated');
-			}).mouseout(function(){
-				$(this).addClass('animated');
-			})
-// 		$('body').on('click','');	
+			body.stop().animate({
+				scrollTop : 0
+			}, 500, 'swing');
+		}).mouseover(function() {
+			$(this).removeClass('animated');
+		}).mouseout(function() {
+			$(this).addClass('animated');
+		})
+		$('#memBut').text('報 名 ').click(function() {
+			clickApplyForm(1);
+		});
+		// 		$('body').on('click','');	
 	})
 	document.addEventListener("DOMContentLoaded",
 			function() {
@@ -62,7 +71,7 @@
 						"click", click);
 				selectPic();//activityPage 輪播使用				
 				idCheck();//身分驗證
-			   
+
 			});
 
 	function click() {
@@ -79,72 +88,44 @@
 	});
 
 	//activityPage 輪播使用
-	var picNo = 1;
-	var timerObj = setInterval(autoPlay, 1500);
-	function autoPlay() {
-		picNo++;
-		if (picNo > "${actPicList.size()}")
-			picNo = 1;
-		selectPic();
-	}
+// 	var picNo = 1;
+// 	var timerObj = setInterval(autoPlay, 1500);
+// 	function autoPlay() {
+// 		picNo++;
+// 		if (picNo > "${actPicList.size()}")
+// 			picNo = 1;
+// 		selectPic();
+// 	}
 
-	function selectPic() {
-		for (var i = 1; i <= "${actPicList.size()}"; i++)
-			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
-		document.getElementById("imd" + picNo).style = "border:3px solid red";
-		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
-	}
-	//activityPage 輪播使用  end	
-	//留言、心得分享
-	$(function() {
-		$("#tabs").tabs();		
-	});
-	//留言、心得分享 end
-	
-	//身分驗證	
-	var attflag= ${flag}; //0:未登入  1:主辦人  2:已報名者  3:未報名者
-	function idCheck(){
-		//0:未登入  1:主辦人  2:已報名者  3:未報名者
-		
-		if(attflag == 0){
-			$('#memBut').text('請 先 登 入 才 能 報 名 ').click(function(){
-				
-			});
-		}
-		if(attflag == 1){
-			$('#memBut').text('編 輯 活 動 ').click(function(){
-				
-			});
-		}
-		if(attflag == 2){
-			$('#memBut').text('取 消 報 名 ').click(function(){
-				
-			});
-		}
-		if(attflag == 3){
-			$('#memBut').text('報 名 ').click(function(){
-				
-			});
-		}
-	
+// 	function selectPic() {
+// 		for (var i = 1; i <= "${actPicList.size()}"; i++)
+// 			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
+// 		document.getElementById("imd" + picNo).style = "border:3px solid red";
+// 		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
+// 	}
+// 	//activityPage 輪播使用  end	
+// 	//留言、心得分享
+// 	$(function() {
+// 		$("#tabs").tabs();
+// 	});
+// 	//留言、心得分享 end
 
-	}
-	//登入身分驗證 END
-	
-	//留言 / 心得分享
-	function msgclick(){
-		 document.getElementById("msgButId").className = "btn btn-warning";   	   //留言按鍵
-		    document.getElementById("articleButId").className = "btn btn-secondary";    //心得分享按鍵   
-		    location.href = 'index.jsp';
-                 
-            }
-	
-	function articleclick(){
-		 document.getElementById("msgButId").className = "btn btn-secondary";   	   //留言按鍵
-		    document.getElementById("articleButId").className = "btn btn-warning";    //心得分享按鍵   
-	
-                
-           }
+// 	//身分驗證	
+// 	//登入身分驗證 END
+
+// 	//留言 / 心得分享
+// 	function msgclick() {
+// 		document.getElementById("msgButId").className = "btn btn-warning"; //留言按鍵
+// 		document.getElementById("articleButId").className = "btn btn-secondary"; //心得分享按鍵   
+// 		location.href = 'index.jsp';
+
+// 	}
+
+// 	function articleclick() {
+// 		document.getElementById("msgButId").className = "btn btn-secondary"; //留言按鍵
+// 		document.getElementById("articleButId").className = "btn btn-warning"; //心得分享按鍵   
+
+// 	}
 	//留言 / 心得分享  END
 </script>
 <style>
@@ -201,6 +182,7 @@ footer>ul>li ul {
 }
 </style>
 </head>
+
 <body>
 	<div class="container">
 		<nav class="navbar navbar-default" id="stickytop">
@@ -309,9 +291,10 @@ footer>ul>li ul {
 
 						<div id="up">
 							<div id="left" style="width: auto;">
-								<a href="personal.controller?memberId=${hostBean.id}"><img
+								<a href="personal.controller?memberId=${hostBean.id}"> <img
 									src="data:image/jpg;base64,${hostPicList.get(0)}"
-									class="img-circle" width="70"> </a>
+									class="img-circle" width="70">
+								</a>
 							</div>
 							<div id="left" style="width: auto;">
 								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
@@ -320,12 +303,14 @@ footer>ul>li ul {
 							<div id="right">
 								<a href="activityPage.controller?actid=1" class="tooltip-test"
 									data-toggle="tooltip" title="推薦給好友"> <img
-									src="images/activityPageImages/invite.png" width="50"></a>&emsp;
-								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
-									<img src="images/activityPageImages/click2.png" width="50">
+									src="images/activityPageImages/invite.png" width="50">
+								</a>&emsp; <span class="tooltip-test" data-toggle="tooltip"
+									title="活動點閱率"> <img
+									src="images/activityPageImages/click2.png" width="50">
 								</span>${actBean.click}&emsp; <a href="#" class="tooltip-test"
 									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton"
-									src="images/activityPageImages/favoritesOff.png" width="50"></a>
+									src="images/activityPageImages/favoritesOff.png" width="50">
+								</a>
 							</div>
 						</div>
 
@@ -365,9 +350,10 @@ footer>ul>li ul {
 						<!-- right4 end -->
 						<div>
 							<c:forEach var="obj" items="${memPicList}">
-								<a href="personal.controller?memberId=${obj.memberId}"><img
+								<a href="personal.controller?memberId=${obj.memberId}"> <img
 									src="data:image/jpg;base64,${obj.memberPic}" class="img-circle"
-									width="50"></a>
+									width="50">
+								</a>
 								&emsp;
 							</c:forEach>
 
@@ -415,10 +401,10 @@ footer>ul>li ul {
 					<!-- msg begin -->
 					<c:forEach var="obj" items="${msgsList}">
 						<div id="msgid" class="well">
-							<a href="personal.controller?memberId=${obj.memberId}"><img
-								src="data:image/jpg;base64,${obj.picMem}" width="50"></a> <span
-								style="color: blue;">${obj.nickname} </span> &emsp; <span
-								style="font-size: small;">${obj.msgtime}</span></br> ${obj.content}</br>
+							<a href="personal.controller?memberId=${obj.memberId}"> <img
+								src="data:image/jpg;base64,${obj.picMem}" width="50">
+							</a> <span style="color: blue;">${obj.nickname} </span> &emsp; <span
+								style="font-size: small;">${obj.msgtime}</span> </br> ${obj.content}</br>
 						</div>
 					</c:forEach>
 					<!-- msg end -->
@@ -428,6 +414,23 @@ footer>ul>li ul {
 
 			</div>
 			<!--       寫在這以上 -->
+		</div>
+	</div>
+	<div class="modal fade" id="applyForm" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">報名表單</h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" id='sendApply' class="btn btn-default">上傳</button>
+				</div>
+			</div>
+
 		</div>
 	</div>
 
@@ -453,4 +456,5 @@ footer>ul>li ul {
 	<p class="text-center">- Wegether 2018 EEIT10202 -</p>
 	</footer>
 </body>
+
 </html>

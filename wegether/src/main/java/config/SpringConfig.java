@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -112,6 +113,11 @@ public class SpringConfig {
 	@Bean
 	public Map<WebSocketSession, Integer> sessionMap(){
 		return new HashMap<>();
+	}
+	
+	@Bean 
+	public JSONParser jsonParser() {
+		return new JSONParser();
 	}
 	
 }
