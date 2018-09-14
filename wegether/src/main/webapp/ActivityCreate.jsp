@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
-	media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -16,12 +15,9 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
-
 <script src="js/bootstrap.js"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
@@ -31,33 +27,35 @@
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
+		var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+			,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']			
+		for(var i = 1; i <= array_for_city.length; i++) {
+			var x1 = "<option value="+i+">" + array_for_city[i-1] + "</option>"		
+			$('#selCity').append(x1);
+		}
 	})
 	$(function() {
 		var now = new Date();
 		if ((now.getMonth() + 1) < 10 && now.getDate() < 10) {
-			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0'
-					+ now.getDate();
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0' + now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) < 10 && now.getDate() >= 10) {
-			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-'
-					+ now.getDate();
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-' + now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() < 10) {
-			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0'
-					+ now.getDate();
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0' + now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() >= 10) {
-			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
-					+ now.getDate();
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
@@ -78,46 +76,30 @@
 						v2 = v2 - 1;
 						var d = new Date(v1, v2, v3);
 						if (d.getDate() < 10 && (d.getMonth() + 1) > 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-' + (d.getMonth() + 1)
+							$('#deathLine').attr('max', d.getFullYear() + '-' + (d.getMonth() + 1)
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && (d.getMonth() + 1) < 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-0' + (d.getMonth() + 1)
+							$('#deathLine').attr('max', d.getFullYear() + '-0' + (d.getMonth() + 1)
 											+ '-' + d.getDate())
 						else if (d.getDate() < 10 && (d.getMonth() + 1) < 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-0' + (d.getMonth() + 1)
+							$('#deathLine').attr('max', d.getFullYear() + '-0' + (d.getMonth() + 1)
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && (d.getMonth() + 1) > 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-' + (d.getMonth() + 1)
+							$('#deathLine').attr('max', d.getFullYear() + '-' + (d.getMonth() + 1)
 											+ '-' + d.getDate())
 					} else {
 						var d = new Date(v1, v2, v3);
 						if (d.getDate() < 10 && d.getMonth() > 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-' + d.getMonth() + '-0'
+							$('#deathLine').attr('max', d.getFullYear() + '-' + d.getMonth() + '-0'
 											+ d.getDate())
 						else if (d.getDate() > 10 && d.getMonth() < 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-0' + d.getMonth() + '-'
+							$('#deathLine').attr('max', d.getFullYear() + '-0' + d.getMonth() + '-'
 											+ d.getDate())
 						else if (d.getDate() < 10 && d.getMonth() < 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-0' + d.getMonth()
+							$('#deathLine').attr('max', d.getFullYear() + '-0' + d.getMonth()
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && d.getMonth() > 10)
-							$('#deathLine').attr(
-									'max',
-									d.getFullYear() + '-' + d.getMonth() + '-'
+							$('#deathLine').attr('max', d.getFullYear() + '-' + d.getMonth() + '-'
 											+ d.getDate())
 					}
 				})
@@ -192,12 +174,6 @@
 	$(function() {
 		$('#preBotton').click(
 				function() {
-					var selCityVal = $('#selCity').val();
-					if (selCityVal == 0)
-						var city = '台北市';
-					if (selCityVal == 1)
-						var city = '新北市';
-
 					var datas = [];
 					$(':checked[name="classtype"]').each(function() {
 						datas.push($(this).val())
@@ -218,11 +194,10 @@
 
 					$('#actName').empty().append($('#insertActname').val());
 					$('#actType').empty().append(typeArr);
-					$('#actCity').empty().append(city);
+					$('#actCity').empty().append($('#selCity').find('option:selected').text());
 					$('#actWhere').empty().append($('#insertWhere').val());
 					$('#actStarttime').empty().append(
-							$('#startTime').val() + ' '
-									+ $('#startTime2').val());
+							$('#startTime').val() + ' ' + $('#startTime2').val());
 					$('#actEndtime').empty().append(
 							$('#endTime').val() + ' ' + $('#endTime2').val());
 					$('#actDescription').empty().append($('#insertDes').val());
@@ -237,7 +212,6 @@
 		$('#ActivityCreateForm').submit(
 				function() {
 					var applyForm = creatApplyForm();
-					alert(applyForm);
 					if (applyForm != false) {
 						$(this).append(
 								$('<input/>').attr('name', 'applyform').val(
@@ -453,9 +427,7 @@ footer>ul>li ul {
 						<tr>
 							<td>城市/所在地</td>
 							<td><select name="city" id="selCity">
-									<option value="0">台北市</option>
-									<option value="1">新北市</option>
-							</select></td>
+								<option>請選擇</option></select></td>
 						</tr>
 						<tr>
 							<td>地點</td>
@@ -464,7 +436,7 @@ footer>ul>li ul {
 						<tr>
 							<td>開始時間</td>
 							<td>
-								<input type="date" id="startTime" name="startTime" value="2018-09-12">
+								<input type="date" id="startTime" name="startTime">
 								<input type="text" id="startTime2" name="startTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.starDateTime}
 							</td>
 						</tr>
