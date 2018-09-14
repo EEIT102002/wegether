@@ -7,6 +7,7 @@ import model.FriendBean;
 
 public interface AttendDAO {
 	public abstract AttendBean select(int id);
+	public abstract AttendBean selectByActivityAndMember(int activityid, int memberid);
 	public abstract List<AttendBean> selectBymemberid(int memberid);
 	public abstract List<AttendBean> select();
 	public abstract List<AttendBean> selectByActID(int actID);

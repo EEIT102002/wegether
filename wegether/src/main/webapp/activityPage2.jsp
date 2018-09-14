@@ -181,6 +181,7 @@ footer>ul>li ul {
 	color: white;
 }
 </style>
+<link rel="stylesheet" href="/wegether/css/applyForm.css">
 </head>
 
 <body>
@@ -428,6 +429,23 @@ footer>ul>li ul {
 				<div class="modal-body"></div>
 				<div class="modal-footer">
 					<button type="button" id='sendApply' class="btn btn-default">上傳</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div class="modal fade" id="applyState" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
 				</div>
 			</div>
 

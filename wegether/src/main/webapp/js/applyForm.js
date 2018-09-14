@@ -17,18 +17,33 @@ $(function(){
              message, 
              function( data ) {
                  if(data.state){
-                     console.log(data);                }
+                	 $('#applyForm').modal('hide');
+                	 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('報名成功'));
+                 }else{
+                	
+                	 if(Object.keys(data.errors).length == 0){
+                		 $('#applyForm').modal('hide');
+                		 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('報名失敗'));
+                	 }else{
+		            	 $.each(data.errors,function(error){
+		            		 $('#'+error+'_error').addClass('error');
+		            	 })
+                	 }
+                 }
            }
            , "json"
-           );
+           ).fail(function(){ 
+        	   $('#applyForm').modal('hide');
+      		 	$('#applyState').modal().find('.modal-body').html($('<h4/>').text('請登入'));
+           });
 	})
 })
 
 function getApplyForm(id){
-	actionUrl = '/wegether/activity/apply/'+id;
+	actionUrl = '/wegether/Rest/activity/apply/'+id;
 	
     $.getJSON(
-        "/wegether/activity/applyform/"+id
+        "/wegether/Rest/activity/applyform/"+id
         , function (data) {
             questions = data.questions;
             var form = $('<form/>');
@@ -44,8 +59,13 @@ function getApplyForm(id){
 
 function creatQ(question) {
     var div = $('<div/>');
-    var title = $('<p/>').text(question.title);
-    div.html(title);
+    var title = $('<label/>').text(question.title);
+    div.append(title);
+    var span = $('<span id="'+question.name+'_error"/>')
+    if(question.required){
+    	span.text("*必填");
+    }
+    div.append(span);
     switch (question.type) {
         case 'textarea':
             textarea(question, div);
@@ -82,37 +102,42 @@ function select(question, div) {
 
 
 function textarea(question, div) {
-    var input = $('<textarea/>')
+    var input = $('<textarea placeholder="請輸入..."/>')
         .attr('name', question.name);
     div.append(input);
 }
 
 function text(question, div) {
-    var input = $('<input/>')
+    var input = $('<input placeholder="請輸入..."/>')
         .attr('type', question.type)
         .attr('name', question.name);
     div.append(input);
 }
 
 function radio(question, div) {
-	console.log(JSON.stringify(question));
     $.each(question.options, function (i, option) {
-    	var key = Object.keys(option)[0]
+        var key = Object.keys(option)[0]
+        var p = $('<p/>');
         var input = $('<input/>')
             .attr('type', question.type)
             .attr('name', question.name)
             .val(key);
-        div.append(input, option[key]+"<br>");
+        var label = $('<label/>').text(option[key]);;
+        p.append(input, label);
+        div.append(p);
     })
 }
 
 function checkbox(question, div) {
     $.each(question.options, function (i, option) {
-    	var key = Object.keys(option)[0];
+        var key = Object.keys(option)[0];
+        var p = $('<p/>');
         var input = $('<input/>')
             .attr('type', question.type)
             .attr('name', key)
             .val(1);
-        div.append(input, option[key] + "<br>");
+        var label = $('<label/>').text(option[key]);
+        p.append(input, label);
+        div.append(p);
     })
 }
