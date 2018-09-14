@@ -68,6 +68,4 @@ public class MemberInfoDAOHibernate implements MemberInfoDAO {
 		return (List<MemberInfoBean>) nq.list();
 	}
 
-
-
 }

@@ -64,13 +64,13 @@ public class indexRestController {
 			result.forEach(bean->{
 			
 				Object[] obj = new Object[3];
-				StringBuilder sb = new StringBuilder();
-				sb.append("data:image/jpg;base64,");
-				sb.append(org.apache.commons.codec.binary.StringUtils
-						.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(bean.getPicture(), false)));
+//				StringBuilder sb = new StringBuilder();
+//				sb.append("data:image/jpg;base64,");
+//				sb.append(org.apache.commons.codec.binary.StringUtils
+//						.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(bean.getPicture(), false)));
 				sessionFactory.getCurrentSession().evict(bean);
 				obj[0] = bean;
-				obj[1] = sb.toString();
+				obj[1] = "/wegether/activity/photo/"+bean.getId();
 				obj[2] = bean.getMemberBean().getNickname();
 				// System.out.println(bean.getMemberBean().getNickname());
 				bean.setMemberBean(null);

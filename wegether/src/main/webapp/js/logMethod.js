@@ -5,7 +5,7 @@ $(function () {
     loginSpan = $('#loginSpan');
     logindiv = $('#login');
     loginSub = $('#logoutSubSpanA');
-    loginRing = $('#loginRing');
+    loginRing = $('#liRing');
     	$.post(
     	        "/wegether/login.check"
     	        , ""
