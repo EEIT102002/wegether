@@ -1,3 +1,5 @@
+var buttonVal =['提出好友邀請','追蹤','加入黑名單'];
+
 $(document).ready(function() {
 	iframe_auto_height(); // 當文件ready時才能正確取得iframe內容的高度
 	
@@ -13,8 +15,16 @@ $(document).ready(function() {
     	return false;
     });
 	
+	
+
 });
 
+
+function createTemp(type){
+	return '<div><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button">'
+		+buttonVal[type]
+		+'</button></div></div>';
+}
 
 
 function iframe_auto_height() {
@@ -36,28 +46,30 @@ function iframe_auto_height() {
 	// 當下層iframe自身完成高度調整後, 再通知上層去調整高度, 直到每一層都完成高度調整.
 }
 
-function searchServer(formData, url, rowtemp){
-	var searchbox = $(parent.document).find("#searchBox");
-	var minbody = $(parent.document).find("#searchBox").find('.modal-body');
+function searchServer(formData, url, type){
+	var temp = createTemp(type);
+	var searchbox = window.parent.$('#searchBox');
+	var minbody = searchbox.find('.friendList');
+	minbody.html("");
+	
     $.post({
         url: url,
         data: formData,
         success: function(data){
-            minbody.html("");
+            
             $.each(data, function(i, e){
-                var row = $(rowtemp);
+                var row = $(temp);
                 row.find(".name").html(e.nickname);
                 if (e.photo != null)
                     row.find('img').attr('src', e.photo);
                 row.attr('href', e.memberid);
                 minbody.append(row);
-                searchbox.modal('show');
+                searchbox.modal();
             })
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
-        	minbody.html("");
         	minbody.append($('<p/>').text("沒有查詢結果"));
-        	searchbox.modal('show');
+        	searchbox.modal();
         },
         dataType:"json"
     })

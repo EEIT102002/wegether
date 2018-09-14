@@ -1,6 +1,7 @@
 package Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,8 @@ public class TrackmemberService {
 	@Autowired
 	private TrackmemberDAO trackmemberDAO;
 
-	public List<TrackmemberBean> insert(int mid, int fid) {
-		List<TrackmemberBean> result = null;
-
+	public TrackmemberBean insert(int mid, int fid) {
+		TrackmemberBean result = null;
 		if (mid != fid && mid != 0) {
 			TrackmemberId id = new TrackmemberId();
 			id.setFanid(fid); // 追蹤者ID
@@ -32,7 +32,7 @@ public class TrackmemberService {
 			try {
 				result = trackmemberDAO.insert(bean);// 加追蹤
 			} catch (Exception e) {
-
+				return result;
 			}
 		}
 		return result;
@@ -52,7 +52,7 @@ public class TrackmemberService {
 			try {
 				result = trackmemberDAO.delete(bean);// 取消追蹤
 			} catch (Exception e) {
-
+				return result;
 			}
 		}
 		return result;

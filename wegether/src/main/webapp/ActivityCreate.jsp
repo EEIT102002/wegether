@@ -428,9 +428,8 @@ footer>ul>li ul {
 	<div class="container">
 		<div id="small_con">
 			<div>
-				<form id="ActivityCreateForm"
-					action="<c:url value="/actCreate.controller"/>" method="post"
-					accept-charset="ISO-8859-1" enctype="multipart/form-data">
+				<form id="ActivityCreateForm" action="<c:url value="/actCreate.controller"/>"
+					  method="post" accept-charset="ISO-8859-1" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td>聚會封面</td>

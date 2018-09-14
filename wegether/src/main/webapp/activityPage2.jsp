@@ -5,130 +5,129 @@
 <%@ page import="org.apache.commons.codec.binary.StringUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <title>ActivityPage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/activityPage.css">
-<script src="/wegether/js/activityPage.js"></script>
+<script src="js/activityPage.js"></script>
 
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css"	media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
+	media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'>
-<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<link
+	href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
-<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <!-- 登入使用 -->
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="/wegether/js/activityPag.js"></script>
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
+
 <!-- 登入使用 END -->
 <!-- 留言 /心得心享 視窗  -->
-<link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <!-- 留言 /心得心享 視窗 END -->
+
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
 
 <script>
-var attflag=0;
-var flag=0;
 	$(function() {
 		$('#header_nav ul li').click(function() {
-			$(this).addClass('active')
-				.siblings().removeClass('active');
+			$(this).addClass('active').siblings().removeClass('active');
 		})
-		
 
-		$('#upTop').click(function(){
-				var body = $("html, body");
-				body.stop().animate({scrollTop:0}, 500, 'swing');
-			})
-			.mouseover(function(){
-				$(this).removeClass('animated');
-			})
-			.mouseout(function(){
-				$(this).addClass('animated');
-			})
-			
-		// 推薦 /點閱率 /收藏 文字提示效果
-		$("[data-toggle='tooltip']").tooltip();
-		
-		//點閱率 按鍵圖示
-		$('#favorButton').click(function(){
-			if (flag == 0) {
-				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
-	 		} else {
-	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
+		$('#upTop').click(function() {
+			var body = $("html, body");
+			body.stop().animate({
+				scrollTop : 0
+			}, 500, 'swing');
+		}).mouseover(function() {
+			$(this).removeClass('animated');
+		}).mouseout(function() {
+			$(this).addClass('animated');
 		})
-		
-		//留言 
-		$('#msgButId').click(function(){
-			 $("#msgButId").attr("class","btn btn-warning");	//留言按鍵
-			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
-		})
-		
-		// 心得分享
-		$('#articleButId').click(function(){
-			 $("#msgButId").attr("class","btn btn-secondary");	//留言按鍵
-			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
-		})
-		
-		 attflag = $("#memBut").val(); //身分驗證	
-		 idCheck();//身分驗證	
-// 		 console.log("actPicListNo:"+actPicListNo);
+		$('#memBut').text('報 名 ').click(function() {
+			clickApplyForm(1);
+		});
+		// 		$('body').on('click','');	
 	})
-	
+	document.addEventListener("DOMContentLoaded",
+			function() {
+				document.getElementById("favorButton").addEventListener(
+						"click", click);
+				selectPic();//activityPage 輪播使用				
+				idCheck();//身分驗證
+
+			});
+
+	function click() {
+		if (flag == 0) {
+			document.getElementById("favorButton").src = "images/activityPageImages/favorites.png";
+			flag = 1;
+		} else {
+			document.getElementById("favorButton").src = "images/activityPageImages/favoritesOff.png";
+			flag = 0;
+		}
+	}
+	$(function() {
+		$("[data-toggle='tooltip']").tooltip();
+	});
+
 	//activityPage 輪播使用
-	var picNo = 1;
-	var timerObj = setInterval(autoPlay, 1500);
-	function autoPlay() {
-		picNo++;
-		if (picNo > "${actPicList.size()}" ) picNo = 1;
-		selectPic();
-	}
+// 	var picNo = 1;
+// 	var timerObj = setInterval(autoPlay, 1500);
+// 	function autoPlay() {
+// 		picNo++;
+// 		if (picNo > "${actPicList.size()}")
+// 			picNo = 1;
+// 		selectPic();
+// 	}
 
-	function selectPic() {
-		for (var i = 1; i <= "${actPicList.size()}" ; i++)
-			 $("#imd" + i).attr("style","border:2px solid #FFBB00");
- 		 $("#imd" + picNo).attr("style","border:3px solid red");
-		 $("#imd0").attr("src",$("#imd" + picNo).attr("src"));
-	}
-	//activityPage 輪播使用  end	
-	
-	//身分驗證	
-	function idCheck(){
-		//0:未登入  1:主辦人  2:已報名者  3:未報名者
-		
-		if(attflag == 0){
-			$('#memBut').text('請 先 登 入 才 能 報 名 ').click(function(){
-				console.log(attflag);
-			});
-		}
-		if(attflag == 1){
-			$('#memBut').text('編 輯 活 動 ').click(function(){
-				console.log(attflag);
-			});
-		}
-		if(attflag == 2){
-			$('#memBut').text('取 消 報 名 ').click(function(){
-				
-			});
-		}
-		if(attflag == 3){
-			$('#memBut').text('報 名 ').click(function(){
-				clickApplyForm("${actBean.id}");
-			});
-		}
-		
-	}
-	//登入身分驗證 END
-	
+// 	function selectPic() {
+// 		for (var i = 1; i <= "${actPicList.size()}"; i++)
+// 			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
+// 		document.getElementById("imd" + picNo).style = "border:3px solid red";
+// 		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
+// 	}
+// 	//activityPage 輪播使用  end	
+// 	//留言、心得分享
+// 	$(function() {
+// 		$("#tabs").tabs();
+// 	});
+// 	//留言、心得分享 end
 
+// 	//身分驗證	
+// 	//登入身分驗證 END
+
+// 	//留言 / 心得分享
+// 	function msgclick() {
+// 		document.getElementById("msgButId").className = "btn btn-warning"; //留言按鍵
+// 		document.getElementById("articleButId").className = "btn btn-secondary"; //心得分享按鍵   
+// 		location.href = 'index.jsp';
+
+// 	}
+
+// 	function articleclick() {
+// 		document.getElementById("msgButId").className = "btn btn-secondary"; //留言按鍵
+// 		document.getElementById("articleButId").className = "btn btn-warning"; //心得分享按鍵   
+
+// 	}
+	//留言 / 心得分享  END
 </script>
 <style>
 * {
@@ -136,6 +135,7 @@ var flag=0;
 	margin: 0;
 	padding: 0;
 }
+
 body {
 	/* background-color: rgb(145, 145, 145);
          */
@@ -143,14 +143,17 @@ body {
 	background-size: cover;
 	background-attachment: fixed;
 }
+
 #small_con {
 	width: 100%;
 	min-height: 800px;
 	background-color: rgba(255, 255, 255, 0.363);
 }
+
 footer {
 	margin-top: 20px;
 }
+
 footer ul {
 	text-align: center;
 	/* border: 2px solid red; */
@@ -158,24 +161,29 @@ footer ul {
 	width: 70%;
 	margin: auto;
 }
+
 footer>ul>li {
 	/* border: 2px solid green; */
 	flex: 1;
 }
+
 footer>ul>li a {
 	font-size: 1.2em;
 }
+
 footer>ul>li ul {
 	display: flex;
 	flex-direction: column;
 	width: 80%;
 	color: rgb(255, 153, 0);
 }
+
 .container p {
 	color: white;
 }
 </style>
 </head>
+
 <body>
 	<div class="container">
 		<nav class="navbar navbar-default" id="stickytop">
@@ -203,14 +211,12 @@ footer>ul>li ul {
 				</a></li>
 				<li><a href="#" class="scroll"> <span data-hover="發起心得">發起心得</span>
 				</a></li>
-				<li>
-					<a id="loginSpan" href="#" class="scrol" data-toggle="modal" data-target="#ActPageBox"> 
-						<span data-hover="登入">登入</span>
-					</a> 
-					<a id="logoutSpan" href="#" class="scrol" style="display: none">
+				<li><a id="loginSpan" href="#" class="scrol"
+					data-toggle="modal" data-target="#ActPageBox"> <span
+						data-hover="登入">登入</span>
+				</a> <a id="logoutSpan" href="#" class="scrol" style="display: none">
 						<span data-hover="登出">登出</span>
-					</a>
-				</li>
+				</a></li>
 			</ul>
 			</nav>
 		</div>
@@ -286,9 +292,10 @@ footer>ul>li ul {
 
 						<div id="up">
 							<div id="left" style="width: auto;">
-								<a href="personal.controller?memberId=${hostBean.id}"><img
+								<a href="personal.controller?memberId=${hostBean.id}"> <img
 									src="data:image/jpg;base64,${hostPicList.get(0)}"
-									class="img-circle" width="70"> </a>
+									class="img-circle" width="70">
+								</a>
 							</div>
 							<div id="left" style="width: auto;">
 								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
@@ -297,12 +304,14 @@ footer>ul>li ul {
 							<div id="right">
 								<a href="activityPage.controller?actid=1" class="tooltip-test"
 									data-toggle="tooltip" title="推薦給好友"> <img
-									src="images/activityPageImages/invite.png" width="50"></a>&emsp;
-								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
-									<img src="images/activityPageImages/click2.png" width="50">
+									src="images/activityPageImages/invite.png" width="50">
+								</a>&emsp; <span class="tooltip-test" data-toggle="tooltip"
+									title="活動點閱率"> <img
+									src="images/activityPageImages/click2.png" width="50">
 								</span>${actBean.click}&emsp; <a href="#" class="tooltip-test"
 									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton"
-									src="images/activityPageImages/favoritesOff.png" width="50"></a>
+									src="images/activityPageImages/favoritesOff.png" width="50">
+								</a>
 							</div>
 						</div>
 
@@ -312,7 +321,7 @@ footer>ul>li ul {
 								<img id="imd0" src="data:image/jpg;base64,${actPicList.get(0)}"
 									class="img-thumbnail">
 							</div>
-							<div class="div2" >
+							<div class="div2">
 								<c:set var="salary" value="1" />
 								<c:forEach var="obj" items="${actPicList}">
 									<img id="imd${salary}" src="data:image/jpg;base64,${obj}"
@@ -342,9 +351,10 @@ footer>ul>li ul {
 						<!-- right4 end -->
 						<div>
 							<c:forEach var="obj" items="${memPicList}">
-								<a href="personal.controller?memberId=${obj.memberId}"><img
+								<a href="personal.controller?memberId=${obj.memberId}"> <img
 									src="data:image/jpg;base64,${obj.memberPic}" class="img-circle"
-									width="50"></a>
+									width="50">
+								</a>
 								&emsp;
 							</c:forEach>
 
@@ -355,9 +365,9 @@ footer>ul>li ul {
 						<!-- right6 end -->
 						<div style="text-align: center">
 
-							<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
-							<button id="memBut" type="button" class="btn btn-warning" value="${flag}" ></button>
-						
+							<!-- 報名按鍵 -->
+							<button id="memBut" type="button" class="btn btn-warning"></button>
+
 
 
 						</div>
@@ -378,9 +388,12 @@ footer>ul>li ul {
 					<h4>留下意見:</h4>
 					<textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
 					</br> </br>
-					<button id="msgButId" type="button" class="btn btn-warning" >留言</button>
+					<button id="msgButId" type="button" class="btn btn-warning"
+						onclick="msgclick();">&emsp; 留 &emsp; &emsp; 言 &emsp;</button>
 
-					<button id="articleButId" type="button" class="btn btn-warning" >心得	分享</button>
+					<button id="articleButId" type="button" class="btn btn-warning"
+						onclick="articleclick();">&emsp; 心&emsp; 得 &emsp;
+						分&emsp;享 &emsp;</button>
 					</br> </br>
 
 					<!--  留言、心得分享 -->
@@ -389,10 +402,10 @@ footer>ul>li ul {
 					<!-- msg begin -->
 					<c:forEach var="obj" items="${msgsList}">
 						<div id="msgid" class="well">
-							<a href="personal.controller?memberId=${obj.memberId}"><img
-								src="data:image/jpg;base64,${obj.picMem}" width="50"></a> <span
-								style="color: blue;">${obj.nickname} </span> &emsp; <span
-								style="font-size: small;">${obj.msgtime}</span></br> ${obj.content}</br>
+							<a href="personal.controller?memberId=${obj.memberId}"> <img
+								src="data:image/jpg;base64,${obj.picMem}" width="50">
+							</a> <span style="color: blue;">${obj.nickname} </span> &emsp; <span
+								style="font-size: small;">${obj.msgtime}</span> </br> ${obj.content}</br>
 						</div>
 					</c:forEach>
 					<!-- msg end -->
@@ -404,40 +417,8 @@ footer>ul>li ul {
 			<!--       寫在這以上 -->
 		</div>
 	</div>
-		<div class="modal fade" id="applyForm" role="dialog">
-		<div class="modal-dialog">
 
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">報名表單</h4>
-				</div>
-				<div class="modal-body"></div>
-				<div class="modal-footer">
-					<button type="button" id='sendApply' class="btn btn-default">上傳</button>
-				</div>
-			</div>
 
-		</div>
-	</div>
-	
-	<div class="modal fade" id="applyState" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body"></div>
-				<div class="modal-footer">
-					<button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
 	<!-- <footer>
 		<div class="container">
 			<p id="fw">Wegther 2018</p>
@@ -460,4 +441,5 @@ footer>ul>li ul {
 	<p class="text-center">- Wegether 2018 EEIT10202 -</p>
 	</footer>
 </body>
+
 </html>

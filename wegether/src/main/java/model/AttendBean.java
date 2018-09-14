@@ -9,14 +9,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "ATTEND")
+@Table(name = "ATTEND", 
+	uniqueConstraints =  
+			@UniqueConstraint(columnNames = { "activityid", "memberid" }) 
+			
+)
 public class AttendBean {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
-    	generator = "ATTEND_sq")
-	@SequenceGenerator(allocationSize=1, name = "ATTEND_sq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ATTEND_sq")
+	@SequenceGenerator(allocationSize = 1, name = "ATTEND_sq")
 	private Integer id;
 	private Integer activityid;
 	private Integer memberid;
@@ -28,37 +32,32 @@ public class AttendBean {
 	private Integer rank3;
 
 	private Integer state;
-	
-	//activity
+
+	// activity
 	@ManyToOne
-	@JoinColumn(
-			name="ACTIVITYID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
-	private ActivityBean activityBean;			
+	@JoinColumn(name = "ACTIVITYID", referencedColumnName = "ID", insertable = false, updatable = false)
+	private ActivityBean activityBean;
+
 	public ActivityBean getActivityBean() {
 		return activityBean;
 	}
+
 	public void setActivityBean(ActivityBean activityBean) {
 		this.activityBean = activityBean;
 	}
 
-	//member
+	// member
 	@ManyToOne
-	@JoinColumn(
-			name="MEMBERID",
-			referencedColumnName="ID",
-			insertable=false, updatable=false
-			)
-	private MemberBean memberBean;		
-	public MemberBean getMemberBean() {
-			return memberBean;
-		}
-		public void setMemberBean(MemberBean memberBean) {
-			this.memberBean = memberBean;
-		}
+	@JoinColumn(name = "MEMBERID", referencedColumnName = "ID", insertable = false, updatable = false)
+	private MemberBean memberBean;
 
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
 
 	@Override
 	public String toString() {

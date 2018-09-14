@@ -63,33 +63,3 @@ function fileViewer(file,div) {
     rd.readAsDataURL(file);
 }
 
-
-function byteToUrl(photo) {//byte轉為base64
-    var base64 = btoa(String.fromCharCode.apply(null, new Uint8Array(photo)));
-    var imgSrc = 'data:image/jpg;base64,' + base64;
-    return imgSrc;
-}
-
-
-function photoUpdate(url,file, fn) {//上傳到server
-    var data = new FormData();
-    data.append('photo', file);
-    $.ajax({
-        url: url,
-        data: data,// Add as Data the Previously create formData
-        type: "POST",
-        contentType: false,
-        processData: false,
-        cache: false,
-        dataType: "json", // Change this according to your response from the server.
-        error: function (err) {
-            console.error(err);
-        },
-        success: function (data) {
-            fn(data);
-        },
-        complete: function () {
-            console.log("Request finished.");
-        }
-    });
-}

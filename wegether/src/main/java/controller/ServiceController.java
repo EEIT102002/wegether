@@ -27,7 +27,7 @@ public class ServiceController {
 	private ServiceService serviceService;
 
 	@RequestMapping(path = { "/Service.controller" })
-	public String method(Model model, String servicemethod, @RequestAttribute("memberid") Integer id, ServiceBean bean,
+	public String method(Model model, String servicemethod,  @RequestAttribute(name = "memberid",required = false) Integer id, ServiceBean bean,
 			BindingResult bindingResult) {
 		System.out.println("Service.controller");
 		System.out.println("id=" + id); // 取得登入的memberid

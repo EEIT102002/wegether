@@ -4,12 +4,13 @@
 <head>
 
     <head>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    	<script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
         <script src="../js/iframeautoheight.js"></script>
         <script src="/wegether/js/bootstrap.js"></script>
         <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="/wegether/setting/css/friendlist.css">
         <script>
-            var rowtemp = '<a href=""><div><img src="" alt=""><span class="name"></span></div></a>';
+            var rowtemp = '<a href=""><div><div class="photoDiv"><img src="" alt=""></div><span class="name"></span></div></a>';
             var friendList;
             $(document).ready(function () {
                 friendList = $('.friendList');
@@ -30,17 +31,18 @@
                         $.each(json, function (i, e) {
                             var row = $(temple);
                             row.find(".name").html(e.nickname);
-                            if (e.photo != null)
-                                row.find('img').attr('src', e.photo);
+                            row.find('img').attr('src', e.photoSrc);
                             row.find('a').attr('href', e.memberid);
                             friendList.append(row);
                             iframe_auto_height();
                         })
+                    },error: function(XMLHttpRequest, textStatus, errorThrown){
+
                     }
                 });
             }
             function inputSearch(formData){
-            	searchServer(formData,"/wegether/member/search/nickname/track", rowtemp)
+            	searchServer(formData,"/wegether/member/search/nickname/track", 1)
             }
         </script>
         <style>
@@ -52,51 +54,6 @@
             body {
             width: 800px;
             }
-
-        .friendList>div,
-        .friendList> a {
-            padding-left: 20px;
-            margin: 10px;
-            background-color: rgba(200, 226, 255, 0.459);
-            width: 300px;
-            height: 60px;
-            box-shadow: 4px 4px 12px -2px rgba(20%, 20%, 40%, 0.5);
-        }
-
-        .friendList>a {
-            display: block;
-            position: relative;
-        }
-
-        .friendList>a>div {
-            display: flex;
-            justify-content: left; /* align horizontal */
-            align-items: center; /* align vertical */
-            height: 100%;
-            width: 100%;
-
-        }
-        .friendList>div {
-            display: table;
-        }
-
-        .friendList>div>a {
-            display: table-cell;
-            text-align: left;
-            vertical-align: middle;
-            width: 70%;
-        }
-
-        .friendButton {
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-            width: 30%;
-        }
-
-        .friendButton button {
-            margin: 5px;
-        }
         </style>
     </head>
 

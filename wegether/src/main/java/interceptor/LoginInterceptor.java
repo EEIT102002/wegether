@@ -29,7 +29,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if(token != null) {
 			Integer id = tokenMap.get(token);
 			request.setAttribute("memberid", id);
-		}	
+		}else {
+			request.setAttribute("memberid", null);
+		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	
