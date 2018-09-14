@@ -10,111 +10,103 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/activityPage.css">
-<script src="js/activityPage.js"></script>
+<script src="/wegether/js/activityPage.js"></script>
 
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
-	media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"	media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<link
-	href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-	rel='stylesheet' type='text/css'>
+<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'>
+<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'>
 <script src="js/bootstrap.js"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <!-- 登入使用 -->
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="/wegether/js/activityPag.js"></script>
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
-
 <!-- 登入使用 END -->
 <!-- 留言 /心得心享 視窗  -->
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <script>
-
+var attflag=0;
+var flag=0;
 	$(function() {
 		$('#header_nav ul li').click(function() {
-			$(this).addClass('active').siblings().removeClass('active');
+			$(this).addClass('active')
+				.siblings().removeClass('active');
 		})
 		
 		$('#upTop').click(function(){
-			var body = $("html, body");
-			body.stop().animate({scrollTop:0}, 500, 'swing');
-			}).mouseover(function(){
+				var body = $("html, body");
+				body.stop().animate({scrollTop:0}, 500, 'swing');
+			})
+			.mouseover(function(){
 				$(this).removeClass('animated');
-			}).mouseout(function(){
+			})
+			.mouseout(function(){
 				$(this).addClass('animated');
 			})
-// 		$('body').on('click','');	
+			
+		// 推薦 /點閱率 /收藏 文字提示效果
+		$("[data-toggle='tooltip']").tooltip();
+		
+		//點閱率 按鍵圖示
+		$('#favorButton').click(function(){
+			if (flag == 0) {
+				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
+	 		} else {
+	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
+		})
+		
+		//留言 
+		$('#msgButId').click(function(){
+			 $("#msgButId").attr("class","btn btn-warning");	//留言按鍵
+			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
+		})
+		
+		// 心得分享
+		$('#articleButId').click(function(){
+			 $("#msgButId").attr("class","btn btn-secondary");	//留言按鍵
+			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
+		})
+		
+		 attflag = $("#memBut").val(); //身分驗證	
+		 idCheck();//身分驗證	
+// 		 console.log("actPicListNo:"+actPicListNo);
 	})
-// 	var flag = 0;
-	document.addEventListener("DOMContentLoaded",
-			function() {
-// 				document.getElementById("favorButton").addEventListener(
-// 						"click", click);
-// 				selectPic();//activityPage 輪播使用				
-				idCheck();//身分驗證
-			   
-			});
-
-// 	function click() {
-// 		if (flag == 0) {
-// 			document.getElementById("favorButton").src = "images/activityPageImages/favorites.png";
-// 			flag = 1;
-// 		} else {
-// 			document.getElementById("favorButton").src = "images/activityPageImages/favoritesOff.png";
-// 			flag = 0;
-// 		}
-// 	}
-// 	$(function() {
-// 		$("[data-toggle='tooltip']").tooltip();
-// 	});
-
-// 	//activityPage 輪播使用
-// 	var picNo = 1;
-// 	var timerObj = setInterval(autoPlay, 1500);
-// 	function autoPlay() {
-// 		picNo++;
-// 		if (picNo > "${actPicList.size()}")
-// 			picNo = 1;
-// 		selectPic();
-// 	}
-
-// 	function selectPic() {
-// 		for (var i = 1; i <= "${actPicList.size()}"; i++)
-// 			document.getElementById("imd" + i).style = "border:2px solid #FFBB00";
-// 		document.getElementById("imd" + picNo).style = "border:3px solid red";
-// 		document.getElementById("imd0").src = $("#imd" + picNo).attr("src");
-// 	}
-// 	//activityPage 輪播使用  end	
-// 	//留言、心得分享
-// 	$(function() {
-// 		$("#tabs").tabs();		
-// 	});
-// 	//留言、心得分享 end
 	
-// 	//身分驗證	
-	var attflag= ${flag}; //0:未登入  1:主辦人  2:已報名者  3:未報名者
+	//activityPage 輪播使用
+	var picNo = 1;
+	var timerObj = setInterval(autoPlay, 1500);
+	function autoPlay() {
+		picNo++;
+		if (picNo > "${actPicList.size()}" ) picNo = 1;
+		selectPic();
+	}
+
+	function selectPic() {
+		for (var i = 1; i <= "${actPicList.size()}" ; i++)
+			 $("#imd" + i).attr("style","border:2px solid #FFBB00");
+ 		 $("#imd" + picNo).attr("style","border:3px solid red");
+		 $("#imd0").attr("src",$("#imd" + picNo).attr("src"));
+	}
+	//activityPage 輪播使用  end	
+
+	
+	//身分驗證	
 	function idCheck(){
 		//0:未登入  1:主辦人  2:已報名者  3:未報名者
 		
 		if(attflag == 0){
 			$('#memBut').text('請 先 登 入 才 能 報 名 ').click(function(){
-				
+				console.log(attflag);
 			});
 		}
 		if(attflag == 1){
 			$('#memBut').text('編 輯 活 動 ').click(function(){
-				
+				console.log(attflag);
 			});
 		}
 		if(attflag == 2){
@@ -128,42 +120,10 @@
 			});
 		}
 		
-// 		if(attflag == 0){
-// 				$('#memBut').val('&emsp; s請 先 登 入 才 能 報 名 &emsp;');
-// // 					document.getElementById("memBut")
-// // 					.innerHTML='&emsp; 請 先 登 入 才 能 報 名 &emsp;';
-// 		}else if(attflag==1){
-// 				document.getElementById("memBut")
-// 				.innerHTML='<a href="#" style="text-decoration:none;">'+
-// 							' &emsp; 編 &emsp; 輯 &emsp; 活 &emsp; 動 &emsp;</a>';
-// 		}else if(attflag==2){
-// 		 		document.getElementById("memBut")
-// 			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
-// 						    ' &emsp; 取 &emsp; 消 &emsp; 報 &emsp; 名 &emsp;</a>';
-// 		}else if(attflag==3){
-// 				document.getElementById("memBut").val())
-// 			 	 .innerHTML='<a href="#" style="text-decoration:none;">'+
-// 					       ' &emsp; 報 &emsp; 名 &emsp; 活 &emsp; 動 &emsp;</a>';
-// 		}
-
 	}
 	//登入身分驗證 END
 	
-// 	//留言 / 心得分享
-// 	function msgclick(){
-// 		 document.getElementById("msgButId").className = "btn btn-warning";   	   //留言按鍵
-// 		    document.getElementById("articleButId").className = "btn btn-secondary";    //心得分享按鍵   
-// 		    location.href = 'index.jsp';
-                 
-//             }
-	
-// 	function articleclick(){
-// 		 document.getElementById("msgButId").className = "btn btn-secondary";   	   //留言按鍵
-// 		    document.getElementById("articleButId").className = "btn btn-warning";    //心得分享按鍵   
-	
-                
-//            }
-// 	//留言 / 心得分享  END
+
 </script>
 <style>
 * {
@@ -353,7 +313,7 @@ footer>ul>li ul {
 								<img id="imd0" src="data:image/jpg;base64,${actPicList.get(0)}"
 									class="img-thumbnail">
 							</div>
-							<div class="div2">
+							<div class="div2" >
 								<c:set var="salary" value="1" />
 								<c:forEach var="obj" items="${actPicList}">
 									<img id="imd${salary}" src="data:image/jpg;base64,${obj}"
@@ -396,9 +356,9 @@ footer>ul>li ul {
 						<!-- right6 end -->
 						<div style="text-align: center">
 
-							<!-- 報名按鍵 -->
-							<button id="memBut" type="button" class="btn btn-warning"></button>
-
+							<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
+							<button id="memBut" type="button" class="btn btn-warning" value="${flag}" ></button>
+						
 
 
 						</div>
@@ -419,12 +379,9 @@ footer>ul>li ul {
 					<h4>留下意見:</h4>
 					<textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
 					</br> </br>
-					<button id="msgButId" type="button" class="btn btn-warning"
-						onclick="msgclick();">&emsp; 留 &emsp; &emsp; 言 &emsp;</button>
+					<button id="msgButId" type="button" class="btn btn-warning" >留言</button>
 
-					<button id="articleButId" type="button" class="btn btn-warning"
-						onclick="articleclick();">&emsp; 心&emsp; 得 &emsp;
-						分&emsp;享 &emsp;</button>
+					<button id="articleButId" type="button" class="btn btn-warning" >心得	分享</button>
 					</br> </br>
 
 					<!--  留言、心得分享 -->
