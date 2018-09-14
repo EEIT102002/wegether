@@ -99,7 +99,7 @@ public class MemberRegisterController extends HttpServlet {
 
 		Map<String, String> errors = new HashMap<>();
 
-		// // 帳號錯誤訊息
+		// 帳號錯誤訊息
 		if (bean.getAccount() == null || bean.getAccount().length() == 0) {
 			errors.put("account", "帳號未輸入");
 		} else if (!checkemail) {
@@ -108,7 +108,6 @@ public class MemberRegisterController extends HttpServlet {
 			errors.put("account", "帳號重複");
 		}
 		// 密碼錯誤訊息
-
 		if (bean.getPwd() == null || bean.getPwd().length == 0) {
 			errors.put("pwd", "密碼未輸入");
 		} else if (!checkcode) {
