@@ -57,12 +57,13 @@ public class TrackmemberDAOHibernate implements TrackmemberDAO{
 		TrackmemberBean result = null;
 		if(bean!=null) {
 			result = selectByMemberidAndFanid(bean.getId().getMemberid(), bean.getId().getFanid());
-			if(result!=null) {
+			if(result==null) {
 				this.getSession().save(bean);
+				result = selectByMemberidAndFanid(bean.getId().getMemberid(), bean.getId().getFanid());
 				return result;
 			}
 		}
-		return result;
+		return null;
 	}
 
 	@Override
