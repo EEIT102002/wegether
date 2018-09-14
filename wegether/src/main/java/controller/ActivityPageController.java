@@ -57,13 +57,14 @@ public class ActivityPageController {
 	}
 
 	@RequestMapping("/activityPage.controller")
-	public String method(Model model, String actid,
+	public String method(Model model, Integer actid,
 			@RequestAttribute(name = "memberid", required = false) Integer memberid) {
 		System.out.println("id :" + memberid);
-		Integer flag = null;
-
+		
+		// flag= 0:未登入 1:主辦人 2:已報名者 3:未報名者
+		Integer flag = 0;		
+		if (memberid != null) flag = 3;
 		// 時間轉換
-		String[] months = { "一 月", "二 月", "三 月", "四 月", "五 月", "六 月", "七 月", "八 月", "九 月", "十 月", "十一 月", "十二 月" };
 
 		String[] week = { "(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)" };
 		System.out.println("actid=" + actid);
@@ -73,53 +74,45 @@ public class ActivityPageController {
 
 		List<Map> msgsList = new ArrayList<>();
 
-		if (actid == null)
-			actid = "1";
-		ActivityBean actBean = activityDAO.selectId(Integer.parseInt(actid));
+
+		if (actid == null)	actid = 1;
+		ActivityBean actBean = activityDAO.selectId(actid);
 
 		MemberBean hostBean = memberDAO.select(actBean.getHostid());
-
-		if (memberid == actBean.getHostid())
-			flag = 1;
-
-		List<PictureBean> actPicBean = pictureDAO.selectByActivity(Integer.parseInt(actid));
-		List<PictureBean> hostPicBean = pictureDAO.selectByMember(hostBean.getId());
-		List<MsgBean> msgBean = msgDAO.selectByActivity(Integer.parseInt(actid));
+		
+		List<PictureBean> actPicBeans = pictureDAO.selectByActivity(actid);
+		List<PictureBean> hostPicBeans = pictureDAO.selectByMember(hostBean.getId());
+		List<MsgBean> msgBeans = msgDAO.selectByActivity(actid);
 		Set<AttendBean> attBeans = actBean.getAttendBean();
 		
-		if (memberid == null) {
-			flag = 0;
-		} else if (memberid == actBean.getHostid()) {
-			flag = 1;
-		} else {
+			
 			if (attBeans.size() != 0) {
 				for(AttendBean att :attBeans) {
-					List<PictureBean> memPicBean = pictureDAO.selectByMember(att.getMemberid()); // 報名人員的照片名單
+					List<PictureBean> memPicBeans = pictureDAO.selectByMember(att.getMemberid()); // 報名人員的照片名單
 					Map<String, String> attMap = new HashMap<String, String>();
-					if (memPicBean.size() != 0)
-						attMap.put("memberId", att.getMemberid().toString());
-					attMap.put("memberPic", PictureConvert.convertBase64Image(memPicBean.get(0).getPicture()));
-					// flag= 0:未登入 1:主辦人 2:已報名者 3:未報名者
-						if (memberid == att.getMemberid())
-							flag = 2;
-						else
-							flag = 3;
-					memPicList.add(attMap);// memPicBean.get(0) -->第一筆照片物件
+					if (memPicBeans.size() != 0) {
+							attMap.put("memberId", att.getMemberid().toString());
+							attMap.put("memberPic", PictureConvert.convertBase64Image(memPicBeans.get(0).getPicture()));// memPicBean.get(0) -->第一筆照片物件
+							memPicList.add(attMap);
+							if (flag != 2 && memberid == att.getMemberid())	flag = 2;
+						}					
 				};
 			}
-		}
-		if (actPicBean.size() != 0)
-			actPicBean.forEach(pic -> {
+			
+		if (memberid == actBean.getHostid()) flag = 1;
+
+		if (actPicBeans.size() != 0)
+			actPicBeans.forEach(pic -> {
 				actPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 			});
 
-		if (hostPicBean.size() != 0)
-			hostPicBean.forEach(pic -> {
+		if (hostPicBeans.size() != 0)
+			hostPicBeans.forEach(pic -> {
 				hostPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
 			});
 
-		if (msgBean.size() != 0)
-			msgBean.forEach(msg -> {
+		if (msgBeans.size() != 0)
+			msgBeans.forEach(msg -> {
 				Calendar msgtime = Calendar.getInstance();
 				Map<String, String> msgsMap = new HashMap<String, String>();
 				msgsMap.put("nickname", memberDAO.select(msg.getMemberid()).getNickname());
@@ -148,8 +141,6 @@ public class ActivityPageController {
 				msgsMap.put("msgtime", msgtimeStr);
 				msgsList.add(msgsMap);
 
-				// System.out.println(memberDAO.select(msg.getMemberid()).getNickname()+" :
-				// "+msgtimeStr+" : "+ msg.getContent());
 			});
 
 		String actbegin = null;
@@ -229,12 +220,7 @@ public class ActivityPageController {
 		model.addAttribute("flag", flag);
 		
 
-		// msgsList.forEach(x->{
-		// System.out.println( x.get("nickname") + " : " + x.get("msgtime") + " : " +
-		// x.get("content"));
-		// });
-
-		return "activityPage";
+				return "activityPage";
 
 	}
 }

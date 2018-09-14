@@ -15,7 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
+@Scope("prototype")
 @Table(name = "ARTICLE")
 public class ArticleBean {
 	@Id

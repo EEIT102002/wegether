@@ -2,9 +2,13 @@ package model.dao.implement;
 
 import java.util.List;
 
+import javax.sound.midi.Soundbank;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -29,8 +33,8 @@ public class ArticleDAOHibernate implements ArticleDAO {
 	@Override
 	public ArticleBean insert(ArticleBean articleBean) {
 		if (articleBean != null) {
-				this.getSession().save(articleBean);
-				return articleBean;
+			this.getSession().save(articleBean);
+			return articleBean;
 		}
 		return null;
 	}
@@ -54,10 +58,22 @@ public class ArticleDAOHibernate implements ArticleDAO {
 		}
 		return false;
 	}
-	
+
 	private final String getActid = "select distinct activityid from ArticleBean";
+
 	@Override
 	public List<Integer> selectAllForActid() {
-		return  this.getSession().createQuery(getActid).list();
+		return this.getSession().createQuery(getActid).list();
+	}
+
+	private String HqlGetArticleId = "SELECT id FROM ArticleBean WHERE MEMBERID = :MID AND ACTIVITYID = :AID";
+
+	@Override
+	public int getArticleId(int memberid, int activityid) {
+		Query query = this.getSession().createQuery(HqlGetArticleId);
+		query.setParameter("MID", memberid);
+		query.setParameter("AID", activityid);
+		List<Integer> obj = query.list();
+		return obj.get(0);
 	}
 }

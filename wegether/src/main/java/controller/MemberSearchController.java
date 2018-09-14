@@ -35,7 +35,7 @@ public class MemberSearchController {
 	
 	@RequestMapping(path= {"/member/search/nickname/friend"}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?> searchByNicknameForFrined(
-			@RequestAttribute("memberid") Integer id, String nickname, HttpServletRequest request){
+			@RequestAttribute("memberid") Integer id, String nickname){
 		if(nickname == null || nickname.trim().length() <=0 || id == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -54,7 +54,7 @@ public class MemberSearchController {
 	
 	@RequestMapping(path= {"/member/search/nickname/track"}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?> searchByNicknameForTrack(
-			@RequestAttribute("memberid") Integer id, String nickname, HttpServletRequest request){
+			@RequestAttribute("memberid") Integer id, String nickname){
 		if(nickname == null || nickname.trim().length() <=0 || id == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -70,7 +70,7 @@ public class MemberSearchController {
 	
 	@RequestMapping(path= {"/member/search/nickname/blacklist"}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?> searchByNicknameForBlacklist(
-			@RequestAttribute("memberid") Integer id, String nickname, HttpServletRequest request){
+			@RequestAttribute("memberid") Integer id, String nickname){
 		if(nickname == null || nickname.trim().length() <=0 || id == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

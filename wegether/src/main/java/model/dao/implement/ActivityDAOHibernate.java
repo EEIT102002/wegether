@@ -271,4 +271,6 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(Hqlactivitymemberid, ActivityBean.class).setParameter("hostid", memberid)
 				.list();
 	}
+	
+
 }

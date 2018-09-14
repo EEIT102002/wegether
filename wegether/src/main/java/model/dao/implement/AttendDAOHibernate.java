@@ -48,6 +48,13 @@ public class AttendDAOHibernate implements AttendDAO {
 				.setParameter("activityid",actID).list();		
 	}
 	
+	private final String selectByActivityAndMember = "from AttendBean  WHERE activityid = :activityid and memberid = :memberid";
+	public AttendBean selectByActivityAndMember(int activityid, int memberid) {
+		return this.getSession().createQuery(selectByActivityAndMember, AttendBean.class)
+				.setParameter("activityid",activityid)
+				.setParameter("memberid",memberid).list().get(0);		
+	}
+	
 	private final String selectByMemID = "from AttendBean  WHERE memberid = :memberid ";
 	@Override
 	public List<AttendBean> selectByMemID(int memID) {
@@ -63,13 +70,11 @@ public class AttendDAOHibernate implements AttendDAO {
 		query.setParameter("MID", memberid);
 		return query.list();
 	}
-
 	@Override
 	public AttendBean insert(AttendBean bean) {
-		if(bean!=null) {			
+		if(bean!=null && selectByActivityAndMember(bean.getActivityid(), bean.getMemberid()) == null) {					
 				this.getSession().save(bean);
-				return bean;
-			
+			return bean;			
 		}
 		return null;
 	}
