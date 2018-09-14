@@ -1,9 +1,8 @@
 package controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +23,7 @@ public class TrackmemberController {
 	@Autowired
 	private TrackmemberService trackmemberService;
 
+
 	@RequestMapping(path = { "/Trackmember/insert" })
 	protected @ResponseBody ResponseEntity<?>  insertTrack(
 			@RequestParam Integer memberid,@RequestAttribute("memberid") Integer fanid){
@@ -32,7 +32,7 @@ public class TrackmemberController {
 			result.put("state", false);
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-			List<TrackmemberBean> bean = trackmemberService.insert(memberid,fanid);// 加追蹤
+			TrackmemberBean bean = trackmemberService.insert(memberid,fanid);// 加追蹤
 		
 		if (bean != null) {
 			result.put("state", true);
@@ -41,7 +41,9 @@ public class TrackmemberController {
 			result.put("state", false);
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
+
 	}
+
 
 	@RequestMapping(path = { "/Trackmember/delete" })
 	protected @ResponseBody ResponseEntity<?>  deleteTrack(
@@ -56,6 +58,7 @@ public class TrackmemberController {
 		if (state) {
 			result.put("state", true);
 			return new ResponseEntity<>(result, HttpStatus.OK);
+
 		} else {
 			result.put("state", false);
 			return new ResponseEntity<>(result, HttpStatus.OK);

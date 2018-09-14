@@ -1,9 +1,11 @@
 package model.dao.implement;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,12 +29,22 @@ public class BlacklistDAOHibernate implements BlacklistDAO {
 		return getSession().createQuery("from BlacklistBean where memberid = :memberid", BlacklistBean.class)
 				.setParameter("memberid", memberid).list();
 	}
+	
+	private String Hqlstr = "from BlacklistBean where memberid = :memberid and blackid = :blackid";
+	@Override
+	public BlacklistBean selectByMemberidAndBlackid(int mid, int bid) {
+		Query<BlacklistBean> query = getSession().createQuery(Hqlstr);
+		BlacklistBean result = query.setParameter("memberid", mid).setParameter("blackid", bid).uniqueResult();
+		
+		return result;
+	}
 
 	@Override
-	public List<BlacklistBean> insert(BlacklistBean bean) {
+	public BlacklistBean insert(BlacklistBean bean) {
 		if (bean != null) {
 			this.getSession().save(bean);
-			return selectByMember(bean.getId().getMemberid());
+			return selectByMemberidAndBlackid(bean.getId().getMemberid(),bean.getId().getBlackid());
+//			return selectByMember(bean.getId().getMemberid());
 		}
 		return null;
 	}
