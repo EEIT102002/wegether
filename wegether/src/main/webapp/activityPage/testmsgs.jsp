@@ -36,17 +36,18 @@
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
  <script>
+ var queryStr;
  $(function(){
-	 //載入心得
-	 getArticles();
+	 //載入留言
+	 getMsgs();
 	 
-// 	//新增心得
-// 	 $('#txtbut').click(function(){
-// 		 getMsgs($("#txt").val());
-// 		 $("#txt").val('');
-// 	});
+	//新增留言
+	 $('#txtbut').click(function(){
+		 getMsgs($("#txt").val());
+		 $("#txt").val('');
+	});
 		
-	//刪除心得
+	//刪除留言
 		$('#demo').click(function(event){
 	        if (event.target.className == "btn btn-danger"){
 				var temp = $(event.target).attr("msgid")
@@ -58,14 +59,15 @@
 	
 })
 	
- //載入心得
- function getArticles(msg){
+
+ function getMsgs(msg){
 	 var divElem = null ;
 	 var temp="";
 	 console.log("msg="+msg);
-	 $.getJSON("article.controller",
+	 $.getJSON("msgs.controller",
 			 { activityid:1, 
-		 		memberid:2,		 		
+		 		memberid:2,
+		 		state:0,
 		 		content:msg
 			 },
 			 function(result){	
@@ -85,52 +87,12 @@
 	 
  }
 
- $(document).ready(function(){
-	//留言 
-		$('#msgButId').click(function(){
-// 			 $("#msgButId").attr("class","btn btn-warning");	//留言按鍵
-// 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
-			 $("#msgBlock").show();
-// 			 getMsgs();
-		})
-		
-		// 心得分享
-		$('#articleButId').click(function(){
-// 			 $("#msgButId").attr("class","btn btn-secondary");	//留言按鍵
-// 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
-			 $("#msgBlock").hide();
-// 			 getArticles();
-			 
-		})
-		
-		  $("#hide").click(function(){
-			  $("p").hide();
-			});
-		  $("#show").click(function(){
-		  		$("p").show();
-		  });
-	});
+	
  </script>
 </head>
 <body>
-<!-- 	<input id="txt" type="text"><br> -->
-<!-- 	<input id="txtbut" type="button" class="btn btn-primary" value="留言" /> -->
+	<input id="txt" type="text"><br>
+	<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
 	<div id="demo"></div>
-	<div id="msgBlock" >
-		<h4>留下意見:</h4>
-		<textarea id="txt" cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
-		</br> 
-		<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
-		</br> </br>
-	</div>
-	<button id="msgButId" type="button">留言</button>
-	<button id="articleButId" type="button" >心得	分享</button>
-	</br> </br>
-	
-	<p id="p1">如果点击“隐藏”按钮，我就会消失。</p>
-	
-
-<button id="show" type="button">显示</button>
-<button id="hide" type="button">隐藏</button>
 </body>
 </html>

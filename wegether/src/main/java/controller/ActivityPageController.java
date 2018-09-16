@@ -65,7 +65,6 @@ public class ActivityPageController {
 		Integer flag = 0;		
 		if (memberid != null) flag = 3;
 		// 時間轉換
-
 		String[] week = { "(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)" };
 		System.out.println("actid=" + actid);
 		List<String> actPicList = new ArrayList<>();
@@ -125,10 +124,9 @@ public class ActivityPageController {
 				msgtime.setTime(msg.getMsgtime());
 				int msgMonth = msgtime.get(Calendar.MONTH) + 1;
 				int msgDay = msgtime.get(Calendar.DAY_OF_MONTH);
-				int msgHour = msgtime.get(Calendar.HOUR_OF_DAY) + 8;
+				int msgHour = msgtime.get(Calendar.HOUR_OF_DAY);
 				String msgHourStr = Integer.toString(msgHour);
-				if (msgHour > 24)
-					msgHour = msgHour - 24;
+			
 				if (msgHour < 10)
 					msgHourStr = "0" + msgHourStr;
 
