@@ -37,7 +37,7 @@ public class TestPictureDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 //		selectByMember
-//		List<PictureBean> Memberresult = pictureDAOHibernate.selectByMember(1);
+//		List<PictureBean> Memberresult = pictureDAOHibernate.selectByMember(5);
 //		out.println("<p>selectByMember</p>");
 //		out.println(Memberresult);
 //		Memberresult.forEach(x->{
@@ -56,9 +56,9 @@ public class TestPictureDAOServlet extends HttpServlet {
 //									x.getPicture(), false)));
 //			out.println("<img src=\""+sb.toString()+"\"/>");
 //		});
-//		
-//		
-//
+		
+		
+
 //		out.print("<br>==================================================");
 ////		selectByArticle
 //		List<PictureBean> Articleresult = pictureDAOHibernate.selectByArticle(1);
@@ -110,21 +110,21 @@ public class TestPictureDAOServlet extends HttpServlet {
 //
 //		out.print("<br>==================================================");
 
-		//insert
-		PictureBean pcB = new PictureBean();
-		File file = new File("wegether/mem05.png");
-		pcB.setPicture(PictureConvert.converFileToByte(file));
-		pcB.setActivityid(null);
-		pcB.setArticleid(null);
-		pcB.setMemberid(5);
-		PictureBean temp = pictureDAOHibernate.insert(pcB);
-	 	out.println(temp);		
-	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
-		
+		//insert		
+//		PictureBean pcB = new PictureBean();
+//		File file = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\activityPageImages\\fans6.png");
+//		pcB.setPicture(PictureConvert.converFileToByte(file));
+//		pcB.setActivityid(null);
+//		pcB.setArticleid(null);
+//		pcB.setMemberid(6);
+//		PictureBean temp = pictureDAOHibernate.insert(pcB);
+//	 	out.println(temp);		
+//	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
+//		
 		// delete
-//		boolean deleresult = pictureDAOHibernate.delete(7);
+//		boolean deleresult = pictureDAOHibernate.delete(13);
 //		out.println(deleresult);
-		
+//		
 		// update
 //		List<PictureBean> AP = pictureDAOHibernate.selectByActivity(3);
 //		List<PictureBean> AP = pictureDAOHibernate.selectByArticle(3);
