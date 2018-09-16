@@ -65,4 +65,12 @@ public class NoticeDAOHibernate implements NoticeDAO {
 		return selectByHql(hql).setParameter("id", id).setParameter("ntype", ntype).list();
 	}
 
+	@Override
+	public Integer selectCountByMemberId(Integer memberid) {
+		return ((Long)getSession().createQuery(
+					"select count(*) from NoticeBean where memberid = :memberid")
+				.setParameter("memberid", memberid).uniqueResult()).intValue();
+
+	}
+
 }

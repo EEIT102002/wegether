@@ -46,8 +46,9 @@ public class BlacklistDAOHibernate implements BlacklistDAO {
 		BlacklistBean result=null;
 		if (bean != null) {
 			result= selectByMemberidAndBlackid(bean.getId().getMemberid(),bean.getId().getBlackid());
-			if(result!=null) {
+			if(result==null) {
 				this.getSession().save(bean);
+				result= selectByMemberidAndBlackid(bean.getId().getMemberid(),bean.getId().getBlackid());
 				return result;
 			}
 		}

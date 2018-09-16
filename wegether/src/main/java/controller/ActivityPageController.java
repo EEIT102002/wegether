@@ -70,10 +70,13 @@ public class ActivityPageController {
 		List<String> actPicList = new ArrayList<>();
 		List<String> hostPicList = new ArrayList<>();
 		List<Map> memPicList = new ArrayList<>();
+
 		List<Map> msgsList = new ArrayList<>();
+
 
 		if (actid == null)	actid = 1;
 		ActivityBean actBean = activityDAO.selectId(actid);
+
 		MemberBean hostBean = memberDAO.select(actBean.getHostid());
 		
 		List<PictureBean> actPicBeans = pictureDAO.selectByActivity(actid);
