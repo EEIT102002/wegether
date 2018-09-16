@@ -6,8 +6,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <title>test</title>
+<%
+String name= request.getParameter("name");
+String city = request.getParameter("city");
+out.println(name+":"+city);
+out.println(name+":"+city);
+
+System.out.println(request.getParameter("city"));   //1
+System.out.println(request.getParameter("name"));  //aaa
+
+%>
 </head>
 <body>
 <p>${param.test}</p>
+
 </body>
 </html>

@@ -6,7 +6,7 @@
 #left{
     width:50%;
     float: left;
-    
+    dis
 }
 #right{
     
@@ -17,13 +17,16 @@
 }
 
 #msgid{
-    width:50%;
+    width:400px;
     background-color: #e6e6f2;
+    border: 1px solid #272727;
     box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5);
     opacity: 0.9;
     position: relative;
-    margin: 0 0 10px 0;
+    margin: 10px;
     border-radius: 20px;
+    height:auto;
+    padding: 10px;
 }      
 
 
@@ -52,4 +55,6 @@
      height: 35px;
   }
   
-  
+  #deleteId{
+  	 float: right;
+  }
