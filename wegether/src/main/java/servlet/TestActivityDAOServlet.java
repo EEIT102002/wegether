@@ -217,12 +217,12 @@ public class TestActivityDAOServlet extends HttpServlet {
 
 		String relativelyPath = System.getProperty("user.dir");
 		out.println("relativelyPath" + relativelyPath);
-		// result.forEach(temp->{
-		// out.println(temp+"<br><br>");
-		// out.println("===============<br><br>");
-		// });
-		//
-		System.out.println(result);
+		 result.forEach(temp->{
+		 out.println(temp+"<br><br>");
+		 out.println("===============<br><br>");
+		 });
+		
+//		System.out.println(result);
 //		out.println(result);
 		out.close();
 	}

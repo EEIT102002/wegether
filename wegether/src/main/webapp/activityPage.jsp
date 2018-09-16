@@ -70,14 +70,17 @@ var flag=0;
 		$('#msgButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-warning");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
-			 
-			 
+			 $("#msgBlock").show();
+			 getMsgs();
 		})
 		
 		// 心得分享
 		$('#articleButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-secondary");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
+			 $("#msgBlock").hide();
+			 getArticles();
+			 
 		})
 		
 		 attflag = $("#memBut").val(); //身分驗證	
@@ -157,7 +160,6 @@ var flag=0;
 	//登入身分驗證 END
 	
 		//留言功能
-	var queryStr;
 	function getMsgs(msg){
 	 var divElem = null ;
 	 var temp="";
@@ -185,6 +187,34 @@ var flag=0;
 	 
  }
 	//留言功能 END
+	
+	 //載入心得
+ function getArticles(msg){
+	 var divElem = null ;
+	 var temp="";
+	 console.log("msg="+msg);
+	 $.getJSON("article.controller",
+			 { activityid:1, 
+		 		memberid:2,		 		
+		 		content:msg
+			 },
+			 function(result){	
+	 			$.each(result, function(i,item){	
+	 				divElem =("<div id='msgid'>" +
+					'<a href="personal.controller?memberId='+item[0]+'">'+
+					'<img src="data:image/jpg;base64,'+item[1]+'" width="50">  </a>' +
+					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
+					'<span style="font-size: small;">'+item[3]+'</span>'+
+					'<a id="deleteId" href="#" class="btn btn-danger" msgid='+item[5]+'>刪除</a>'+			
+			 		'</br>'+item[4]+'</br>'+
+					"</div>");
+	 				temp = temp + divElem;
+	 			});	
+	 			$('#demo').html(temp);
+	 });	
+	 
+ }
+
 
 </script>
 <style>
@@ -343,9 +373,10 @@ footer>ul>li ul {
 
 						<div id="up">
 							<div id="left" style="width: auto;">
-								<a href="personal.controller?memberId=${hostBean.id}"><img
-									src="data:image/jpg;base64,${hostPicList.get(0)}"
+								<a href="personal.controller?memberId=${hostBean.id}">
+								<img 	src="data:image/jpg;base64,${hostPicList.get(0)}"							
 									class="img-circle" width="70"> </a>
+								<!-- 	src="/wegether/picture/15" class="img-circle" -->
 							</div>
 							<div id="left" style="width: auto;">
 								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
@@ -428,16 +459,16 @@ footer>ul>li ul {
 					<p>${actBean.content}</p>
 					</br>
 
-
-					<h4>留下意見:</h4>
-					<textarea id="txt" cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
-					</br> 
-					<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
-					</br> </br>
-					
+					<div id="msgBlock" >
+						<h4>留下意見:</h4>
+						<textarea id="txt" cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
+						</br> 
+						<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
+						</br> </br>
+					</div>
 					<!--  留言、心得分享  切換按鍵-->
 					<button id="msgButId" type="button" class="btn btn-warning" >留言</button>
-					<button id="articleButId" type="button" class="btn btn-warning" >心得	分享</button>
+					<button id="articleButId" type="button" class="btn btn-secondary" >心得	分享</button>
 					</br> </br>
 
 					<!--  留言、心得分享 切換按鍵  end-->
