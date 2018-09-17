@@ -16,6 +16,16 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
     <script type="text/javascript" src="js/index.js"></script>
     <script src="js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        var a = [1,2,3];
+        $.each(a,function(i,e){
+            console.log(i+":"+e);
+        })
+        a[3] = 4
+        $.each(a,function(i,e){
+            console.log(i+":"+e);
+        })
+    </script>
     <style>
         #form_po {
             display: none;
@@ -172,7 +182,6 @@
 
         #contentRemind {
             min-width: 320px;
-            position: absolute;
             /* left: -260px; */
             max-height: 300px;
             overflow-y: scroll;
@@ -180,31 +189,124 @@
         }
 
         #contentRemind>div {
-            display: block;
+            display: flex;
             width: 100%;
             position: static;
             margin: 0;
-            transform: rotate(180deg);
+            padding: 0;
+            flex-direction: column-reverse;
             border: 0;
         }
 
-        #contentRemind>div>a {
-            height: 50px;
+        #contentRemind div {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        #contentRemind .panel {
+            border-bottom: 2px solid rgba(128, 128, 128, 0.329);
+        }
+
+        #contentRemind>div .dropdown-item {
+            min-height: 60px;
             width: 300px;
             text-align: left;
-            margin:0 30px 0 30px;
-            position:relative;
-            transform: rotate(180deg);
-            background-color: blue;
-            line-height: 1em;
-            border:2px solid yellow;
-            display:flex;
-	        align-items: center;
+            margin: 0;
+            position: relative;
+            /* line-height: 1em; */
+            color: black;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: stretch;
         }
-        #contentRemind>div>a>button {
-            float: right;
-            height:  30px;
-            min-width: 40px;;
+
+        #contentRemind .panel>.dropdown-item {
+            justify-content: space-between;
+        }
+
+        #contentRemind>div .dropdown-item>div {
+            display: flex;
+            /* height: 100%; */
+        }
+
+        #contentRemind>div .dropdown-item>div:nth-last-child(2) {
+
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1 1 300px;
+        }
+
+        #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(1) {
+            /* background-color: blue; */
+            height: 70%;
+            line-height: 1em;
+            padding: 5px 0 0 10px;
+            font-size: 14px;
+        }
+
+        #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(2) {
+            height: 30%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 0 0 0 10px;
+        }
+        #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(2) div{
+            font-size: 14px;
+
+        }
+        #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(2)>a div{
+            background-color: red;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #contentRemind>div .dropdown-item>div:nth-last-child(1) {
+            /* background-color: green; */
+            display: flex;
+            width: 40px;
+            justify-content: center;
+            align-items: center;
+            /* border-left: 1px solid  rgba(128, 128, 128, 0.329); */
+        }
+
+        #contentRemind>div .dropdown-item>div:nth-last-child(3) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 5px;
+        }
+
+        #contentRemind>div .dropdown-item>div:nth-last-child(3)>div {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            border-radius: 50px;
+        }
+
+        #contentRemind>div .dropdown-item>div:nth-last-child(3)>div>img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+        }
+
+        #contentRemind>div .dropdown-item button {
+            height: 30px;
+            min-width: 40px;
+        }
+
+        #contentRemind>div .dropdown-item button {
+
+            height: 30px;
+            min-width: 40px;
+        }
+
+        #contentRemind .collapse .dropdown-item {
+            min-height: 20px;
+            background-color: rgba(2, 2, 2, 0.048);
         }
     </style>
 </head>
@@ -228,38 +330,98 @@
                 </div>
 
                 <div class="dropdown open">
-                    <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <div class="dropdown-toggle">
                         <i class="fa fa-bell" aria-hidden="true">
                             <div id="supremind" hidden>0</div>
                         </i>
                     </div>
-                    <div class="dropdown-menu" id="contentRemind" aria-labelledby="dropdownMenuButton2">
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" tabel="friend" notice=1>member.name 邀請為好友
-                                <button type="button" value="accept">接受</button>
-                                <button type="button" value="reject">拒絕</button>
-                            </a>
-                            <a class="dropdown-item" href="#">member.name 接受好友</a>
-                            <a class="dropdown-item" href="#">member.name向你推薦活動:activity.title</a>
-                            <a class="dropdown-item" href="attend.id">活動:activity.title 有新的申請member.name</a>
-                            <a class="dropdown-item" href="#" table="attend" notice=5>member.nameg邀請你參加活動:activity.title
-                                <button type="button" value="accept">接受</button>
-                                <button type="button" value="reject">拒絕</button>
-                            </a>
-                            <a class="dropdown-item" href="#">活動: activity.title申請成功</a>
-                            <a class="dropdown-item" href="#">活動: activity.title申請失敗</a>
-                            <a class="dropdown-item" href="#">member.name接受參加activity.title</a>
-                            <a class="dropdown-item" href="#">member.name拒絕參加activity.title</a>
-                            <a class="dropdown-item" href="article.id">member.name發表新的心得</a>
-                            <a class="dropdown-item" href="activity.id">member.name發起新的活動: activity.title</a>
-                            <a class="dropdown-item" href="#">活動: activity.title取消舉辦</a>
-                            <a class="dropdown-item" href="activity.id">活動: activity.title 內容變更</a>
-                            <a class="dropdown-item" href="activity.id">活動: activity.title 有新的留言</a>
-                            <a class="dropdown-item" href="article.id">在活動: activity.title 發表的文章有新的留言</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <div>
+                            <p>通知</p>
                         </div>
+                        <div id="contentRemind">
+                            <div class="dropdown-menu panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="dropdown-item">
+                                        <div>
+                                            <div>
+                                                <img src="1">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <a>member.name</a> 邀請為好友1111111111111
+                                            </div>
+                                            <div>
+                                                
+                                                <div>time1111111</div>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                        <div>123</div>
+                                                    </a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span aria-hidden="true">&times;</span>
+                                        </div>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse">
+                                        <div class="dropdown-item">
+                                            <button type="button" value="accept">接受</button>
+                                            <button type="button" value="reject">拒絕</button>
+                                        </div>
+                                    </div>
+                                </div>
 
+
+                                <div class="dropdown-item" href="#" tabel="friend" notice=1>
+                                    <div>
+                                        <div>
+                                            <img src="1">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <a>member.name</a> 邀請為好友1111111111111
+                                        </div>
+                                        <div>time</div>
+                                    </div>
+                                    <div>
+                                        <span aria-hidden="true">&times;</span>
+                                    </div>
+                                </div>
+                                <a class="dropdown-item" href="#" tabel="friend" notice=1>
+                                    <div>member.name 邀請為好友</div>
+                                    <div>
+                                        <span aria-hidden="true">&times;</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <div>member.name 接受好友</div>
+                                </a>
+                                <a class="dropdown-item" href="#">member.name向你推薦活動:activity.title</a>
+                                <a class="dropdown-item" href="attend.id">活動:activity.title 有新的申請member.name</a>
+                                <a class="dropdown-item" href="#" table="attend" notice=5>member.nameg邀請你參加活動:activity.title
+                                    <button type="button" value="accept">接受</button>
+                                    <button type="button" value="reject">拒絕</button>
+                                </a>
+                                <a class="dropdown-item" href="#">活動: activity.title申請成功</a>
+                                <a class="dropdown-item" href="#">活動: activity.title申請失敗</a>
+                                <a class="dropdown-item" href="#">member.name接受參加activity.title</a>
+                                <a class="dropdown-item" href="#">member.name拒絕參加activity.title</a>
+                                <a class="dropdown-item" href="article.id">member.name發表新的心得</a>
+                                <a class="dropdown-item" href="activity.id">member.name發起新的活動: activity.title</a>
+                                <a class="dropdown-item" href="#">活動: activity.title取消舉辦</a>
+                                <a class="dropdown-item" href="activity.id">活動: activity.title 內容變更</a>
+                                <a class="dropdown-item" href="activity.id">活動: activity.title 有新的留言</a>
+                                <a class="dropdown-item" href="article.id">在活動: activity.title 發表的文章有新的留言</a>
+                            </div>
+                        </div>
+                        <div>
+                            <button>清除所有通知</button>
+                            <button>關閉</button>
+                        </div>
                     </div>
-
+                </div>
             </nav>
             <div class="banner-info">
                 <div class="from-group">
@@ -372,116 +534,116 @@
                     </form>
                 </div>
             </div>
-            </div>
         </div>
-        <div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <!--白色遮罩層-->
-                    <div class="modal-body">
-                        <!--       // modal-body  有差padding -->
-                        <div class="modal-header">
+    </div>
+    <div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!--白色遮罩層-->
+                <div class="modal-body">
+                    <!--       // modal-body  有差padding -->
+                    <div class="modal-header">
 
-                            <h5 class="modal-title lead">
-                                <strong>請選擇登入方式</strong>
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                        <h5 class="modal-title lead">
+                            <strong>請選擇登入方式</strong>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="mid-body">
+                        <form id="loginform">
+                            <p class="loginerror"></p>
+                            <div class="form-group" id="ACT">
+                                <label for="recipient-name" class="col-form-label">帳號:</label>
+                                <input type="text" class="form-control" id="account" name="account">
+                            </div>
+                            <div class="form-group" id="PWD">
+                                <label for="recipient-name" class="col-form-label">密碼:</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="login">登入</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        </form>
+                        <div id="or" class="bg-primary text-white">
+                            <h4>or</h4>
+                        </div>
+                        <button type="button" class="btn big_use Google_i">
+                            <i class="fa fa-google" aria-hidden="true"></i>Google 登入</button>
+                        <button type="button" class="btn big_use Fb_i">
+                            <i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入</button>
+                        <div class="AreaCon">
+                            <button type="button" class="btn small_use Google_i">
+                                <i class="fa fa-google" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn small_use Fb_i">
+                                <i class="fa fa-facebook-official" aria-hidden="true"></i>
                             </button>
                         </div>
-                        <div class="modal-body" id="mid-body">
-                            <form id="loginform">
-                                <p class="loginerror"></p>
-                                <div class="form-group" id="ACT">
-                                    <label for="recipient-name" class="col-form-label">帳號:</label>
-                                    <input type="text" class="form-control" id="account" name="account">
-                                </div>
-                                <div class="form-group" id="PWD">
-                                    <label for="recipient-name" class="col-form-label">密碼:</label>
-                                    <input type="password" class="form-control" id="pwd" name="pwd">
-                                </div>
-                                <button type="button" class="btn btn-primary" id="login">登入</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            </form>
-                            <div id="or" class="bg-primary text-white">
-                                <h4>or</h4>
-                            </div>
-                            <button type="button" class="btn big_use Google_i">
-                                <i class="fa fa-google" aria-hidden="true"></i>Google 登入</button>
-                            <button type="button" class="btn big_use Fb_i">
-                                <i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入</button>
-                            <div class="AreaCon">
-                                <button type="button" class="btn small_use Google_i">
-                                    <i class="fa fa-google" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" class="btn small_use Fb_i">
-                                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <p class="small text-left">還沒註冊嗎?趕緊註冊一個帳號吧!
-                                <a href="javascript:void(0)">點我註冊</a>
-                            </p>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="small text-left">還沒註冊嗎?趕緊註冊一個帳號吧!
+                            <a href="javascript:void(0)">點我註冊</a>
+                        </p>
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="searchBox" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <!--白色遮罩層-->
-                    <div class="modal-body">
-                        <!--       // modal-body  有差padding -->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="mid-body">
-                        </div>
-                        <div class="modal-footer">
-                        </div>
+    </div>
+    <div class="modal fade" id="searchBox" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!--白色遮罩層-->
+                <div class="modal-body">
+                    <!--       // modal-body  有差padding -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="mid-body">
+                    </div>
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="about" id="about">
-            <div class="container">
-                <h1>活動</h1>
+    </div>
+    <div class="about" id="about">
+        <div class="container">
+            <h1>活動</h1>
 
-                <ul id="about_ActRank">
-                    <li>
-                        <a href="">熱門</a>
-                    </li>
-                    <li>
-                        <a href="">時間</a>
-                    </li>
-                    <li>
-                        <a href="">地區</a>
-                    </li>
-                </ul>
-                <div class="row  masonry" id="show_act_area">
-                </div>
+            <ul id="about_ActRank">
+                <li>
+                    <a href="">熱門</a>
+                </li>
+                <li>
+                    <a href="">時間</a>
+                </li>
+                <li>
+                    <a href="">地區</a>
+                </li>
+            </ul>
+            <div class="row  masonry" id="show_act_area">
             </div>
-            <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-            <script>
-                $(function () {
-                    $('.masonry').masonry({
-                        itemSelector: '.item',
-                    })
+        </div>
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+        <script>
+            $(function () {
+                $('.masonry').masonry({
+                    itemSelector: '.item',
                 })
-            </script>
-        </div>
-        <!-- <footer>
+            })
+        </script>
+    </div>
+    <!-- <footer>
 		<div class="container">
 			<p id="fw">Wegther 2018</p>
 		</div>
 	</footer> -->
-        <i id="upTop" class="fa fa-chevron-circle-up animated infinite bounce" aria-hidden="true"></i>
-        <input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
+    <i id="upTop" class="fa fa-chevron-circle-up animated infinite bounce" aria-hidden="true"></i>
+    <input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
 </body>
 
 </html>
