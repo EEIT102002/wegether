@@ -34,7 +34,7 @@ public class TestArticleDAOServlet extends HttpServlet {
 		ServletContext application = this.getServletContext();
 		ApplicationContext context = (ApplicationContext) application
 				.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		articleDaoHibernate = (ArticleDAOHibernate) context.getBean("articleDaoHibernate");
+		articleDaoHibernate = (ArticleDAOHibernate) context.getBean("articleDAOHibernate");
 
 		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	}
@@ -50,10 +50,10 @@ public class TestArticleDAOServlet extends HttpServlet {
 
 		// insert
 		ArticleBean bean = new ArticleBean();
-		bean.setMemberid(2);
-		bean.setActivityid(2);
-		bean.setContent("喜歡!");
-//		bean.setCreatetime(new java.util.Date());
+		bean.setMemberid(1);
+		bean.setActivityid(1);
+		bean.setContent("奧萬大與您相約在每一個季節。"
+				);//		bean.setCreatetime(new java.util.Date());
 		ArticleBean result = articleDaoHibernate.insert(bean);
 
 		// update

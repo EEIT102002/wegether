@@ -110,6 +110,16 @@ var flag=0;
 		        }
 		    });
 		
+		 //載入心得
+// 		 getArticles();
+		 
+		//刪除心得
+			$('#demo').click(function(event){
+		        if (event.target.className == "btn btn-danger"){
+					var temp = $(event.target).attr("msgid")
+				 	 getArticles('deleteMsgId='+temp);
+		        }
+		    });
 		
 	})
 	
@@ -215,7 +225,45 @@ var flag=0;
 	 
  }
 
-
+//載入心得
+ function getArticles(msg){
+	 var divElem1 = null ;
+	 var temp="";
+	
+	 $.getJSON("article.controller",
+			 { activityid:1, 
+		 		content:msg
+			 },
+			 function(result){	
+	 			$.each(result, function(i,item){	
+	 				divElem1 =("<div id='msgid'>" +
+					'<a href="personal.controller?memberId='+item[0]+'">'+
+					'<img src="data:image/jpg;base64,'+item[1]+'" width="50">  </a>' +
+					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
+					'<span style="font-size: small;">'+item[3]+'</span>'+
+					'<button id="deleteId" href="#" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
+			 		'</br>'+item[4]+'</br>'
+			 		
+			 		);
+	 				console.log("item[5]="+item[5]);
+	 				 var divElem2 = null ;
+	 				 var temp1="";
+	 				$.each(item[6], function(i,item){
+	 					divElem2 =(
+	 					 '<img src="/wegether/picture/'+item+'" width="350" height="250" style=" border: 2px solid #272727; margin: 10px;">' 
+	 					);
+	 					temp1 = temp1 + divElem2;
+	 				});	
+	 				
+	 				
+	 				temp = divElem1 + temp1 + "</div>" + temp ;
+	 				
+	 			
+	 			});	
+	 			$('#demo').html(temp);
+	 });	
+	 
+ }
 </script>
 <style>
 * {

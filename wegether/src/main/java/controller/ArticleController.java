@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import model.ArticleBean;
 import model.MsgBean;
+import model.PictureBean;
 import model.dao.ActivityDAO;
 import model.dao.ArticleDAO;
 import model.dao.MemberDAO;
@@ -48,15 +49,12 @@ public class ArticleController {
 	public ResponseEntity<?> getInfo(ArticleBean bean){
 		System.out.println("ArticleBean="+bean);
 		
-//		if(bean.getContent()!=null && bean.getContent().length()!=0 && !bean.getContent().equals("對聚會有任何疑問嘛？留個言吧！") ) {
-//			if(bean.getContent().startsWith("deleteMsgId")) {
-//				msgDAO.delete(Integer.parseInt(bean.getContent().substring(12)));
-//			}else {
-//				java.util.Date now = new java.util.Date();
-//				bean.setMsgtime(now);
-//				Boolean result = msgDAO.insert(bean);
-//			}
-//		}
+		if(bean.getContent()!=null && bean.getContent().length()!=0 ) {
+			if(bean.getContent().startsWith("deleteMsgId")) {
+				articleDAO.delete(Integer.parseInt(bean.getContent().substring(12)));
+				System.out.println("GOOD");
+			}
+		}
 		
 		List<Object[]> articleList = new ArrayList<>();
 		List<ArticleBean> articleBeans = articleDAO.selectByActivityId(bean.getActivityid());
@@ -64,7 +62,7 @@ public class ArticleController {
 			System.out.println("articleBeans.size()="+articleBeans.size());
 			articleBeans.forEach(art -> {
 				Calendar arttime = Calendar.getInstance();
-				Object[] obj = new Object[6];
+				Object[] obj = new Object[7];
 				obj[0] = art.getMemberid();				
 			
 				String picMemStr = PictureConvert
@@ -90,7 +88,14 @@ public class ArticleController {
 				obj[3] = arttimeStr;
 				obj[4] = art.getContent();
 				obj[5] = art.getId();
-				System.out.println("artID="+art.getId());
+				
+				List<Integer> picArticleId = new ArrayList<Integer>();
+				List<PictureBean>  picArticle = pictureDAO.selectByArticle(art.getId());
+				picArticle.forEach(pic->{
+					picArticleId.add(pic.getId());
+				});
+				obj[6] = picArticleId;
+
 				articleList.add(obj);
 
 			});
