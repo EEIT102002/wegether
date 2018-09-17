@@ -81,6 +81,21 @@ public class FriendDAOHibernate implements FriendDAO {
 	public FriendBean selectById(int id) {
 		return getSession().get(FriendBean.class, id);
 	}
+	
+	
+	private String HqlSelectfid = "FROM FriendBean WHERE MEMBERID = :MID AND MEMBERIDF = :FID AND STATE = 1";
+	@Override
+	public FriendBean selectByMidAndFriendid(int memberid, int id) {
+		System.out.println("hibmid="+memberid);
+		System.out.println("hibid="+id);
+		Query<FriendBean> query = getSession().createQuery(HqlSelectfid);
+		 FriendBean result = query.setParameter("MID", memberid).setParameter("FID", id).uniqueResult();
+		 System.out.println("DAOHibernateResult="+result);
+		return result;
+		
+	}
+	
+	
 
 	@Override
 	public boolean delete(FriendBean friendBean) {
