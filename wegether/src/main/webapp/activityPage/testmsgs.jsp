@@ -50,9 +50,9 @@
 	//刪除留言
 		$('#demo').click(function(event){
 	        if (event.target.className == "btn btn-danger"){
+	        	 $("#txt").val('');
 				var temp = $(event.target).attr("msgid")
-			 	 getMsgs('deleteMsgId='+temp);
-	    		 $("#txt").val('');
+			 	 getMsgs('deleteMsgId='+temp);	    		
 	        }
 	    });
 		

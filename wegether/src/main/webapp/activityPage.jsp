@@ -66,19 +66,23 @@ var flag=0;
 	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
 		})
 		
-		//留言 
+		//切換留言版面 
 		$('#msgButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-warning");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
 			 $("#msgBlock").show();
+			 $("#demoArticle").hide();
+			 $("#demo").show();
 			 getMsgs();
 		})
 		
-		// 心得分享
+		// 切換心得分享版面
 		$('#articleButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-secondary");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
 			 $("#msgBlock").hide();
+			 $("#demo").hide();
+			 $("#demoArticle").show();
 			 getArticles();
 			 
 		})
@@ -114,7 +118,7 @@ var flag=0;
 // 		 getArticles();
 		 
 		//刪除心得
-			$('#demo').click(function(event){
+			$('#demoArticle').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
 				 	 getArticles('deleteMsgId='+temp);
@@ -176,7 +180,7 @@ var flag=0;
 	 console.log("msg="+msg);
 	 $.getJSON("msgs.controller",
 			 { activityid:1, 
-		 		memberid:2,
+		 		memberid:"${memberid}",
 		 		state:0,
 		 		content:msg
 			 },
@@ -184,7 +188,7 @@ var flag=0;
 	 			$.each(result, function(i,item){	
 	 				divElem =("<div id='msgid'>" +
 					'<a href="personal.controller?memberId='+item[0]+'">'+
-					'<img src="data:image/jpg;base64,'+item[1]+'" width="50">  </a>' +
+					'<img src="data:image/jpg;base64,'+item[1]+'" width="50" class="img-circle">  </a>' +
 					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
 					'<span style="font-size: small;">'+item[3]+'</span>'+
 					'<button id="deleteId" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
@@ -193,37 +197,12 @@ var flag=0;
 	 				temp = temp + divElem;
 	 			});	
 	 			$('#demo').html(temp);
+	 			console.log("memberid="+"${memberid}");
 	 });	
 	 
  }
 	//留言功能 END
 	
-	 //載入心得
- function getArticles(msg){
-	 var divElem = null ;
-	 var temp="";
-	 console.log("msg="+msg);
-	 $.getJSON("article.controller",
-			 { activityid:1, 
-		 		memberid:2,		 		
-		 		content:msg
-			 },
-			 function(result){	
-	 			$.each(result, function(i,item){	
-	 				divElem =("<div id='msgid'>" +
-					'<a href="personal.controller?memberId='+item[0]+'">'+
-					'<img src="data:image/jpg;base64,'+item[1]+'" width="50">  </a>' +
-					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
-					'<span style="font-size: small;">'+item[3]+'</span>'+
-					'<a id="deleteId" href="#" class="btn btn-danger" msgid='+item[5]+'>刪除</a>'+			
-			 		'</br>'+item[4]+'</br>'+
-					"</div>");
-	 				temp = temp + divElem;
-	 			});	
-	 			$('#demo').html(temp);
-	 });	
-	 
- }
 
 //載入心得
  function getArticles(msg){
@@ -260,7 +239,7 @@ var flag=0;
 	 				
 	 			
 	 			});	
-	 			$('#demo').html(temp);
+	 			$('#demoArticle').html(temp);
 	 });	
 	 
  }
@@ -277,6 +256,7 @@ body {
 	background: url(images/v6.jpg) no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
+
 }
 #small_con {
 	width: 100%;
@@ -523,6 +503,7 @@ footer>ul>li ul {
 					
 					<!-- msg begin -->
 					<div id="demo"></div>
+					<div id="demoArticle"></div>
 					<!-- msg end -->
 
 				</div>

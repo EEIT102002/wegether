@@ -197,6 +197,11 @@ public class ActivityPageController {
 			model.addAttribute("dateline", dateline);
 		else
 			model.addAttribute("dateline", null);
+		
+		if (memberid != null)
+			model.addAttribute("memberid", memberid);
+		else
+			model.addAttribute("memberid", null);
 
 
 		model.addAttribute("flag", flag);
