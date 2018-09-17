@@ -6,7 +6,6 @@
 #left{
     width:50%;
     float: left;
-    dis
 }
 #right{
     
@@ -17,10 +16,10 @@
 }
 
 #msgid{
-    width:400px;
+/*     width:400px; */
     background-color: #e6e6f2;
     border: 1px solid #272727;
-    box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5);
+    box-shadow: 4px 4px 12px 2px rgba(51, 51, 102, 0.5);
     opacity: 0.9;
     position: relative;
     margin: 10px;
@@ -44,6 +43,8 @@
      margin-top: 10px;
      margin-bottom: 10px;
  }
+ 
+
  
   #tabs{
      width: 500px;

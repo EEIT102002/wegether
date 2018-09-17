@@ -111,16 +111,18 @@ public class TestPictureDAOServlet extends HttpServlet {
 //		out.print("<br>==================================================");
 
 		//insert		
-//		PictureBean pcB = new PictureBean();
-//		File file = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\activityPageImages\\fans6.png");
-//		pcB.setPicture(PictureConvert.converFileToByte(file));
-//		pcB.setActivityid(null);
-//		pcB.setArticleid(null);
-//		pcB.setMemberid(6);
-//		PictureBean temp = pictureDAOHibernate.insert(pcB);
-//	 	out.println(temp);		
+		PictureBean pcB = new PictureBean();
+		File file = new File("D:\\TEMP\\picture\\奧萬大\\6.jpg");
+		pcB.setPicture(PictureConvert.converFileToByte(file));
+		pcB.setActivityid(null);
+		pcB.setArticleid(6);
+		pcB.setMemberid(null);
+		PictureBean temp = pictureDAOHibernate.insert(pcB);
+	 	out.println(temp);		
 //	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
-//		
+		String pic = "<img src='/wegether/picture/"+temp.getId()+"' width='350' height='250' style=' border: 2px solid #272727; margin: 10px;'>";
+		out.println(pic);
+		
 		// delete
 //		boolean deleresult = pictureDAOHibernate.delete(13);
 //		out.println(deleresult);
