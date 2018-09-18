@@ -10,6 +10,7 @@
 <link rel="stylesheet"  href="css/bootstrap.css" />
 <link rel="stylesheet"  href="css/style.css"/>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/preindexFunction.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
@@ -21,6 +22,13 @@
 <script src="js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="js/logMethod.js" type="text/javascript"></script>
 <style>
+	body{
+	background-color:rgba(159, 159, 159, 0.2);
+	}
+	.btnAct{
+		color: white;
+		border:2px solid;
+	}
  	#form_po{
  		display: none;
  	}
@@ -149,6 +157,11 @@
  		margin-left: -40px; 
 		display: flex;
  	}
+ 	#labelflexCon_po{
+ 		margin-top: -14px;
+ 		margin-left: -40px; 
+		display: flex;
+ 	}
  	#contentRemind{
  		min-width: 320px;
  		position: absolute;
@@ -174,8 +187,8 @@
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
 <!-- 							<li><a href="#" class="scroll"><span data-hover="活動地圖">活動地圖</span></a></li> -->
-							<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
-							<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
+							<li><a href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="發起活動">發起活動</span></a></li>
+							<li><a href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="發起心得">發起心得</span></a></li>
 							<li id="loginSpan"><a  href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
 							<li id="liRing" style="display:none;">
 								<div class="dropdown">
@@ -222,7 +235,7 @@
 						<div id="search_for_po">心得</div>
 					</div>
 						<form id="form_act">
-								<input type="hidden" value="0" name="state"/>
+								<input type="hidden" value="0" name="state" id="acth"/>
 								<div class="AreaCon">
 								<label>地區 :</label>
 								<select name="cityselect_name" id="CitySelect">
@@ -270,7 +283,7 @@
 						<form id="form_po" >
 							<div class="AreaCon">
 								<label>地區 :</label>
-								<select name="cityselect_name_po" id="CitySelect_po" >
+								<select name="cityselect_name_po" id="CitySelect_po" class>
 									<option value="">--請選擇--</option>
 								</select>
 								</div>
@@ -282,20 +295,35 @@
 									<span class="form-group">活動結束日期 :</span><br>
 									<input type="date" class="form-control" id="end_date_po" name="end_date_name_po"><br>
 								</div>
-								<div class="AreaCon">
-									<span>活動類型 :</span><br>
-									<input type="checkbox" value="運動" name="type_select_name_po">運動</input>
-									<input type="checkbox" value="休閒" name="type_select_name_po">休閒</input>
-									<input type="checkbox" value="音樂" name="type_select_name_po">音樂</input>
-									<input type="checkbox" value="美食" name="type_select_name_po">美食</input>
-									<input type="checkbox" value="聊天" name="type_select_name_po">聊天</input>				
+								<div class="AreaCon" id="typeArea_po">
+									<span>活動心得類型 :</span><br>
+									<div id="labelflexCon_po">
+									<label class="labelflex">
+										<input type="checkbox" value="運動" name="type_select_name" class="hidden-input"><span class="your style about checkbox"></span><p>運動</p></input>
+									</label >
+									<label class="labelflex">
+										<input type="checkbox" value="休閒" name="type_select_name" class="hidden-input"><span class="your style about checkbox"></span><p>休閒</p></input>
+									</label>
+									<label class="labelflex">
+										<input type="checkbox" value="音樂" name="type_select_name" class="hidden-input"><span class="your style about checkbox"></span><p>音樂</p></input>
+									</label>
+									<label class="labelflex">
+										<input type="checkbox" value="美食" name="type_select_name" class="hidden-input"><span class="your style about checkbox"></span><p>美食</p></input>
+									</label>
+									<label class="labelflex">
+										<input type="checkbox" value="聊天" name="type_select_name" class="hidden-input"><span class="your style about checkbox"></span><p>聊天</p></input>				
+									</label>
+									</div>
 								</div>
-						
-							<input type="hidden" value="1" name="state_po" />
-							<input type="search" name="keyword_search_input_name_po" id="keyword_search_input_po"/>
-							<input id="select_po_submit" type="submit" value="搜尋"/>
-							
-							<input type="reset" value="清除"/>
+								<div class="AreaCon" id="keyword_search">
+									<span class="form-group">關鍵字搜尋 :</span><br>
+									<input type="search" placeholder="搜尋-活動名稱" class="form-control" name="keyword_search_input_name_po" id="keyword_search_input_po"><br>
+								</div>
+								<input type="hidden" value="1" name="state_po" id="poh"/>
+								<div id="searchbarButton_po">	
+									<input id="select_po_submit" type="submit" value="搜尋" class="btn btn-warning form-control">
+									<input type="reset" value="清除" class="btn btn-warning form-control">
+								</div>
 						</form>
 				</div>
 			</div>
@@ -383,6 +411,7 @@
 					<li><a href="">熱門</a></li>
 					<li><a href="">時間</a></li>
 					<li><a href="">地區</a></li>
+					<input type="hidden" value="0" name="rankarea" id="rankArea"/>
 				</ul>
 					<div class="row  masonry" id="show_act_area">
 					</div>

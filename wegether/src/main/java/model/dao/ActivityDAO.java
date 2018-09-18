@@ -33,7 +33,7 @@ public interface ActivityDAO {
 	
 	public abstract List<ActivityBean> selectByFees(int state, int fees);
 	
-	public abstract List<ActivityBean> selectByClick(int state, int click);
+	public abstract List<ActivityBean> selectByClick(int state);
 
 	public abstract ActivityBean insert(ActivityBean bean);
 
