@@ -48,6 +48,16 @@ public class AttendService {
 		return null;
 	}
 	
+	public AttendBean respondInvite(int attendid, int memberid, int state) {
+		AttendBean attendBean = attendDAO.select(attendid);
+		if(attendBean != null  && memberid == attendBean.getMemberid()
+			&& attendBean.getState() == 3 ) {
+			attendBean.setState(state);
+			return attendBean;
+		}	
+		return null;
+	}
+	
 	public List<AttendBean> unrespondApplys(int activityid , int memberid) {
 		if(activityService.checkHost(memberid, activityid)) {
 			return attendDAO.selectByActivityAndState(activityid, 0);

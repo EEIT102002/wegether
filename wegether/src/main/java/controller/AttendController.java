@@ -22,12 +22,11 @@ public class AttendController {
 	@Autowired
 	private AttendService attendService;
 	
-	@RequestMapping(path= {"/attend/{state}/{attendid}"})
-	public @ResponseBody ResponseEntity<?> RespondAttend(@PathVariable Integer attendid,
-			@PathVariable String stateStr,
+	@RequestMapping(path= {"/attend/{stateStr}/{attendid}"})
+	public @ResponseBody ResponseEntity<?> RespondAttend(
+			@PathVariable(name="stateStr") String stateStr, @PathVariable(name="attendid") Integer attendid,
 			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
 		Integer state = null;
-		
 		if("accept".equals(stateStr)) {
 			state = 1;
 		}else if("reject".equals(stateStr)) {
@@ -44,7 +43,34 @@ public class AttendController {
 			}else if(state == 2) {
 				request.setAttribute("ntype", 7);
 			}
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(true,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}		
+	}
+	
+	@RequestMapping(path= {"/attend/invite/{stateStr}/{attendid}"})
+	public @ResponseBody ResponseEntity<?> RespondAttendInvite(
+			@PathVariable(name="stateStr") String stateStr, @PathVariable(name="attendid") Integer attendid,
+			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
+		Integer state = null;
+		if("accept".equals(stateStr)) {
+			state = 1;
+		}else if("reject".equals(stateStr)) {
+			state = 2;
+		}else{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		AttendBean bean = attendService.respondInvite(attendid, memberid, state);
+		if(bean != null) {
+			request.setAttribute("id", bean.getId());
+			if(state == 1) {
+				request.setAttribute("ntype", 8);
+			}else if(state == 2) {
+				request.setAttribute("ntype", 9);
+			}
+			return new ResponseEntity<>(true,HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}		

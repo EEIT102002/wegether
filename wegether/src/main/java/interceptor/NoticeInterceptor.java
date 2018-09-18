@@ -55,7 +55,6 @@ public class NoticeInterceptor implements HandlerInterceptor {
 							try {
 								x.sendMessage(text);
 							} catch (IOException e) {
-								e.printStackTrace();
 							}
 						});
 					}

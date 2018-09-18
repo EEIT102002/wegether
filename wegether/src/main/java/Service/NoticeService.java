@@ -72,4 +72,17 @@ public class NoticeService {
 	public Integer noticesCount(Integer memberid) {
 		return noticeDAO.selectCountByMemberId(memberid);
 	}
+	
+	public boolean deleteNotice(int memberid, int attendid) {
+		NoticeBean bean = noticeDAO.select(attendid);
+		if(bean != null && bean.getMemberid() == memberid) {
+			noticeDAO.delete(bean);
+			return true;
+		}
+		return false;
+	}
+	
+	public void deleteNoticeByMember(int memberid) {
+		noticeDAO.deleteByMember(memberid);
+	}
 }
