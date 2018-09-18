@@ -468,8 +468,8 @@ footer>ul>li ul {
 						</tr>
 
 					</table>
-					<input type="botton" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
-					<input type="botton" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
+					<input type="button" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
+					<input type="button" name="" value="報名表單" id="formBotton" data-target="#setMyform" data-toggle="modal" />
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
