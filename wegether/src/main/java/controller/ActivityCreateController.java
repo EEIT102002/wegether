@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,9 +52,15 @@ public class ActivityCreateController {
 			@RequestParam(value = "endTime", required = false) String endDate,
 			@RequestParam(value = "endTimepicker", required = false) String endTime,
 			@RequestParam(value = "applyform", required = false) String applyform,
-			@RequestParam(value = "multipicture", required = false) MultipartFile[] files)
-			throws ParseException, IOException {
+			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
+			@RequestAttribute(value = "memberid", required = false) Integer id) throws ParseException, IOException {
 		System.out.println("actCreate()");
+
+		if (id == null) {
+			model.addAttribute("loginFail", "請登入");
+			return "index.success";
+		}
+
 		System.out.println(applyform);
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errMsgs", errors);
@@ -126,7 +133,7 @@ public class ActivityCreateController {
 			activityBean.setActend(cc);
 		}
 
-		activityBean.setHostid(3); // 改
+		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 

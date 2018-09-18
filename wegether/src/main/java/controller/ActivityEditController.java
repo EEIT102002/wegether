@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,9 +36,16 @@ public class ActivityEditController {
 	ActivityDAO activityDAO;
 
 	@RequestMapping("/actEdit.getBean.controller")
-	public String getBeanToJsp(Model model, int actid) throws UnsupportedEncodingException {
+	public String getBeanToJsp(Model model, int actid,
+			@RequestAttribute(value = "memberid", required = false) Integer id) throws UnsupportedEncodingException {
 		// actid = 55; //整合時記得拿掉
 		// System.out.println("actid:"+actid);
+
+		if (id == null) {
+			model.addAttribute("loginFail", "請登入");
+			return "index.success";
+		}
+
 		ActivityBean result = activityDAO.selectId(actid);
 		model.addAttribute("result", result);
 		model.addAttribute("actid", actid);
@@ -184,7 +192,9 @@ public class ActivityEditController {
 		activityBean.setTitle(activityBean.getTitle());
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
-		activityDAO.update(activityBean);
+
+		if (activityBean == null)
+			return "actEditErr.page";
 
 		return "actEditErr.page";
 	}
