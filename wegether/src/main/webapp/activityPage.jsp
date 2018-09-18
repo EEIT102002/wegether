@@ -84,7 +84,7 @@ var flag=0;
 			 $("#msgBlock").hide();
 			 $("#demo").hide();
 			 $("#demoArticle").show();
-			 getArticles("${actBean.id}","${memberid}","${actBean.state}","");
+			 getArticles("${actBean.id}","${memberid}","${actBean.state}",""); //載入心得
 			 
 		})
 		
@@ -121,7 +121,7 @@ var flag=0;
 			$('#demoArticle').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-				 	 getArticles("${actBean.id}","${memberid}","${actBean.state}",'deleteMsgId='+temp);
+				 	 deleteArticles("${actBean.id}","${memberid}","${actBean.state}",temp);
 		        }
 		    });
 		
