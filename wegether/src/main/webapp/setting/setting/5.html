@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  lang="zh-Hant-TW">
 
 <head>
+<meta charset="UTF-8"> 
 
     <head>
     	<script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
@@ -10,11 +11,26 @@
         <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
         <link rel="stylesheet" href="/wegether/setting/css/friendlist.css">
         <script>
-            var rowtemp = '<a href=""><div><div class="photoDiv"><img src="" alt=""></div><span class="name"></span></div></a>';
+            var rowtemp = '<div><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="trackButton"><button type="button" value="delete">取消追蹤</button></div></div>';
             var friendList;
             $(document).ready(function () {
                 friendList = $('.friendList');
                 friendlist();
+                $('.friendList').on('click','.trackButton button',function(){
+                	var e = $(this);
+                	console.log(e.parent().attr('memberid'));
+                	$.post(
+                		'/wegether/trackmember/'+e.val()
+                		,'memberid='+e.parent().attr('memberid')
+                		,function(data){
+                			if(data.state){
+                				console.log('成功');
+                				e.parent().parent().remove()
+                			}		
+                		}
+                		,'json'
+                	)
+                })
             })
 
             function friendlist() {
@@ -33,6 +49,7 @@
                             row.find(".name").html(e.nickname);
                             row.find('img').attr('src', e.photoSrc);
                             row.find('a').attr('href', e.memberid);
+                            row.find('.trackButton').attr('memberid', e.memberid);
                             friendList.append(row);
                             iframe_auto_height();
                         })
@@ -63,7 +80,7 @@
                 <div class="friendsearch">
                     <form id="search">
                         <input type="text" name="nickname" id="">
-                        <input type="submit" value="追蹤">
+                        <button type="submit" >追蹤</button>
                     </form>
                 </div>
                 <div class="friendList">

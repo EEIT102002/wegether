@@ -25,7 +25,7 @@ public class FriendService {
 		}
 		FriendBean result = friendDAO.selectById(bean.getId());
 		if(result != null && result.getMemberidf() == bean.getMemberidf() && result.getState() == 0) {
-			bean.setState(bean.getState());
+			result.setState(bean.getState());
 			return true;
 		}else {
 			return false;

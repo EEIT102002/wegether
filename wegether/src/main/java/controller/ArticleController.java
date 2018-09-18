@@ -65,8 +65,16 @@ public class ArticleController {
 				Object[] obj = new Object[7];
 				obj[0] = art.getMemberid();				
 			
-				String picMemStr = PictureConvert
-						.convertBase64Image(pictureDAO.selectByMember(art.getMemberid()).get(0).getPicture());
+				String picMemStr;
+				try {
+					picMemStr = PictureConvert
+							.convertBase64Image(memberDAO.select(art.getMemberid()).getPhoto());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					picMemStr = null;
+				}
+				
 				obj[1] = picMemStr;
 				obj[2] = memberDAO.select(art.getMemberid()).getNickname();
 				

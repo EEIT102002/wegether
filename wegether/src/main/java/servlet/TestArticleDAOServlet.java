@@ -50,7 +50,7 @@ public class TestArticleDAOServlet extends HttpServlet {
 
 		// insert
 		ArticleBean bean = new ArticleBean();
-		bean.setMemberid(1);
+		bean.setMemberid(6);
 		bean.setActivityid(1);
 		bean.setContent("奧萬大與您相約在每一個季節。"
 				);//		bean.setCreatetime(new java.util.Date());

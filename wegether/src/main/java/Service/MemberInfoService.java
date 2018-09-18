@@ -29,7 +29,7 @@ public class MemberInfoService {
 	private BlacklistDAO blacklistDAO;
 	
 	public JSONArray searchFreindApply(int id, int first) {
-		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(id, 0,0);
+		List<FriendBean> friendBeans = 	friendDAO.selectByMemberState(id, 0,first);
 		if(friendBeans.size() > 0) {
 			JSONArray result = (JSONArray)applicationContext.getBean("newJsonArray");
 			friendBeans.forEach(x->{
@@ -106,4 +106,16 @@ public class MemberInfoService {
 		return row;
 	}
 
+	public Integer friendCount(Integer memberid) {
+		return friendDAO.selectCountByMemberState(memberid, 1);
+	}
+	
+	
+	public Integer friendApplyCount(Integer memberid) {
+		return friendDAO.selectCountByMemberState(memberid, 0);
+	}
+	
+	public Integer friendApplyedCount(Integer memberidf) {
+		return friendDAO.selectCountByMemberFState(memberidf, 0);
+	}
 }

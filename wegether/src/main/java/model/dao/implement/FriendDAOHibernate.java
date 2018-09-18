@@ -4,13 +4,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.FriendBean;
-import model.MsgBean;
 import model.dao.FriendDAO;
 import querylanguage.QueryBean;
 import querylanguage.Select;
@@ -106,5 +104,22 @@ public class FriendDAOHibernate implements FriendDAO {
 		}
 		return false;
 	}
+
+	@Override
+	public Integer selectCountByMemberState(int memberid, int state) {
+		return ((Long)getSession().createQuery(
+				"select count(*) from FriendBean where memberid = :memberid and state = :state")
+			.setParameter("memberid", memberid)
+			.setParameter("state", state).uniqueResult()).intValue();
+	}
+	
+	@Override
+	public Integer selectCountByMemberFState(int memberidf, int state) {
+		return ((Long)getSession().createQuery(
+				"select count(*) from FriendBean where memberidf = :memberidf and state = :state")
+			.setParameter("memberid", memberidf)
+			.setParameter("state", state).uniqueResult()).intValue();
+	}	
+	
 
 }

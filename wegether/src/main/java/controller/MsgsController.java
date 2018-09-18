@@ -40,9 +40,6 @@ public class MsgsController {
 	private MemberDAO memberDAO;
 	
 	@Autowired
-	private PictureDAO pictureDAO;
-	
-	@Autowired
 	private ActivityDAO activityDAO;
 
 
@@ -74,8 +71,16 @@ public class MsgsController {
 				Object[] obj = new Object[6];
 				obj[0] = msg.getMemberid();				
 			
-				String picMemStr = PictureConvert
-						.convertBase64Image(pictureDAO.selectByMember(msg.getMemberid()).get(0).getPicture());
+				String picMemStr;
+				try {
+					picMemStr = PictureConvert
+							.convertBase64Image(memberDAO.select(msg.getMemberid()).getPhoto());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					picMemStr = null;
+				}
+				
 				obj[1] = picMemStr;
 				obj[2] = memberDAO.select(msg.getMemberid()).getNickname();
 				
