@@ -9,8 +9,6 @@
 <title>ActivityPage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="css/activityPage.css">
-<script src="/wegether/js/activityPage.js"></script>
 
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"	media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -27,8 +25,11 @@
 <!-- 登入使用 END -->
 <!-- 留言 /心得心享 視窗  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/wegether/css/activityPage.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script type="text/javascript" src="/wegether/js/activityPage/activityPage.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
@@ -73,7 +74,7 @@ var flag=0;
 			 $("#msgBlock").show();
 			 $("#demoArticle").hide();
 			 $("#demo").show();
-			 getMsgs();
+			 getMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val());
 		})
 		
 		// 切換心得分享版面
@@ -83,25 +84,24 @@ var flag=0;
 			 $("#msgBlock").hide();
 			 $("#demo").hide();
 			 $("#demoArticle").show();
-			 getArticles();
+			 getArticles("${actBean.id}","${memberid}","${actBean.state}","");
 			 
 		})
 		
 		 attflag = $("#memBut").val(); //身分驗證	
 		 idCheck();//身分驗證	
-// 		 console.log("actPicListNo:"+actPicListNo);
 		 
-		 //載入留言
-		 getMsgs();
+		 //載入留言 
+		 getMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val());
 		 
-		//新增留言
+		//清除留言預設文字
 		 $('#txt').click(function(){
 			 $("#txt").val('');
 		});
 		 
 		//新增留言
 		 $('#txtbut').click(function(){
-			 getMsgs($("#txt").val());
+			 postMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val()); 
 			 $("#txt").val('');
 		});
 			
@@ -109,7 +109,7 @@ var flag=0;
 			$('#demo').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-				 	 getMsgs('deleteMsgId='+temp);
+				 	 deleteMsgs("${actBean.id}","${memberid}","${actBean.state}",temp);
 		    		 $("#txt").val('');
 		        }
 		    });
@@ -121,7 +121,7 @@ var flag=0;
 			$('#demoArticle').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-				 	 getArticles('deleteMsgId='+temp);
+				 	 getArticles("${actBean.id}","${memberid}","${actBean.state}",'deleteMsgId='+temp);
 		        }
 		    });
 		
@@ -173,76 +173,9 @@ var flag=0;
 	}
 	//登入身分驗證 END
 	
-		//留言功能
-	function getMsgs(msg){
-	 var divElem = null ;
-	 var temp="";
-	 console.log("msg="+msg);
-	 $.getJSON("msgs.controller",
-			 { activityid:1, 
-		 		memberid:"${memberid}",
-		 		state:0,
-		 		content:msg
-			 },
-			 function(result){	
-	 			$.each(result, function(i,item){	
-	 				divElem =("<div id='msgid'>" +
-					'<a href="personal.controller?memberId='+item[0]+'">'+
-					'<img src="data:image/jpg;base64,'+item[1]+'" width="50" class="img-circle">  </a>' +
-					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
-					'<span style="font-size: small;">'+item[3]+'</span>'+
-					'<button id="deleteId" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
-			 		'</br>'+item[4]+'</br>'+
-					"</div>");
-	 				temp = temp + divElem;
-	 			});	
-	 			$('#demo').html(temp);
-	 			console.log("memberid="+"${memberid}");
-	 });	
-	 
- }
-	//留言功能 END
 	
 
-//載入心得
- function getArticles(msg){
-	 var divElem1 = null ;
-	 var temp="";
-	
-	 $.getJSON("article.controller",
-			 { activityid:1, 
-		 		content:msg
-			 },
-			 function(result){	
-	 			$.each(result, function(i,item){	
-	 				divElem1 =("<div id='msgid'>" +
-					'<a href="personal.controller?memberId='+item[0]+'">'+
-					'<img src="data:image/jpg;base64,'+item[1]+'" width="50">  </a>' +
-					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
-					'<span style="font-size: small;">'+item[3]+'</span>'+
-					'<button id="deleteId" href="#" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
-			 		'</br>'+item[4]+'</br>'
-			 		
-			 		);
-	 				console.log("item[5]="+item[5]);
-	 				 var divElem2 = null ;
-	 				 var temp1="";
-	 				$.each(item[6], function(i,item){
-	 					divElem2 =(
-	 					 '<img src="/wegether/picture/'+item+'" width="350" height="250" style=" border: 2px solid #272727; margin: 10px;">' 
-	 					);
-	 					temp1 = temp1 + divElem2;
-	 				});	
-	 				
-	 				
-	 				temp = divElem1 + temp1 + "</div>" + temp ;
-	 				
-	 			
-	 			});	
-	 			$('#demoArticle').html(temp);
-	 });	
-	 
- }
+
 </script>
 <style>
 * {
@@ -448,7 +381,7 @@ footer>ul>li ul {
 						<!-- right2 end -->
 						<p>${actBean.addr}</p>
 						
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2197094634926!2d121.54709331488881!3d25.026616844741607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aa32657c4a79%3A0x3d7f7c44e7d85df7!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5pWm5YyW5Y2X6Lev5LqM5q61MjAx6Jmf!5e0!3m2!1szh-TW!2stw!4v1536913293480" width="400" height="250" frameborder="0" style="border: 3px solid #FFBB00;margin：10px;" allowfullscreen></iframe>
+<!-- 						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2197094634926!2d121.54709331488881!3d25.026616844741607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aa32657c4a79%3A0x3d7f7c44e7d85df7!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5pWm5YyW5Y2X6Lev5LqM5q61MjAx6Jmf!5e0!3m2!1szh-TW!2stw!4v1536913293480" width="400" height="250" frameborder="0" style="border: 3px solid #FFBB00;margin：10px;" allowfullscreen></iframe> -->
 						<br><br>
 						<div>
 							<img src="images/activityPageImages/people.png" width="20">&nbsp;${actBean.numberlimit}人

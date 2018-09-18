@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -131,9 +132,12 @@ public class MemberRegisterController extends HttpServlet {
 		// }
 		//
 		// // 姓名錯誤訊息
-		// if (bean.getName() == null || bean.getName().length() == 0) {
-		// errors.put("name", "姓名未輸入");
-		// }
+		 if (bean.getName() != null || bean.getName().length() != 0) {
+		 errors.put("name", "姓名未輸入");
+//		 String UTFName = StringEscapeUtils.unescapeHtml(bean.getName());
+//		 System.out.println("UTFName ="+UTFName);
+		 
+		 }
 
 		if (errors != null && !errors.isEmpty()) {
 			model.addAttribute("inputRrrors", errors);
