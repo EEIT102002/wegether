@@ -227,11 +227,16 @@ footer>ul>li ul {
 				<div class="AreaCon">
 					<label>問題類型 :</label> <select name="classtype" id="classtype"
 						required="required">
-						<option value="0">--請選擇--</option>
-						<option value="1">會員(例如登入或密碼問題)</option>
-						<option value="2">系統錯誤回報</option>
-						<option value="3">建議</option>
-						<option value="4">其他</option>
+						<c:if test="${param.classtype==0}"><option value="0">--請選擇--</option> </c:if>
+						<c:if test="${param.classtype==1}"><option value="1">會員(例如登入或密碼問題)</option> </c:if>
+						<c:if test="${param.classtype==2}"><option value="2">系統錯誤回報</option> </c:if>
+						<c:if test="${param.classtype==3}"><option value="3">建議</option> </c:if>
+						<c:if test="${param.classtype==4}"><option value="4">其他</option> </c:if>
+						
+						
+						
+						
+						
 					</select>
 					<td>${errors.classtype}</td>
 				</div>
@@ -239,7 +244,7 @@ footer>ul>li ul {
 					<span class="form-group">問題描述 :</span>
 					<td>${errors.Content}</td>
 					<textarea rows="5" cols="70" placeholder="請輸入問題" name="content"
-						required="required"></textarea>
+						required="required">${param.content}</textarea>
 				</div>
 
 				<div id="searchbarButton">

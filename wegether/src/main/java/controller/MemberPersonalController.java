@@ -342,7 +342,6 @@ public class MemberPersonalController {
 
 		// 主辦活動
 		List<String> hostsum = new ArrayList<>();// 存放結果
-		// String temp2 = "";
 
 		switch (setting.getShowhost()) {
 		case 1:
@@ -451,8 +450,6 @@ public class MemberPersonalController {
 			break;
 		}
 
-		// System.out.println(attbean);
-		// System.out.println(attbean.size());
 		model.addAttribute("mem", membean);
 		model.addAttribute("fribean", fribean.size());
 		model.addAttribute("attbean", attbean.size());
@@ -460,7 +457,7 @@ public class MemberPersonalController {
 		model.addAttribute("picbean", memPicList);
 		model.addAttribute("attsum", attsum);
 		model.addAttribute("hostsum", hostsum);
-		// System.out.println("2");
+
 		return "personal.success";
 	}
 
