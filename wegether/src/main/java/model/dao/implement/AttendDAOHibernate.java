@@ -52,7 +52,7 @@ public class AttendDAOHibernate implements AttendDAO {
 	public AttendBean selectByActivityAndMember(int activityid, int memberid) {
 		return this.getSession().createQuery(selectByActivityAndMember, AttendBean.class)
 				.setParameter("activityid",activityid)
-				.setParameter("memberid",memberid).list().get(0);		
+				.setParameter("memberid",memberid).uniqueResult();		
 	}
 	
 	private final String selectByMemID = "from AttendBean  WHERE memberid = :memberid ";

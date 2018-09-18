@@ -75,7 +75,7 @@ public class ArticleBean {
 
 	@Override
 	public String toString() {
-		return "AttendBean [id=" + id + ", memberid=" + memberid + ", activityid=" + activityid + ", content=" + content
+		return "ArticleBean [id=" + id + ", memberid=" + memberid + ", activityid=" + activityid + ", content=" + content
 				+ ", createtime=" + createtime + "]";
 	}
 

@@ -65,11 +65,9 @@ public class ActivityPageController {
 		Integer flag = 0;		
 		if (memberid != null) flag = 3;
 		// 時間轉換
-
 		String[] week = { "(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)" };
 		System.out.println("actid=" + actid);
 		List<String> actPicList = new ArrayList<>();
-		List<String> hostPicList = new ArrayList<>();
 		List<Map> memPicList = new ArrayList<>();
 
 		List<Map> msgsList = new ArrayList<>();
@@ -80,22 +78,37 @@ public class ActivityPageController {
 
 		MemberBean hostBean = memberDAO.select(actBean.getHostid());
 		
+		String hostPic;
+		try {
+			hostPic = PictureConvert.convertBase64Image(hostBean.getPhoto());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			hostPic=null;
+		}
+		
 		List<PictureBean> actPicBeans = pictureDAO.selectByActivity(actid);
-		List<PictureBean> hostPicBeans = pictureDAO.selectByMember(hostBean.getId());
-		List<MsgBean> msgBeans = msgDAO.selectByActivity(actid);
 		Set<AttendBean> attBeans = actBean.getAttendBean();
 		
 			
 			if (attBeans.size() != 0) {
 				for(AttendBean att :attBeans) {
-					List<PictureBean> memPicBeans = pictureDAO.selectByMember(att.getMemberid()); // 報名人員的照片名單
 					Map<String, String> attMap = new HashMap<String, String>();
-					if (memPicBeans.size() != 0) {
-							attMap.put("memberId", att.getMemberid().toString());
-							attMap.put("memberPic", PictureConvert.convertBase64Image(memPicBeans.get(0).getPicture()));// memPicBean.get(0) -->第一筆照片物件
-							memPicList.add(attMap);
-							if (flag != 2 && memberid == att.getMemberid())	flag = 2;
-						}					
+					MemberBean attBean = memberDAO.select(att.getMemberid()); // 報名人員的照片名單
+					String memberPic;
+					try {
+						memberPic = PictureConvert.convertBase64Image(attBean.getPhoto());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						memberPic=null;
+					}
+					attMap.put("memberPic", memberPic);
+					attMap.put("memberId", att.getMemberid().toString());
+					
+					memPicList.add(attMap);
+					if (flag != 2 && memberid == att.getMemberid())	flag = 2;
+											
 				};
 			}
 			
@@ -103,46 +116,19 @@ public class ActivityPageController {
 
 		if (actPicBeans.size() != 0)
 			actPicBeans.forEach(pic -> {
-				actPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
+				
+				String actPic;
+				try {
+					actPic = PictureConvert.convertBase64Image(pic.getPicture());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					actPic=null;
+				}
+				actPicList.add(actPic);
 			});
 
-		if (hostPicBeans.size() != 0)
-			hostPicBeans.forEach(pic -> {
-				hostPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
-			});
-
-		if (msgBeans.size() != 0)
-			msgBeans.forEach(msg -> {
-				Calendar msgtime = Calendar.getInstance();
-				Map<String, String> msgsMap = new HashMap<String, String>();
-				msgsMap.put("nickname", memberDAO.select(msg.getMemberid()).getNickname());
-				String picMemStr = PictureConvert
-						.convertBase64Image(pictureDAO.selectByMember(msg.getMemberid()).get(0).getPicture());
-				msgsMap.put("picMem", picMemStr);
-				msgsMap.put("memberId", msg.getMemberid().toString());
-				msgsMap.put("content", msg.getContent());
-
-				msgtime.setTime(msg.getMsgtime());
-				int msgMonth = msgtime.get(Calendar.MONTH) + 1;
-				int msgDay = msgtime.get(Calendar.DAY_OF_MONTH);
-				int msgHour = msgtime.get(Calendar.HOUR_OF_DAY) + 8;
-				String msgHourStr = Integer.toString(msgHour);
-				if (msgHour > 24)
-					msgHour = msgHour - 24;
-				if (msgHour < 10)
-					msgHourStr = "0" + msgHourStr;
-
-				int msgMinute = msgtime.get(Calendar.MINUTE);
-				String msgMinuteStr = Integer.toString(msgMinute);
-				if (msgMinute < 10)
-					msgMinuteStr = "0" + msgMinuteStr;
-
-				String msgtimeStr = msgMonth + " 月 " + msgDay + " 日  " + msgHourStr + " : " + msgMinuteStr;
-				msgsMap.put("msgtime", msgtimeStr);
-				msgsList.add(msgsMap);
-
-			});
-
+		
 		String actbegin = null;
 		Calendar actTime = Calendar.getInstance();
 		if (actBean.getActbegin() != null) {
@@ -187,8 +173,8 @@ public class ActivityPageController {
 		else
 			model.addAttribute("actPicListSize", null);
 
-		if (hostPicList.size() != 0)
-			model.addAttribute("hostPicList", hostPicList);
+		if (hostPic!= null)
+			model.addAttribute("hostPic", hostPic);
 		else
 			model.addAttribute("hostPicList", null);
 		
@@ -211,11 +197,12 @@ public class ActivityPageController {
 			model.addAttribute("dateline", dateline);
 		else
 			model.addAttribute("dateline", null);
-
-		if (msgsList != null)
-			model.addAttribute("msgsList", msgsList);
+		
+		if (memberid != null)
+			model.addAttribute("memberid", memberid);
 		else
-			model.addAttribute("msgsList", null);
+			model.addAttribute("memberid", null);
+
 
 		model.addAttribute("flag", flag);
 		

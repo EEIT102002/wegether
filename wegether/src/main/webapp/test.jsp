@@ -6,21 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <title>test</title>
-<script>
-	$(function(){
-		var x = $("#inputid").val();
-// 	 	var x = $("#spanid").val();
-		console.log("#inputid:"+x);
-	})
-
-</script>
 </head>
 <body>
 <p>${param.test}</p>
-
-<button id="memBut" type="button" value="123">456</button>
-<input id="inputid" type="text" value="555" style="display:none;"/>
-<div id="divid" class="divclass" value="7777"></div>
-<span id="spanid"value="88"></span>
 </body>
 </html>

@@ -112,11 +112,8 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public List<ActivityBean> selectByTime(int state, Date begin, Date end) {
 		System.out.println(selectByTime);
-		return this.getSession().createQuery(selectByTime, ActivityBean.class)
-				.setParameter("state", state)
-				.setParameter("begin", begin)
-				.setParameter("end", end)
-				.list();
+		return this.getSession().createQuery(selectByTime, ActivityBean.class).setParameter("state", state)
+				.setParameter("begin", begin).setParameter("end", end).list();
 	}
 
 	private final String selectByActbegin = "from ActivityBean  WHERE state=:state and Convert(DateTime,actbegin) =Convert(DateTime,:actbegin)";
@@ -271,6 +268,16 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(Hqlactivitymemberid, ActivityBean.class).setParameter("hostid", memberid)
 				.list();
 	}
-	
 
+	private String HqlGetActivityId = "SELECT id FROM ActivityBean WHERE HOSTID = :HID AND ACTBEGIN = :AB AND DATELINE = :DL";
+
+	@Override
+	public int getActivityId(int memberid, Date actbegin, Date dateline) {
+		Query query = this.getSession().createQuery(HqlGetActivityId);
+		query.setParameter("HID", memberid);
+		query.setParameter("AB", actbegin);
+		query.setParameter("DL", dateline);
+		List<Integer> obj = query.list();
+		return obj.get(0);
+	}
 }

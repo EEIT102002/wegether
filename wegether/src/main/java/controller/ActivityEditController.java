@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import model.ActivityBean;
 import model.dao.ActivityDAO;
+import pictureconvert.PictureConvert;
 
 @Controller
 public class ActivityEditController {
@@ -34,9 +36,16 @@ public class ActivityEditController {
 	ActivityDAO activityDAO;
 
 	@RequestMapping("/actEdit.getBean.controller")
-	public String getBeanToJsp(Model model, int actid) throws UnsupportedEncodingException {
+	public String getBeanToJsp(Model model, int actid,
+			@RequestAttribute(value = "memberid", required = false) Integer id) throws UnsupportedEncodingException {
 		// actid = 55; //整合時記得拿掉
 		// System.out.println("actid:"+actid);
+
+		if (id == null) {
+			model.addAttribute("loginFail", "請登入");
+			return "index.success";
+		}
+
 		ActivityBean result = activityDAO.selectId(actid);
 		model.addAttribute("result", result);
 		model.addAttribute("actid", actid);
@@ -80,6 +89,11 @@ public class ActivityEditController {
 
 		String deathLine = result.getDateline().toString();
 		model.addAttribute("deathLine", deathLine.substring(0, 10));
+
+		if (result.getPicture() != null) {
+			String pic = PictureConvert.convertBase64Image(result.getPicture());
+			model.addAttribute("actPic", pic);
+		}
 
 		return "actGetBeanSuc.page";
 	}
@@ -174,11 +188,13 @@ public class ActivityEditController {
 			Date cc = simpleDateFormat.parse(endDateTime);
 			activityBean.setActend(cc);
 		}
-		activityBean.setId(71);  //整合時須修改
+		activityBean.setId(71); // 整合時須修改
 		activityBean.setTitle(activityBean.getTitle());
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
-		activityDAO.update(activityBean);
+
+		if (activityBean == null)
+			return "actEditErr.page";
 
 		return "actEditErr.page";
 	}
