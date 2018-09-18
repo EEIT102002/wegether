@@ -1,5 +1,6 @@
 var buttonVal =['提出好友邀請','追蹤','加入黑名單'];
-
+var posturl = ['friend/invite','trackmember/add', 'blacklist/add'];
+var param = ['memberidf=','memberid=','blackid='];
 $(document).ready(function() {
 	iframe_auto_height(); // 當文件ready時才能正確取得iframe內容的高度
 	
@@ -43,26 +44,27 @@ function iframe_auto_height() {
 			: content_width;
 	iframe.style.height = content_height;
 	iframe.style.width = content_width;
-	// 當下層iframe自身完成高度調整後, 再通知上層去調整高度, 直到每一層都完成高度調整.
 }
 
 function searchServer(formData, url, type){
 	var temp = createTemp(type);
 	var searchbox = window.parent.$('#searchBox');
 	var minbody = searchbox.find('.friendList');
+	minbody.attr('url', '/wegether/'+posturl[type]).attr('param',param[type]);
+	
 	minbody.html("");
 	
     $.post({
         url: url,
         data: formData,
         success: function(data){
-            
             $.each(data, function(i, e){
                 var row = $(temp);
+                console.log(e.memberid)
                 row.find(".name").html(e.nickname);
-                if (e.photo != null)
-                    row.find('img').attr('src', e.photo);
-                row.attr('href', e.memberid);
+                row.find('img').attr('src', '/wegether/member/photo/'+e.memberid);
+                row.find('a').attr('href', e.memberid);
+                row.find('.friendButton').attr('memberid', e.memberid);
                 minbody.append(row);
                 searchbox.modal();
             })
@@ -72,5 +74,23 @@ function searchServer(formData, url, type){
         	searchbox.modal();
         },
         dataType:"json"
+    })
+    var pathname = window.location.pathname;
+    searchbox.on('click','.friendButton button',function(){
+    	var e = $(this);
+    	var friendlist = e.parents('.friendList');
+    	$.post(
+    		friendlist.attr('url')
+    		,friendlist.attr('param')+e.parent().attr('memberid')
+    		,function(data){
+    			if(data.state){
+    				var iframe = e.parents('body').find('iframe')[0];	
+    				iframe.src = friendlist.attr('param') == 'memberidf=' ?  '/wegether/setting/setting/4.html?page=2': iframe.src;
+    				console.log(iframe.src);
+    				e.parent().parent().remove();		
+    			}
+    		}
+    		,'json'
+    	)
     })
 }

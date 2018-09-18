@@ -10,16 +10,12 @@ $(function () {
     	        "/wegether/login.check"
     	        , ""
     	        , function (data) {
-    	            if (data.state == true) {
-    	            	
+    	            if (data.state == true) {      	
     	            	logingroup(data);
     	            }
     	        }
     	        , "json"
     	    )
-
-    
-   
     $('#login').click(function () {
         var message = $('#loginform').serialize();
         $.post(
@@ -30,7 +26,6 @@ $(function () {
                     console.log($.cookie('token'));
                     var qqq = $(logindiv).closest('.modal');
                     $(qqq).modal('hide');
-                    
                     logingroup(data);
                 }else{
                 	$('.loginerror').text("登入失敗");
@@ -46,11 +41,12 @@ $(function () {
     $('#loginform').on("click","input",function(){
     	$('.loginerror').text("");
     })
+    
+
 
 })
 
 function logingroup(data){
-
 	 if(typeof window.loginDo === "function") {
      	loginDo();//登入後要做的方法放在loginDo()
      }                   
@@ -78,6 +74,7 @@ function logtoggle(){ //login或logout後的顯示切換
 	 loginSpan.toggle();
      logoutSpan.toggle();
      loginRing.toggle();
+
 }
 
 

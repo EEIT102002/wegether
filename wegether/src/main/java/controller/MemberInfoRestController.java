@@ -2,8 +2,11 @@ package controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.websocket.server.PathParam;
 import javax.xml.crypto.Data;
 
 import org.hibernate.SessionFactory;
@@ -14,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -89,49 +93,66 @@ public class MemberInfoRestController {
 		}
 	}
 
-	@GetMapping(path = { "/member/Friend" }, produces = { "application/json" })
-	public ResponseEntity<?> getFriend(@RequestAttribute("memberid") Integer id) {
+	@GetMapping(path = { "/member/Friend/{first}" }, produces = { "application/json" })
+	public ResponseEntity<?> getFriend(@PathVariable(name = "first") Integer first,
+			@RequestAttribute("memberid") Integer id) {
 
 		if (id == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		JSONArray result = memberInfoService.searchFreind(id, 0);
-
-		if (result != null) {
-			return new ResponseEntity<JSONArray>(result, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		Map<String, Object> result = new HashMap<>();
+		if(first == 0) {
+			result.put("count", memberInfoService.friendCount(id));
 		}
-	}
-
-	@GetMapping(path = { "/member/Friend/Applyed" }, produces = { "application/json" })
-	public ResponseEntity<?> getFriendApplyed(@RequestAttribute("memberid") Integer id) {
-
-		if (id == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		JSONArray result = memberInfoService.searchFreindApplyed(id, 0);
-
-		if (result != null) {
-			return new ResponseEntity<JSONArray>(result, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-
-	@GetMapping(path = { "/member/Friend/Apply" }, produces = { "application/json" })
-	public ResponseEntity<?> getFriendApply(@RequestAttribute("memberid") Integer id) {
-
-		if (id == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		JSONArray result = memberInfoService.searchFreindApply(id, 0);
 		
-		if (result != null) {
-			return new ResponseEntity<JSONArray>(result, HttpStatus.OK);
+		JSONArray beans = memberInfoService.searchFreind(id, first);
+
+		if (beans != null) {
+			result.put("state", true);
+			result.put("json", beans);	
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			result.put("state", false);
 		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@GetMapping(path = { "/member/Friend/Applyed/{first}" }, produces = { "application/json" })
+	public ResponseEntity<?> getFriendApplyed(
+			@PathVariable(name = "first") Integer first,@RequestAttribute("memberid") Integer id) {
+
+		Map<String, Object> result = new HashMap<>();
+		if(first == 0) {
+			result.put("count", memberInfoService.friendApplyedCount(id));
+		}
+		
+		JSONArray beans = memberInfoService.searchFreindApplyed(id, first);
+
+		if (beans != null) {
+			result.put("state", true);
+			result.put("json", beans);	
+		} else {
+			result.put("state", false);
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@GetMapping(path = { "/member/Friend/Apply/{first}" }, produces = { "application/json" })
+	public ResponseEntity<?> getFriendApply(
+			@PathVariable(name = "first") Integer first,@RequestAttribute("memberid") Integer id) {
+		Map<String, Object> result = new HashMap<>();
+		System.out.println(first+","+id);
+		if(first == 0) {
+			result.put("count", memberInfoService.friendApplyCount(id));
+		}	
+		JSONArray beans = memberInfoService.searchFreindApply(id, first);
+
+		if (beans != null) {
+			result.put("state", true);
+			result.put("json", beans);	
+		} else {
+			result.put("state", false);
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@GetMapping(path = { "/member/Trackmember" }, produces = { "application/json" })

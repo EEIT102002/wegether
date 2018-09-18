@@ -17,6 +17,8 @@ public interface ArticleDAO {
 	public abstract boolean delete(int id);
 
 	public abstract List<Integer> selectAllForActid();
+	
+	public abstract List<ArticleBean> selectByActivityId(int activityId);
 
 	public abstract int getArticleId(int memberid, int activityid);
 

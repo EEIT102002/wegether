@@ -6,7 +6,7 @@ public class Select {
 
 	public static final String offset = " offset :offset_first row fetch next :offset_max rows only ";
 
-	public static final String noticeByMember = "select {n.*} from Notice n where memberid = :id order by noticetime desc "
+	public static final String noticeByMember = "select {n.*} from Notice n where memberid = :id order by [state] asc, noticetime desc "
 			+ offset;
 	public static final String noticeByActivity = noticeSql("activityid");
 	public static final String noticeByArticle = noticeSql("articleid");

@@ -14,10 +14,16 @@ public class PictureConvert {
 	
 	public static String convertBase64Image(byte[] picture) {
 		
-		String base64Image = StringUtils
-				.newStringUtf8(Base64
-						.encodeBase64(picture, false))
-									.toString();
+		String base64Image ;
+		try {
+			 base64Image = StringUtils
+						.newStringUtf8(Base64
+								.encodeBase64(picture, false))
+											.toString();
+		} catch (Exception e) {
+			base64Image=null;
+		}
+		
 		return base64Image;
 	}
 	

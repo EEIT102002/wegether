@@ -41,7 +41,8 @@ public class FriendController {
 	@RequestMapping(path = { "/friend/invite" }, produces = { "application/json" })
 	public @ResponseBody ResponseEntity<?> invFriend(
 			@RequestParam(name = "memberidf") Integer memberidf,
-			@RequestAttribute("memberid") Integer memberid) {
+			@RequestAttribute("memberid") Integer memberid,
+			HttpServletRequest request) {
 		// 邀請好友 使用 memberid , memberidf
 		Map<String, Object> result = new HashMap<>();
 		if (memberidf == null || memberid == null) {
@@ -58,6 +59,8 @@ public class FriendController {
 			// 邀請失敗
 			// result.put("state", false);
 			if (check != null) {
+				request.setAttribute("id", check.getId());
+				request.setAttribute("ntype", 1);
 				result.put("state", true);
 			} else {
 				result.put("state", false);
@@ -118,7 +121,8 @@ public class FriendController {
 	@RequestMapping(path = { "/friend/accept" }, produces = { "application/json" })
 	public @ResponseBody ResponseEntity<?> acceptFriend(
 			@RequestParam(name = "id") Integer id,
-			@RequestAttribute("memberid") Integer memberidf) {
+			@RequestAttribute("memberid") Integer memberidf,
+			HttpServletRequest request) {
 		// 接受好友邀請 使用 memberid , memberfid 更改state為1
 		Map<String, Object> result = new HashMap<>();
 		if (id == null || memberidf == null) {
@@ -133,7 +137,13 @@ public class FriendController {
 			// result.put("state", true);
 			// 接受失敗
 			// result.put("state", false);
-			result.put("state", friendService.changeStateByMemberF(bean));
+			if(friendService.changeStateByMemberF(bean)) {
+				request.setAttribute("id", bean.getId());
+				request.setAttribute("ntype", 2);
+				result.put("state", true );
+			}else {
+				result.put("state", false );
+			}
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
