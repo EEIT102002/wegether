@@ -1,4 +1,4 @@
-package controller;
+package Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,18 +10,13 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import Service.AttendService;
 import model.ActivityBean;
 import model.AttendBean;
 import model.MemberBean;
@@ -33,8 +28,8 @@ import model.dao.MsgDAO;
 import model.dao.PictureDAO;
 import pictureconvert.PictureConvert;
 
-@Controller
-public class ActivityPageController {
+@Service
+public class ActivityPageService {
 	@Autowired
 	private ActivityDAO activityDAO;
 
@@ -56,7 +51,7 @@ public class ActivityPageController {
 				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
 
-	@RequestMapping("/activityPage.controller")
+	
 	public String method(Model model, Integer actid,
 			@RequestAttribute(name = "memberid", required = false) Integer memberid) {
 		System.out.println("id :" + memberid);

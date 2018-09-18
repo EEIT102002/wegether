@@ -2,16 +2,9 @@
 	
 $(function(){
 	
-console.log("activityPage")
+console.log("activityPage");
 	
 })
 
 
 
-function loginDo(){
-	
-}
-
-function logoutDo() {
-
-	}

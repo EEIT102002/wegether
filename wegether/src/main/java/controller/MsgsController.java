@@ -48,7 +48,7 @@ public class MsgsController {
 
 	@GetMapping( path= {"/msgs.controller"}, produces= {"application/json"})
 	public ResponseEntity<?> getInfo(MsgBean bean){
-				
+				System.out.println("msgs");
 		List<Object[]> msgsList = new ArrayList<>();
 		List<MsgBean> msgBeans = msgDAO.selectByActivity(bean.getActivityid());
 		if (msgBeans.size() != 0) {

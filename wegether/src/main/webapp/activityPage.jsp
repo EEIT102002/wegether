@@ -30,13 +30,15 @@
 <script type="text/javascript" src="/wegether/js/activityPage/activityPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
 
 <script>
-var attflag=0;
+var activityid= ${actBean.id};
+
 var flag=0;
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -84,13 +86,11 @@ var flag=0;
 			 $("#msgBlock").hide();
 			 $("#demo").hide();
 			 $("#demoArticle").show();
-			 getArticles("${actBean.id}","${memberid}","${actBean.state}","");
+			 getArticles("${actBean.id}","${memberid}","${actBean.state}",""); //載入心得
 			 
 		})
 		
-		 attflag = $("#memBut").val(); //身分驗證	
-		 idCheck();//身分驗證	
-		 
+				 
 		 //載入留言 
 		 getMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val());
 		 
@@ -121,7 +121,7 @@ var flag=0;
 			$('#demoArticle').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-				 	 getArticles("${actBean.id}","${memberid}","${actBean.state}",'deleteMsgId='+temp);
+				 	 deleteArticles("${actBean.id}","${memberid}","${actBean.state}",temp);
 		        }
 		    });
 		
@@ -144,36 +144,27 @@ var flag=0;
 	}
 	//activityPage 輪播使用  end	
 	
-	//身分驗證	
-	function idCheck(){
-		//0:未登入  1:主辦人  2:已報名者  3:未報名者
-		
-		if(attflag == 0){
-			$('#memBut').text('請 先 登 入 才 能 報 名 ').click(function(){
-				console.log(attflag);
-			});
-		}
-		if(attflag == 1){
-			$('#memBut').text('編 輯 活 動 ').click(function(){
-				console.log(attflag);
-				document.location.href="actEdit.getBean.controller?actid=${actBean.id}";
-			});
-		}
-		if(attflag == 2){
-			$('#memBut').text('取 消 報 名 ').click(function(){
-				
-			});
-		}
-		if(attflag == 3){
-			$('#memBut').text('報 名 ').click(function(){
-				clickApplyForm("${actBean.id}");
-			});
-		}
-		
-	}
-	//登入身分驗證 END
+	
+	function loginDo(){
+	console.log("Member login");
+	 $.get("wegether/activity/attend/check/"+activityid,
+			  function(data){	
+				console.log("data.attNo="+data.attNo)
+				console.log("data.state="+data.state)
+	 			idCheck(data.attNo,data.state);
+	 
+	 },'json');	
 	
 	
+}
+	
+
+
+	function logoutDo() {
+		console.log(" Member logout");
+	
+		}
+
 
 
 </script>
@@ -405,7 +396,7 @@ footer>ul>li ul {
 						
 						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
 						<div style="text-align: center">
-							<button id="memBut" type="button" class="btn btn-warning" value="${flag}" ></button>
+							<button id="memBut" type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
 						</div>
 						<!-- right7 end -->
 
