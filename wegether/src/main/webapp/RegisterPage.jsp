@@ -22,20 +22,26 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-<script>
+<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="./js/setting.js"></script>
+<script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
+<script src="/wegether/js/logMethod.js" type="text/javascript"></script>
+<script type="text/javascript" >
 	$(function() {
-		var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
-		    ,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']   
-		   for(var i = 1; i <= array_for_city.length; i++) {
-//		              console.log(array_for_city[i-1]);
-		    var x1 ="<option value="+i+">"+array_for_city[i-1]+"</option>"  
-		    $('#zzz').append(x1);
-		   }
-		
+		var array_for_city = [ '基隆市', '台北市', '新北市', '宜蘭縣', '桃園市', '新竹市', '新竹縣',
+				'苗栗縣', '台中市', '彰化縣', '南投縣', '雲林縣', '嘉義市', '嘉義縣', '台南市', '高雄市',
+				'屏東縣', '花蓮縣', '台東縣', '澎湖', '金門', '馬祖' ]
+		for (var i = 1; i <= array_for_city.length; i++) {
+			//		              console.log(array_for_city[i-1]);
+			var x1 = "<option value="+i+">" + array_for_city[i - 1]
+					+ "</option>"
+			$('#zzz').append(x1);
+		}
+
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-	
+
 	})
 
 	function clearForm() {
@@ -47,19 +53,81 @@
 		}
 	}
 	document.addEventListener("DOMContentLoaded", function() {
-		document.getElementById("idName").addEventListener("blur", chkName); //事件繫結，焦點離開                                    
+		
+		document.getElementById("idaccount").addEventListener("blur", chkaccount); //事件繫結，焦點離開 
+		document.getElementById("idpassword").addEventListener("blur", chkpassword); //事件繫結，焦點離開 
+		document.getElementById("idrepassword").addEventListener("blur", chkrepassword); //事件繫結，焦點離開 
+		document.getElementById("idtel").addEventListener("blur", chktel); //事件繫結，焦點離開 
+		document.getElementById("idName").addEventListener("blur", chkName); //事件繫結，焦點離開 
+		document.getElementById("idaddr").addEventListener("blur", chaddr); //事件繫結，焦點離開  
+		document.getElementById("idjob").addEventListener("blur", chjob); //事件繫結，焦點離開  
 	});
+	
+	//帳號驗證消除
+	function chkaccount() {
+		var idaccount = document.getElementById("idaccount").value;
+		if (idaccount == "") {
+			document.getElementById("idspaccount").innerHTML = "";
+		} else
+			document.getElementById("idspaccount").innerHTML = "";
+	}
+	//密碼驗證消除
+	function chkpassword() {
+		var idpassword = document.getElementById("idpassword").value;
+		if (idpassword == "") {
+			document.getElementById("idsppassword").innerHTML = "";
+		} else
+			document.getElementById("idsppassword").innerHTML = "";
+	}
+	//確認密碼驗證消除
+	function chkrepassword() {
+		var idrepassword = document.getElementById("idrepassword").value;
+		if (idrepassword == "") {
+			document.getElementById("idsprepassword").innerHTML = "";
+		} else
+			document.getElementById("idsprepassword").innerHTML = "";
+	}
+	//電話驗證消除
+	function chktel() {
+		var idtel = document.getElementById("idtel").value;
+		if (idtel == "") {
+			document.getElementById("idsptel").innerHTML = "";
+		} else
+			document.getElementById("idsptel").innerHTML = "";
+	}
 
 	//姓名驗證
 	function chkName() {
 		var idName = document.getElementById("idName").value;
 		var re = /^[\u4e00-\u9fff]{2,}$/; //中文字在unicode的區間
 		if (idName == "") {
-			document.getElementById("idspName").innerHTML = " <i > 姓名不可為空白</i>";
+			document.getElementById("idspName").innerHTML = " <i style='color:red'> 姓名不可為空白</i>";
 		} else if (re.test(idName))
 			document.getElementById("idspName").innerHTML = "";
 		else
-			document.getElementById("idspName").innerHTML = " <i > 必須兩個字以上的中文字！</i>";
+			document.getElementById("idspName").innerHTML = " <i style='color:red' > 必須兩個字以上的中文字！</i>";
+	}
+// 	//地址中文驗證
+	function chaddr() {
+		var idaddr = document.getElementById("idaddr").value;
+		var re = /^[\u4e00-\u9fff]{0,}$/; //中文字在unicode的區間
+		if (idaddr == "") {
+			document.getElementById("idspaddr").innerHTML = "";
+		} else if (re.test(idaddr))
+			document.getElementById("idspaddr").innerHTML = "";
+		else 
+			document.getElementById("idspaddr").innerHTML = " <i style='color:red' >請輸入中文</i>";
+	}
+// 	//職業中文驗證
+	function chjob() {
+		var idjob = document.getElementById("idjob").value;
+		var re = /^[\u4e00-\u9fff]{0,}$/; //中文字在unicode的區間
+		if (idjob == "") {
+			document.getElementById("idspjob").innerHTML = "";
+		} else if (re.test(idjob))
+			document.getElementById("idspjob").innerHTML = "";
+		else 
+			document.getElementById("idspjob").innerHTML = " <i style='color:red' >請輸入中文</i>";
 	}
 </script>
 <style>
@@ -117,7 +185,7 @@ footer>ul>li ul {
 
 .s1 {
 	font-size: 13px;
-	font-style:italic;
+	font-style: italic;
 	margin-top: 4px;
 	color: grey;
 	padding-bottom: 4px;
@@ -131,23 +199,32 @@ footer>ul>li ul {
 			<button type="button" class="
 				   collapsed"
 				data-toggle="collapse" data-target="#dropdown_munu" id="hum">
-				<span><i class="fa fa-bars" aria-hidden="true"></i></span>
+				<span> <i class="fa fa-bars" aria-hidden="true"></i>
+				</span>
 			</button>
 			<div class="logo">
 				<h1>
-					<a class="navbar-brand" href="index.html">Wegther</a>
+					<a class="navbar-brand" href="/wegether/index.jsp">Wegther111</a>
 				</h1>
 			</div>
 		</div>
 		<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
 			<nav class="header_nav" id="header_nav">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#"><span data-hover="活動">活動</span></a></li>
-				<li><a href="#" class="scroll"><span data-hover="心得">心得</span></a></li>
-				<li><a href="#" class="scroll"><span data-hover="發起活動">發起活動</span></a></li>
-				<li><a href="#" class="scroll"><span data-hover="發起心得">發起心得</span></a></li>
-				<li><a href="#" class="scrol" data-toggle="modal"
-					data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
+				<li class="active"><a href="#"> <span data-hover="活動">活動</span>
+				</a></li>
+				<li><a href="#" class="scroll"> <span data-hover="心得">心得</span>
+				</a></li>
+				<li><a href="#" class="scroll"> <span data-hover="發起活動">發起活動</span>
+				</a></li>
+				<li><a href="#" class="scroll"> <span data-hover="發起心得">發起心得</span>
+				</a></li>
+				<li><a id="loginSpan" href="#" class="scrol"
+					data-toggle="modal" data-target="#ActPageBox"> <span
+						data-hover="登入">登入</span>
+				</a> <a id="logoutSpan" href="#" class="scrol" style="display: none">
+						<span data-hover="登出">登出</span>
+				</a></li>
 			</ul>
 			</nav>
 		</div>
@@ -170,14 +247,20 @@ footer>ul>li ul {
 						</button>
 					</div>
 					<div class="modal-body" id="mid-body">
-						<div class="form-group" id="ACT">
-							<label for="recipient-name" class="col-form-label">帳號:</label> <input
-								type="text" class="form-control" id="account">
-						</div>
-						<div class="form-group" id="PWD">
-							<label for="recipient-name" class="col-form-label">密碼:</label> <input
-								type="text" class="form-control" id="password">
-						</div>
+						<form id="loginform">
+							<p class="loginerror"></p>
+							<div class="form-group" id="ACT">
+								<label for="recipient-name" class="col-form-label">帳號:</label> <input
+									type="text" class="form-control" id="account" name="account">
+							</div>
+							<div class="form-group" id="PWD">
+								<label for="recipient-name" class="col-form-label">密碼:</label> <input
+									type="password" class="form-control" id="pwd" name="pwd">
+							</div>
+							<button type="button" class="btn btn-primary" id="login">登入</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">取消</button>
+						</form>
 						<div id="or" class="bg-primary text-white">
 							<h4>or</h4>
 						</div>
@@ -200,9 +283,7 @@ footer>ul>li ul {
 						<p class="small text-left">
 							還沒註冊嗎?趕緊註冊一個帳號吧! <a href="javascript:void(0)">點我註冊</a>
 						</p>
-						<button type="button" class="btn btn-primary">登入</button>
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">取消</button>
+
 					</div>
 				</div>
 			</div>
@@ -213,95 +294,98 @@ footer>ul>li ul {
 
 			<div align="center">
 				<hr>
+				<h3 style="color:#0066FF	;padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
 				註冊頁面
+				</h3>
 				<hr />
 				<form id="xxx" action="<c:url value="/register.controller" />"
 					method="post" accept-charset="ISO-8859-1"
 					enctype="multipart/form-data">
-					<table border="0" align="center" style="border-collapse:separate; border-spacing:0px 6px;">
+					<table border="0" align="center"
+						style="border-collapse: separate; border-spacing: 0px 6px;">
 						<tr>
 							<td colspan="2" align="center"></td>
 						</tr>
 						<tr>
-							<td>帳號(信箱):</td>
-							<td><input type="text" name="account"
-								value="${param.account}">${inputRrrors.account}</td>
-							
-						</tr>
-						<tr>
-							<td ></td>
-							<td class="s1" >(例如:stvc@yahoo.com.tw)</td>
-						</tr>
-						<tr>
-							<td>密碼:</td>
-							<td><input  type="password" name="pwd"
-								value="${param.pwd}">${inputRrrors.pwd}
-							</td>		
-						</tr>
-						<tr>
-							<td>確認密碼:</td>
-							<td><input  type="password" name="pwd2"
-								value="${param.pwd2}">${inputRrrors.pwd2}
-							</td>		
-						</tr>
-						<tr>
-							<td ></td>
-							<td class="s1" >(1.密碼長度8~16碼、2.不能有特殊符號、3.必須要有英文及數字)</td>
-						</tr>
-						<tr>
-							<td>姓名:</td>
-							<td><input id="idName" type="text" name="name"
-								value="${param.name}">
-								<span id="idspName">${inputRrrors.name}</span>
-							</td>
-						</tr>
-						<tr>
-							<td ></td>
-							<td class="s1" >(1.不可空白，2.至少兩個字以上，3.必須全部為中文字)</td>
+							<td>帳&nbsp;號(信箱):</td>
+							<td><input id="idaccount" type="text" name="account"
+								value="${param.account}"><i id="idspaccount" style=color:red;>${inputRrrors.account}</i></td>
 
 						</tr>
 						<tr>
-							<td>暱稱:</td>
+							<td></td>
+							<td class="s1">(例如:stvc@yahoo.com.tw)</td>
+						</tr>
+						<tr>
+							<td>密&nbsp;碼:</td>
+							<td><input id="idpassword" type="password" name="pwd" value="${param.pwd}">
+							<i id="idsppassword" style=color:red;>${inputRrrors.pwd}</i>
+							</td>
+						</tr>
+						<tr>
+							<td>確&nbsp;認&nbsp;密&nbsp;碼:</td>
+							<td><input id="idrepassword" type="password" name="pwd2" value="${param.pwd2}">
+							<i id="idsprepassword" style=color:red;>${inputRrrors.pwd2}</i>
+							
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="s1">(1.密碼長度8~16碼、2.不能有特殊符號、3.必須要有英文及數字)</td>
+						</tr>
+						<tr>
+							<td>姓&nbsp;名:</td>
+							<td><input id="idName" type="text" name="name"
+								value="${param.name}"> 
+								<i style=color:red; id="idspName">${inputRrrors.name}</i>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="s1">(1.不可空白，2.至少兩個字以上，3.必須全部為中文字)</td>
+
+						</tr>
+						<tr>
+							<td>暱&nbsp;稱:</td>
 							<td><input type="text" name="nickname"
 								value="${param.nickname}"></td>
 							<td>${inputRrrors.nickname}</td>
 						</tr>
 						<tr>
-							<td>出生日期:</td>
-							<td><input  style="width:155px;height:25px;"  type="date" name="birthday"
-								value="${param.birthday}" required="required" min="1900-09-06" ></td>
+							<td>出&nbsp;生&nbsp;日&nbsp;期:</td>
+							<td><input style="width: 155px; height: 25px;" type="date"
+								name="birthday" value="${param.birthday}" required="required"
+								min="1900-09-06"></td>
 						</tr>
 
 						<tr>
-							<td>性别:</td>
+							<td>性&nbsp;别:</td>
 							<td><select name="sex" size="1">
 									<option value="0">男生</option>
 									<option value="1">女生</option>
 							</select></td>
 						</tr>
 						<tr>
-							<td>職業:</td>
-							<td><input type="text" name="job" value="${param.name}"></td>
+							<td>職&nbsp;業:</td>
+							<td><input type="text" name="job" value="${param.name}" id="idjob"><i id="idspjob">${inputRrrors.job}</i></td>
 						</tr>
 						<tr>
-							<td>城市/地址:</td>
-							<td>
-							<select name="city" id="zzz" >
-									<option value="0" >請選擇</option>
-							</select>
-							<input style="width:110px;height:25px;" type="text" name="addr" value="${param.addr}">${inputRrrors.addr}
-							</td>
-							
+							<td>城&nbsp;市/地&nbsp;址:</td>
+							<td><select name="city" id="zzz">
+									<option value="0">請選擇</option>
+							</select> <input style="width: 110px; height: 25px;" type="text"
+								name="addr" value="${param.addr}" id="idaddr"><i style=color:red; id="idspaddr">${inputRrrors.addr}</i></td>
+                                                                                       
 						</tr>
 
 						<tr>
-							<td>電話:</td>
-							<td><input   type="text"  name="tel" value="${param.tel}">${inputRrrors.tel}</td>
-						
+							<td>電&nbsp;話:</td>
+							<td><input type="text" name="tel" value="${param.tel}" id="idtel"><i id="idsptel" style=color:red>${inputRrrors.tel}</i></td>
+
 						</tr>
 						<tr>
-							<td ></td>
-							<td class="s1" >(手機電話 : 0939905649)</td>
+							<td></td>
+							<td class="s1">(手機電話 : 0939905649)</td>
 						</tr>
 
 						<tr>
@@ -320,10 +404,11 @@ footer>ul>li ul {
 								name="favorite" value="郊遊踏青">郊遊踏青 <input type="checkbox"
 								name="favorite" value="電影">電影</td>
 						</tr>
-						<tr >
-							<td  colspan="2" align="center"><input style="margin-top: 4px;" type="submit"
-								name="prodaction" value="送出"> <input type="button"
-								value="Clear" onclick="clearForm()"></td>
+						<tr>
+							<td colspan="2" align="center"><input
+								style="margin-top: 4px;" type="submit" name="prodaction"
+								value="送出"> <input type="button" value="Clear"
+								onclick="clearForm()"></td>
 						</tr>
 					</table>
 				</form>
