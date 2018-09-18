@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import model.ActivityBean;
 import model.MsgBean;
 import model.NoticeBean;
 import model.dao.MsgDAO;
@@ -42,6 +43,11 @@ public class MsgDAOHibernate implements MsgDAO {
 		return (List<MsgBean>) nq.list();
 	}
 
+	@Override
+	public MsgBean selectById(Integer id) {
+		return this.getSession().get(MsgBean.class, id);
+	}
+	
 	@Override
 	public List<MsgBean> selectByActivity(Integer id) {
 		return getBeanList(getSelectQuery(Select.msgByActivity, id));

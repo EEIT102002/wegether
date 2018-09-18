@@ -49,25 +49,26 @@ public class TestArticleDAOServlet extends HttpServlet {
 		// List<ActivityBean> result = activityDAOHibernate.select();
 
 		// insert
+		for(int i=0;i<10;i++) {
 		ArticleBean bean = new ArticleBean();
-		bean.setMemberid(6);
-		bean.setActivityid(1);
-		bean.setContent("奧萬大與您相約在每一個季節。"
+		bean.setMemberid(5);
+		bean.setActivityid(2);
+		bean.setContent("item="+i+" <br> 奧萬大與您相約在每一個季節。"
 				);//		bean.setCreatetime(new java.util.Date());
 		ArticleBean result = articleDaoHibernate.insert(bean);
-
+		}
 		// update
 		// boolean result = articleDaoHibernate.update(1, "去宜蘭烤肉");
 
 		// delete
 //		 boolean result = articleDaoHibernate.delete(1);
 
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("<p>ActivityTest</p>");
-		out.println(result);
+//		response.setContentType("text/html; charset=UTF-8");
+//		PrintWriter out = response.getWriter();
+//		out.println("<p>ActivityTest</p>");
+//		out.println(result);
 		// result.forEach(x->out.println(x+"<br>"));
-		out.close();
+//		out.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
