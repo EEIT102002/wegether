@@ -18,7 +18,6 @@ public class NoticeService {
 	private MemberDAO memberDAO;
 
 	public List<NoticeBean> getNotice(Integer id, Integer ntype) {
-		System.out.println("doNotice, "+id);
 		switch (ntype) {
 			case 1:
 			case 2:

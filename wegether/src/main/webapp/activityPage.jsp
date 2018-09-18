@@ -289,6 +289,19 @@ footer>ul>li ul {
 .container p {
 	color: white;
 }
+
+#applyForm .modal-header .close,
+#applyCheck .modal-header .close,
+#applyState .modal-header .close{
+	margin-top: -10px;
+	margin-right: -5px;
+	font-size: 20px;
+}
+
+#applyCheck .modal-body h4,
+#applyState .modal-body h4{
+	    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -513,9 +526,8 @@ footer>ul>li ul {
 			<!--       寫在這以上 -->
 		</div>
 	</div>
-		<div class="modal fade" id="applyForm" role="dialog">
+	<div class="modal fade" id="applyForm" role="dialog">
 		<div class="modal-dialog">
-
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
@@ -524,10 +536,26 @@ footer>ul>li ul {
 				</div>
 				<div class="modal-body"></div>
 				<div class="modal-footer">
-					<button type="button" id='sendApply' class="btn btn-default">上傳</button>
+					<button type="button" id='sendApply' class="btn btn-default">報名</button>
 				</div>
 			</div>
 
+		</div>
+	</div>
+	<div class="modal fade" id="applyCheck" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+				<h4>確定報名?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default">確定</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	

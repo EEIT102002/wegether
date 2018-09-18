@@ -114,7 +114,7 @@ function connectNotice(token) {
                         var noticeContentDiv = $(divTemp);
                         noticeRowMain.prepend(noticeContentDiv);
 
-                        noticeContentDiv.append(noticeContent(e));
+                        noticeContentDiv.append($(divTemp).html(noticeContent(e)));
 
                         var date = new Date(e.noticetime);
                         var noticeContentTimeDiv = $(divTemp).append($(divTemp).text(date.customFormat('#MM#/#DD#')));
@@ -212,8 +212,7 @@ function connectNotice(token) {
         }
         if(ntype == 4){
             $.post(
-                '/wegether/attend/'+e.val()
-                ,'id='+parent.attr('attendid')
+                '/wegether/attend/'+e.val()+'/'+parent.attr('attendid')
                 ,function(data){
                     if(data.state){
                         removeNotice(parent);

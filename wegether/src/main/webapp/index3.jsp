@@ -234,12 +234,20 @@ input[type=checkbox]:checked+span {
 #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(1)
 	{
 	/* background-color: blue; */
-	height: 70%;
-	line-height: 1em;
-	padding: 10px 0 0 10px;
+	flex:auto;
 	display: flex;
+	padding: 10px 0 0 10px;
 	align-items: center;
 }
+
+#contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(1)>div
+	{
+	/* background-color: blue; */
+	line-height: 1em;
+	word-break: break-all;
+}
+
+
 
 #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(1) a,
 	#contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(1) span

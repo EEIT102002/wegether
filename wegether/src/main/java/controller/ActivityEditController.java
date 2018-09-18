@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +92,8 @@ public class ActivityEditController {
 			@RequestParam(value = "startTimepicker", required = false) String starttime,
 			@RequestParam(required = false) String dateline,
 			@RequestParam(value = "endTime", required = false) String endDate,
-			@RequestParam(value = "endTimepicker", required = false) String endTime)
+			@RequestParam(value = "endTimepicker", required = false) String endTime
+			,HttpServletRequest request)
 			throws ParseException, IOException {
 
 		System.out.println(activityBean);
@@ -179,7 +181,8 @@ public class ActivityEditController {
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 		activityDAO.update(activityBean);
-
+		request.setAttribute("id",activityBean.getId());
+		request.setAttribute("ntype",13);
 		return "actEditErr.page";
 	}
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
@@ -32,7 +34,8 @@ public class ArticleCreateController {
 
 	@RequestMapping(path = { "/articleCreate.controller" }, method = RequestMethod.POST)
 	public String artCreate(Model model, @RequestParam(required = false) String content,
-			@RequestParam(value = "multipicture", required = false) MultipartFile[] files) throws IOException {
+			@RequestParam(value = "multipicture", required = false) MultipartFile[] files
+			,HttpServletRequest request) throws IOException {
 		System.out.println("articleCreate()");
 
 		Map<String, String> errors = new HashMap<>();
@@ -64,6 +67,8 @@ public class ArticleCreateController {
 				pictureDAO.insert(pictureBean);
 			}
 		}
+		request.setAttribute("id", articleBean.getId());
+		request.setAttribute("ntype", 10);
 		return "artCreSuc.page";
 	}
 }
