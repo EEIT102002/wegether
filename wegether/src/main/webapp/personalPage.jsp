@@ -374,8 +374,9 @@ footer>ul>li ul {
 			<div id="core">
 				<div id="left">
 					<div style="text-align: center">
-						<%--                             <img class="img-circle" src="data:image/jpg;base64,${picbean.get(0)}"  width="280" style="position:relative;top:20px;" >  --%>
-
+						<img class="img-circle"
+							src="data:image/jpg;base64,${picbean.get(0)}" width="280"
+							style="position: relative; top: 20px;">
 					</div>
 					<div style="text-align: center">
 						<br> <br>
@@ -460,16 +461,14 @@ footer>ul>li ul {
 						<h4 style="font-weight: bold">暱稱:</h4>
 						<span style="font-size: 15px;">${mem.nickname}</span>
 						<h4 style="font-weight: bold">出生日期:</h4>
-						<span style="font-size: 15px;"> 
-
-							<c:choose>
+						<span style="font-size: 15px;"> <c:choose>
 								<c:when test="${mem.birthday==null}">
 									<span style="font-size: 15px;">對方未公開</span>
 								</c:when>
 								<c:otherwise>
 									<fmt:formatDate value="${mem.birthday}" pattern=" MM 月 dd 日" />
 								</c:otherwise>
-							</c:choose> 
+							</c:choose>
 						</span>
 						<h4 style="font-weight: bold">性別:</h4>
 						<span style="font-size: 15px;"> <%--                               <c:if test="${mem.sex==0}" value="boy"/> --%>
@@ -481,48 +480,44 @@ footer>ul>li ul {
 						</span>
 
 						<h4 style="font-weight: bold">職業:</h4>
-						<span style="font-size: 15px;">
-							<c:choose>
+						<span style="font-size: 15px;"> <c:choose>
 								<c:when test="${mem.job==null}">
 									<span style="font-size: 15px;">對方未公開</span>
 								</c:when>
 								<c:otherwise>
-								<span style="font-size: 15px;">${mem.job}</span>
+									<span style="font-size: 15px;">${mem.job}</span>
 								</c:otherwise>
-							</c:choose> 
+							</c:choose>
 						</span>
 						<h4 style="font-weight: bold">居住縣市:</h4>
-						<span style="font-size: 15px;">
-							<c:choose>
+						<span style="font-size: 15px;"> <c:choose>
 								<c:when test="${mem.city==null}">
 									<span style="font-size: 15px;">對方未公開</span>
 								</c:when>
 								<c:otherwise>
-								<span style="font-size: 15px;">${mem.city}</span>
+									<span style="font-size: 15px;">${mem.city}</span>
 								</c:otherwise>
-							</c:choose> 
+							</c:choose>
 						</span>
 						<h4 style="font-weight: bold">喜好活動類型:</h4>
-						<span style="font-size: 15px;">
-							<c:choose>
+						<span style="font-size: 15px;"> <c:choose>
 								<c:when test="${mem.favorite==null}">
 									<span style="font-size: 15px;">對方未公開</span>
 								</c:when>
 								<c:otherwise>
-								<span style="font-size: 15px;">${mem.favorite}</span>
+									<span style="font-size: 15px;">${mem.favorite}</span>
 								</c:otherwise>
-							</c:choose> 
+							</c:choose>
 						</span>
 						<h4 style="font-weight: bold">自我簡介:</h4>
-						<span style="font-size: 15px;">
-							<c:choose>
+						<span style="font-size: 15px;"> <c:choose>
 								<c:when test="${mem.content==null}">
 									<span style="font-size: 15px;">對方未公開</span>
 								</c:when>
 								<c:otherwise>
-								<span style="font-size: 15px;">${mem.content}</span>
+									<span style="font-size: 15px;">${mem.content}</span>
 								</c:otherwise>
-							</c:choose> 
+							</c:choose>
 						</span>
 					</div>
 					<!--                               change_one end -->

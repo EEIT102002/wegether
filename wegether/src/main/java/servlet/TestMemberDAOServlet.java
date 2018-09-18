@@ -51,8 +51,8 @@ public class TestMemberDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		// select(id)
-		MemberBean result = memberDaoHibernate.select(6);
-		out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(result.getPhoto())+"\"/>");
+//		MemberBean result = memberDaoHibernate.select(6);
+//		out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(result.getPhoto())+"\"/>");
 		
 		// select()
 		// List<ActivityBean> result = memberDaoHibernate.select();
@@ -70,14 +70,15 @@ public class TestMemberDAOServlet extends HttpServlet {
 		// MemberBean result = memberDaoHibernate.insert(bean);
 
 		// update
-//		 MemberBean memberBean = memberDaoHibernate.select(6);
-////		 memberBean.setAddr("景安");
-////		 memberBean.setNickname("longlong");
-//		 PictureBean pcB = new PictureBean();
-//		 File file = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\activityPageImages\\fans6.png");
-//		 memberBean.setPhoto(PictureConvert.converFileToByte(file));
-//		 boolean result = memberDaoHibernate.update(memberBean);
-
+		 MemberBean memberBean = memberDaoHibernate.select(1);
+//		 memberBean.setAddr("景安");
+//		 memberBean.setNickname("longlong");
+		 PictureBean pcB = new PictureBean();
+		 File file = new File("C:\\temp\\02.jpg");
+		 memberBean.setPhoto(PictureConvert.converFileToByte(file));
+		 boolean result = memberDaoHibernate.update(memberBean);
+		 out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(memberBean.getPhoto())+"\"/>");
+			
 		// delete
 		// boolean result = memberDaoHibernate.delete(1);
 

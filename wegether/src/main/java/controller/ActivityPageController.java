@@ -115,8 +115,14 @@ public class ActivityPageController {
 				Calendar msgtime = Calendar.getInstance();
 				Map<String, String> msgsMap = new HashMap<String, String>();
 				msgsMap.put("nickname", memberDAO.select(msg.getMemberid()).getNickname());
-				String picMemStr = PictureConvert
-						.convertBase64Image(pictureDAO.selectByMember(msg.getMemberid()).get(0).getPicture());
+				String picMemStr = null;
+				try {
+
+					 picMemStr = PictureConvert
+							.convertBase64Image(pictureDAO.selectByMember(msg.getMemberid()).get(0).getPicture());
+				} catch (Exception e) {
+					System.out.println(e);
+				}
 				msgsMap.put("picMem", picMemStr);
 				msgsMap.put("memberId", msg.getMemberid().toString());
 				msgsMap.put("content", msg.getContent());

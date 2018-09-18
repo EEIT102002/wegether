@@ -421,7 +421,7 @@ footer>ul>li ul {
 
 						<div id="up">
 							<div id="left" style="width: auto;">
-								<a href="personal.controller?memberid=${hostBean.id}">
+								<a href="personal.controller?memberId=${hostBean.id}">
 								<img 	src="data:image/jpg;base64,${hostPicList.get(0)}"							
 									class="img-circle" width="70"> </a>
 								<!-- 	src="/wegether/picture/15" class="img-circle" -->

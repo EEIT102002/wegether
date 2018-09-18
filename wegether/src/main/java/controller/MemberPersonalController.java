@@ -1,9 +1,8 @@
 package controller;
 
-import java.text.ParseException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +55,6 @@ public class MemberPersonalController {
 	private FriendDAO friendDAO;
 	@Autowired
 	private BlacklistDAO blacklistDAO;
-
-	private SimpleDateFormat simpleDateFormat;
 
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
@@ -143,10 +140,8 @@ public class MemberPersonalController {
 	public String PersonalController2(Model model, Integer memberId,
 			@RequestAttribute(name = "memberid", required = false) Integer id) {
 
-		// memberid = memberId;//被瀏覽的個人頁面
-		int memberid = 1;
+		int memberid = 1;// 被瀏覽的個人頁面
 		int status = 1;// 狀態 1好友2非好友3黑名單4非會員未登入5自己
-		boolean friend = false;// 好友狀態
 		System.out.println("login=" + id);
 		System.out.println("member=" + memberid);
 
@@ -177,17 +172,16 @@ public class MemberPersonalController {
 		// 搜尋頁面的隱私權設定
 		SettingBean setting = settingDAO.select(memberid);
 		MemberBeanTemp membean = new MemberBeanTemp();
-
 		// 抓會員資料到暫存bean
 		MemberBean membeansource = memberDaoHibernate.select(memberid);
 		membean.setNickname(membeansource.getNickname());
+		// membean.setPhoto(membeansource.getPhoto());
 		membean.setBirthday(membeansource.getBirthday());
 		membean.setSex(membeansource.getSex());
 		membean.setJob(membeansource.getJob());
 		membean.setCity(membeansource.getCity());
 		membean.setFavorite(membeansource.getFavorite());
 		membean.setContent(membeansource.getContent());
-
 		membean.setAddr(membeansource.getAddr());
 		membean.setTel(membeansource.getTel());
 		membean.setSignupdate(membeansource.getSignupdate());
@@ -212,7 +206,7 @@ public class MemberPersonalController {
 		System.out.println(membean.getFans());
 		System.out.println(membean.getNotices());
 		System.out.println(membean.getState());
-
+		System.out.println(membeansource.getPhoto());
 		// 好友人數 參加次數 追蹤人數 主辦活動
 		List<FriendBean> fribean = friendDaoHibernate.select(memberid);// 抓好友資料
 		List<AttendBean> attbean = attendDaoHibernate.selectBymemberid(memberid);// 抓參加資料
@@ -221,11 +215,12 @@ public class MemberPersonalController {
 
 		// 大頭照
 		List<String> memPicList = new ArrayList<>();
-		List<PictureBean> picbean = pictureDaoHibernate.selectByMember(memberid);
-		picbean.forEach(pic -> {
-			memPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
-
-		});
+		memPicList.add(PictureConvert.convertBase64Image(membeansource.getPhoto()));
+		// List<PictureBean> picbean = pictureDaoHibernate.selectByMember(memberid);
+		// picbean.forEach(pic -> {
+		// memPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
+		//
+		// });
 
 		// // 設定不顯示的資料
 		// 生日
@@ -324,7 +319,7 @@ public class MemberPersonalController {
 		default:
 			break;
 		}
-		//評分
+		// 評分
 		switch (setting.getRankscore()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
@@ -345,36 +340,116 @@ public class MemberPersonalController {
 			break;
 		}
 
-		// 參加活動
-		List<String> attsum = new ArrayList<>();
-		attbean.forEach(temp -> {// 會員所參加的活動id
-			// System.out.println("activityID:"+temp.getActivityid());
-			// System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
-			String temp2 = "";
-			temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
-					+ activityDAOHibernate.selectId(temp.getActivityid()).getTitle() + "</td></tr>"
-					+ "<tr><td style=\"padding:10px\">" + "活動內容:<br>"
-					+ activityDAOHibernate.selectId(temp.getActivityid()).getContent() + "</td></tr>";
-			attsum.add(temp2);
-		});
-
 		// 主辦活動
-		List<String> hostsum = new ArrayList<>();
+		List<String> hostsum = new ArrayList<>();// 存放結果
+		// String temp2 = "";
 
-		
-		actbean.forEach(temp -> {
+		switch (setting.getShowhost()) {
+		case 1:
+			if (status == 2 || status == 3 || status == 4) {
 
-			// System.out.println("主辦活動人:"+temp.getHostid());
-			// System.out.println("主辦活動名稱:"+temp.getTitle());
-			// System.out.println("主辦活動名稱:"+temp.getContent());
-			//
-			String temp2 = "";
-			temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:" + temp.getTitle() + "</td></tr>"
-					+ "<tr><td style=\"padding:10px\">" + "活動內容:<br>" + temp.getContent() + "</td></tr>";
+				System.out.println("主辦活動紀錄設定為NULL不公開");
+				String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">不公開</td></tr>";
+				hostsum.add(temp2);
+			} else {
 
-			hostsum.add(temp2);
+				actbean.forEach(temp -> {
 
-		});
+					System.out.println("主辦活動人:" + temp.getHostid());
+					System.out.println("主辦活動名稱:" + temp.getTitle());
+					System.out.println("主辦活動名稱:" + temp.getContent());
+
+					String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:" + temp.getTitle()
+							+ "</td></tr>" + "<tr><td style=\"padding:10px\">" + "活動內容:<br>" + temp.getContent()
+							+ "</td></tr>";
+					hostsum.add(temp2);
+				});
+			}
+			break;
+
+		case 2:
+			if (status != 5) {
+				System.out.println("主辦活動紀錄設定為NULL不公開");
+				String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">不公開</td></tr>";
+				hostsum.add(temp2);
+			} else {
+				actbean.forEach(temp -> {
+
+					System.out.println("主辦活動人:" + temp.getHostid());
+					System.out.println("主辦活動名稱:" + temp.getTitle());
+					System.out.println("主辦活動名稱:" + temp.getContent());
+
+					String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:" + temp.getTitle()
+							+ "</td></tr>" + "<tr><td style=\"padding:10px\">" + "活動內容:<br>" + temp.getContent()
+							+ "</td></tr>";
+					hostsum.add(temp2);
+				});
+			}
+			break;
+
+		case 0:
+			actbean.forEach(temp -> {
+
+				System.out.println("主辦活動人:" + temp.getHostid());
+				System.out.println("主辦活動名稱:" + temp.getTitle());
+				System.out.println("主辦活動名稱:" + temp.getContent());
+
+				String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:" + temp.getTitle()
+						+ "</td></tr>" + "<tr><td style=\"padding:10px\">" + "活動內容:<br>" + temp.getContent()
+						+ "</td></tr>";
+				hostsum.add(temp2);
+			});
+			break;
+		}
+
+		// 參加過的活動
+		List<String> attsum = new ArrayList<>();// 存放資料
+
+		switch (setting.getShowactivity()) {
+		case 1:
+
+			if (status == 2 || status == 3 || status == 4) {
+				System.out.println("參加活動紀錄設定為NULL不公開");
+				String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">不公開</td></tr>";
+				attsum.add(temp3);
+			} else {
+				attbean.forEach(temp -> {// 會員所參加的活動id
+					System.out.println("activityID:" + temp.getActivityid());
+
+					System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
+
+					String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
+							+ activityDAOHibernate.selectId(temp.getActivityid()).getTitle() + "</td></tr>"
+							+ "<tr><td style=\"padding:10px\">" + "活動內容:<br>"
+							+ activityDAOHibernate.selectId(temp.getActivityid()).getContent() + "</td></tr>";
+					attsum.add(temp3);
+				});
+			}
+			break;
+		case 2:
+			if (status != 5) {
+
+				System.out.println("參加活動紀錄設定為NULL不公開");
+				String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">不公開</td></tr>";
+				attsum.add(temp3);
+			} else {
+
+				attbean.forEach(temp -> {// 會員所參加的活動id
+					System.out.println("activityID:" + temp.getActivityid());
+
+					System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
+
+					String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
+							+ activityDAOHibernate.selectId(temp.getActivityid()).getTitle() + "</td></tr>"
+							+ "<tr><td style=\"padding:10px\">" + "活動內容:<br>"
+							+ activityDAOHibernate.selectId(temp.getActivityid()).getContent() + "</td></tr>";
+					attsum.add(temp3);
+				});
+			}
+			break;
+		default:
+			break;
+		}
 
 		// System.out.println(attbean);
 		// System.out.println(attbean.size());
