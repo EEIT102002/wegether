@@ -44,6 +44,16 @@
 
 	})
 
+	function loginDo(){
+		
+		
+	}
+	
+	function logoutDo(){
+		
+		
+	}
+	
 	function clearForm() {
 		var inputs = document.getElementsByTagName("input");
 		for (var i = 0; i < inputs.length; i++) {
@@ -308,7 +318,7 @@ footer>ul>li ul {
 							<td colspan="2" align="center"></td>
 						</tr>
 						<tr>
-							<td>帳&nbsp;號(信箱):</td>
+							<td>帳&nbsp;號&nbsp;(信&nbsp;箱):</td>
 							<td><input id="idaccount" type="text" name="account"
 								value="${param.account}"><i id="idspaccount" style=color:red;>${inputRrrors.account}</i></td>
 
@@ -371,7 +381,7 @@ footer>ul>li ul {
 							<td><input type="text" name="job" value="${param.name}" id="idjob"><i id="idspjob">${inputRrrors.job}</i></td>
 						</tr>
 						<tr>
-							<td>城&nbsp;市/地&nbsp;址&nbsp;:&nbsp;</td>
+							<td>城&nbsp;市&nbsp;/&nbsp;地&nbsp;址&nbsp;:&nbsp;</td>
 							<td><select name="city" id="zzz">
 									<option value="0">請選擇</option>
 							</select> <input style="width: 110px; height: 25px;" type="text"
