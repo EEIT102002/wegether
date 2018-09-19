@@ -268,6 +268,22 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(Hqlactivitymemberid, ActivityBean.class).setParameter("hostid", memberid)
 				.list();
 	}
+	
+	private final String SelectByHostNowHql = Hqlactivitymemberid+"and actbegin > GETDATE() and state <> 2 order by actbegin asc";
+	@Override
+	public List<ActivityBean> selectByHostNow(int hostid){
+		return this.getSession().createQuery(SelectByHostNowHql, ActivityBean.class)
+				.setParameter("hostid", hostid)
+				.list();
+	}
+	
+	private final String SelectByHostHistoryHql = Hqlactivitymemberid+"and actbegin < GETDATE() and state <> 2 order by actbegin desc";
+	@Override
+	public List<ActivityBean> selectByHostHistory(int hostid){
+		return this.getSession().createQuery(SelectByHostHistoryHql, ActivityBean.class)
+				.setParameter("hostid", hostid)
+				.list();
+	}
 
 	private String HqlGetActivityId = "SELECT id FROM ActivityBean WHERE HOSTID = :HID AND ACTBEGIN = :AB AND DATELINE = :DL";
 
@@ -279,5 +295,37 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		query.setParameter("DL", dateline);
 		List<Integer> obj = query.list();
 		return obj.get(0);
+	}
+	
+	private final String selectByAttendMemberNowSql= "select {act.*} " + 
+			"from activity act " + 
+			"join (select * from attend where memberid  = :memberid and [state] = :state) att " + 
+			"on act.state <> 2 and att.activityid = act.id and act.actbegin > GETDATE() " + 
+			"order by act.actbegin asc ";
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ActivityBean> selectByAttendMemberStateNow(int memberid, int state){
+		return (List<ActivityBean>)getSession().createSQLQuery(selectByAttendMemberNowSql)
+				.addEntity("act", ActivityBean.class)
+				.setParameter("memberid", memberid)
+				.setParameter("state", state)
+				.list();
+	}
+	
+	private final String selectByAttendMemberHistorySql= "select {act.*} " + 
+			"from activity act " + 
+			"join (select * from attend where memberid  = :memberid and [state] = :state ) att " + 
+			"on act.state <> 2 and att.activityid = act.id and act.actbegin < GETDATE() " + 
+			"order by act.actbegin desc ";
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ActivityBean> selectByAttendMemberStateHistory (int memberid, int state){
+		return (List<ActivityBean>)getSession().createSQLQuery(selectByAttendMemberHistorySql)
+				.addEntity("act", ActivityBean.class)
+				.setParameter("memberid", memberid)
+				.setParameter("state", state)
+				.list();
 	}
 }

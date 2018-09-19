@@ -5,57 +5,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
+<link href="/wegether/css/bootstrap.css" rel="stylesheet"
+	type="text/css" media="all" />
+<link href="/wegether/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
 <link
 	href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
 	rel='stylesheet' type='text/css'>
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
-<script src="js/bootstrap.js"></script>
+<script src="/wegether/js/bootstrap.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="./js/setting.js"></script>
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/raty/2.8.0/jquery.raty.js"></script>
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/raty/2.8.0/jquery.raty.min.css
-
-">
-<script>
-	$(function() {
-		$('#header_nav ul li').click(function() {
-			$(this).addClass('active').siblings().removeClass('active');
-		})
-		clickContent_xx(0);
-		
-		$('#left .content_xx').on('click','.changePage',function(){
-			var i = $(this).index();
-			clickContent_xx(i);
-		})
-		$('#right .content_xx').on('click','li',function(){
-			var e = $(this);
-			e.parent().hide().next().show();
-		})
-		function clickContent_xx(i){
-			$('#right').children().hide().eq(i).show().find('.showContent').hide().prev().show();
-		}
-		
-	})
-</script>
-
+	href="https://cdnjs.cloudflare.com/ajax/libs/raty/2.8.0/jquery.raty.min.css">
+<script src="js/review.js" type="text/javascript"></script>
+<link rel="stylesheet"
+	href="css/review.css">
 <style>
 * {
 	list-style: none;
@@ -66,7 +46,7 @@
 body {
 	/* background-color: rgb(145, 145, 145);
          */
-	background: url(images/v6.jpg) no-repeat;
+	background: url(/wegether/images/v6.jpg) no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 }
@@ -144,7 +124,7 @@ footer>ul>li ul {
 	/*  	border: 2px solid yellow;  */
 }
 
-#right  li {
+#right li {
 	border-bottom: 2px solid #5599FF;
 	/* 調整地方 */
 }
@@ -161,18 +141,16 @@ footer>ul>li ul {
 	border: 2px solid;
 }
 
-#second, #third, #fourth {
-	display: none;
-}
 </style>
 <script>
-$(function(){
-	$('#left,#right').css({
-		'height':$('#small_con').height();
+	$(function() {
+		$('#left,#right').css({
+			'height' : $('#small_con').height()
+		})
 	})
-})
 </script>
 </head>
+
 <body>
 	<div class="container">
 		<nav class="navbar navbar-default" id="stickytop">
@@ -277,44 +255,71 @@ $(function(){
 				<div id="left">
 					<ul class="content_xx"
 						style="font-family: Microsoft JhengHei; color: #0044BB;">
-						<li type="button" class="btn btn-secondary changePage">主辦活動</li>
-						<li type="button" class="btn btn-secondary changePage">審核完畢</li>
-						<li type="button" class="btn btn-secondary changePage">3</li>
+						<li type="button" class="btn btn-secondary changePage">主辦中的活動</li>
+						<li type="button" class="btn btn-secondary changePage">參加中的活動</li>
+						<li type="button" class="btn btn-secondary changePage">申請中的活動</li>
+						<li type="button" class="btn btn-secondary changePage">活動邀請</li>
+						<li type="button" class="btn btn-secondary changePage">過去主辦的活動</li>
+						<li type="button" class="btn btn-secondary changePage">過去參加的活動</li>
 					</ul>
 				</div>
 				<div id="right">
 					<div align="center">
 						<ul class="content_xx">
 							<li type="button" class="btn btn-secondary">1</li>
-							<li type="button" class="btn btn-secondary">1</li>
-							<li type="button" class="btn btn-secondary">1</li>
-							<li type="button" class="btn btn-secondary">1</li>
 						</ul>
-						<div class='showContent'>1content</div>
+						<div class='showContent'>
+								<div class="setting4">
+										<div class="setting4list">
+											<ul class="setting4ul">
+												<li>參加名單</li>
+												<li>申請名單</li>
+												<li>邀請名單</li>
+											</ul>
+										</div>
+										<div id="blocklist">
+											<div class="friendsearch">
+												<form id="search">
+													<input type="text" name="nickname" id="">
+													<button type="submit">新增好友邀請</button>
+												</form>
+											</div>
+											<div>
+												<div class="friendList"></div>
+											</div>
+										</div>
+								</div>
+						</div>
 					</div>
-					<!--   change_one end -->
 					<div align="center">
 						<ul class="content_xx">
 							<li type="button" class="btn btn-secondary">2</li>
-							<li type="button" class="btn btn-secondary">2</li>
-							<li type="button" class="btn btn-secondary">2</li>
-							<li type="button" class="btn btn-secondary">2</li>
 						</ul>
-						<div class='showContent'>2content</div>
 					</div>
 					<div align="center">
 						<ul class="content_xx">
-							<li type="button" class="btn btn-secondary">3</li>
-							<li type="button" class="btn btn-secondary">3</li>
-							<li type="button" class="btn btn-secondary">3</li>
-							<li type="button" class="btn btn-secondary">3</li>
+							<li type="button" class="btn btn-secondary">2</li>
 						</ul>
-						<div class='showContent'>3</div>
+					</div>
+					<div align="center">
+						<ul class="content_xx">
+							<li type="button" class="btn btn-secondary">2</li>
+						</ul>
+					</div>
+					<div align="center">
+						<ul class="content_xx">
+							<li type="button" class="btn btn-secondary">2</li>
+						</ul>
+					</div>
+					<div align="center">
+						<ul class="content_xx">
+							<li type="button" class="btn btn-secondary">2</li>
+						</ul>
 					</div>
 					<!-- change_second end -->
 
 					<!--change_third end -->
-					
+
 					<!--change_fourth end -->
 				</div>
 
@@ -349,4 +354,5 @@ $(function(){
 <script>
 	
 </script>
+
 </html>

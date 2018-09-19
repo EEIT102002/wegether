@@ -77,7 +77,7 @@ public class AttendController {
 	}
 	
 	@RequestMapping(path= {"/attend/unrespond/activity/{id}"})
-	public @ResponseBody ResponseEntity<?> unrespond(@PathVariable Integer activityid,
+	public @ResponseBody ResponseEntity<?> unrespondAttends(@PathVariable(name="id") Integer activityid,
 			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
 		List<AttendBean> beans = attendService.unrespondApplys(activityid, memberid);
 		JSONArray result = attendService.attendToJsons(beans);
@@ -85,11 +85,29 @@ public class AttendController {
 	}
 	
 	@RequestMapping(path= {"/attend/accepted/activity/{id}"})
-	public @ResponseBody ResponseEntity<?> accept(@PathVariable Integer activityid,
+	public @ResponseBody ResponseEntity<?> acceptAttends(@PathVariable(name="id") Integer activityid,
 			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
 		List<AttendBean> beans = attendService.acceptApplys(activityid, memberid);
 		JSONArray result = attendService.attendToJsons(beans);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
+	@RequestMapping(path= {"/attend/invite/activity/{id}"})
+	public @ResponseBody ResponseEntity<?> inviteAttends(@PathVariable(name="id") Integer activityid,
+			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
+		List<AttendBean> beans = attendService.inviteApplys(activityid, memberid);
+		JSONArray result = attendService.attendToJsons(beans);
+		return new ResponseEntity<>(result,HttpStatus.OK);
+	}
+	
+	@RequestMapping(path= {"/attend/cancel/{attendid}"})
+	public @ResponseBody ResponseEntity<?> cancelAttend(
+			@PathVariable(name="attendid") Integer attendid,
+			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
+		if(attendService.cancelAttend(attendid, memberid)) {
+			return new ResponseEntity<>(true,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}		
+	}
 }
