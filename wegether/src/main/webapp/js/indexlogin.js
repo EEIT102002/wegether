@@ -24,6 +24,7 @@ function loginDo(){
 		}
 	})
 	$('.header_nav>ul li:eq(1)>a').removeAttr('data-toggle');
+	$('.header_nav>ul li:eq(1)>a').attr('href')
 	$('.header_nav>ul li:eq(2)>a').removeAttr('data-toggle');
 	// 把正確的連結放進去
 	
@@ -31,4 +32,5 @@ function loginDo(){
 
 function logoutDo() {
 	alert("期待下次見到你/妳");
+//	$('.header_nav>ul>li:eq(0)').addClass('active');
 }

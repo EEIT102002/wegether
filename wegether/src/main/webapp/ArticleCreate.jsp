@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
-	media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <link
@@ -16,10 +15,8 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <title>增加心得</title>
 <script>
 	$(function() {
@@ -33,6 +30,7 @@
 	});
 	function fileMultiViewer() {
 		$('#picZone2').empty();
+		$('#artPic').empty();
 		//取得使用者在檔案選擇標籤中選取檔案
 		var theFiles = document.getElementById("actPic2").files
 		for (var i = 0; i < theFiles.length; i++) {
@@ -154,7 +152,6 @@ footer>ul>li ul {
 				<div class="modal-body">
 					<!--       // modal-body  有差padding -->
 					<div class="modal-header">
-
 						<h5 class="modal-title lead">
 							<strong>請選擇登入方式</strong>
 						</h5>
@@ -195,8 +192,7 @@ footer>ul>li ul {
 							還沒註冊嗎?趕緊註冊一個帳號吧! <a href="javascript:void(0)">點我註冊</a>
 						</p>
 						<button type="button" class="btn btn-primary">登入</button>
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 					</div>
 				</div>
 			</div>
@@ -216,19 +212,16 @@ footer>ul>li ul {
 					</tr>
 					<tr>
 						<td>心得</td>
-						<td><textarea name="content" id="insertDes" cols="30"
-								rows="10"></textarea>${errMsgs.content}</td>
+						<td><textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${content}</td>
 					</tr>
 					<tr>
 						<td>上傳活動照片</td>
-						<td><div id="picZone2" class="selPic2"></div> <input
-							type="file" name="multipicture" multiple id="actPic2"
-							accept="image/*"></td>
+						<td><div id="picZone2" class="selPic2"></div>
+						<input type="file" name="multipicture" multiple id="actPic2" accept="image/*"></td>
 					</tr>
 				</table>
 
-				<input type="botton" name="" value="預覽" id="preBotton"
-					data-target="#preview" data-toggle="modal" />
+				<input type="button" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
 				<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
@@ -236,12 +229,10 @@ footer>ul>li ul {
 							<div class="modal-body">
 								<!--       // modal-body  有差padding -->
 								<div class="modal-header">
-
 									<h5 class="modal-title lead">
 										<strong>預覽</strong>
 									</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
@@ -263,8 +254,7 @@ footer>ul>li ul {
 								</div>
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary">確認送出</button>
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">修改</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">修改</button>
 								</div>
 							</div>
 						</div>

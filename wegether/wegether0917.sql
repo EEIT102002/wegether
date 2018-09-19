@@ -19,7 +19,7 @@ account	varchar(50) UNIQUE NOT NULL,	--帳號
 pwd	varbinary(50) NOT NULL,	--密碼
 photo	varbinary(max) , --大頭照,	
 name	nvarchar(50)	NOT NULL,	--姓名	
-nickname	nvarchar(50) ,	--暱稱	
+nickname	nvarchar(50) default name ,	--暱稱	
 birthday	date not null,		--生日	
 sex	int  check(sex between 0 and 1)	,	--性別	
 job	nvarchar(50), 		--職業	
@@ -301,7 +301,7 @@ begin
 	(select nickname
 		from member 
 		where id = @memberid
-		)
+		)+','+@memberid
 end
 go
 
@@ -378,7 +378,7 @@ returns nvarchar(max)
 as
 begin
 	return dbo.notice_name(@memberid)
-		+','+(select title from activity where id = @activityid)
+		+','+(select title from activity where id = @activityid)+','+@activityid
 end
 go
 
@@ -408,12 +408,12 @@ end
 go
 
 create function notice_name_titlestr
-(@memberid int, @title nvarchar(max))
+(@memberid int, @title nvarchar(max), @activityid int)
 returns nvarchar(max)
 as
 begin
 	return dbo.notice_name(@memberid)
-		+','+@title
+		+','+@title+','+@activityid
 end
 go
 
@@ -424,13 +424,13 @@ begin
 declare @hostid int, @title nvarchar(40)
 if (select state from inserted ) = 0
 begin
-	select  @hostid= hostid , @title = title
+	select  @hostid= hostid , @title = title, @activityid = id
 	from activity
 	where id = (select activityid from inserted)
 
 	insert into notice(memberid, attendid, noticetime, content, ntype)
 	select @hostid , id, createtime, 
-		dbo.notice_name_titlestr(i.memberid, @title),4  --申請參加 4
+		dbo.notice_name_titlestr(i.memberid, @title, @activityid),4  --申請參加 4
 	from inserted i
 end
 else if (select state from inserted) = 3
@@ -441,7 +441,7 @@ begin
 
 	insert into notice(memberid, attendid, noticetime, content, ntype)
 	select @hostid , id, createtime,
-		dbo.notice_name_titlestr(@hostid, @title),5 --邀請你參加 5
+		dbo.notice_name_titlestr(@hostid, @title, @activityid),5 --邀請你參加 5
 	from inserted
 end
 end
@@ -452,7 +452,7 @@ for update
 as
 begin
 
-select u.id, memberid, dstate, istate, act.hostid , act.title
+select u.id, memberid, dstate, istate, act.hostid , act.title, u.activityid
 into #uattend
 from (
 	select d.id, d.memberid,d.state as dstate, i.state as istate, d.activityid
@@ -474,7 +474,7 @@ select  memberid, id ,
 	(case istate 
 		when 1 then 6 --報名成功6
 		when 2 then 7 --報名失敗7
-		end),title
+		end),title+','+activityid
 from #uattend
 where dstate = 0
 
@@ -485,7 +485,7 @@ select  hostid, id ,
 		when 2 then 9  --拒絕邀請 9
 		end 
 		), 
-	dbo.notice_name(memberid)
+	dbo.notice_name_titlestr(memberid, title, activityid)
 from #uattend
 where dstate = 3
 end
@@ -496,7 +496,7 @@ for insert
 as
 begin
 	declare @actorname nvarchar(max)
-	set @actorname = dbo.notice_name((select memberid from inserted)) --有新的文章10
+	set @actorname = dbo.notice_name_title((select memberid from inserted),(select activityid from inserted)) --有新的文章10
 
 	insert into notice (memberid, articleid , content, noticetime,ntype)
 	(select memberidf, i.id, @actorname, i.createtime,10
@@ -516,9 +516,9 @@ create trigger notice_activity_insert on activity --activity table 新增 notice
 for insert
 as
 begin
-	declare @hostname nvarchar(50)
-	set @hostname = dbo.notice_name_titlestr(
-		(select hostid from inserted), (select title from inserted))  -- 發起新活動 11
+	declare @hostname nvarchar(max)
+	set @hostname = dbo.notice_name((select hostid from inserted))
+		+','+(select title from inserted)  -- 發起新活動 11
 
 	insert into notice(memberid,content,noticetime , activityid, ntype)
 	(select memberidf, @hostname, i.createtime ,i.id, 11
@@ -590,7 +590,7 @@ as
 begin
 	update member
 	set notices+=1
-	where id in (select memberid from inserted)
+	where id in (select memberid from inserted where state = 0)
 end
 go
 
@@ -647,7 +647,7 @@ create function notice_title
 returns nvarchar(max)
 as
 begin
-	return (select title from activity where id = @activityid)
+	return (select title+','+id from activity where id = @activityid)
 end
 go
 
@@ -735,3 +735,5 @@ begin
 	EXEC('ENABLE TRIGGER member_notice_update ON notice')
 end
 go
+
+

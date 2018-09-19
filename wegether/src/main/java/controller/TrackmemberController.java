@@ -24,8 +24,8 @@ public class TrackmemberController {
 	private TrackmemberService trackmemberService;
 
 
-	@RequestMapping(path = { "/Trackmember/insert" })
-	protected @ResponseBody ResponseEntity<?>  insertTrack(
+	@RequestMapping(path = { "/trackmember/add" })
+	protected @ResponseBody ResponseEntity<?>  addTrack(
 			@RequestParam Integer memberid,@RequestAttribute("memberid") Integer fanid){
 		Map<String, Object>result = new HashMap<>();
 		if(memberid == null || fanid == null) {
@@ -45,7 +45,7 @@ public class TrackmemberController {
 	}
 
 
-	@RequestMapping(path = { "/Trackmember/delete" })
+	@RequestMapping(path = { "/trackmember/delete" })
 	protected @ResponseBody ResponseEntity<?>  deleteTrack(
 			@RequestParam Integer memberid,@RequestAttribute("memberid") Integer fanid){
 		Map<String, Object>result = new HashMap<>();

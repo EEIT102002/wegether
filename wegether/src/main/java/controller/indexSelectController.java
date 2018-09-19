@@ -80,7 +80,7 @@ public class indexSelectController {
 					bean.setPictureBean(null);
 					bean.setAttendBean(null);
 					bean.setInviteBean(null);
-					
+					bean.setPicture(null);
 					resultlist.add(obj);
 				});
 

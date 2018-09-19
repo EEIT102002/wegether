@@ -66,21 +66,65 @@ var flag=0;
 	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
 		})
 		
-		//留言 
+		//切換留言版面 
 		$('#msgButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-warning");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
+			 $("#msgBlock").show();
+			 $("#demoArticle").hide();
+			 $("#demo").show();
+			 getMsgs();
 		})
 		
-		// 心得分享
+		// 切換心得分享版面
 		$('#articleButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-secondary");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
+			 $("#msgBlock").hide();
+			 $("#demo").hide();
+			 $("#demoArticle").show();
+			 getArticles();
+			 
 		})
 		
 		 attflag = $("#memBut").val(); //身分驗證	
 		 idCheck();//身分驗證	
 // 		 console.log("actPicListNo:"+actPicListNo);
+		 
+		 //載入留言
+		 getMsgs();
+		 
+		//新增留言
+		 $('#txt').click(function(){
+			 $("#txt").val('');
+		});
+		 
+		//新增留言
+		 $('#txtbut').click(function(){
+			 getMsgs($("#txt").val());
+			 $("#txt").val('');
+		});
+			
+		//刪除留言
+			$('#demo').click(function(event){
+		        if (event.target.className == "btn btn-danger"){
+					var temp = $(event.target).attr("msgid")
+				 	 getMsgs('deleteMsgId='+temp);
+		    		 $("#txt").val('');
+		        }
+		    });
+		
+		 //載入心得
+// 		 getArticles();
+		 
+		//刪除心得
+			$('#demoArticle').click(function(event){
+		        if (event.target.className == "btn btn-danger"){
+					var temp = $(event.target).attr("msgid")
+				 	 getArticles('deleteMsgId='+temp);
+		        }
+		    });
+		
 	})
 	
 	//activityPage 輪播使用
@@ -112,6 +156,7 @@ var flag=0;
 		if(attflag == 1){
 			$('#memBut').text('編 輯 活 動 ').click(function(){
 				console.log(attflag);
+				document.location.href="actEdit.getBean.controller?actid=${actBean.id}";
 			});
 		}
 		if(attflag == 2){
@@ -128,7 +173,76 @@ var flag=0;
 	}
 	//登入身分驗證 END
 	
+		//留言功能
+	function getMsgs(msg){
+	 var divElem = null ;
+	 var temp="";
+	 console.log("msg="+msg);
+	 $.getJSON("msgs.controller",
+			 { activityid:1, 
+		 		memberid:"${memberid}",
+		 		state:0,
+		 		content:msg
+			 },
+			 function(result){	
+	 			$.each(result, function(i,item){	
+	 				divElem =("<div id='msgid'>" +
+					'<a href="personal.controller?memberId='+item[0]+'">'+
+					'<img src="data:image/jpg;base64,'+item[1]+'" width="50" class="img-circle">  </a>' +
+					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
+					'<span style="font-size: small;">'+item[3]+'</span>'+
+					'<button id="deleteId" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
+			 		'</br>'+item[4]+'</br>'+
+					"</div>");
+	 				temp = temp + divElem;
+	 			});	
+	 			$('#demo').html(temp);
+	 			console.log("memberid="+"${memberid}");
+	 });	
+	 
+ }
+	//留言功能 END
+	
 
+//載入心得
+ function getArticles(msg){
+	 var divElem1 = null ;
+	 var temp="";
+	
+	 $.getJSON("article.controller",
+			 { activityid:1, 
+		 		content:msg
+			 },
+			 function(result){	
+	 			$.each(result, function(i,item){	
+	 				divElem1 =("<div id='msgid'>" +
+					'<a href="personal.controller?memberId='+item[0]+'">'+
+					'<img src="data:image/jpg;base64,'+item[1]+'" width="50">  </a>' +
+					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
+					'<span style="font-size: small;">'+item[3]+'</span>'+
+					'<button id="deleteId" href="#" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
+			 		'</br>'+item[4]+'</br>'
+			 		
+			 		);
+	 				console.log("item[5]="+item[5]);
+	 				 var divElem2 = null ;
+	 				 var temp1="";
+	 				$.each(item[6], function(i,item){
+	 					divElem2 =(
+	 					 '<img src="/wegether/picture/'+item+'" width="350" height="250" style=" border: 2px solid #272727; margin: 10px;">' 
+	 					);
+	 					temp1 = temp1 + divElem2;
+	 				});	
+	 				
+	 				
+	 				temp = divElem1 + temp1 + "</div>" + temp ;
+	 				
+	 			
+	 			});	
+	 			$('#demoArticle').html(temp);
+	 });	
+	 
+ }
 </script>
 <style>
 * {
@@ -142,6 +256,7 @@ body {
 	background: url(images/v6.jpg) no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
+
 }
 #small_con {
 	width: 100%;
@@ -188,7 +303,7 @@ footer>ul>li ul {
 			</button>
 			<div class="logo">
 				<h1>
-					<a class="navbar-brand" href="/wegether/index.jsp">Wegther</a>
+					<a class="navbar-brand" href="/wegether/index.jsp">Wegether</a>
 				</h1>
 			</div>
 		</div>
@@ -286,9 +401,10 @@ footer>ul>li ul {
 
 						<div id="up">
 							<div id="left" style="width: auto;">
-								<a href="personal.controller?memberId=${hostBean.id}"><img
-									src="data:image/jpg;base64,${hostPicList.get(0)}"
+								<a href="personal.controller?memberId=${hostBean.id}">
+								<img 	src="data:image/jpg;base64,${hostPic}"							
 									class="img-circle" width="70"> </a>
+								<!-- 	src="/wegether/picture/15" class="img-circle" -->
 							</div>
 							<div id="left" style="width: auto;">
 								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
@@ -309,15 +425,14 @@ footer>ul>li ul {
 						<!-- 	照片輪播 -->
 						<div class="content">
 							<div class="div1">
-								<img id="imd0" src="data:image/jpg;base64,${actPicList.get(0)}"
-									class="img-thumbnail">
+								<img id="imd0" src="data:image/jpg;base64,${actPicList.get(0)}" class="img-thumbnail">
+									
 							</div>
 							<div class="div2" >
-								<c:set var="salary" value="1" />
+								<c:set var="temp" value="1" />
 								<c:forEach var="obj" items="${actPicList}">
-									<img id="imd${salary}" src="data:image/jpg;base64,${obj}"
-										class="img-thumbnail">
-									<c:set var="salary" value="${salary+1}" />
+									<img id="imd${temp}" src="data:image/jpg;base64,${obj}" class="img-thumbnail">
+									<c:set var="temp" value="${temp+1}" />
 								</c:forEach>
 							</div>
 						</div>
@@ -332,14 +447,17 @@ footer>ul>li ul {
 						<p>${actbegin}</p>
 						<!-- right2 end -->
 						<p>${actBean.addr}</p>
-						<!-- right3 end -->
+						
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2197094634926!2d121.54709331488881!3d25.026616844741607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aa32657c4a79%3A0x3d7f7c44e7d85df7!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5pWm5YyW5Y2X6Lev5LqM5q61MjAx6Jmf!5e0!3m2!1szh-TW!2stw!4v1536913293480" width="400" height="250" frameborder="0" style="border: 3px solid #FFBB00;margin：10px;" allowfullscreen></iframe>
+						<br><br>
 						<div>
 							<img src="images/activityPageImages/people.png" width="20">&nbsp;${actBean.numberlimit}人
 							&emsp; <img src="images/activityPageImages/fees.png" width="20">&nbsp;${actBean.feed}元
 							&emsp; <img src="images/activityPageImages/deadline.png"
 								width="40">&nbsp;${dateline}
 						</div>
-						<!-- right4 end -->
+						<br>
+						<!-- 報名者大頭貼-->
 						<div>
 							<c:forEach var="obj" items="${memPicList}">
 								<a href="personal.controller?memberId=${obj.memberId}"><img
@@ -347,19 +465,14 @@ footer>ul>li ul {
 									width="50"></a>
 								&emsp;
 							</c:forEach>
-
-
 						</div>
-						<!-- right5 end -->
-						<p style="text-align: center">${attedNumber}</p>
-						<!-- right6 end -->
-						<div style="text-align: center">
-
-							<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
-							<button id="memBut" type="button" class="btn btn-warning" value="${flag}" ></button>
 						
-
-
+						<!-- 報名申請人數 -->
+						<p style="text-align: center">${attedNumber}</p>
+						
+						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
+						<div style="text-align: center">
+							<button id="memBut" type="button" class="btn btn-warning" value="${flag}" ></button>
 						</div>
 						<!-- right7 end -->
 
@@ -374,27 +487,23 @@ footer>ul>li ul {
 					<p>${actBean.content}</p>
 					</br>
 
-
-					<h4>留下意見:</h4>
-					<textarea cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
-					</br> </br>
+					<div id="msgBlock" >
+						<h4>留下意見:</h4>
+						<textarea id="txt" cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
+						</br> 
+						<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
+						</br> </br>
+					</div>
+					<!--  留言、心得分享  切換按鍵-->
 					<button id="msgButId" type="button" class="btn btn-warning" >留言</button>
-
-					<button id="articleButId" type="button" class="btn btn-warning" >心得	分享</button>
+					<button id="articleButId" type="button" class="btn btn-secondary" >心得	分享</button>
 					</br> </br>
 
-					<!--  留言、心得分享 -->
-
-					<!--  留言、心得分享  end-->
+					<!--  留言、心得分享 切換按鍵  end-->
+					
 					<!-- msg begin -->
-					<c:forEach var="obj" items="${msgsList}">
-						<div id="msgid" class="well">
-							<a href="personal.controller?memberId=${obj.memberId}"><img
-								src="data:image/jpg;base64,${obj.picMem}" width="50"></a> <span
-								style="color: blue;">${obj.nickname} </span> &emsp; <span
-								style="font-size: small;">${obj.msgtime}</span></br> ${obj.content}</br>
-						</div>
-					</c:forEach>
+					<div id="demo"></div>
+					<div id="demoArticle"></div>
 					<!-- msg end -->
 
 				</div>

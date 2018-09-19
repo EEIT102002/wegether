@@ -84,7 +84,7 @@ public class indexSelectPoController {
 				bean.setPictureBean(null);
 				bean.setAttendBean(null);
 				bean.setInviteBean(null);
-
+				bean.setPicture(null);
 				resultlist.add(obj);
 				});//forEach end
 				return new ResponseEntity<List<Object[]>>(resultlist, HttpStatus.OK);

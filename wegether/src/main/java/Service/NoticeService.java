@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import model.MemberBean;
 import model.NoticeBean;
+import model.dao.MemberDAO;
 import model.dao.NoticeDAO;
 
 @Service
 public class NoticeService {
 	@Autowired
 	private NoticeDAO noticeDAO;
+	@Autowired
+	private MemberDAO memberDAO;
 
 	public List<NoticeBean> getNotice(Integer id, Integer ntype) {
 		System.out.println("doNotice, "+id);
@@ -43,5 +47,30 @@ public class NoticeService {
 				return noticeDAO.selectByActivityId(id, ntype);
 		}
 		return null;
+	}
+	
+	public Integer unreadCount(Integer memberid) {
+		MemberBean bean = memberDAO.select(memberid);
+		if(bean != null) {
+			return bean.getNotices();
+		}
+		return null;
+	}
+
+	public boolean clearNotices(Integer memberid) {
+		MemberBean bean = memberDAO.select(memberid);
+		if(bean != null) {
+			bean.setNotices(0);
+			return true;
+		}
+		return false;
+	}
+	
+	public List<NoticeBean> selectNotices(int memberid, int first) {
+		return  noticeDAO.selectByMemberId(memberid, first);
+	}
+	
+	public Integer noticesCount(Integer memberid) {
+		return noticeDAO.selectCountByMemberId(memberid);
 	}
 }

@@ -2,16 +2,22 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import Service.BlackListService;
 import model.BlacklistBean;
@@ -21,58 +27,38 @@ public class BlackListController {
 	@Autowired
 	private BlackListService blackListService;
 
-	@RequestMapping(path = { "/BlackList.insert" })
-	protected void doGet(Model model, HttpServletRequest request, HttpServletResponse response, @RequestAttribute(name = "memberid",required = false) Integer id)
-			throws ServletException, IOException {
-		BlacklistBean result = null;
-		System.out.print("mid="+id);//userid
-		int mid =id;
-		int bid = 0;         //被黑名單
-		response.setContentType("text/html; charset=UTF-8");
-
-		// 接收資料
-		if (request.getParameter("blackid") != "") {
-			bid = Integer.valueOf(request.getParameter("blackid"));
-			System.out.println("bid="+bid);
-			 result = blackListService.insert(bid,mid);// 加黑名單
-			 }
-			 if (result != null) {
-			 PrintWriter out = response.getWriter();
-			 out.println("加黑名單成功"+result);
-			 out.close();
-			 } else {
-			 PrintWriter out = response.getWriter();
-			 out.println("加黑名單失敗"+result);
-			 out.close();
-			 }
-			 System.out.println("result="+result);
+	@RequestMapping(path = { "/blacklist/add" })
+	public @ResponseBody ResponseEntity<?> addBlackList(@RequestParam Integer blackid,
+			@RequestAttribute("memberid") Integer memberid) {
+		Map<String, Object> result = new HashMap<>();
+		if (memberid == null || blackid == null) {
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 
-
-	@RequestMapping(path = { "/BlackList.delete" })
-	protected void doGet1(Model model, HttpServletRequest request, HttpServletResponse response,@RequestAttribute("memberid") Integer id)
-			throws ServletException, IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		boolean result = false;
-		System.out.print("mid="+id);//userid
-		int mid =id;
-		int bid = 0;         //被黑名單
-		// 接收資料
-
-		if (request.getParameter("blackid") != "") {
-			bid = Integer.valueOf(request.getParameter("blackid"));
-			System.out.println("取消對"+bid+"黑名單");
-			result = blackListService.delete(bid,mid);// 取消追蹤
-		}
-		if (result != false) {
-			PrintWriter out = response.getWriter();
-			out.println("取消黑名單成功");
-			out.close();
+		BlacklistBean bean = blackListService.insert(blackid, memberid);// 加黑名單
+		if (bean != null) {
+			result.put("state", true);
 		} else {
-			PrintWriter out = response.getWriter();
-			out.println("未在黑名單");
-			out.close();
+			result.put("state", false);
 		}
-		System.out.println(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(path = { "/blacklist/delete" })
+	public @ResponseBody ResponseEntity<?> deleteBlackList(@RequestParam Integer blackid,
+			@RequestAttribute("memberid") Integer memberid) {
+		Map<String, Object> result = new HashMap<>();
+		if (memberid == null || blackid == null) {
+			result.put("state", false);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+
+		if (blackListService.delete(blackid, memberid)) {
+			result.put("state", true);
+		} else {
+			result.put("state", false);
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 }

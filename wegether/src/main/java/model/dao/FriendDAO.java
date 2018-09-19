@@ -18,4 +18,6 @@ public interface FriendDAO {
 	public abstract boolean updateState(FriendBean friendBean);
 	
 	public abstract boolean delete(FriendBean friendBean);
+	public abstract Integer selectCountByMemberState(int memberid, int state);
+	public abstract Integer selectCountByMemberFState(int memberidf, int state);
 }

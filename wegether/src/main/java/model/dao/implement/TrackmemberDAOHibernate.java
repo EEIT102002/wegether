@@ -56,12 +56,14 @@ public class TrackmemberDAOHibernate implements TrackmemberDAO{
 	public TrackmemberBean insert(TrackmemberBean bean) {
 		TrackmemberBean result = null;
 		if(bean!=null) {
-			this.getSession().save(bean);
 			result = selectByMemberidAndFanid(bean.getId().getMemberid(), bean.getId().getFanid());
-//			result = selectByMemberidAndFanid(bean.getMemberByMemberid().getId(), bean.getId().getFanid());
-			return result;
+			if(result==null) {
+				this.getSession().save(bean);
+				result = selectByMemberidAndFanid(bean.getId().getMemberid(), bean.getId().getFanid());
+				return result;
+			}
 		}
-		return result;
+		return null;
 	}
 
 	@Override
@@ -71,7 +73,6 @@ public class TrackmemberDAOHibernate implements TrackmemberDAO{
 			this.getSession().delete(temp);
 			return true;
 		}
-
 		return false;
 	}
 	

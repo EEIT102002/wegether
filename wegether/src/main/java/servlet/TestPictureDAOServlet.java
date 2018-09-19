@@ -37,7 +37,7 @@ public class TestPictureDAOServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 //		selectByMember
-//		List<PictureBean> Memberresult = pictureDAOHibernate.selectByMember(1);
+//		List<PictureBean> Memberresult = pictureDAOHibernate.selectByMember(5);
 //		out.println("<p>selectByMember</p>");
 //		out.println(Memberresult);
 //		Memberresult.forEach(x->{
@@ -56,9 +56,9 @@ public class TestPictureDAOServlet extends HttpServlet {
 //									x.getPicture(), false)));
 //			out.println("<img src=\""+sb.toString()+"\"/>");
 //		});
-//		
-//		
-//
+		
+		
+
 //		out.print("<br>==================================================");
 ////		selectByArticle
 //		List<PictureBean> Articleresult = pictureDAOHibernate.selectByArticle(1);
@@ -110,21 +110,23 @@ public class TestPictureDAOServlet extends HttpServlet {
 //
 //		out.print("<br>==================================================");
 
-		//insert
+		//insert		
 		PictureBean pcB = new PictureBean();
-		File file = new File("wegether/mem05.png");
+		File file = new File("D:\\TEMP\\picture\\奧萬大\\6.jpg");
 		pcB.setPicture(PictureConvert.converFileToByte(file));
 		pcB.setActivityid(null);
-		pcB.setArticleid(null);
-		pcB.setMemberid(5);
+		pcB.setArticleid(6);
+		pcB.setMemberid(null);
 		PictureBean temp = pictureDAOHibernate.insert(pcB);
 	 	out.println(temp);		
-	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
+//	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
+		String pic = "<img src='/wegether/picture/"+temp.getId()+"' width='350' height='250' style=' border: 2px solid #272727; margin: 10px;'>";
+		out.println(pic);
 		
 		// delete
-//		boolean deleresult = pictureDAOHibernate.delete(7);
+//		boolean deleresult = pictureDAOHibernate.delete(13);
 //		out.println(deleresult);
-		
+//		
 		// update
 //		List<PictureBean> AP = pictureDAOHibernate.selectByActivity(3);
 //		List<PictureBean> AP = pictureDAOHibernate.selectByArticle(3);

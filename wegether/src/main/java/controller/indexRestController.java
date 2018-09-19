@@ -38,6 +38,7 @@ import model.dao.MemberInfoDAO;
 import model.dao.SettingDAO;
 import model.dao.TrackmemberDAO;
 import model.dao.implement.ActivityDAOHibernate;
+
 @RestController
 public class indexRestController {
 	@Autowired
@@ -79,13 +80,14 @@ public class indexRestController {
 				bean.setPictureBean(null);
 				bean.setAttendBean(null);
 				bean.setInviteBean(null);
+				bean.setPicture(null);
 				
 
 				resultlist.add(obj);
 			});
 			return new ResponseEntity<List<Object[]>>(resultlist, HttpStatus.OK);
 		} else {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	@GetMapping( path= {"/activity"}, produces= {"application/json"})
@@ -113,6 +115,7 @@ public class indexRestController {
 				bean.setPictureBean(null);
 				bean.setAttendBean(null);
 				bean.setInviteBean(null);
+				bean.setPicture(null);
 				
 
 				resultlist.add(obj);

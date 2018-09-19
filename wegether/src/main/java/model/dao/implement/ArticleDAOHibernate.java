@@ -60,14 +60,20 @@ public class ArticleDAOHibernate implements ArticleDAO {
 	}
 
 	private final String getActid = "select distinct activityid from ArticleBean";
-
 	@Override
 	public List<Integer> selectAllForActid() {
 		return this.getSession().createQuery(getActid).list();
 	}
 
+	private final String selectByActivityId = "from ArticleBean  WHERE activityid=:activityId ";
+	@Override
+	public List<ArticleBean> selectByActivityId(int activityId){
+		return this.getSession().createQuery(selectByActivityId, ArticleBean.class)
+				.setParameter("activityId", activityId).list();
+	}
+	
+	
 	private String HqlGetArticleId = "SELECT id FROM ArticleBean WHERE MEMBERID = :MID AND ACTIVITYID = :AID";
-
 	@Override
 	public int getArticleId(int memberid, int activityid) {
 		Query query = this.getSession().createQuery(HqlGetArticleId);
