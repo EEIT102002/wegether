@@ -44,6 +44,16 @@
 
 	})
 
+	function loginDo(){
+		
+		
+	}
+	
+	function logoutDo(){
+		
+		
+	}
+	
 	function clearForm() {
 		var inputs = document.getElementsByTagName("input");
 		for (var i = 0; i < inputs.length; i++) {
@@ -67,7 +77,7 @@
 	function chkaccount() {
 		var idaccount = document.getElementById("idaccount").value;
 		if (idaccount == "") {
-			document.getElementById("idspaccount").innerHTML = "";
+			document.getElementById("idspaccount").innerHTML = "帳號不可為空白";
 		} else
 			document.getElementById("idspaccount").innerHTML = "";
 	}
@@ -75,7 +85,7 @@
 	function chkpassword() {
 		var idpassword = document.getElementById("idpassword").value;
 		if (idpassword == "") {
-			document.getElementById("idsppassword").innerHTML = "";
+			document.getElementById("idsppassword").innerHTML = "密碼不可為空白";
 		} else
 			document.getElementById("idsppassword").innerHTML = "";
 	}
@@ -83,7 +93,7 @@
 	function chkrepassword() {
 		var idrepassword = document.getElementById("idrepassword").value;
 		if (idrepassword == "") {
-			document.getElementById("idsprepassword").innerHTML = "";
+			document.getElementById("idsprepassword").innerHTML = "確認密碼不可為空白";
 		} else
 			document.getElementById("idsprepassword").innerHTML = "";
 	}
@@ -91,7 +101,7 @@
 	function chktel() {
 		var idtel = document.getElementById("idtel").value;
 		if (idtel == "") {
-			document.getElementById("idsptel").innerHTML = "";
+			document.getElementById("idsptel").innerHTML = "電話不可為空白";
 		} else
 			document.getElementById("idsptel").innerHTML = "";
 	}
@@ -298,16 +308,17 @@ footer>ul>li ul {
 				註冊頁面
 				</h3>
 				<hr />
-				<form id="xxx" action="<c:url value="/register.controller" />"
+				<form style="margin-left: 98px"style="margin-left: 40px"id="xxx" action="<c:url value="/register.controller" />"
 					method="post" accept-charset="ISO-8859-1"
 					enctype="multipart/form-data">
-					<table border="0" align="center"
-						style="border-collapse: separate; border-spacing: 0px 6px;">
+					<table  border="0" align="center"
+						style="border-collapse: separate; border-spacing: 0px 6px;font-family:Microsoft JhengHei;color:#0044BB;">
 						<tr>
+<!-- 						style="font-family:DFKai-sb;" -->
 							<td colspan="2" align="center"></td>
 						</tr>
 						<tr>
-							<td>帳&nbsp;號(信箱):</td>
+							<td>帳&nbsp;號&nbsp;(信&nbsp;箱):</td>
 							<td><input id="idaccount" type="text" name="account"
 								value="${param.account}"><i id="idspaccount" style=color:red;>${inputRrrors.account}</i></td>
 
@@ -317,13 +328,13 @@ footer>ul>li ul {
 							<td class="s1">(例如:stvc@yahoo.com.tw)</td>
 						</tr>
 						<tr>
-							<td>密&nbsp;碼:</td>
+							<td >密&nbsp;碼:</td>
 							<td><input id="idpassword" type="password" name="pwd" value="${param.pwd}">
 							<i id="idsppassword" style=color:red;>${inputRrrors.pwd}</i>
 							</td>
 						</tr>
 						<tr>
-							<td>確&nbsp;認&nbsp;密&nbsp;碼:</td>
+							<td>確&nbsp;認&nbsp;密&nbsp;碼:&nbsp;</td>
 							<td><input id="idrepassword" type="password" name="pwd2" value="${param.pwd2}">
 							<i id="idsprepassword" style=color:red;>${inputRrrors.pwd2}</i>
 							
@@ -352,8 +363,8 @@ footer>ul>li ul {
 							<td>${inputRrrors.nickname}</td>
 						</tr>
 						<tr>
-							<td>出&nbsp;生&nbsp;日&nbsp;期:</td>
-							<td><input style="width: 155px; height: 25px;" type="date"
+							<td>出&nbsp;生&nbsp;日&nbsp;期:&nbsp;</td>
+							<td><input style="width: 165px; height: 25px;" type="date"
 								name="birthday" value="${param.birthday}" required="required"
 								min="1900-09-06"></td>
 						</tr>
@@ -370,7 +381,7 @@ footer>ul>li ul {
 							<td><input type="text" name="job" value="${param.name}" id="idjob"><i id="idspjob">${inputRrrors.job}</i></td>
 						</tr>
 						<tr>
-							<td>城&nbsp;市/地&nbsp;址:</td>
+							<td>城&nbsp;市&nbsp;/&nbsp;地&nbsp;址&nbsp;:&nbsp;</td>
 							<td><select name="city" id="zzz">
 									<option value="0">請選擇</option>
 							</select> <input style="width: 110px; height: 25px;" type="text"
@@ -389,13 +400,13 @@ footer>ul>li ul {
 						</tr>
 
 						<tr>
-							<td>自我介紹:</td>
+							<td>自&nbsp;我&nbsp;介&nbsp;紹:&nbsp;</td>
 							<td><textarea rows="4" cols="24" name="content"
 									value="${param.content}"></textarea></td>
 							<td>${inputRrrors.content}</td>
 						</tr>
 						<tr>
-							<td>聚會類型:</td>
+							<td>聚&nbsp;會&nbsp;類&nbsp;型:&nbsp;</td>
 							<td><input type="checkbox" name="favorite" value="輕鬆聊"
 								checked>輕鬆聊 <input type="checkbox" name="favorite"
 								value="浪漫約會">浪漫約會 <input type="checkbox" name="favorite"
@@ -406,8 +417,8 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input
-								style="margin-top: 4px;" type="submit" name="prodaction"
-								value="送出"> <input type="button" value="Clear"
+								style="margin-top: 5px;margin-right: 50px;" type="submit" name="prodaction"
+								value="送出"> <input style="margin-top: 5px;margin-right: 50px;" type="button" value="Clear"
 								onclick="clearForm()"></td>
 						</tr>
 					</table>

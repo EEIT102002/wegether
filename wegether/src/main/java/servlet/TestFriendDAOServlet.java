@@ -2,10 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,16 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 
-import model.ActivityBean;
-import model.ArticleBean;
 import model.FriendBean;
-import model.dao.implement.ActivityDAOHibernate;
-import model.dao.implement.ArticleDAOHibernate;
 import model.dao.implement.FriendDAOHibernate;
 
 @WebServlet("/FriendTest")
@@ -53,7 +44,7 @@ public class TestFriendDAOServlet extends HttpServlet {
 
 		// insert
 		 FriendBean bean = new FriendBean();
-
+//
 		 bean.setMemberid(Integer.parseInt(request.getParameter("1")));
 		 bean.setMemberidf(Integer.parseInt(request.getParameter("3")));
 		 bean.setState(1);
@@ -63,6 +54,8 @@ public class TestFriendDAOServlet extends HttpServlet {
 //		 bean.setState(0);
 
 		 FriendBean result = friendDaoHibernate.insert(bean);
+		
+		
 		 
 		// update
 //		FriendBean bean = new FriendBean();

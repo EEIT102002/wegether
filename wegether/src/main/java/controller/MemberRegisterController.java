@@ -56,30 +56,16 @@ public class MemberRegisterController extends HttpServlet {
 			@RequestParam(value = "pwd2", required = false) String pwdre) throws IOException {
 
 		// flag= 0:未登入 1:登入
-		// Integer flag = 0;
-		// if (memberid != null) {
-		// return "register.success";
-		// }else{
-		//
+//		 Integer flag = 0;
+//		 if (memberid != null) {
+//			 
+//		 return "register.success";
+//		 }
+		
 
 		System.out.println(memberid);
 
-		// 圖片轉換
-		// byte[] pic = null;
-		// if (!file.isEmpty()) { // 圖片判定
-		// pic = file.getBytes();
-		// bean.setPhoto(pic);
-		// } else {
-		// File defultPic = new File("C:/temp/2.jpg");
-		// try {
-		// // pic = ((MultipartFile) defultPic).getBytes();
-		// pic = PictureConvert.converFileToByte(defultPic);
-		// bean.setPhoto(pic);
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// }
-
+		
 		// 帳號信箱驗證
 		String email = bean.getAccount();
 		Pattern patternemail = Pattern.compile("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$");
@@ -200,11 +186,12 @@ public class MemberRegisterController extends HttpServlet {
 		} else {
 			System.out.println(bean);
 			memberDAOHibernate.insert(bean);
+//			bean.getId()
 			// flag=1;
 
 			return "register.success";
 		}
 
 	}
-	// }
+	
 }

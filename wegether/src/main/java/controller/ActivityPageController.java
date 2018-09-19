@@ -129,7 +129,7 @@ public class ActivityPageController {
 				actPicList.add(actPic);
 			});
 
-		
+
 		String actbegin = null;
 		Calendar actTime = Calendar.getInstance();
 		if (actBean.getActbegin() != null) {
