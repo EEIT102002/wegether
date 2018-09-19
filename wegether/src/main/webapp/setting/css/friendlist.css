@@ -6,10 +6,7 @@
 	display:flex;
 }
 
-.friendsearch button{
-	padding: 7px 8px;
-	min-width: 60px;
-}
+
 
 #blocklist {
 	min-height:570px;
@@ -17,6 +14,25 @@
 #blocklist > div:nth-child(2){
 	max-height:500px;	
 	overflow-y: scroll;
+}
+
+#blocklist div::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+#blocklist div::-webkit-scrollbar-track {
+    background: rgba(200, 226, 255, 0); 
+}
+ 
+/* Handle */
+#blocklist div::-webkit-scrollbar-thumb {
+    background: rgba(70, 114, 165, 0.8);
+}
+
+/* Handle on hover */
+#blocklist div::-webkit-scrollbar-thumb:hover {
+    background: #008CBA;
 }
 
 .friendList{
@@ -33,29 +49,34 @@
   margin: 10px;
 }
 
-::-webkit-scrollbar {
-    width: 10px;
+
+.friendList button {
+  padding: 3px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #008CBA;
+  border: none;
+  transition:opacity 0s;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: rgba(200, 226, 255, 0); 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: rgba(70, 114, 165, 0.8);
-}
+.friendList button:hover {
+	background-color: rgba(0, 44, 95, 0.3);
+	}
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #008CBA;
-}
+.friendList button:active{
+	opacity:0.5
+	}
 
-.friendList>div, .friendList>a {
+
+.friendList>div{
 	margin: 10px;
 	background-color: rgba(200, 226, 255, 0.459);
-	width: 300px;
+	min-width: 300px;
+	max-width: 300px;
 	height: 70px;
 	box-shadow: 4px 4px 12px -2px rgba(20%, 20%, 40%, 0.6);
 }
@@ -79,7 +100,7 @@
 	display: flex;
 	text-align: left;
 	vertical-align: middle;
-	 flex:1 2 200px;
+	flex:1 2 200px;
 	margin: 0px;
 }
 
@@ -88,16 +109,15 @@
 ,.blacklistButton {
 	display:flex;
 	flex-direction:column;
-	flex:0 1 50px;
-	 justify-content:center;
+	justify-content:center;
 	    
 	
 }
 
 .friendList button {
 	margin: 5px;
-	height: 30px;
-	width:60px;
+	min-height: 30px;
+	min-width:60px;
 }
 
 .friendList img {
@@ -112,4 +132,9 @@
 	border-radius: 60px;
 	margin: 0 10px 0 10px;
 	background-color: rgb(255, 255, 255);
+}
+
+.friendsearch button{
+	padding: 7px 8px;
+	min-width: 60px;
 }

@@ -8,11 +8,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import Service.ActivityFormService;
 import model.ActivityBean;
 import model.PictureBean;
 import model.dao.ActivityDAO;
@@ -36,6 +39,8 @@ public class ActivityCreateController {
 
 	@Autowired
 	private ActivityDAO activityDAO;
+	@Autowired
+	private ActivityFormService activityFormService;
 
 	@Autowired
 	PictureDAO pictureDAO;
@@ -53,7 +58,8 @@ public class ActivityCreateController {
 			@RequestParam(value = "endTimepicker", required = false) String endTime,
 			@RequestParam(value = "applyform", required = false) String applyform,
 			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
-			@RequestAttribute(value = "memberid", required = false) Integer id) throws ParseException, IOException {
+			@RequestAttribute(value = "memberid", required = false) Integer id
+			,HttpServletRequest request) throws ParseException, IOException {
 		System.out.println("actCreate()");
 
 		if (id == null) {
@@ -136,7 +142,14 @@ public class ActivityCreateController {
 		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
-
+		
+		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
+		if(applyform == null) {
+			formJson.put("hasForm", false);	
+		}else {
+			formJson.put("hasForm", true);	
+		}
+		applyform = formJson.toString();
 		activityBean.setForm(applyform);
 		System.out.println(startDate);
 		System.out.println(starttime);
@@ -156,7 +169,8 @@ public class ActivityCreateController {
 				pictureDAO.insert(pictureBean);
 			}
 		}
-
+		request.setAttribute("id", activityBean.getId());
+		request.setAttribute("ntype", 11);
 		return "actCreateSuc.page";
 	}
 

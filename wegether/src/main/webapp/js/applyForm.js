@@ -1,29 +1,57 @@
 var actionUrl;
 
 var readed = 0;
-
+var hasForm;
 function clickApplyForm(id){
 	if(readed == 0){
 		getApplyForm(id);
+	}else if(hasForm){
+		$('#applyForm').modal();
+	}else{
+		$('#applyCheck').modal();
 	}
-	$('#applyForm').modal();
 }
 
 $(function(){
 	$('body').on('click', '#sendApply',function(){
         message = $("#applyForm form").serialize();
+        console.log(actionUrl);
 		 $.post(
              actionUrl ,
              message, 
              function( data ) {
                  if(data.state){
                 	 $('#applyForm').modal('hide');
-                	 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('報名成功'));
+                	 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('以傳送報名'));
                  }else{
-                	
                 	 if(Object.keys(data.errors).length == 0){
                 		 $('#applyForm').modal('hide');
-                		 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('報名失敗'));
+                		 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('報名傳送失敗'));
+                	 }else{
+		            	 $.each(data.errors,function(error){
+		            		 $('#'+error+'_error').addClass('error');
+		            	 })
+                	 }
+                 }
+           }
+           , "json"
+           ).fail(function(){ 
+        	   $('#applyForm').modal('hide');
+      		 	$('#applyState').modal().find('.modal-body').html($('<h4/>').text('請登入'));
+           });
+	})
+	
+	$('body').on('click', '#applyCheck .btn',function(){
+		 $.post(
+             actionUrl , 
+             function( data ) {
+                 if(data.state){
+                	 $('#applyCheck').modal('hide');
+                	 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('以傳送報名'));
+                 }else{
+                	 if(Object.keys(data.errors).length == 0){
+                		 $('#applyCheck').modal('hide');
+                		 $('#applyState').modal().find('.modal-body').html($('<h4/>').text('報名傳送錯誤'));
                 	 }else{
 		            	 $.each(data.errors,function(error){
 		            		 $('#'+error+'_error').addClass('error');
@@ -45,14 +73,20 @@ function getApplyForm(id){
     $.getJSON(
         "/wegether/Rest/activity/applyform/"+id
         , function (data) {
-            questions = data.questions;
-            var form = $('<form/>');
-            var txt = "";
-            $.each(questions, function (i, v) {
-                form.append(creatQ(v));
-            })
-            $('#applyForm .modal-body').html(form);
-            readed = 1;
+        	hasForm = data.hasForm;
+        	if(hasForm){
+				questions = data.questions;
+				var form = $('<form/>');
+				var txt = "";
+				$.each(questions, function (i, v) {
+				    form.append(creatQ(v));
+				})
+				$('#applyForm .modal-body').html(form);	
+				$('#applyForm').modal();
+        	}else{
+        		$('#applyCheck').modal();
+        	}
+        	readed = 1;
         }
     )
 }

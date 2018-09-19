@@ -13,6 +13,8 @@ public interface FriendDAO {
 	
 	public abstract FriendBean selectById(int id);
 	
+	public abstract FriendBean selectByMidAndFriendid(int memberid,int id);
+	
 	public abstract FriendBean insert(FriendBean friendBean);
 
 	public abstract boolean updateState(FriendBean friendBean);

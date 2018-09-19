@@ -8,11 +8,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>ActivityPage</title>
+ <title>testmsgs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="/wegether/css/activityPage.css">
-<script src="/wegether/js/activityPage.js"></script>
 
 <link href="/wegether/css/bootstrap.css" rel="stylesheet" type="text/css"	media="all" />
 <link href="/wegether/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -29,70 +27,48 @@
 <!-- 登入使用 END -->
 <!-- 留言 /心得心享 視窗  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/wegether/css/activityPage.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script type="text/javascript" src="/wegether/js/activityPage/activityPage.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
- <script>
- var queryStr;
- $(function(){
-	 //載入留言
-	 getMsgs();
-	 
-	//新增留言
-	 $('#txtbut').click(function(){
-		 getMsgs($("#txt").val());
-		 $("#txt").val('');
-	});
-		
-	//刪除留言
-		$('#demo').click(function(event){
-	        if (event.target.className == "btn btn-danger"){
-	        	 $("#txt").val('');
-				var temp = $(event.target).attr("msgid")
-			 	 getMsgs('deleteMsgId='+temp);	    		
-	        }
-	    });
-		
-	
-})
-	
-
- function getMsgs(msg){
-	 var divElem = null ;
-	 var temp="";
-	 console.log("msg="+msg);
-	 $.getJSON("msgs.controller",
-			 { activityid:1, 
-		 		memberid:2,
-		 		state:0,
-		 		content:msg
-			 },
-			 function(result){	
-	 			$.each(result, function(i,item){	
-	 				divElem =("<div id='msgid'>" +
-					'<a href="personal.controller?memberId='+item[0]+'">'+
-					'<img src="data:image/jpg;base64,'+item[1]+'" width="50">  </a>' +
-					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
-					'<span style="font-size: small;">'+item[3]+'</span>'+
-					'<a id="deleteId" href="#" class="btn btn-danger" msgid='+item[5]+'>刪除</a>'+			
-			 		'</br>'+item[4]+'</br>'+
-					"</div>");
-	 				temp = temp + divElem;
-	 			});	
-	 			$('#demo').html(temp);
-	 });	
-	 
- }
-
-	
- </script>
+<script>
+	$(function() {
+		 //載入留言 
+// 		 getMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val());
+		  getMsgs(2,2,0,$("#txt").val());
+		  
+		//清除留言預設文字
+		 $('#txt').click(function(){
+			 $("#txt").val('');
+		});
+		 
+		//新增留言
+		 $('#txtbut').click(function(){
+			  getMsgs(2,2,0,$("#txt").val());
+			 $("#txt").val('');
+		});
+			
+		//刪除留言
+			$('#demo').click(function(event){
+		        if (event.target.className == "btn btn-danger"){
+					var temp = $(event.target).attr("msgid")
+				 	 getMsgs("${actBean.id}","${memberid}","${actBean.state}",'deleteMsgId='+temp);
+		    		 $("#txt").val('');
+		        }
+		    });
+	 })
+</script>
 </head>
 <body>
+
 	<input id="txt" type="text"><br>
 	<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
+	<input type="button" class="btn btn-primary" value="功能"  onclick="asd()"/>
 	<div id="demo"></div>
+	
 </body>
 </html>

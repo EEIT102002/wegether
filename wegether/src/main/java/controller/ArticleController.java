@@ -1,5 +1,6 @@
 package controller;
 
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,8 +11,10 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.ArticleBean;
@@ -49,12 +52,12 @@ public class ArticleController {
 	public ResponseEntity<?> getInfo(ArticleBean bean){
 		System.out.println("ArticleBean="+bean);
 		
-		if(bean.getContent()!=null && bean.getContent().length()!=0 ) {
-			if(bean.getContent().startsWith("deleteMsgId")) {
-				articleDAO.delete(Integer.parseInt(bean.getContent().substring(12)));
-				System.out.println("GOOD");
-			}
-		}
+//		if(bean.getContent()!=null && bean.getContent().length()!=0 ) {
+//			if(bean.getContent().startsWith("deleteMsgId")) {
+//				articleDAO.delete(Integer.parseInt(bean.getContent().substring(12)));
+//				System.out.println("GOOD");
+//			}
+//		}
 		
 		List<Object[]> articleList = new ArrayList<>();
 		List<ArticleBean> articleBeans = articleDAO.selectByActivityId(bean.getActivityid());
@@ -113,5 +116,25 @@ public class ArticleController {
 		}
 		
 	}
+	
+	@DeleteMapping(path= {"/article.controller/{id}"}, produces= {"application/json"})
+	public ResponseEntity<?> delete(@PathVariable int id) throws URISyntaxException{
+		System.out.println("@DeleteMapping");
+		ArticleBean bean = articleDAO.select(id);
+		if(bean!=null) {
+			Boolean result = articleDAO.delete(id);
+			if(result!=null && result==true) {
+				ResponseEntity<?> temp = getInfo(bean);
+				System.out.println("@DeleteMapping=true");
+				return temp ;
+			}else {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);	
+			}
+		}else {
+			System.out.println("@DeleteMapping=false");
+			return new ResponseEntity(HttpStatus.NO_CONTENT);	
+		}
+	}
+		
 	
 }

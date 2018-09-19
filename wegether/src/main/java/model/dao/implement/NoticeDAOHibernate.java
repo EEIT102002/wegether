@@ -73,4 +73,29 @@ public class NoticeDAOHibernate implements NoticeDAO {
 
 	}
 
+	@Override
+	public NoticeBean select(int id) {
+		return getSession().get(NoticeBean.class, id);
+	}
+	
+	@Override
+	public boolean delete(int id) {
+		NoticeBean delete = select(id);
+		if (delete != null) {
+			getSession().delete(delete);
+			return true;
+		}
+		return false;
+	}
+	
+	public void delete(NoticeBean bean) {
+			getSession().delete(bean);
+	}
+
+	@Override
+	public void deleteByMember(int memberid) {
+		getSession().createSQLQuery("delete notice where memberid = :memberid")
+			.setParameter("memberid", memberid).executeUpdate();
+	}
+	
 }

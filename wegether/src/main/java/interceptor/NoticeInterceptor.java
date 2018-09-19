@@ -44,25 +44,25 @@ public class NoticeInterceptor implements HandlerInterceptor {
 		Integer id = (Integer) request.getAttribute("id");
 		Integer ntype = (Integer) request.getAttribute("ntype");
 		List<NoticeBean> beans = noticeService.getNotice(id, ntype);
-		System.out.println(id+","+ntype);
+
 		if (beans != null) {
 			beans.forEach(bean -> {
-				List<WebSocketSession> sessions = loginMap.get(bean.getMemberid()).getSessions();
-				synchronized (sessions) {
-					sessions.forEach(x -> {
-						try {
-							x.sendMessage(text);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					});
+				LoginBean loginBean = loginMap.get(bean.getMemberid());
+				if (loginBean != null) {
+					List<WebSocketSession> sessions = loginMap.get(bean.getMemberid()).getSessions();
+					synchronized (sessions) {
+						sessions.forEach(x -> {
+							try {
+								x.sendMessage(text);
+							} catch (IOException e) {
+							}
+						});
+					}
 				}
 			});
 		}
 
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}
-	
-	
 
 }

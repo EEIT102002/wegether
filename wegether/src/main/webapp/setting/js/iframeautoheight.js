@@ -1,6 +1,7 @@
-var buttonVal =['提出好友邀請','追蹤','加入黑名單'];
+var buttonVal =['提出邀請','追蹤','加入黑名單'];
 var posturl = ['friend/invite','trackmember/add', 'blacklist/add'];
 var param = ['memberidf=','memberid=','blackid='];
+var header = ['新增好友','新增追蹤','新增黑名單'];
 $(document).ready(function() {
 	iframe_auto_height(); // 當文件ready時才能正確取得iframe內容的高度
 	
@@ -53,6 +54,8 @@ function searchServer(formData, url, type){
 	minbody.attr('url', '/wegether/'+posturl[type]).attr('param',param[type]);
 	
 	minbody.html("");
+	var modalheader = searchbox.find('.modal-header');
+	
 	
     $.post({
         url: url,
