@@ -67,9 +67,6 @@ public class ActivityPageController {
 			) {
 		System.out.println("id :" + memberid);
 		
-		// flag= 0:未登入 1:主辦人 2:已報名者 3:未報名者
-		Integer flag = 0;		
-		if (memberid != null) flag = 3;
 		// 時間轉換
 		String[] week = { "(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)" };
 		System.out.println("actid=" + actid);
@@ -113,12 +110,10 @@ public class ActivityPageController {
 					attMap.put("memberId", att.getMemberid().toString());
 					
 					memPicList.add(attMap);
-					if (flag != 2 && memberid == att.getMemberid())	flag = 2;
 											
 				};
 			}
 			
-		if (memberid == actBean.getHostid()) flag = 1;
 
 		if (actPicBeans.size() != 0)
 			actPicBeans.forEach(pic -> {
@@ -134,7 +129,7 @@ public class ActivityPageController {
 				actPicList.add(actPic);
 			});
 
-		
+
 		String actbegin = null;
 		Calendar actTime = Calendar.getInstance();
 		if (actBean.getActbegin() != null) {
@@ -209,9 +204,6 @@ public class ActivityPageController {
 		else
 			model.addAttribute("memberid", null);
 
-
-		model.addAttribute("flag", flag);
-		
 
 				return "activityPage";
 

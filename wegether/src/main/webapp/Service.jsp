@@ -233,30 +233,6 @@ footer>ul>li ul {
 					<td>${errors.action}</td>
 				</tr>
 			</form>
-				<span>
-					<form action="/Trackmember/insert" method="GET">
-						<input type="text" name="Memberid">Memberid</input> <input
-							type="submit" name="insert" value="加追蹤">${output.result}
-					</form>
-					<br>
-
-					<form action="<c:url value="/Trackmember.delete" />" method="POST">
-						<input type="text" name="Memberid">Memberid</input> <input
-							type="submit" name="delete" value="取消追蹤">
-					</form>
-					<br>
-
-					<form action="<c:url value="/BlackList.insert" />" method="POST">
-						<input type="text" name="blackid">Memberid</input> <input
-							type="submit" name="insert" value="加黑名單">
-					</form>
-					<br>
-
-					<form action="<c:url value="/BlackList.delete" />" method="POST">
-						<input type="text" name="blackid">Memberid</input> <input
-							type="submit" name="delete" value="取消黑名單">
-					</form>
-					</span>
 			<!-- 			<a href="ServiceSelect.controller" -->
 			<!-- 				class="btn btn-warning form-control">select</a> -->
 
