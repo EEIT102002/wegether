@@ -31,15 +31,17 @@
 <script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
 
 <script>
-var activityid= ${actBean.id};
-
+var activityid = ${actBean.id};
+var  actPicListSize = ${actPicList.size()};
 var flag=0;
+
 	$(function() {
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active')
@@ -47,27 +49,27 @@ var flag=0;
 		})
 		
 
-		$('#upTop').click(function(){
-				var body = $("html, body");
-				body.stop().animate({scrollTop:0}, 500, 'swing');
-			})
-			.mouseover(function(){
-				$(this).removeClass('animated');
-			})
-			.mouseout(function(){
-				$(this).addClass('animated');
-			})
+// 		$('#upTop').click(function(){
+// 				var body = $("html, body");
+// 				body.stop().animate({scrollTop:0}, 500, 'swing');
+// 			})
+// 			.mouseover(function(){
+// 				$(this).removeClass('animated');
+// 			})
+// 			.mouseout(function(){
+// 				$(this).addClass('animated');
+// 			})
 			
 		// 推薦 /點閱率 /收藏 文字提示效果
 		$("[data-toggle='tooltip']").tooltip();
 		
-		//點閱率 按鍵圖示
-		$('#favorButton').click(function(){
-			if (flag == 0) {
-				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
-	 		} else {
-	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
-		})
+		//收藏 按鍵圖示
+// 		$('#favorButton').click(function(){
+// 			if (flag == 0) {
+// 				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
+// 	 		} else {
+// 	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
+// 		})
 		
 		//切換留言版面 
 		$('#msgButId').click(function(){
@@ -127,22 +129,7 @@ var flag=0;
 		
 	})
 	
-	//activityPage 輪播使用
-	var picNo = 1;
-	var timerObj = setInterval(autoPlay, 1500);
-	function autoPlay() {
-		picNo++;
-		if (picNo > "${actPicList.size()}" ) picNo = 1;
-		selectPic();
-	}
-
-	function selectPic() {
-		for (var i = 1; i <= "${actPicList.size()}" ; i++)
-			 $("#imd" + i).attr("style","border:2px solid #FFBB00");
- 		 $("#imd" + picNo).attr("style","border:3px solid red");
-		 $("#imd0").attr("src",$("#imd" + picNo).attr("src"));
-	}
-	//activityPage 輪播使用  end	
+	
 	
 	
 	function loginDo(){
@@ -351,9 +338,10 @@ footer>ul>li ul {
 									src="images/activityPageImages/invite.png" width="50"></a>&emsp;
 								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
 									<img src="images/activityPageImages/click2.png" width="50">
-								</span>${actBean.click}&emsp; <a href="#" class="tooltip-test"
-									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton"
-									src="images/activityPageImages/favoritesOff.png" width="50"></a>
+								</span>${actBean.click}&emsp; 
+<!-- 								<a href="#" class="tooltip-test" -->
+<!-- 									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton" -->
+<!-- 									src="images/activityPageImages/favoritesOff.png" width="50"></a> -->
 							</div>
 						</div>
 

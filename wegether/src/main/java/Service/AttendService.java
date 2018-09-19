@@ -103,4 +103,13 @@ public class AttendService {
 		AttendBean bean = attendDAO.selectByActivityAndMember(activityid, memberid);
 		return bean;
 	}
+	
+	public boolean attendDelete(int attendid) {
+		AttendBean bean = attendDAO.select(attendid);
+		boolean result = false;
+		if(bean!=null) {
+			 result = attendDAO.delete(attendid);
+		}
+		return result;
+	}
 }

@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,5 +68,17 @@ public class ActivityPageLoginOutController {
 		return new  ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
+	
+	@DeleteMapping(path= {"/wegether/activity/attend/check/{id}"}, produces= {"application/json"})
+	public ResponseEntity<?> delete(@PathVariable(name="id") Integer attendid ) throws URISyntaxException{
+		System.out.println("@DeleteMapping");
+		Boolean result = attendService.attendDelete(attendid);
+			if(result) {
+				return new  ResponseEntity<>(result,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);	
+			}
+		
+	}
 	
 }
