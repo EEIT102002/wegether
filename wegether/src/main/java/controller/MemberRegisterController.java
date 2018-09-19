@@ -66,6 +66,7 @@ public class MemberRegisterController extends HttpServlet {
 		System.out.println(memberid);
 
 		
+
 		// 帳號信箱驗證
 		String email = bean.getAccount();
 		Pattern patternemail = Pattern.compile("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$");
