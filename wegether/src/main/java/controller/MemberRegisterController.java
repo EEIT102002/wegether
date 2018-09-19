@@ -199,6 +199,7 @@ public class MemberRegisterController extends HttpServlet {
 		} else {
 			System.out.println(bean);
 			memberDAOHibernate.insert(bean);
+//			bean.getId()
 			// flag=1;
 
 			return "register.success";
