@@ -166,6 +166,7 @@ public class MemberRegisterController extends HttpServlet {
 			errors.put("pwd2", "密碼不一致");
 		}
 
+
 		// 電話錯誤訊息
 		if (bean.getTel() == null || bean.getTel().length() == 0) {
 			errors.put("tel", "請輸入手機號碼");

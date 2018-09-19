@@ -4,7 +4,7 @@ $(function () {
     logoutSpan = $('#logoutSpan');
     loginSpan = $('#loginSpan');
     logindiv = $('#login');
-    loginSub = $('#logoutSubSpanA');
+    logoutSub = $('#logoutSubSpanA');
     loginRing = $('#liRing');
     	$.post(
     	        "/wegether/login.check"
@@ -35,7 +35,7 @@ $(function () {
             , "json"
         )
     })
-    loginSub.click(function () {
+    logoutSub.click(function () {
         logoutf();
     })
     $('#loginform').on("click","input",function(){
@@ -55,15 +55,17 @@ function logingroup(data){
 }
 
 function logoutf(){//登出要執行的功能
+	console.log('close1');
 	$.post(
             "/wegether/logout.do"
             , ""
             , function (data) {
                 if (data.state == true) {
+                	noticeClose();
                 	logtoggle();
                     if(typeof window.logoutDo === "function") {
                         logoutDo();//登出後要做的方法放在logoutDo()
-                    }
+                    }  
                 }
             }
             , "json"

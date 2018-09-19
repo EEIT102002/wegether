@@ -48,6 +48,13 @@ public class AttendDAOHibernate implements AttendDAO {
 				.setParameter("activityid",actID).list();		
 	}
 	
+	private final String selectByActivityAndStateHql = selectByActID+" and state = :state";
+	public List<AttendBean> selectByActivityAndState(int activityid , int state) {
+		return this.getSession().createQuery(selectByActID, AttendBean.class)
+				.setParameter("activityid",activityid)
+				.setParameter("state", state).list();		
+	}
+	
 	private final String selectByActivityAndMember = "from AttendBean  WHERE activityid = :activityid and memberid = :memberid";
 	public AttendBean selectByActivityAndMember(int activityid, int memberid) {
 		return this.getSession().createQuery(selectByActivityAndMember, AttendBean.class)

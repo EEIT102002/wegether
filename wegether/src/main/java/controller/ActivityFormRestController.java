@@ -31,7 +31,7 @@ public class ActivityFormRestController {
 	private AttendService attendService;
 
 	@PostMapping(path = "/Rest/activity/apply/{id}", produces = { "application/json" })
-	public ResponseEntity<?> getApply(@RequestParam Map<String, String> data,
+	public ResponseEntity<?> applyActivity(@RequestParam Map<String, String> data,
 			@PathVariable(name = "id") Integer activityid,
 			@RequestAttribute(name = "memberid", required = false) Integer memberid,
 			HttpServletRequest request) {
@@ -42,12 +42,12 @@ public class ActivityFormRestController {
 		Map<String, Object> result = new HashMap<>();
 		result.put("errors", errors);
 		String answer = service.checkActivityForm(activityid, data, errors);
+		System.out.println(answer);
 		if (answer == null) {
 			result.put("state", false);
-		} else if (errors.size() <= 0) {
-			AttendBean bean = attendService.attend(activityid, memberid, answer);
+		}else if (errors.size() <= 0) {
+			AttendBean bean = attendService.apply(activityid, memberid, answer);
 			if (bean != null) {
-				System.out.println(activityid);
 				result.put("state", true);
 				request.setAttribute("id", bean.getId());
 				request.setAttribute("ntype", 4);
@@ -62,11 +62,10 @@ public class ActivityFormRestController {
 	}
 
 	@GetMapping(path = { "/Rest/activity/applyform/{id}" }, produces = { "application/json" })
-	public @ResponseBody ResponseEntity<?> searchByNickname(@PathVariable Integer id) {
+	public @ResponseBody ResponseEntity<?> getActivityForm(@PathVariable Integer id) {
 		if (id == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-
 		JSONObject result = service.getApplyForm(id);
 
 		if (result != null) {
