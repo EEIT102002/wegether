@@ -42,6 +42,19 @@ var activityid = ${actBean.id};
 var  actPicListSize = ${actPicList.size()};
 var flag=0;
 
+	document.addEventListener("DOMContentLoaded", function () {
+	            var areas=document.querySelectorAll("img")
+	            var a=areas.length;
+	           
+				for(var i=1;i<=a;i++){
+	                if(i<=ck){
+	                document.getElementById("idstar"+i).className = "n";
+	                }else{
+	                document.getElementById("idstar"+i).className = "s";
+	                }
+	            }
+	        });
+	
 	$(function() {
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active')
@@ -210,6 +223,17 @@ footer>ul>li ul {
 #applyCheck .modal-body h4,
 #applyState .modal-body h4{
 	    text-align: center;
+}
+
+/* 星級評分 */
+.s {
+	-webkit-filter: grayscale(1); /*沒有任何色彩的黑白影像*/
+	width: 50px;
+}
+
+.n {
+	-webkit-filter: grayscale(0); /*顏色不變*/
+	width: 50px;
 }
 </style>
 </head>
@@ -397,10 +421,52 @@ footer>ul>li ul {
 						<div style="text-align: center" id = "memBut">
 							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
 						</div>
-						<!-- right7 end -->
+						
+						<!-- 活動評價 -->
+					<div id="second">	
+							<br>					
+						<table border="0">
+							<tr>
+								<td style="font-weight: bold">活動滿意度:</td><td>0</td>
+							</tr>
+							<tr>
+								<td ><img id="idstar1" class="s"
+									src="images/star.png" /> <img id="idstar2" class="s"
+									src="images/star.png" /> <img id="idstar3" class="s"
+									src="images/star.png" /> <img id="idstar4" class="s"
+									src="images/star.png" /> <img id="idstar5" class="s"
+									src="images/star.png" /></td>
+							</tr>
+						
+							<tr>
+								<td style="font-weight: bold">溝通安排:</td><td>0</td>
+							</tr>
+							<tr>
+								<td ><img id="1dstar1" class="s"
+									src="images/star.png" /> <img id="1dstar2" class="s"
+									src="images/star.png" /> <img id="1dstar3" class="s"
+									src="images/star.png" /> <img id="1dstar4" class="s"
+									src="images/star.png" /> <img id="1dstar5" class="s"
+									src="images/star.png" /></td>
+							</tr>
+							
+							<tr>
+								<td style="font-weight: bold">時間地點選擇:</td><td>0</td>
+							</tr>
+							<tr>
+								<td ><img id="2dstar1" class="s"
+									src="images/star.png" /> <img id="2dstar2" class="s"
+									src="images/star.png" /> <img id="2dstar3" class="s"
+									src="images/star.png" /> <img id="2dstar4" class="s"
+									src="images/star.png" /> <img id="2dstar5" class="s"
+									src="images/star.png" /></td>
+							</tr>
+						</table>
 
 					</div>
-					<!-- 上右區塊 end -->
+					<!-- 活動評價 END-->
+			</div>
+			<!-- 上右區塊 end -->
 
 				</div>
 				<!-- 上面區 end -->

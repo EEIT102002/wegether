@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home</title>
+<title>問題回報</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -93,19 +94,6 @@ footer>ul>li ul {
 
 .container p {
 	color: white;
-}
-
-/* 清單CSS */
-#css_table {
-	display: table;
-}
-
-.css_tr {
-	display: table-row;
-}
-
-.css_td {
-	display: table-cell;
 }
 </style>
 </head>
@@ -208,61 +196,68 @@ footer>ul>li ul {
 	</div>
 	<div class="container">
 		<div id="small_con">
-			<!--       寫在這 -->
+			<!-- 寫在這 -->
 
-									<h3>Select Service Table Result : ${fn:length(select)} 筆資料</h3>
-									<td>${errors.SelectResult}</td>
-									<c:if test="${not empty select}">
-										<table>
-											<thead>
-												<tr>
-													<th>提問時間</th>
-													<th>會員ID</th>
-													<th>標題</th>
-													<th>類型</th>
-													<th>內容描述</th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach var="obj" items="${select}">
-													<c:url value="/ServiceEditPage.jsp" var="link" scope="page">
-														<c:param name="memberid" value="${obj.memberid}" />
-														<c:param name="id" value="${obj.id}" />
-														<c:param name="asktime" value="${obj.asktime}" />
-														<c:param name="title" value="${obj.title}" />
-														<c:param name="classtype" value="${obj.classtype}" />
-														<c:param name="content" value="${obj.content}" />
-													</c:url>
-													<tr>
-														<div>
-															<span>
-																<td>${obj.asktime}</td>
-																<td><a href="${link}">${obj.memberid}</td>
-																<td><a href="${link}">${obj.title}</td>
-															</span> <span>
-																<td><c:if test="${obj.classtype==1}">會員(例如登入或密碼問題)</c:if>
-																	<c:if test="${obj.classtype==2}">系統錯誤回報</c:if> <c:if
-			 															test="${obj.classtype==3}">建議</c:if> <c:if  
-																		test="${obj.classtype==4}">其他</c:if></td>  
-															</span>
 
-														</div>
-														<td>${obj.content}</td>
-														<td><input type="hidden" name="id" value="${param.id}"></input></td>
-													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-									</c:if>
+			<!-- 按鈕 -->
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#exampleModalLong">Launch demo modal</button>
 
 
 
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModalLong" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalLongTitle"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">審核列表</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!--清單內容 -->
 
-			<h3>
-				<a href="<c:url value="/Service.jsp" />">Service 回報區</a>
-			</h3>
+
+							<table>
+								<tr>
+									<td>標題</td>
+									<td>回應</td>
+									<td>日期</td>
+									<tr>
+    
+								<tr>
+        							<td>如何停用WordPress內建搜尋功能？</td>
+        							<td>5</td>
+        							<td>2011-10-30</td>
+    
+								<tr>
+
+							</table>
+						
+						
+						<!--內容結尾 --></div>
+
+														<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save
+								changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
+
+
+
+			<!-- 內容底 -->
+			<!-- 			<a href="ServiceSelect.controller" -->
+			<!-- 				class="btn btn-warning form-control">select</a> -->
 		</div>
 	</div>
 

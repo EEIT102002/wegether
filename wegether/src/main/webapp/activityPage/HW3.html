@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zn-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EEIT10214 吳宗諭</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            background-image: url("images/b1.jpg");            
+            background-size: cover;             
+        }
+        .star{
+                margin:40px;
+                text-align: center;
+                font-size: 50px;
+                color:#CC0000;
+                height: 50px;
+            }
+            .s {
+                -webkit-filter: grayscale(1);  /*沒有任何色彩的黑白影像 webkit filter 濾鏡 */
+             }
+            .n {
+                -webkit-filter: grayscale(0);  /*顏色不變*/
+            }            
+        </style>
+        <script>
+            var flag=true;        
+            document.addEventListener("DOMContentLoaded", function () {
+                var imgs=document.images;  
+                for(var i=1;i<imgs.length;i++){  
+                    imgs[i].addEventListener("mouseover",mouseover);
+                    imgs[i].addEventListener("mouseout",mouseout);
+                    imgs[i].addEventListener("click",click);
+                } 
+                nowTimePlay();});
+            var nowtimeObj=setInterval(nowTimePlay,1000);  
+           function nowTimePlay(){
+                var d=new Date();
+                var nowYear=d.getFullYear()-1911;
+                var nowMonth=d.getMonth()+1;
+                var nowDate=d.getDate();
+                var nowHour=('0'+ d.getHours()).substr(-2);
+                var nowMin=('0'+ d.getMinutes()).substr(-2);
+                var nowSec=('0'+ d.getSeconds()).substr(-2);
+                document.getElementById("nowtimeli").
+                textContent=nowYear+" 年 "+nowMonth+" 月 "+nowDate+" 日 "+nowHour+" : "+nowMin+" : "+nowSec;
+            }
+                    
+            function mouseover(){
+                var leng=this.id.substr(5);    
+                           
+                document.getElementById("spa").textContent="評分中... "+leng;            
+                for(var i=1;i<document.images.length;i++){ 
+                    if(i<parseInt(leng)+1)                      
+                        document.images[i].className = "n";
+                    else
+                        document.images[i].className = "s";             
+                }            
+            }        
+    
+            function mouseout(){                    
+                 if(flag){
+                    document.getElementById("spa").textContent="";  
+                    for(var i=1;i<document.images.length+1;i++)              
+                         document.images[i].className = "s";           
+                 }           
+                 flag=true;
+            }
+           
+            function click(){
+                var leng=this.id.substr(5);           
+                document.getElementById("spa").textContent="恭喜您獲得 "+ leng +" 顆星";
+                flag=false;
+            }
+        </script>
+</head>
+
+<body>
+    <div id="allpage">
+
+        		<div class="content">
+                	<h2 class="title">評點製作</h2>
+                        <img id="idimg1" class="s" src="../images/star.png" />
+                        <img id="idimg2" class="s" src="../images/star.png" />
+                        <img id="idimg3" class="s" src="../images/star.png" />
+                        <img id="idimg4" class="s" src="../images/star.png" />
+                        <img id="idimg5" class="s" src="../images/star.png" />
+                        <div class="star">
+                        <spa id="spa"></spa>
+                     </div>                    
+                
+    </div>
+</body>
+
+</html>
