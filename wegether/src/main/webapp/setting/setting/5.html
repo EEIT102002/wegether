@@ -11,7 +11,7 @@
         <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
         <link rel="stylesheet" href="/wegether/setting/css/friendlist.css">
         <script>
-            var rowtemp = '<div><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="trackButton"><button type="button" value="delete">取消追蹤</button></div></div>';
+            var rowtemp = '<div><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="trackButton"><button type="button" value="delete">取消</button></div></div>';
             var friendList;
             $(document).ready(function () {
                 friendList = $('.friendList');
@@ -24,7 +24,6 @@
                 		,'memberid='+e.parent().attr('memberid')
                 		,function(data){
                 			if(data.state){
-                				console.log('成功');
                 				e.parent().parent().remove()
                 			}		
                 		}
@@ -80,7 +79,7 @@
                 <div class="friendsearch">
                     <form id="search">
                         <input type="text" name="nickname" id="">
-                        <button type="submit" >追蹤</button>
+                        <button type="submit" >新增追蹤</button>
                     </form>
                 </div>
                 <div class="friendList">

@@ -149,9 +149,7 @@ var flag=0;
 	console.log("Member login");
 	 $.get("wegether/activity/attend/check/"+activityid,
 			  function(data){	
-				console.log("data.attNo="+data.attNo)
-				console.log("data.state="+data.state)
-	 			idCheck(data.attNo,data.state);
+	 			idCheck(data);
 	 
 	 },'json');	
 	
@@ -212,6 +210,19 @@ footer>ul>li ul {
 }
 .container p {
 	color: white;
+}
+
+#applyForm .modal-header .close,
+#applyCheck .modal-header .close,
+#applyState .modal-header .close{
+	margin-top: -10px;
+	margin-right: -5px;
+	font-size: 20px;
+}
+
+#applyCheck .modal-body h4,
+#applyState .modal-body h4{
+	    text-align: center;
 }
 </style>
 </head>
@@ -395,8 +406,8 @@ footer>ul>li ul {
 						<p style="text-align: center">${attedNumber}</p>
 						
 						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
-						<div style="text-align: center">
-							<button id="memBut" type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
+						<div style="text-align: center" id = "memBut">
+							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
 						</div>
 						<!-- right7 end -->
 
@@ -437,9 +448,8 @@ footer>ul>li ul {
 			<!--       寫在這以上 -->
 		</div>
 	</div>
-		<div class="modal fade" id="applyForm" role="dialog">
+	<div class="modal fade" id="applyForm" role="dialog">
 		<div class="modal-dialog">
-
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
@@ -448,10 +458,26 @@ footer>ul>li ul {
 				</div>
 				<div class="modal-body"></div>
 				<div class="modal-footer">
-					<button type="button" id='sendApply' class="btn btn-default">上傳</button>
+					<button type="button" id='sendApply' class="btn btn-default">報名</button>
 				</div>
 			</div>
 
+		</div>
+	</div>
+	<div class="modal fade" id="applyCheck" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+				<h4>確定報名?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default">確定</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	

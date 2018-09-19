@@ -24,7 +24,6 @@
                 		,'blackid='+e.parent().attr('blackid')
                 		,function(data){
                 			if(data.state){
-                				console.log('成功');
                 				e.parent().parent().remove()
                 			}		
                 		}
@@ -80,7 +79,7 @@
                 <div class="friendsearch">
                     <form id="search">
                         <input type="text" name="nickname" id="">
-                        <button type="submit" >加入黑名單</button>
+                        <button type="submit" >新增黑名單</button>
                     </form>
                 </div>
                 <div class="friendList">

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import Service.ActivityService;
 import Service.AttendService;
 import model.ActivityBean;
 import model.AttendBean;
@@ -42,22 +43,28 @@ public class ActivityPageLoginOutController {
 
 	@Autowired
 	private AttendService attendService;
+	@Autowired
+	private ActivityService activityService;
 
 	
 	@GetMapping( path= {"/wegether/activity/attend/check/{id}"}, produces= {"application/json"})
-	public  ResponseEntity<Map<String, Integer>>  attendCheck(@PathVariable(name="id") Integer activityid,
-		@RequestAttribute(name = "memberid", required = false) Integer memberid) throws URISyntaxException {
+	public  ResponseEntity<?>  attendCheck(@PathVariable(name="id") Integer activityid,
+		@RequestAttribute("memberid") Integer memberid) throws URISyntaxException {
 			System.out.println("activityid="+activityid+" memberid="+memberid);
 		
-		if(memberid!=null) {
-			System.out.println("resultMap1");
-			//1:主辦人 2:已報名者 3:未報名者
-			Map resultMap = attendService.attendCheck(activityid,memberid);
-			System.out.println("resultMap="+resultMap);
-			return new  ResponseEntity<Map<String, Integer>>(resultMap,HttpStatus.OK );
-		}else {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		Map<String, Object> result = new HashMap<>();
+		boolean host = activityService.checkHost(memberid, activityid);
+		result.put("host",host);
+		if(!host) {
+			AttendBean bean = attendService.attendCheck(activityid,memberid);
+			if(bean != null) {
+				result.put("state", bean.getState() );
+				result.put("attendid", bean.getId());
+			}else {
+				result.put("state", null);
+			}
 		}
+		return new  ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
 	

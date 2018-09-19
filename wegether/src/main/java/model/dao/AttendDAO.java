@@ -18,4 +18,6 @@ public interface AttendDAO {
 	public abstract AttendBean update(AttendBean bean);
 
 	public abstract boolean delete(int id);
+	public abstract List<AttendBean> selectByActivityAndState(int activityid , int state);
+		
 }

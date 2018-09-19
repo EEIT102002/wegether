@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,10 +57,14 @@ public class ActivityPageController {
 		webDataBinder.registerCustomEditor(java.util.Date.class,
 				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
-
+	///activityPage.controller?actid=1#
+	// "/activity/{id}"
+	
+	// @PathVariable(name= "id",required= false) Integer actid
 	@RequestMapping("/activityPage.controller")
 	public String method(Model model, Integer actid,
-			@RequestAttribute(name = "memberid", required = false) Integer memberid) {
+			@RequestAttribute(name = "memberid", required = false) Integer memberid
+			) {
 		System.out.println("id :" + memberid);
 		
 		// flag= 0:未登入 1:主辦人 2:已報名者 3:未報名者

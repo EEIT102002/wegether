@@ -89,7 +89,7 @@ public class MsgDAOHibernate implements MsgDAO {
 			getSession().delete(delete);
 			return true;
 		}
-		return null;
+		return false;
 	}
 
 }
