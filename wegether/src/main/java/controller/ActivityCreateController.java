@@ -8,23 +8,30 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import Service.ActivityFormService;
 import model.ActivityBean;
+import model.PictureBean;
 import model.dao.ActivityDAO;
+import model.dao.PictureDAO;
 
 @Controller
 @SessionAttributes(names = { "errMsgs", "colVal" })
@@ -32,6 +39,14 @@ public class ActivityCreateController {
 
 	@Autowired
 	private ActivityDAO activityDAO;
+	@Autowired
+	private ActivityFormService activityFormService;
+
+	@Autowired
+	PictureDAO pictureDAO;
+
+	@Autowired
+	ApplicationContext context;
 
 	@RequestMapping(path = { "/actCreate.controller" }, method = RequestMethod.POST)
 	public String actCreate(Model model, ActivityBean activityBean, BindingResult bindingResult,
@@ -41,8 +56,17 @@ public class ActivityCreateController {
 			@RequestParam(required = false) String dateline,
 			@RequestParam(value = "endTime", required = false) String endDate,
 			@RequestParam(value = "endTimepicker", required = false) String endTime,
-			@RequestParam(value = "applyform", required = false) String applyform) throws ParseException, IOException {
+			@RequestParam(value = "applyform", required = false) String applyform,
+			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
+			@RequestAttribute(value = "memberid", required = false) Integer id
+			,HttpServletRequest request) throws ParseException, IOException {
 		System.out.println("actCreate()");
+
+		if (id == null) {
+			model.addAttribute("loginFail", "請登入");
+			return "index.success";
+		}
+
 		System.out.println(applyform);
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errMsgs", errors);
@@ -115,10 +139,17 @@ public class ActivityCreateController {
 			activityBean.setActend(cc);
 		}
 
-		activityBean.setHostid(3);
+		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
-
+		
+		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
+		if(applyform == null) {
+			formJson.put("hasForm", false);	
+		}else {
+			formJson.put("hasForm", true);	
+		}
+		applyform = formJson.toString();
 		activityBean.setForm(applyform);
 		System.out.println(startDate);
 		System.out.println(starttime);
@@ -126,6 +157,20 @@ public class ActivityCreateController {
 
 		activityDAO.insert(activityBean);
 
+		int activityid = activityDAO.getActivityId(3, aa, bb); // 改
+		System.out.println("activityid = " + activityid);
+
+		if (files != null && files.length > 0) {
+			for (int i = 0; i < files.length; i++) {
+				PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
+				pictureBean.setActivityid(activityid);
+				byte[] pics = files[i].getBytes();
+				pictureBean.setPicture(pics);
+				pictureDAO.insert(pictureBean);
+			}
+		}
+		request.setAttribute("id", activityBean.getId());
+		request.setAttribute("ntype", 11);
 		return "actCreateSuc.page";
 	}
 

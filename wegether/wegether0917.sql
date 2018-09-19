@@ -19,7 +19,7 @@ account	varchar(50) UNIQUE NOT NULL,	--帳號
 pwd	varbinary(50) NOT NULL,	--密碼
 photo	varbinary(max) , --大頭照,	
 name	nvarchar(50)	NOT NULL,	--姓名	
-nickname	nvarchar(50) default name ,	--暱稱	
+nickname	nvarchar(50) ,	--暱稱	
 birthday	date not null,		--生日	
 sex	int  check(sex between 0 and 1)	,	--性別	
 job	nvarchar(50), 		--職業	
@@ -301,7 +301,7 @@ begin
 	(select nickname
 		from member 
 		where id = @memberid
-		)+','+@memberid
+		)+','+cast(@memberid as varchar)
 end
 go
 
@@ -378,7 +378,7 @@ returns nvarchar(max)
 as
 begin
 	return dbo.notice_name(@memberid)
-		+','+(select title from activity where id = @activityid)+','+@activityid
+		+','+(select title from activity where id = @activityid)+','+cast(@activityid as varchar)
 end
 go
 
@@ -413,7 +413,7 @@ returns nvarchar(max)
 as
 begin
 	return dbo.notice_name(@memberid)
-		+','+@title+','+@activityid
+		+','+@title+','+cast(@activityid as varchar)
 end
 go
 
@@ -421,7 +421,7 @@ create trigger notice_attend_insert on attend  --attend table 新增時 notice t
 for insert
 as
 begin
-declare @hostid int, @title nvarchar(40)
+declare @hostid int, @title nvarchar(40), @activityid int
 if (select state from inserted ) = 0
 begin
 	select  @hostid= hostid , @title = title, @activityid = id
@@ -474,7 +474,7 @@ select  memberid, id ,
 	(case istate 
 		when 1 then 6 --報名成功6
 		when 2 then 7 --報名失敗7
-		end),title+','+activityid
+		end),title+','+cast(activityid as varchar)
 from #uattend
 where dstate = 0
 
@@ -517,8 +517,10 @@ for insert
 as
 begin
 	declare @hostname nvarchar(max)
-	set @hostname = dbo.notice_name((select hostid from inserted))
-		+','+(select title from inserted)  -- 發起新活動 11
+	set @hostname = dbo.notice_name_titlestr(
+	(select hostid from inserted), 
+	(select title from inserted),
+	(select id from inserted))  -- 發起新活動 11
 
 	insert into notice(memberid,content,noticetime , activityid, ntype)
 	(select memberidf, @hostname, i.createtime ,i.id, 11
@@ -647,7 +649,7 @@ create function notice_title
 returns nvarchar(max)
 as
 begin
-	return (select title+','+id from activity where id = @activityid)
+	return (select title+','+cast(id as varchar) from activity where id = @activityid)
 end
 go
 
