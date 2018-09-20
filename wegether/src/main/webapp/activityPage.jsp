@@ -40,7 +40,14 @@
 
 <script>
 var activityid = ${actBean.id};
-var  actPicListSize = ${actPicList.size()};
+var  actPicListSize;
+if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
+	 actPicListSize = ${actPicListSize} ;
+ }else{
+	 actPicListSize =0;
+ }
+
+
 // var flag=0;
 	$(function() {
 		$('#header_nav ul li').click(function() {
