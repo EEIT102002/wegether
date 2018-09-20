@@ -71,39 +71,48 @@
 		document.getElementById("idName").addEventListener("blur", chkName); //事件繫結，焦點離開 
 		document.getElementById("idaddr").addEventListener("blur", chaddr); //事件繫結，焦點離開  
 		document.getElementById("idjob").addEventListener("blur", chjob); //事件繫結，焦點離開  
+		document.getElementById("idbh").addEventListener("blur", chbh); //事件繫結，焦點離開 
 	});
 	
 	//帳號驗證消除
 	function chkaccount() {
 		var idaccount = document.getElementById("idaccount").value;
 		if (idaccount == "") {
-			document.getElementById("idspaccount").innerHTML = "帳號不可為空白";
+			document.getElementById("idspaccount").innerHTML = "*帳號不可為空白";
 		} else
-			document.getElementById("idspaccount").innerHTML = "";
+			document.getElementById("idspaccount").innerHTML = "*";
 	}
 	//密碼驗證消除
 	function chkpassword() {
 		var idpassword = document.getElementById("idpassword").value;
 		if (idpassword == "") {
-			document.getElementById("idsppassword").innerHTML = "密碼不可為空白";
+			document.getElementById("idsppassword").innerHTML = "*密碼不可為空白";
 		} else
-			document.getElementById("idsppassword").innerHTML = "";
+			document.getElementById("idsppassword").innerHTML = "*";
 	}
 	//確認密碼驗證消除
 	function chkrepassword() {
 		var idrepassword = document.getElementById("idrepassword").value;
 		if (idrepassword == "") {
-			document.getElementById("idsprepassword").innerHTML = "確認密碼不可為空白";
+			document.getElementById("idsprepassword").innerHTML = "*確認密碼不可為空白";
 		} else
-			document.getElementById("idsprepassword").innerHTML = "";
+			document.getElementById("idsprepassword").innerHTML = "*";
 	}
 	//電話驗證消除
 	function chktel() {
 		var idtel = document.getElementById("idtel").value;
 		if (idtel == "") {
-			document.getElementById("idsptel").innerHTML = "電話不可為空白";
+			document.getElementById("idsptel").innerHTML = "*電話不可為空白";
 		} else
-			document.getElementById("idsptel").innerHTML = "";
+			document.getElementById("idsptel").innerHTML = "*";
+	}
+	//日期驗證消除
+	function chbh() {
+		var idbh = document.getElementById("idbh").value;
+		if (idbh == "") {
+			document.getElementById("idspbh").innerHTML = "*日期不可為空白";
+		} else
+			document.getElementById("idspbh").innerHTML = "*";
 	}
 
 	//姓名驗證
@@ -111,11 +120,11 @@
 		var idName = document.getElementById("idName").value;
 		var re = /^[\u4e00-\u9fff]{2,}$/; //中文字在unicode的區間
 		if (idName == "") {
-			document.getElementById("idspName").innerHTML = " <i style='color:red'> 姓名不可為空白</i>";
+			document.getElementById("idspName").innerHTML = "<i style='color:red'>*姓名不可為空白</i>";
 		} else if (re.test(idName))
-			document.getElementById("idspName").innerHTML = "";
+			document.getElementById("idspName").innerHTML = "*";
 		else
-			document.getElementById("idspName").innerHTML = " <i style='color:red' > 必須兩個字以上的中文字！</i>";
+			document.getElementById("idspName").innerHTML = "<i style='color:red' >*必須兩個字以上</i>";
 	}
 // 	//地址中文驗證
 	function chaddr() {
@@ -320,7 +329,7 @@ footer>ul>li ul {
 						<tr>
 							<td>帳&nbsp;號&nbsp;(信&nbsp;箱):</td>
 							<td><input id="idaccount" type="text" name="account"
-								value="${param.account}"><i id="idspaccount" style=color:red;>${inputRrrors.account}</i></td>
+								value="${param.account}"><i id="idspaccount" style=color:red;>*${inputRrrors.account}</i></td>
 
 						</tr>
 						<tr>
@@ -330,13 +339,14 @@ footer>ul>li ul {
 						<tr>
 							<td >密&nbsp;碼:</td>
 							<td><input id="idpassword" type="password" name="pwd" value="${param.pwd}">
-							<i id="idsppassword" style=color:red;>${inputRrrors.pwd}</i>
+							<i id="idsppassword" style=color:red;>*${inputRrrors.pwd}</i>
 							</td>
 						</tr>
 						<tr>
+						   
 							<td>確&nbsp;認&nbsp;密&nbsp;碼:&nbsp;</td>
 							<td><input id="idrepassword" type="password" name="pwd2" value="${param.pwd2}">
-							<i id="idsprepassword" style=color:red;>${inputRrrors.pwd2}</i>
+							<i id="idsprepassword" style=color:red;>*${inputRrrors.pwd2}</i>
 							
 							</td>
 						</tr>
@@ -348,7 +358,7 @@ footer>ul>li ul {
 							<td>姓&nbsp;名:</td>
 							<td><input id="idName" type="text" name="name"
 								value="${param.name}"> 
-								<i style=color:red; id="idspName">${inputRrrors.name}</i>
+								<i style=color:red; id="idspName">*${inputRrrors.name}</i>
 							</td>
 						</tr>
 						<tr>
@@ -365,8 +375,9 @@ footer>ul>li ul {
 						<tr>
 							<td>出&nbsp;生&nbsp;日&nbsp;期:&nbsp;</td>
 							<td><input style="width: 165px; height: 25px;" type="date"
-								name="birthday" value="${param.birthday}" required="required"
-								min="1900-09-06"></td>
+								name="birthday" value="${param.birthday}" min="1900-09-06" id="idbh">
+								<i style=color:red; id="idspbh">*${inputRrrors.birthday}</i>
+							</td>
 						</tr>
 
 						<tr>
@@ -378,7 +389,7 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>職&nbsp;業:</td>
-							<td><input type="text" name="job" value="${param.name}" id="idjob"><i id="idspjob">${inputRrrors.job}</i></td>
+							<td><input type="text" name="job" value="${param.name}" id="idjob"><i style=color:red; id="idspjob">${inputRrrors.job}</i></td>
 						</tr>
 						<tr>
 							<td>城&nbsp;市&nbsp;/&nbsp;地&nbsp;址&nbsp;:&nbsp;</td>
@@ -391,7 +402,7 @@ footer>ul>li ul {
 
 						<tr>
 							<td>電&nbsp;話:</td>
-							<td><input type="text" name="tel" value="${param.tel}" id="idtel"><i id="idsptel" style=color:red>${inputRrrors.tel}</i></td>
+							<td><input type="text" name="tel" value="${param.tel}" id="idtel"><i id="idsptel" style=color:red>*${inputRrrors.tel}</i></td>
 
 						</tr>
 						<tr>

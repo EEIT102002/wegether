@@ -148,9 +148,9 @@ public class MemberRegisterController extends HttpServlet {
 		if (pwdre == null || pwdre.length() == 0) {
 			errors.put("pwd2", "密碼未輸入");
 		} else if (!recheckcode) {
-			errors.put("pwd2", "密碼格式錯誤");
+			errors.put("pwd2", "請在確認密碼");
 		} else if (code.equals(recode) == false) {
-			errors.put("pwd2", "密碼不一致");
+			errors.put("pwd2", "請在確認密碼");
 		}
 
 
@@ -168,6 +168,11 @@ public class MemberRegisterController extends HttpServlet {
 		} else if (!checkname) {
 			errors.put("name", "姓名格式錯誤");
 		}
+		
+		// 日期錯誤訊息
+		if (bean.getBirthday()==null) {
+			errors.put("birthday", "請輸入日期");
+		} 
 
 		// 地址錯誤訊息
 		if (!checkaddr && bean.getAddr().length()>0) {
