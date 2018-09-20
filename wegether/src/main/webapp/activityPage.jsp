@@ -470,7 +470,7 @@ footer>ul>li ul {
 									<img id="idstar35" class="s" src="images/star.png" />
 									<hr>
 								</div>
-								  <input type="submit" value="送出" onclick="check()" class="btn btn-warning"  >
+								  <input type="submit" value="送出"  class="btn btn-warning"  >
 							</form>
 						</div>
 					<!-- 活動評價 END-->
