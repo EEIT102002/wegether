@@ -1,4 +1,6 @@
 //activityPage 輪播使用
+
+if(actPicListSize!=0){
 	var picNo = 1;
 	var timerObj = setInterval(autoPlay, 1500);
 	function autoPlay() {
@@ -13,4 +15,5 @@
  		 $("#imd" + picNo).attr("style","border:3px solid red");
 		 $("#imd0").attr("src",$("#imd" + picNo).attr("src"));
 	}
+}
 	//activityPage 輪播使用  end	
