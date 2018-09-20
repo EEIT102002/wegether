@@ -50,7 +50,7 @@ public class AttendDAOHibernate implements AttendDAO {
 	
 	private final String selectByActivityAndStateHql = selectByActID+" and state = :state";
 	public List<AttendBean> selectByActivityAndState(int activityid , int state) {
-		return this.getSession().createQuery(selectByActID, AttendBean.class)
+		return this.getSession().createQuery(selectByActivityAndStateHql, AttendBean.class)
 				.setParameter("activityid",activityid)
 				.setParameter("state", state).list();		
 	}
@@ -105,9 +105,13 @@ public class AttendDAOHibernate implements AttendDAO {
 		}
 		return false;
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	
+	@Override
+	public Integer selectCountByActivityAndState(int activityid, int state) {
+		return ((Long)getSession().createQuery(
+					"select count(*) from AttendBean where activityid = :activityid and state = :state")
+				.setParameter("activityid", activityid)
+				.setParameter("state", state).uniqueResult()).intValue();
 
 	}
 

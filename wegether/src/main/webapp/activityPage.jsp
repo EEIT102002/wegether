@@ -32,6 +32,7 @@
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/starPage.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
@@ -40,21 +41,7 @@
 <script>
 var activityid = ${actBean.id};
 var  actPicListSize = ${actPicList.size()};
-var flag=0;
-
-	document.addEventListener("DOMContentLoaded", function () {
-	            var areas=document.querySelectorAll("img")
-	            var a=areas.length;
-	           
-				for(var i=1;i<=a;i++){
-	                if(i<=ck){
-	                document.getElementById("idstar"+i).className = "n";
-	                }else{
-	                document.getElementById("idstar"+i).className = "s";
-	                }
-	            }
-	        });
-	
+// var flag=0;
 	$(function() {
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active')
@@ -140,6 +127,19 @@ var flag=0;
 		        }
 		    });
 		
+		//star
+			$('#stardiv1 img').click(click1)
+	        .hover(over1,out1);
+		
+			$('#stardiv2 img').click(click2)
+	        .hover(over2,out2);
+	
+			
+			$('#stardiv3 img').click(click3)
+	        .hover(over3,out3);
+	
+	
+		
 	})
 	
 	
@@ -163,7 +163,7 @@ var flag=0;
 	
 		}
 
-
+	  
 
 </script>
 <style>
@@ -423,47 +423,49 @@ footer>ul>li ul {
 						</div>
 						
 						<!-- 活動評價 -->
-					<div id="second">	
-							<br>					
-						<table border="0">
-							<tr>
-								<td style="font-weight: bold">活動滿意度:</td><td>0</td>
-							</tr>
-							<tr>
-								<td ><img id="idstar1" class="s"
-									src="images/star.png" /> <img id="idstar2" class="s"
-									src="images/star.png" /> <img id="idstar3" class="s"
-									src="images/star.png" /> <img id="idstar4" class="s"
-									src="images/star.png" /> <img id="idstar5" class="s"
-									src="images/star.png" /></td>
-							</tr>
-						
-							<tr>
-								<td style="font-weight: bold">溝通安排:</td><td>0</td>
-							</tr>
-							<tr>
-								<td ><img id="1dstar1" class="s"
-									src="images/star.png" /> <img id="1dstar2" class="s"
-									src="images/star.png" /> <img id="1dstar3" class="s"
-									src="images/star.png" /> <img id="1dstar4" class="s"
-									src="images/star.png" /> <img id="1dstar5" class="s"
-									src="images/star.png" /></td>
-							</tr>
-							
-							<tr>
-								<td style="font-weight: bold">時間地點選擇:</td><td>0</td>
-							</tr>
-							<tr>
-								<td ><img id="2dstar1" class="s"
-									src="images/star.png" /> <img id="2dstar2" class="s"
-									src="images/star.png" /> <img id="2dstar3" class="s"
-									src="images/star.png" /> <img id="2dstar4" class="s"
-									src="images/star.png" /> <img id="2dstar5" class="s"
-									src="images/star.png" /></td>
-							</tr>
-						</table>
-
-					</div>
+						<div id="starBlock">
+							<form action="#">
+								<!-- 活動滿意度-->
+								<div id="stardiv1">
+									<span style="font-weight: bold">活動滿意度:</span>
+									<span id="spa1"  style="font-weight: bold;color:#FF0000;"></span>
+									<br>
+									<img id="idstar11" class="s" src="images/star.png" /> 
+									<img id="idstar12" class="s" src="images/star.png" /> 
+									<img id="idstar13" class="s" src="images/star.png" /> 
+									<img id="idstar14" class="s" src="images/star.png" /> 
+									<img id="idstar15" class="s" src="images/star.png" />
+									<hr>
+								</div>
+								
+								<!-- 溝通安排-->
+								<div id="stardiv2">
+									<span style="font-weight: bold">溝通安排:</span>
+									<span id="spa2"  style="font-weight: bold;color:#FF0000;"></span>
+									<br>
+									<img id="idstar21" class="s" src="images/star.png" /> 
+									<img id="idstar22" class="s" src="images/star.png" /> 
+									<img id="idstar23" class="s" src="images/star.png" /> 
+									<img id="idstar24" class="s" src="images/star.png" /> 
+									<img id="idstar25" class="s" src="images/star.png" />
+									<hr>
+								</div>
+								
+								<!-- 時間地點選擇 -->
+								<div id="stardiv3">
+									<span style="font-weight: bold">時間地點選擇:</span>
+									<span id="spa3"  style="font-weight: bold;color:#FF0000;"></span>
+									<br>
+									<img id="idstar31" class="s" src="images/star.png" /> 
+									<img id="idstar32" class="s" src="images/star.png" /> 
+									<img id="idstar33" class="s" src="images/star.png" /> 
+									<img id="idstar34" class="s" src="images/star.png" /> 
+									<img id="idstar35" class="s" src="images/star.png" />
+									<hr>
+								</div>
+								  <input type="submit" value="送出" onclick="check()" class="btn btn-warning"  >
+							</form>
+						</div>
 					<!-- 活動評價 END-->
 			</div>
 			<!-- 上右區塊 end -->

@@ -68,17 +68,4 @@ public class ActivityPageLoginOutController {
 		return new  ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
-	
-	@DeleteMapping(path= {"/wegether/activity/attend/check/{id}"}, produces= {"application/json"})
-	public ResponseEntity<?> delete(@PathVariable(name="id") Integer attendid ) throws URISyntaxException{
-		System.out.println("@DeleteMapping");
-		Boolean result = attendService.attendDelete(attendid);
-			if(result) {
-				return new  ResponseEntity<>(result,HttpStatus.OK);
-			}else {
-				return new ResponseEntity(HttpStatus.NO_CONTENT);	
-			}
-		
-	}
-	
 }

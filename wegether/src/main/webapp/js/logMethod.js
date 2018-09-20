@@ -23,7 +23,6 @@ $(function () {
             , message
             , function (data) {
                 if (data.state == true) {
-                    console.log($.cookie('token'));
                     var qqq = $(logindiv).closest('.modal');
                     $(qqq).modal('hide');
                     logingroup(data);
@@ -76,7 +75,6 @@ function logtoggle(){ //login或logout後的顯示切換
 	 loginSpan.toggle();
      logoutSpan.toggle();
      loginRing.toggle();
-
 }
 
 
