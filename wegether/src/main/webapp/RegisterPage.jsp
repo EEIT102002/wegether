@@ -124,7 +124,7 @@
 		} else if (re.test(idName))
 			document.getElementById("idspName").innerHTML = "*";
 		else
-			document.getElementById("idspName").innerHTML = "<i style='color:red' >*必須兩個字以上</i>";
+			document.getElementById("idspName").innerHTML = "<i style='color:red' >*必須兩個中文字以上</i>";
 	}
 // 	//地址中文驗證
 	function chaddr() {
