@@ -142,18 +142,27 @@ public class ActivityCreateController {
 		System.out.println(starttime);
 		System.out.println(activityBean);
 
-		activityDAO.insert(activityBean);
+		ActivityBean insertResult = activityDAO.insert(activityBean);
 
-		int activityid = activityDAO.getActivityId(3, aa, bb); // 改
+		if (insertResult == null)
+			errors.put("action", "Insert fail");
+
+		int activityid = activityDAO.getActivityId(id, aa, bb);
 		System.out.println("activityid = " + activityid);
+
+		PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
+		pictureBean.setActivityid(activityid);
+		pictureBean.setPicture(pic);
+		pictureDAO.insert(pictureBean);
 
 		if (files != null && files.length > 0) {
 			for (int i = 0; i < files.length; i++) {
-				PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
-				pictureBean.setActivityid(activityid);
 				byte[] pics = files[i].getBytes();
-				pictureBean.setPicture(pics);
-				pictureDAO.insert(pictureBean);
+				PictureBean pictureBean2 = (PictureBean) context.getBean("pictureBean");
+				pictureBean2.setActivityid(activityid);
+				pictureBean2.setPicture(pics);
+				pictureDAO.insert(pictureBean2);
+
 			}
 		}
 

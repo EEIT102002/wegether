@@ -337,7 +337,7 @@ footer>ul>li ul {
 		</div>
 		</nav>
 	</div>
-	<div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
+<div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<!--白色遮罩層-->
@@ -354,14 +354,19 @@ footer>ul>li ul {
 						</button>
 					</div>
 					<div class="modal-body" id="mid-body">
-						<div class="form-group" id="ACT">
-							<label for="recipient-name" class="col-form-label">帳號:</label> <input
-								type="text" class="form-control" id="account">
-						</div>
-						<div class="form-group" id="PWD">
-							<label for="recipient-name" class="col-form-label">密碼:</label> <input
-								type="text" class="form-control" id="password">
-						</div>
+						<form id="loginform">
+							<p class="loginerror"></p>
+							<div class="form-group" id="ACT">
+								<label for="recipient-name" class="col-form-label">帳號:</label>
+								<input type="text" class="form-control" id="account" name="account">
+							</div>
+							<div class="form-group" id="PWD">
+								<label for="recipient-name" class="col-form-label">密碼:</label>
+								<input type="password" class="form-control" id="pwd" name="pwd">
+							</div>
+							<button type="button" class="btn btn-primary" id="login">登入</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+						</form>
 						<div id="or" class="bg-primary text-white">
 							<h4>or</h4>
 						</div>
@@ -384,9 +389,7 @@ footer>ul>li ul {
 						<p class="small text-left">
 							還沒註冊嗎?趕緊註冊一個帳號吧! <a href="javascript:void(0)">點我註冊</a>
 						</p>
-						<button type="button" class="btn btn-primary">登入</button>
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">取消</button>
+
 					</div>
 				</div>
 			</div>
@@ -544,8 +547,7 @@ footer>ul>li ul {
 									</div>
 									<div class="modal-footer">
 										<button type="submit" class="btn btn-primary">確認送出</button>
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">修改</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">修改</button>
 									</div>
 								</div>
 							</div>

@@ -7,14 +7,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.ActivityBean;
+import model.PictureBean;
 import model.dao.ActivityDAO;
+import model.dao.PictureDAO;
 import pictureconvert.PictureConvert;
 
 @Controller
@@ -35,8 +40,14 @@ public class ActivityEditController {
 	@Autowired
 	ActivityDAO activityDAO;
 
+	@Autowired
+	PictureDAO pictureDAO;
+
+	@Autowired
+	ApplicationContext context;
+
 	@RequestMapping("/actEdit.getBean.controller")
-	public String getBeanToJsp(Model model, int actid,
+	public String getBeanToJsp(Model model, Integer actid,
 			@RequestAttribute(value = "memberid", required = false) Integer id) throws UnsupportedEncodingException {
 		// actid = 55; //整合時記得拿掉
 		// System.out.println("actid:"+actid);
@@ -46,6 +57,9 @@ public class ActivityEditController {
 			return "index.success";
 		}
 
+		List<String> actPics = new ArrayList<>();
+
+		System.out.println("getBeanToJsp() actid = " + actid);
 		ActivityBean result = activityDAO.selectId(actid);
 		model.addAttribute("result", result);
 		model.addAttribute("actid", actid);
@@ -92,7 +106,17 @@ public class ActivityEditController {
 
 		if (result.getPicture() != null) {
 			String pic = PictureConvert.convertBase64Image(result.getPicture());
-			model.addAttribute("actPic", pic);
+			model.addAttribute("actOnePic", pic);
+		}
+
+		// PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
+		List<PictureBean> beanlist = pictureDAO.selectByActivity(actid);
+		int len = beanlist.size();
+		for (int i = 1; i < len; i++) {
+			PictureBean oneBean = beanlist.get(i);
+			String picture = PictureConvert.convertBase64Image(oneBean.getPicture());
+			actPics.add(picture);
+			model.addAttribute("actAllPic", actPics);
 		}
 
 		return "actGetBeanSuc.page";
@@ -193,7 +217,9 @@ public class ActivityEditController {
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 
-		if (activityBean == null)
+		ActivityBean updateResult = activityDAO.update(activityBean);
+
+		if (updateResult == null)
 			return "actEditErr.page";
 
 		return "actEditErr.page";
