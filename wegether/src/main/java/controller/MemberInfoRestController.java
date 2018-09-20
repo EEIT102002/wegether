@@ -124,7 +124,6 @@ public class MemberInfoRestController {
 		if(first == 0) {
 			result.put("count", memberInfoService.friendApplyedCount(id));
 		}
-		
 		JSONArray beans = memberInfoService.searchFreindApplyed(id, first);
 
 		if (beans != null) {

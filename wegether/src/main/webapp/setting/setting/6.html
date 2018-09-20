@@ -47,7 +47,7 @@
                             var row = $(temple);
                             row.find(".name").html(e.nickname);
                             row.find('img').attr('src', e.photoSrc);
-                            row.find('a').attr('href', e.memberid);
+                            row.find('a').attr('href', '/wegether/personal.controller?memberId='+e.memberid);
                             row.find('.blacklistButton').attr('blackid',e.memberid);
                             friendList.append(row);
                             iframe_auto_height();

@@ -140,11 +140,9 @@ public class MemberPersonalController {
 		//檢查是否有收到memberid
 		//防意外狀況
 		if(memberId==null) {
-			System.out.println("Unknow MemberId");
-			System.out.println("預設memberid=1");
-			memberId =new Integer(1);
-		}
-
+			return "index.success";
+		}//防意外狀況
+		
 		//檢查memberid和id關西
 		int status =midAndIdCheckServices.check(id, memberId);// 狀態 1好友2非好友3黑名單4非會員未登入5自己
 		int memberid = memberId;

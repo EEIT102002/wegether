@@ -36,15 +36,18 @@ public class NoticeInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		System.out.println("noticeInterceptor");
 		if (request.getAttribute("id") == null || request.getAttribute("ntype") == null) {
 			HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 			return;
 		}
 		queryBean.getSession().flush();
-		Integer id = (Integer) request.getAttribute("id");
-		Integer ntype = (Integer) request.getAttribute("ntype");
+		int id = (Integer) request.getAttribute("id");
+		int ntype = (Integer) request.getAttribute("ntype");
+		request.setAttribute("id", null);
+		request.setAttribute("ntype", null);
 		List<NoticeBean> beans = noticeService.getNotice(id, ntype);
-
+		System.out.println("id="+id+", ntype = "+ntype);
 		if (beans != null) {
 			beans.forEach(bean -> {
 				LoginBean loginBean = loginMap.get(bean.getMemberid());
@@ -61,6 +64,7 @@ public class NoticeInterceptor implements HandlerInterceptor {
 				}
 			});
 		}
+		
 
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}

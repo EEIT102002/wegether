@@ -34,8 +34,10 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/raty/2.8.0/jquery.raty.min.css">
 <script src="js/review.js" type="text/javascript"></script>
-<link rel="stylesheet"
-	href="css/review.css">
+<link rel="stylesheet" href="css/review.css">
+<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
+<script src="/wegether/js/friendSearchBox.js" type="text/javascript"></script>
+	
 <style>
 * {
 	list-style: none;
@@ -112,7 +114,6 @@ footer>ul>li ul {
 	color: #0044BB;
 	/* 調整地方 */
 }
-
 #right {
 	width: 80%;
 	float: right;
@@ -276,10 +277,7 @@ footer>ul>li ul {
 										</div>
 										<div id="blocklist">
 											<div class="friendsearch">
-												<form id="search">
-													<input type="text" name="nickname" id="">
-													<button type="submit">新增好友邀請</button>
-												</form>
+													<button id="friendsearchButton">邀請好友</button>
 											</div>
 											<div>
 												<div class="friendList panel-group" id="attendlist">
@@ -291,27 +289,22 @@ footer>ul>li ul {
 					</div>
 					<div align="center">
 						<ul class="content_xx">
-							<li type="button" class="btn btn-secondary">2</li>
 						</ul>
 					</div>
 					<div align="center">
 						<ul class="content_xx">
-							<li type="button" class="btn btn-secondary">2</li>
 						</ul>
 					</div>
 					<div align="center">
 						<ul class="content_xx">
-							<li type="button" class="btn btn-secondary">2</li>
 						</ul>
 					</div>
 					<div align="center">
 						<ul class="content_xx">
-							<li type="button" class="btn btn-secondary">2</li>
 						</ul>
 					</div>
 					<div align="center">
 						<ul class="content_xx">
-							<li type="button" class="btn btn-secondary">2</li>
 						</ul>
 					</div>
 					<!-- change_second end -->
@@ -326,7 +319,26 @@ footer>ul>li ul {
 
 		</div>
 	</div>
+    <div class="modal fade" id="friendsearchBox" role="dialog">
+		<div class="modal-dialog">
 
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div>
+					
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
 	<!-- <footer>
 		<div class="container">
 			<p id="fw">Wegther 2018</p>

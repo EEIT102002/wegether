@@ -1,0 +1,19 @@
+#friendsearchBox .modal-header .close{
+	margin-top: -10px;
+	margin-right: -5px;
+	font-size: 20px;
+}
+#friendsearchBox .modal-body{
+	max-height:500px;
+	overflow-y: scroll;
+}
+
+#friendsearchBox .modal-body>div >div{
+	display:flex;
+	align-items: center;
+}
+
+#friendsearchBox .modal-body>div >div>a{
+	display:flex;
+	align-items: center;
+}
