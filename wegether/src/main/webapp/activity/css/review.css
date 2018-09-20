@@ -157,22 +157,3 @@
 }
 
 
-#searchBox .modal-header .close{
-	margin-top: -10px;
-	margin-right: -5px;
-	font-size: 20px;
-}
-#searchBox .modal-body{
-	max-height:500px;
-	overflow-y: scroll;
-}
-
-#searchBox .modal-body>div >div{
-	display:flex;
-	align-items: center;
-}
-
-#searchBox .modal-body>div >div>a{
-	display:flex;
-	align-items: center;
-}

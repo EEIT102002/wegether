@@ -34,8 +34,10 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/raty/2.8.0/jquery.raty.min.css">
 <script src="js/review.js" type="text/javascript"></script>
-<link rel="stylesheet"
-	href="css/review.css">
+<link rel="stylesheet" href="css/review.css">
+<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
+<script src="/wegether/js/friendSearchBox.js" type="text/javascript"></script>
+	
 <style>
 * {
 	list-style: none;
@@ -275,7 +277,7 @@ footer>ul>li ul {
 										</div>
 										<div id="blocklist">
 											<div class="friendsearch">
-													<button type="submit">邀請好友</button>
+													<button id="friendsearchButton">邀請好友</button>
 											</div>
 											<div>
 												<div class="friendList panel-group" id="attendlist">
@@ -317,7 +319,7 @@ footer>ul>li ul {
 
 		</div>
 	</div>
-    <div class="modal fade" id="searchBox" role="dialog">
+    <div class="modal fade" id="friendsearchBox" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
