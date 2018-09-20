@@ -21,7 +21,7 @@ function idCheck(data) {
 				memBut.append($(buttonTemp).text('取消參加').click(function() {
 					console.log("取消參加:"+data.attendid);
 					 $.ajax({
-						  url: 'wegether/activity/attend/check/'+data.attendid,
+						  url: 'attend/cancel/'+data.attendid,
 						  type: 'DELETE',
 						  success:function(){	
 							  loginDo();

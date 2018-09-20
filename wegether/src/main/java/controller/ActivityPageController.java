@@ -170,9 +170,9 @@ public class ActivityPageController {
 			model.addAttribute("actPicList", null);
 
 		if (actPicList.size() != 0)
-			model.addAttribute("actPicListSize", actPicList.size() - 1);
+			model.addAttribute("actPicListSize", actPicList.size());
 		else
-			model.addAttribute("actPicListSize", null);
+			model.addAttribute("actPicListSize", 0);
 
 		if (hostPic!= null)
 			model.addAttribute("hostPic", hostPic);
