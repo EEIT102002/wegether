@@ -377,7 +377,7 @@ footer>ul>li ul {
 <!-- 						<img class="img-circle" -->
 <%-- 							src="data:image/jpg;base64,${picbean.get(0)}" width="280" --%>
 <!-- 							style="position: relative; top: 20px;"> -->
-							<img src="/wegether/member/photo/${pic}">
+							<img src="/wegether/member/photo/${pic}" class="img-circle" width="280" height="280">
 					</div>
 					<div style="text-align: center">
 						<br> <br>
@@ -421,23 +421,23 @@ footer>ul>li ul {
 							<tr>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-<!-- 									<a href="activityPage.controller?actid=1" class="scroll">編輯</a> -->
-										<span>${fc[0]}</span>
+										<c:if test="${fc[0]==1}"><a href="activityPage.controller?actid=1" class="scroll">編輯</a> </c:if>
+
 								</td>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-<!-- 									<a href="activityPage.controller?actid=1" class="scroll">追蹤</a> -->
-										<span>${fc[1]}</span>
+										<c:if test="${fc[1]==1}"><a href="activityPage.controller?actid=1" class="scroll">追蹤</a></c:if>
+										
 								</td>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-<!-- 									<a href="activityPage.controller?actid=1" class="scroll">加入好友</a> -->
-										<span>${fc[2]}</span>
+										<c:if test="${fc[2]==1}"><a href="activityPage.controller?actid=1" class="scroll">加入好友</a> </c:if>
+										
 								</td>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-<!-- 									<a href="activityPage.controller?actid=1" class="scroll">黑名單</a> -->
-										<span>${fc[3]}</span>
+										<c:if test="${fc[3]==1}"><a href="activityPage.controller?actid=1" class="scroll">黑名單</a></c:if>
+
 								</td>
 							</tr>
 						</table>

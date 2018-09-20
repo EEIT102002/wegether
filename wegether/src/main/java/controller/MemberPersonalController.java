@@ -315,11 +315,10 @@ public class MemberPersonalController {
 		//功能列
 		List<String> FunctionColumn = new ArrayList<>();
 		String Edit,Track,addFriend,blackList;
-		Edit = "<a href=\"activityPage.controller?actid=1\" class=\"scroll\">編輯</a>";
-		Track= "<a href=\"activityPage.controller?actid=1\" class=\"scroll\">追蹤</a>";
-		addFriend="<a href=\"activityPage.controller?actid=1\" class=\"scroll\">加入好友</a>";
-		blackList="<a href=\"activityPage.controller?actid=1\" class=\"scroll\">黑名單</a>";
-
+		Edit="1";
+		Track="1";
+		addFriend="1";
+		blackList="1";
 		
 		switch (status) {
 		case 5:

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -212,36 +211,52 @@ footer>ul>li ul {
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLongTitle">審核列表</h5>
+							<h5 class="modal-title" id="exampleModalLongTitle">推薦列表</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body" style="padding: 1px;">
 							<!--清單內容 -->
 
 
-							<table>
-								<tr>
-									<td>標題</td>
-									<td>回應</td>
-									<td>日期</td>
-									<tr>
-    
-								<tr>
-        							<td>如何停用WordPress內建搜尋功能？</td>
-        							<td>5</td>
-        							<td>2011-10-30</td>
-    
-								<tr>
+							<ul Style="margin: 5px">
+								<div id="recommendList">
+									<div>
+										<div style="overscroll-behavior: contain contain">
+											<li class="" id="" style="height: 70px; border-style: solid;border-color:gray">
+												<table>
+													<tr>
+														<td
+															style="margin: auto; height: 65px; width: 66px">
+<%-- 															<img src="/wegether/member/photo/${mid}" class="img-circle"> --%>
+															<a id="picture">照片1</a>
+														</td>
+														<td>
+															<div style="margin-left: 30px;">暱稱</div>
+														</td>
+														<td>
+															<div
+																style="margin-left: 160px; padding: 1px;">
+																<input type="checkbox" value="" name=""
+																	style="margin: auto;">
+															</div>
+														</td>
+													</tr>
+												</table>
+										</div>
+									</div>
+								</div>
+							</ul>
 
-							</table>
-						
-						
-						<!--內容結尾 --></div>
+							<!-- 							<li>星期一</li> -->
+							<!-- 							<li>星期二</li> -->
+							<!-- 							<li>星期三</li> -->
+							<!--內容結尾 -->
+						</div>
 
-														<div class="modal-footer">
+						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Close</button>
 							<button type="button" class="btn btn-primary">Save
