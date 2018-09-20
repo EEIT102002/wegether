@@ -53,7 +53,7 @@ body {
 
 #small_con {
 	width: 100%;
-	min-height: 800px;
+	min-height: 600px;
 	background-color: rgba(255, 255, 255, 0.363);
 }
 
@@ -85,9 +85,6 @@ footer>ul>li ul {
 	color: rgb(255, 153, 0);
 }
 
-.container p {
-	color: white;
-}
 
 #core1 {
 	overflow: auto;
@@ -252,7 +249,7 @@ footer>ul>li ul {
 		<div id="small_con">
 			<!--       寫在這 -->
 			<div>
-				<div id="left">
+				<div id="left" >
 					<ul class="content_xx"
 						style="font-family: Microsoft JhengHei; color: #0044BB;">
 						<li type="button" class="btn btn-secondary changePage">主辦中的活動</li>
@@ -285,7 +282,8 @@ footer>ul>li ul {
 												</form>
 											</div>
 											<div>
-												<div class="friendList"></div>
+												<div class="friendList panel-group" id="attendlist">
+												</div>
 											</div>
 										</div>
 								</div>

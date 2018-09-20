@@ -40,7 +40,8 @@
 
 <script>
 var activityid = ${actBean.id};
-var  actPicListSize = ${actPicList.size()};
+// var  actPicListSize = ${actPicList.size()};
+
 // var flag=0;
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -146,15 +147,15 @@ var  actPicListSize = ${actPicList.size()};
 	
 	
 	function loginDo(){
-	console.log("Member login");
-	 $.get("wegether/activity/attend/check/"+activityid,
-			  function(data){	
-	 			idCheck(data);
-	 
-	 },'json');	
+		console.log("Member login");
+		 $.get("wegether/activity/attend/check/"+activityid,
+				  function(data){	
+		 			idCheck(data);
+		 
+		 },'json');	
 	
 	
-}
+	}
 	
 
 
