@@ -29,7 +29,7 @@ public class FriendDAOHibernate implements FriendDAO {
 	private String HqlSelectPK = "SELECT ID FROM FriendBean WHERE MEMBERID = :MID AND MEMBERIDF = :MIDF";
 
 	@Override
-	public List<FriendBean> select(int memberid) {
+	public List<FriendBean> selectAllFriendByMemberid(int memberid) {
 		@SuppressWarnings("unchecked")
 		Query<FriendBean> query = getSession().createQuery(HqlSelectAll);
 		query.setParameter("MID", memberid);
