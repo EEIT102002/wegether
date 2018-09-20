@@ -142,9 +142,7 @@ public class MemberPersonalController {
 
 		//檢查是否有收到memberid
 		if(memberId==null) {
-			System.out.println("Unknow MemberId");
-			System.out.println("預設memberid=1");
-			memberId =new Integer(1);
+			return "index.success";
 		}//防意外狀況
 		
 //		memberId =new Integer(3);//手動輸入
@@ -200,7 +198,7 @@ public class MemberPersonalController {
 
 		// 大頭照
 		List<String> memPicList = new ArrayList<>();
-		memPicList.add(PictureConvert.convertBase64Image(membeansource.getPhoto()));
+		//memPicList.add(PictureConvert.convertBase64Image(membeansource.getPhoto()));
 		// List<PictureBean> picbean = pictureDaoHibernate.selectByMember(memberid);
 		// picbean.forEach(pic -> {
 		// memPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));

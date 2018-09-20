@@ -117,7 +117,7 @@ public class FriendDAOHibernate implements FriendDAO {
 	public Integer selectCountByMemberFState(int memberidf, int state) {
 		return ((Long)getSession().createQuery(
 				"select count(*) from FriendBean where memberidf = :memberidf and state = :state")
-			.setParameter("memberid", memberidf)
+			.setParameter("memberidf", memberidf)
 			.setParameter("state", state).uniqueResult()).intValue();
 	}	
 	
