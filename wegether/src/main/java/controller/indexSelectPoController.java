@@ -70,25 +70,22 @@ public class indexSelectPoController {
 		List<Object[]> resultlist = new ArrayList<>();
 		if(result.size()>0) {
 			result.forEach(bean->{
-			Object[] obj = new Object[3];
-	 	    StringBuilder sb = new StringBuilder();
-	 		sb.append("data:image/jpg;base64,");
-	 		sb.append(
-	 				org.apache.commons.codec.binary.StringUtils.newStringUtf8(
-						org.apache.commons.codec.binary.Base64.encodeBase64(	 										bean.getPicture(), false)));				
-							sessionFactory.getCurrentSession().evict(bean);
+			Object[] obj = new Object[4];
+			
+				sessionFactory.getCurrentSession().evict(bean);
+				obj[0] = bean;
+				obj[1] = "/wegether/activity/photo/"+bean.getId();
 				obj[2] = bean.getMemberBean().getNickname();
+				obj[3] = "/wegether/member/photo/"+bean.getMemberBean().getId();
+				
+				
 				bean.setMemberBean(null);
 				bean.setArticleBean(null);
 				bean.setPictureBean(null);
 				bean.setAttendBean(null);
 				bean.setInviteBean(null);
-				
-				System.out.println(bean+"<br>");
-				obj[0]= bean;
-				obj[1]=sb.toString();
+				bean.setPicture(null);
 				resultlist.add(obj);
-				System.out.println("if成功");
 				});//forEach end
 				return new ResponseEntity<List<Object[]>>(resultlist, HttpStatus.OK);
 			}//result.size() end
