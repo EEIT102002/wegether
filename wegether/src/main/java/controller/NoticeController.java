@@ -67,4 +67,20 @@ public class NoticeController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	@RequestMapping(path = { "/notice/delete/{id}" }, produces = { "application/json" })
+	public @ResponseBody ResponseEntity<?> deleteNotice(@RequestAttribute("memberid") Integer memberid,
+			@PathVariable(name = "id") Integer attendid) {
+
+		if (noticeService.deleteNotice(memberid, attendid)) {
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@RequestMapping(path = { "/notice/delete" }, produces = { "application/json" })
+	public @ResponseBody ResponseEntity<?> deleteNotice(@RequestAttribute("memberid") Integer memberid) {
+		noticeService.deleteNoticeByMember(memberid);
+		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+
 }

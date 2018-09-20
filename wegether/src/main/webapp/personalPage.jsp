@@ -262,12 +262,12 @@ footer>ul>li ul {
 /* 星級評分 */
 .s {
 	-webkit-filter: grayscale(1); /*沒有任何色彩的黑白影像*/
-	width: 50px;
+	width: 30px;
 }
 
 .n {
 	-webkit-filter: grayscale(0); /*顏色不變*/
-	width: 50px;
+	width: 30px;
 }
 </style>
 </head>
@@ -374,8 +374,9 @@ footer>ul>li ul {
 			<div id="core">
 				<div id="left">
 					<div style="text-align: center">
-						<%--                             <img class="img-circle" src="data:image/jpg;base64,${picbean.get(0)}"  width="280" style="position:relative;top:20px;" >  --%>
-
+						<img class="img-circle"
+							src="data:image/jpg;base64,${picbean.get(0)}" width="280"
+							style="position: relative; top: 20px;">
 					</div>
 					<div style="text-align: center">
 						<br> <br>
@@ -419,23 +420,23 @@ footer>ul>li ul {
 							<tr>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-									<a href="activityPage.controller?actid=1" class="scroll">
-										編輯</a>
+<!-- 									<a href="activityPage.controller?actid=1" class="scroll">編輯</a> -->
+										<span>${fc[0]}</span>
 								</td>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-									<a href="activityPage.controller?actid=1" class="scroll">
-										追蹤</a>
+<!-- 									<a href="activityPage.controller?actid=1" class="scroll">追蹤</a> -->
+										<span>${fc[1]}</span>
 								</td>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-									<a href="activityPage.controller?actid=1" class="scroll">
-										加入好友</a>
+<!-- 									<a href="activityPage.controller?actid=1" class="scroll">加入好友</a> -->
+										<span>${fc[2]}</span>
 								</td>
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
-									<a href="activityPage.controller?actid=1" class="scroll">
-										黑名單</a>
+<!-- 									<a href="activityPage.controller?actid=1" class="scroll">黑名單</a> -->
+										<span>${fc[3]}</span>
 								</td>
 							</tr>
 						</table>
@@ -458,30 +459,66 @@ footer>ul>li ul {
 					<div id="change_one">
 
 						<h4 style="font-weight: bold">暱稱:</h4>
-						<span style="font-size: 15px;">${mem.name}</span>
+						<span style="font-size: 15px;">${mem.nickname}</span>
 						<h4 style="font-weight: bold">出生日期:</h4>
-						<span style="font-size: 15px;"> <fmt:formatDate
-								value="${mem.birthday}" pattern=" MM 月 dd 日" />
+						<span style="font-size: 15px;"> <c:choose>
+								<c:when test="${mem.birthday==null}">
+									<span style="font-size: 15px;">對方未公開</span>
+								</c:when>
+								<c:otherwise>
+									<fmt:formatDate value="${mem.birthday}" pattern=" MM 月 dd 日" />
+								</c:otherwise>
+							</c:choose>
 						</span>
 						<h4 style="font-weight: bold">性別:</h4>
 						<span style="font-size: 15px;"> <%--                               <c:if test="${mem.sex==0}" value="boy"/> --%>
 							<%--                               <c:out value="boy" /> --%> <%--                               <c:if test="${mem.sex==1}" value="girl"/> --%>
 							<%--                               <c:out value="girl" /> --%> <c:if
 								test="${mem.sex==0}">男生 </c:if> <c:if test="${mem.sex==1}">女生 </c:if>
+							<c:if test="${mem.sex==null}">對方未公開 </c:if>
+
 						</span>
 
 						<h4 style="font-weight: bold">職業:</h4>
-						<span style="font-size: 15px;">${mem.job}</span>
+						<span style="font-size: 15px;"> <c:choose>
+								<c:when test="${mem.job==null}">
+									<span style="font-size: 15px;">對方未公開</span>
+								</c:when>
+								<c:otherwise>
+									<span style="font-size: 15px;">${mem.job}</span>
+								</c:otherwise>
+							</c:choose>
+						</span>
 						<h4 style="font-weight: bold">居住縣市:</h4>
-						<span style="font-size: 15px;">${mem.city}</span>
+						<span style="font-size: 15px;"> <c:choose>
+								<c:when test="${mem.city==null}">
+									<span style="font-size: 15px;">對方未公開</span>
+								</c:when>
+								<c:otherwise>
+									<span style="font-size: 15px;">${mem.city}</span>
+								</c:otherwise>
+							</c:choose>
+						</span>
 						<h4 style="font-weight: bold">喜好活動類型:</h4>
-						<span style="font-size: 15px;" id="core1">${mem.favorite}</span>
+						<span style="font-size: 15px;"> <c:choose>
+								<c:when test="${mem.favorite==null}">
+									<span style="font-size: 15px;">對方未公開</span>
+								</c:when>
+								<c:otherwise>
+									<span style="font-size: 15px;">${mem.favorite}</span>
+								</c:otherwise>
+							</c:choose>
+						</span>
 						<h4 style="font-weight: bold">自我簡介:</h4>
-						<span style="font-size: 15px;">${mem.content}</span>
-
-
-
-
+						<span style="font-size: 15px;"> <c:choose>
+								<c:when test="${mem.content==null}">
+									<span style="font-size: 15px;">對方未公開</span>
+								</c:when>
+								<c:otherwise>
+									<span style="font-size: 15px;">${mem.content}</span>
+								</c:otherwise>
+							</c:choose>
+						</span>
 					</div>
 					<!--                               change_one end -->
 					<div id="second">
@@ -495,7 +532,6 @@ footer>ul>li ul {
 									src="images/star.png" /> <img id="idstar4" class="s"
 									src="images/star.png" /> <img id="idstar5" class="s"
 									src="images/star.png" /></td>
-
 							</tr>
 							<tr>
 								<td style="padding: 20px; font-weight: bold">溝通安排:</td>

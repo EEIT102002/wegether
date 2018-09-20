@@ -14,17 +14,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import Service.AttendService;
 import model.ActivityBean;
 import model.AttendBean;
 import model.MemberBean;
-import model.MsgBean;
 import model.PictureBean;
 import model.dao.ActivityDAO;
 import model.dao.AttendDAO;
@@ -55,15 +57,16 @@ public class ActivityPageController {
 		webDataBinder.registerCustomEditor(java.util.Date.class,
 				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
-
+	///activityPage.controller?actid=1#
+	// "/activity/{id}"
+	
+	// @PathVariable(name= "id",required= false) Integer actid
 	@RequestMapping("/activityPage.controller")
 	public String method(Model model, Integer actid,
-			@RequestAttribute(name = "memberid", required = false) Integer memberid) {
+			@RequestAttribute(name = "memberid", required = false) Integer memberid
+			) {
 		System.out.println("id :" + memberid);
 		
-		// flag= 0:未登入 1:主辦人 2:已報名者 3:未報名者
-		Integer flag = 0;		
-		if (memberid != null) flag = 3;
 		// 時間轉換
 		String[] week = { "(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)" };
 		System.out.println("actid=" + actid);
@@ -107,12 +110,10 @@ public class ActivityPageController {
 					attMap.put("memberId", att.getMemberid().toString());
 					
 					memPicList.add(attMap);
-					if (flag != 2 && memberid == att.getMemberid())	flag = 2;
 											
 				};
 			}
 			
-		if (memberid == actBean.getHostid()) flag = 1;
 
 		if (actPicBeans.size() != 0)
 			actPicBeans.forEach(pic -> {
@@ -128,7 +129,7 @@ public class ActivityPageController {
 				actPicList.add(actPic);
 			});
 
-		
+
 		String actbegin = null;
 		Calendar actTime = Calendar.getInstance();
 		if (actBean.getActbegin() != null) {
@@ -169,9 +170,9 @@ public class ActivityPageController {
 			model.addAttribute("actPicList", null);
 
 		if (actPicList.size() != 0)
-			model.addAttribute("actPicListSize", actPicList.size() - 1);
+			model.addAttribute("actPicListSize", actPicList.size());
 		else
-			model.addAttribute("actPicListSize", null);
+			model.addAttribute("actPicListSize", 0);
 
 		if (hostPic!= null)
 			model.addAttribute("hostPic", hostPic);
@@ -203,9 +204,6 @@ public class ActivityPageController {
 		else
 			model.addAttribute("memberid", null);
 
-
-		model.addAttribute("flag", flag);
-		
 
 				return "activityPage";
 

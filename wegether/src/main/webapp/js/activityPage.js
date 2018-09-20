@@ -1,8 +1,0 @@
-function loginDo(){
-	
-}
-
-function logoutDo() {
-
-	}
-	

@@ -36,6 +36,7 @@ public class NoticeHandler extends TextWebSocketHandler {
 		Integer id = sessionMap.get(session);
 		loginMap.get(id).getSessions().remove(session);
 		sessionMap.remove(session);
+		session.close();
 		System.out.println("loginMap("+id+") :"+loginMap.get(id).getSessions().size());
 	}
 

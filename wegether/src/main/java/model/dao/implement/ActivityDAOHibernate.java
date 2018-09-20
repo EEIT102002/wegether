@@ -1,3 +1,4 @@
+
 package model.dao.implement;
 
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -173,12 +174,12 @@ public class ActivityDAOHibernate implements ActivityDAO {
 				.setParameter("fees", fees).list();
 	}
 
-	private final String selectByClick = "from ActivityBean  WHERE state=:state and click >  :click ORDER BY click DESC ";
+	private final String selectByClick = "from ActivityBean  WHERE state=:state ORDER BY click DESC ";
 
 	@Override
-	public List<ActivityBean> selectByClick(int state, int click) {
-		return this.getSession().createQuery(selectByClick, ActivityBean.class).setParameter("state", state)
-				.setParameter("click", click).list();
+	public List<ActivityBean> selectByClick(int state) {
+		return this.getSession().createQuery(selectByClick, ActivityBean.class)
+				.setParameter("state", state).list();
 	}
 
 	// indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋
@@ -190,12 +191,11 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		String selectOfIndex = "select * from Activity  WHERE ";
 		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
 
-			selectOfIndex = selectOfIndex + "dateline BETWEEN '" + beginDate + "'AND '" + endDate + "'and [state]="
-					+ state;
+			selectOfIndex = selectOfIndex + " actbegin >='" + beginDate + "'AND actend <='" + endDate + "'and [state]="+ state;
 		} else if (beginDate == "" && endDate != "") {
-			selectOfIndex = selectOfIndex + "dateline <'" + endDate + "'and [state]=" + state;
+			selectOfIndex = selectOfIndex + "actend <='" + endDate + "'and [state]=" + state;
 		} else if (endDate == "" && beginDate != "") {
-			selectOfIndex = selectOfIndex + "dateline >'" + beginDate + "'and [state]=" + state;
+			selectOfIndex = selectOfIndex + "actbegin >='" + beginDate + "'and [state]=" + state;
 		} else
 			selectOfIndex = selectOfIndex + "[state]=" + state;
 
@@ -225,12 +225,12 @@ public class ActivityDAOHibernate implements ActivityDAO {
 			String title, List<Integer> Actid) {
 		String selectOfIndex = "select * from Activity  WHERE ";
 		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
-			selectOfIndex = selectOfIndex + "dateline BETWEEN '" + beginDate + "'AND '" + endDate + "'and [state]="
-					+ state;
+			selectOfIndex = selectOfIndex+ " actbegin >='" + beginDate + "'AND actend <='" + endDate + "'and [state]="+ state;
+				
 		} else if (beginDate == "" && endDate != "") {
-			selectOfIndex = selectOfIndex + "dateline <'" + endDate + "'and [state]=" + state;
+			selectOfIndex = selectOfIndex + "actend <='" + endDate + "'and [state]=" + state;
 		} else if (endDate == "" && beginDate != "") {
-			selectOfIndex = selectOfIndex + "dateline >'" + beginDate + "'and [state]=" + state;
+			selectOfIndex = selectOfIndex + "actbegin >='" + beginDate + "'and [state]=" + state;
 		} else
 			selectOfIndex = selectOfIndex + "[state]=" + state;
 		if (city != 0)
@@ -269,6 +269,22 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery(Hqlactivitymemberid, ActivityBean.class).setParameter("hostid", memberid)
 				.list();
 	}
+	
+	private final String SelectByHostNowHql = Hqlactivitymemberid+"and actbegin > GETDATE() and state <> 2 order by actbegin asc";
+	@Override
+	public List<ActivityBean> selectByHostNow(int hostid){
+		return this.getSession().createQuery(SelectByHostNowHql, ActivityBean.class)
+				.setParameter("hostid", hostid)
+				.list();
+	}
+	
+	private final String SelectByHostHistoryHql = Hqlactivitymemberid+"and actbegin < GETDATE() and state <> 2 order by actbegin desc";
+	@Override
+	public List<ActivityBean> selectByHostHistory(int hostid){
+		return this.getSession().createQuery(SelectByHostHistoryHql, ActivityBean.class)
+				.setParameter("hostid", hostid)
+				.list();
+	}
 
 	private String HqlGetActivityId = "SELECT id FROM ActivityBean WHERE HOSTID = :HID AND ACTBEGIN = :AB AND DATELINE = :DL";
 
@@ -280,5 +296,37 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		query.setParameter("DL", dateline);
 		List<Integer> obj = query.list();
 		return obj.get(0);
+	}
+	
+	private final String selectByAttendMemberNowSql= "select {act.*} " + 
+			"from activity act " + 
+			"join (select * from attend where memberid  = :memberid and [state] = :state) att " + 
+			"on act.state <> 2 and att.activityid = act.id and act.actbegin > GETDATE() " + 
+			"order by act.actbegin asc ";
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ActivityBean> selectByAttendMemberStateNow(int memberid, int state){
+		return (List<ActivityBean>)getSession().createSQLQuery(selectByAttendMemberNowSql)
+				.addEntity("act", ActivityBean.class)
+				.setParameter("memberid", memberid)
+				.setParameter("state", state)
+				.list();
+	}
+	
+	private final String selectByAttendMemberHistorySql= "select {act.*} " + 
+			"from activity act " + 
+			"join (select * from attend where memberid  = :memberid and [state] = :state ) att " + 
+			"on act.state <> 2 and att.activityid = act.id and act.actbegin < GETDATE() " + 
+			"order by act.actbegin desc ";
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ActivityBean> selectByAttendMemberStateHistory (int memberid, int state){
+		return (List<ActivityBean>)getSession().createSQLQuery(selectByAttendMemberHistorySql)
+				.addEntity("act", ActivityBean.class)
+				.setParameter("memberid", memberid)
+				.setParameter("state", state)
+				.list();
 	}
 }

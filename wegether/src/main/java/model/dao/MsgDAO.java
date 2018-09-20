@@ -5,6 +5,7 @@ import java.util.List;
 import model.MsgBean;
 
 public interface MsgDAO {
+	public abstract MsgBean selectById(Integer id);
 	public abstract List<MsgBean> selectByActivity(Integer id);
 	public abstract List<MsgBean> selectByArticle(Integer id);
 	public abstract List<MsgBean> selectByActivity(Integer id, Integer first);

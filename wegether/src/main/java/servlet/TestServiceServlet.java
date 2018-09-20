@@ -17,8 +17,11 @@ import org.hibernate.mapping.Component.ValueGenerationPlan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
+import model.FriendBean;
 import model.ServiceBean;
+import model.dao.FriendDAO;
 import model.dao.implement.ActivityDAOHibernate;
+import model.dao.implement.FriendDAOHibernate;
 import model.dao.implement.ServiceDAOHibernate;
 
 
@@ -28,6 +31,7 @@ public class TestServiceServlet extends HttpServlet {
 	
 	private ServiceDAOHibernate serviceDAOHibernate;
 	private SimpleDateFormat simpleDateFormat;
+	private FriendDAOHibernate friendDAO;
 	
 	public void init() {
 		ServletContext application = this.getServletContext();
@@ -47,7 +51,7 @@ public class TestServiceServlet extends HttpServlet {
 		
 ////	抓全部資料
 		List<ServiceBean> result=serviceDAOHibernate.select();
-		
+
 //		搜尋memberid
 //		List<ServiceBean> result = serviceDAOHibernate.selectMemberId(2);
 		
@@ -86,8 +90,8 @@ public class TestServiceServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 //		out.println("<p>ServiceBean<p>");
-		result.forEach(x->out.println(x+"<br>"));////對應<ServiceBean> result
-//		out.print(result);
+//		result.forEach(x->out.println(x+"<br>"));////對應<ServiceBean> result
+		out.print(result);
 		out.close();
 		
 		
