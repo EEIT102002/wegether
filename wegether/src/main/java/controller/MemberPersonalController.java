@@ -1,5 +1,7 @@
 package controller;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +47,11 @@ public class MemberPersonalController {
 	@Autowired
 	private TrackmemberDAOHibernate trackmemberDaoHibernate;
 	@Autowired
-	private PictureDAOHibernate pictureDaoHibernate;
-	@Autowired
 	private ActivityDAOHibernate activityDAOHibernate;
 	@Autowired
 	private SettingDAO settingDAO;
-	@Autowired
-	private FriendDAO friendDAO;
-	@Autowired
-	private BlacklistDAO blacklistDAO;
-	@Autowired MidAndIdCheckServices midAndIdCheckServices;
+	@Autowired 
+	MidAndIdCheckServices midAndIdCheckServices;
 
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
@@ -139,15 +136,15 @@ public class MemberPersonalController {
 	@RequestMapping(path = { "/personal.controller" })
 	public String PersonalController2(Model model, Integer memberId,
 			@RequestAttribute(name = "memberid", required = false) Integer id) {
-
+		
 		//檢查是否有收到memberid
+		//防意外狀況
 		if(memberId==null) {
 			System.out.println("Unknow MemberId");
 			System.out.println("預設memberid=1");
 			memberId =new Integer(1);
-		}//防意外狀況
-		
-//		memberId =new Integer(3);//手動輸入
+		}
+
 		//檢查memberid和id關西
 		int status =midAndIdCheckServices.check(id, memberId);// 狀態 1好友2非好友3黑名單4非會員未登入5自己
 		int memberid = memberId;
@@ -191,21 +188,13 @@ public class MemberPersonalController {
 		System.out.println("粉絲人數:"+membean.getFans());
 		System.out.println("提醒:"+membean.getNotices());
 		System.out.println("狀態:"+membean.getState());
-		System.out.println("大頭貼:"+membeansource.getPhoto());
 		// 好友人數 參加次數 追蹤人數 主辦活動
-		List<FriendBean> fribean = friendDaoHibernate.select(memberid);// 抓好友資料
+		List<FriendBean> fribean = friendDaoHibernate.selectAllFriendByMemberid(memberid);// 抓好友資料
 		List<AttendBean> attbean = attendDaoHibernate.selectBymemberid(memberid);// 抓參加資料
 		List<TrackmemberBean> trackbean = trackmemberDaoHibernate.selectBymemberid(memberid);// 抓追蹤資料
 		List<ActivityBean> actbean = activityDAOHibernate.selectBymemberid(memberid);// 抓活動資料
 
 		// 大頭照
-		List<String> memPicList = new ArrayList<>();
-		memPicList.add(PictureConvert.convertBase64Image(membeansource.getPhoto()));
-		// List<PictureBean> picbean = pictureDaoHibernate.selectByMember(memberid);
-		// picbean.forEach(pic -> {
-		// memPicList.add(PictureConvert.convertBase64Image(pic.getPicture()));
-		//
-		// });
 
 		// // 設定不顯示的資料
 		// 生日
@@ -332,6 +321,7 @@ public class MemberPersonalController {
 		Track= "<a href=\"activityPage.controller?actid=1\" class=\"scroll\">追蹤</a>";
 		addFriend="<a href=\"activityPage.controller?actid=1\" class=\"scroll\">加入好友</a>";
 		blackList="<a href=\"activityPage.controller?actid=1\" class=\"scroll\">黑名單</a>";
+
 		
 		switch (status) {
 		case 5:
@@ -454,7 +444,6 @@ public class MemberPersonalController {
 
 		// 參加過的活動
 		List<String> attsum = new ArrayList<>();// 存放資料
-		System.out.println("參加過活動隱私設定414行"+setting.getShowactivity());
 		switch (setting.getShowactivity()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
@@ -513,12 +502,11 @@ public class MemberPersonalController {
 			});
 			break;
 		}
-//		System.out.println("參加過活動"+attsum);
 		model.addAttribute("mem", membean);
 		model.addAttribute("fribean", fribean.size());
 		model.addAttribute("attbean", attbean.size());
 		model.addAttribute("trackbean", trackbean.size());
-		model.addAttribute("picbean", memPicList);
+		model.addAttribute("pic", memberId);
 		model.addAttribute("attsum", attsum);
 		model.addAttribute("hostsum", hostsum);
 		model.addAttribute("fc",FunctionColumn);

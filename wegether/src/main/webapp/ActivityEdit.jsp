@@ -28,6 +28,7 @@
 		})
 
 		var types = $('#hidecheckbox').val();
+
 		var ss = types.split(',');
 		for (i = 0; i < ss.length; i++) {
 			$(':checkbox[value="' + ss[i] + '"]').attr('checked', 'checked');
@@ -356,9 +357,16 @@ footer>ul>li ul {
 				<table>
 					<tr>
 						<td>聚會封面</td>
-						<td><img src="data:image/jpg;base64,${actPic.get(0)}" id="picZone"
-							class="selPic"> <input type="file" name="picture"
-							id="actPic" accept="image/*"></td>
+						<td><img src="data:image/jpg;base64,${actOnePic}" id="picZone" class="selPic">
+							<input type="file" name="picture" id="actPic" accept="image/*"></td>
+					</tr>
+					<tr>
+						<td>聚會封面</td>
+						<td><div><c:forEach var="i" items="${actAllPic}">
+									<img src="data:image/jpg;base64,${i}" id="" class="selPic">
+								 </c:forEach>
+							</div>
+							<input type="file" name="picture2" id="actPic2" accept="image/*"></td>
 					</tr>
 					<tr>
 						<td>聚會標題</td>

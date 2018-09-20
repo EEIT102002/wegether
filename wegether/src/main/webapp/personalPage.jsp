@@ -374,9 +374,10 @@ footer>ul>li ul {
 			<div id="core">
 				<div id="left">
 					<div style="text-align: center">
-						<img class="img-circle"
-							src="data:image/jpg;base64,${picbean.get(0)}" width="280"
-							style="position: relative; top: 20px;">
+<!-- 						<img class="img-circle" -->
+<%-- 							src="data:image/jpg;base64,${picbean.get(0)}" width="280" --%>
+<!-- 							style="position: relative; top: 20px;"> -->
+							<img src="/wegether/member/photo/${pic}">
 					</div>
 					<div style="text-align: center">
 						<br> <br>
@@ -543,7 +544,7 @@ footer>ul>li ul {
 									src="images/star.png" /></td>
 							</tr>
 							<tr>
-								<td style="padding: 20px; font-weight: bold">時間地點選擇</td>
+								<td style="padding: 20px; font-weight: bold">時間地點選擇:</td>
 								<td style="padding: 20px;"><img id="2dstar1" class="s"
 									src="images/star.png" /> <img id="2dstar2" class="s"
 									src="images/star.png" /> <img id="2dstar3" class="s"

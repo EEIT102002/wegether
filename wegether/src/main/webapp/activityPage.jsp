@@ -41,13 +41,13 @@
 
 <script>
 var activityid = ${actBean.id};
+
 var  actPicListSize;
 if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize = ${actPicListSize} ;
  }else{
 	 actPicListSize =0;
  }
-
 
 // var flag=0;
 	$(function() {
@@ -154,15 +154,15 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 	
 	function loginDo(){
-	console.log("Member login");
-	 $.get("wegether/activity/attend/check/"+activityid,
-			  function(data){	
-	 			idCheck(data);
-	 
-	 },'json');	
+		console.log("Member login");
+		 $.get("wegether/activity/attend/check/"+activityid,
+				  function(data){	
+		 			idCheck(data);
+		 
+		 },'json');	
 	
 	
-}
+	}
 	
 
 

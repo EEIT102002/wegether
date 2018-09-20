@@ -4,6 +4,7 @@ var buttonTemp = '<button type="button" class="btn btn-warning" style="width:250
 
 function idCheck(data) {
 	// 1:主辦人 2:已報名者 3:未報名者
+	console.log(123)
 	var memBut = $('#memBut');
 	memBut.html('');
 	if (data.host) {
