@@ -262,12 +262,12 @@ footer>ul>li ul {
 /* 星級評分 */
 .s {
 	-webkit-filter: grayscale(1); /*沒有任何色彩的黑白影像*/
-	width: 30px;
+	width: 50px;
 }
 
 .n {
 	-webkit-filter: grayscale(0); /*顏色不變*/
-	width: 30px;
+	width: 50px;
 }
 </style>
 </head>
@@ -505,6 +505,7 @@ footer>ul>li ul {
 // 								var x = $('#memcity').val();
 // 								alert(x);
 								$('#memcity').html(array_for_city[${mem.city}]);
+								
 							})
 							</script>
 						</span>
