@@ -39,12 +39,12 @@ public class indexSelectController {
 		// 狀態活動1 心得2
 		// 後端接值
 		// 將結果傳回前端
-		System.out.println("state:"+state);
-		System.out.println("start_date_name:"+start_date_name);
-		System.out.println("end_date_name:"+end_date_name);
-		System.out.println("type_select_name:"+type_select_name);
-		System.out.println("keyword_search_input_name:"+keyword_search_input_name);
-		System.out.println("cityselect_name:"+cityselect_name);
+//		System.out.println("state:"+state);
+//		System.out.println("start_date_name:"+start_date_name);
+//		System.out.println("end_date_name:"+end_date_name);
+//		System.out.println("type_select_name:"+type_select_name);
+//		System.out.println("keyword_search_input_name:"+keyword_search_input_name);
+//		System.out.println("cityselect_name:"+cityselect_name);
 		
 		if(cityselect_name==""&&start_date_name==""&&end_date_name==""&&type_select_name==null&&keyword_search_input_name =="") {
 			List<String> result_fail = new ArrayList<>();
@@ -64,22 +64,24 @@ public class indexSelectController {
 			List<Object[]> resultlist = new ArrayList<>();
 			if (result.size() > 0) {
 				result.forEach(bean -> {
-					Object[] obj = new Object[3];
-					resultlist.add(obj);
-					
-					StringBuilder sb = new StringBuilder();
-					sb.append("data:image/jpg;base64,");
-					sb.append(org.apache.commons.codec.binary.StringUtils
-							.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(bean.getPicture(), false)));
-					obj[0] = bean;
-					obj[1] = sb.toString();	
-					obj[2] = bean.getMemberBean().getNickname();
+					Object[] obj = new Object[4];	
+//					StringBuilder sb = new StringBuilder();
+//					sb.append("data:image/jpg;base64,");
+//					sb.append(org.apache.commons.codec.binary.StringUtils
+//							.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(bean.getPicture(), false)));
 					sessionFactory.getCurrentSession().evict(bean);
+					obj[0] = bean;
+					obj[1] = "/wegether/activity/photo/"+bean.getId();
+					obj[2] = bean.getMemberBean().getNickname();
+					obj[3] = "/wegether/member/photo/"+bean.getMemberBean().getId();
+					
 					bean.setMemberBean(null);
 					bean.setArticleBean(null);
 					bean.setPictureBean(null);
 					bean.setAttendBean(null);
 					bean.setInviteBean(null);
+					bean.setPicture(null);
+					resultlist.add(obj);
 				});
 
 				return new ResponseEntity<List<Object[]>>(resultlist, HttpStatus.OK);

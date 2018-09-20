@@ -31,15 +31,24 @@
 <script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>
+<script type="text/javascript" src="/wegether/js/activityPage/starPage.js"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
 
 <script>
-var activityid= ${actBean.id};
+var activityid = ${actBean.id};
 
-var flag=0;
+var  actPicListSize;
+if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
+	 actPicListSize = ${actPicListSize} ;
+ }else{
+	 actPicListSize =0;
+ }
+
+// var flag=0;
 	$(function() {
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active')
@@ -47,27 +56,27 @@ var flag=0;
 		})
 		
 
-		$('#upTop').click(function(){
-				var body = $("html, body");
-				body.stop().animate({scrollTop:0}, 500, 'swing');
-			})
-			.mouseover(function(){
-				$(this).removeClass('animated');
-			})
-			.mouseout(function(){
-				$(this).addClass('animated');
-			})
+// 		$('#upTop').click(function(){
+// 				var body = $("html, body");
+// 				body.stop().animate({scrollTop:0}, 500, 'swing');
+// 			})
+// 			.mouseover(function(){
+// 				$(this).removeClass('animated');
+// 			})
+// 			.mouseout(function(){
+// 				$(this).addClass('animated');
+// 			})
 			
 		// 推薦 /點閱率 /收藏 文字提示效果
 		$("[data-toggle='tooltip']").tooltip();
 		
-		//點閱率 按鍵圖示
-		$('#favorButton').click(function(){
-			if (flag == 0) {
-				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
-	 		} else {
-	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
-		})
+		//收藏 按鍵圖示
+// 		$('#favorButton').click(function(){
+// 			if (flag == 0) {
+// 				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
+// 	 		} else {
+// 	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
+// 		})
 		
 		//切換留言版面 
 		$('#msgButId').click(function(){
@@ -125,36 +134,34 @@ var flag=0;
 		        }
 		    });
 		
+		//star
+			$('#stardiv1 img').click(click1)
+	        .hover(over1,out1);
+		
+			$('#stardiv2 img').click(click2)
+	        .hover(over2,out2);
+	
+			
+			$('#stardiv3 img').click(click3)
+	        .hover(over3,out3);
+	
+	
+		
 	})
 	
-	//activityPage 輪播使用
-	var picNo = 1;
-	var timerObj = setInterval(autoPlay, 1500);
-	function autoPlay() {
-		picNo++;
-		if (picNo > "${actPicList.size()}" ) picNo = 1;
-		selectPic();
-	}
-
-	function selectPic() {
-		for (var i = 1; i <= "${actPicList.size()}" ; i++)
-			 $("#imd" + i).attr("style","border:2px solid #FFBB00");
- 		 $("#imd" + picNo).attr("style","border:3px solid red");
-		 $("#imd0").attr("src",$("#imd" + picNo).attr("src"));
-	}
-	//activityPage 輪播使用  end	
+	
 	
 	
 	function loginDo(){
-	console.log("Member login");
-	 $.get("wegether/activity/attend/check/"+activityid,
-			  function(data){	
-	 			idCheck(data);
-	 
-	 },'json');	
+		console.log("Member login");
+		 $.get("wegether/activity/attend/check/"+activityid,
+				  function(data){	
+		 			idCheck(data);
+		 
+		 },'json');	
 	
 	
-}
+	}
 	
 
 
@@ -163,7 +170,7 @@ var flag=0;
 	
 		}
 
-
+	  
 
 </script>
 <style>
@@ -223,6 +230,17 @@ footer>ul>li ul {
 #applyCheck .modal-body h4,
 #applyState .modal-body h4{
 	    text-align: center;
+}
+
+/* 星級評分 */
+.s {
+	-webkit-filter: grayscale(1); /*沒有任何色彩的黑白影像*/
+	width: 50px;
+}
+
+.n {
+	-webkit-filter: grayscale(0); /*顏色不變*/
+	width: 50px;
 }
 </style>
 </head>
@@ -351,9 +369,10 @@ footer>ul>li ul {
 									src="images/activityPageImages/invite.png" width="50"></a>&emsp;
 								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
 									<img src="images/activityPageImages/click2.png" width="50">
-								</span>${actBean.click}&emsp; <a href="#" class="tooltip-test"
-									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton"
-									src="images/activityPageImages/favoritesOff.png" width="50"></a>
+								</span>${actBean.click}&emsp; 
+<!-- 								<a href="#" class="tooltip-test" -->
+<!-- 									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton" -->
+<!-- 									src="images/activityPageImages/favoritesOff.png" width="50"></a> -->
 							</div>
 						</div>
 
@@ -409,10 +428,54 @@ footer>ul>li ul {
 						<div style="text-align: center" id = "memBut">
 							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
 						</div>
-						<!-- right7 end -->
-
-					</div>
-					<!-- 上右區塊 end -->
+						
+						<!-- 活動評價 -->
+						<div id="starBlock">
+							<form action="#">
+								<!-- 活動滿意度-->
+								<div id="stardiv1">
+									<span style="font-weight: bold">活動滿意度:</span>
+									<span id="spa1"  style="font-weight: bold;color:#FF0000;"></span>
+									<br>
+									<img id="idstar11" class="s" src="images/star.png" /> 
+									<img id="idstar12" class="s" src="images/star.png" /> 
+									<img id="idstar13" class="s" src="images/star.png" /> 
+									<img id="idstar14" class="s" src="images/star.png" /> 
+									<img id="idstar15" class="s" src="images/star.png" />
+									<hr>
+								</div>
+								
+								<!-- 溝通安排-->
+								<div id="stardiv2">
+									<span style="font-weight: bold">溝通安排:</span>
+									<span id="spa2"  style="font-weight: bold;color:#FF0000;"></span>
+									<br>
+									<img id="idstar21" class="s" src="images/star.png" /> 
+									<img id="idstar22" class="s" src="images/star.png" /> 
+									<img id="idstar23" class="s" src="images/star.png" /> 
+									<img id="idstar24" class="s" src="images/star.png" /> 
+									<img id="idstar25" class="s" src="images/star.png" />
+									<hr>
+								</div>
+								
+								<!-- 時間地點選擇 -->
+								<div id="stardiv3">
+									<span style="font-weight: bold">時間地點選擇:</span>
+									<span id="spa3"  style="font-weight: bold;color:#FF0000;"></span>
+									<br>
+									<img id="idstar31" class="s" src="images/star.png" /> 
+									<img id="idstar32" class="s" src="images/star.png" /> 
+									<img id="idstar33" class="s" src="images/star.png" /> 
+									<img id="idstar34" class="s" src="images/star.png" /> 
+									<img id="idstar35" class="s" src="images/star.png" />
+									<hr>
+								</div>
+								  <input type="submit" value="送出"  class="btn btn-warning"  >
+							</form>
+						</div>
+					<!-- 活動評價 END-->
+			</div>
+			<!-- 上右區塊 end -->
 
 				</div>
 				<!-- 上面區 end -->

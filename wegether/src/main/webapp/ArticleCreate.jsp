@@ -25,37 +25,39 @@
 		})
 	})
 	document.addEventListener("DOMContentLoaded", function() {
-		document.getElementById("actPic2").addEventListener("change",
-				fileMultiViewer);
+		//document.getElementById("actPic1").addEventListener("change", fileMultiViewer);
+		document.getElementById("addPic").addEventListener("click", function(){
+			var idname = $(':file[name^="multi"]:last').attr("id");
+			var count = idname.charAt(6);
+			count++;
+			var div = '<tr class="tr"><td></td><td><img id="picZone'+count+'" class="selPic2"><input type="file" class="up" name="multipicture" id="actPic'+count+'" accept="image/*"></td></tr>';
+			$('.tr :last').after(div);
+		});
 	});
 	function fileMultiViewer() {
-		$('#picZone2').empty();
-		$('#artPic').empty();
+ 		$('#picZone1').empty();
 		//取得使用者在檔案選擇標籤中選取檔案
-		var theFiles = document.getElementById("actPic2").files
+		var theFiles = document.getElementById("actPic1").files;
 		for (var i = 0; i < theFiles.length; i++) {
 			//1. 建立FileReader物件
 			var reader = new FileReader();
 			//3.onload資料讀取成功完成時觸發
 			reader.addEventListener("load", function(e) {
 				//4. 將檔案內容暫存
-				var fileMultiContent = e.target.result
-				// alert(fileContent)
+				var fileMultiContent = e.target.result;
+				//alert(fileMultiContent);
 				//5. 找到img標籤
 				var imgobj = document.createElement("img");
-				var imgobj2 = document.createElement("img");
 				//6. 設定img的src屬性
 				imgobj.setAttribute("src", fileMultiContent);
-				imgobj.setAttribute("height","150px");
-				imgobj2.setAttribute("src", fileMultiContent);
-				imgobj2.setAttribute("height","100px");
-				document.getElementById("picZone2").appendChild(imgobj);
-				document.getElementById("artPic").appendChild(imgobj2);
+				imgobj.setAttribute("class","multi");
+				document.getElementById("picZone1").appendChild(imgobj);
 			});
 			//2. 使用readAsDataURL方法，讀取檔案內容
 			reader.readAsDataURL(theFiles[i]);
 		}
 	}
+
 	$(function() {
 		$('#preBotton').click(function() {
 			$('#actDescription').empty().append($('#insertDes').val());
@@ -114,6 +116,9 @@ footer>ul>li ul {
 .container p {
 	color: white;
 }
+.multi{
+	height:150px;
+}
 </style>
 </head>
 <body>
@@ -162,12 +167,12 @@ footer>ul>li ul {
 					</div>
 					<div class="modal-body" id="mid-body">
 						<div class="form-group" id="ACT">
-							<label for="recipient-name" class="col-form-label">帳號:</label> <input
-								type="text" class="form-control" id="account">
+							<label for="recipient-name" class="col-form-label">帳號:</label>
+							<input type="text" class="form-control" id="account" name="account">
 						</div>
 						<div class="form-group" id="PWD">
-							<label for="recipient-name" class="col-form-label">密碼:</label> <input
-								type="text" class="form-control" id="password">
+							<label for="recipient-name" class="col-form-label">密碼:</label>
+							<input type="text" class="form-control" id="pwd" name="pwd">
 						</div>
 						<div id="or" class="bg-primary text-white">
 							<h4>or</h4>
@@ -214,11 +219,12 @@ footer>ul>li ul {
 						<td>心得</td>
 						<td><textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${content}</td>
 					</tr>
-					<tr>
+					<tr class="tr">
 						<td>上傳活動照片</td>
-						<td><div id="picZone2" class="selPic2"></div>
-						<input type="file" name="multipicture" multiple id="actPic2" accept="image/*"></td>
+						<td><img id="picZone1" class="selPic2">
+						<input type="file" class="up" name="multipicture" id="actPic1" accept="image/*"></td>
 					</tr>
+					<tr><td></td><td><input type="button" id="addPic" value="新增圖片"/></td></tr>
 				</table>
 
 				<input type="button" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />

@@ -262,12 +262,12 @@ footer>ul>li ul {
 /* 星級評分 */
 .s {
 	-webkit-filter: grayscale(1); /*沒有任何色彩的黑白影像*/
-	width: 50px;
+	width: 30px;
 }
 
 .n {
 	-webkit-filter: grayscale(0); /*顏色不變*/
-	width: 50px;
+	width: 30px;
 }
 </style>
 </head>

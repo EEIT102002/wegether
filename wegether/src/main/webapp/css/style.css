@@ -69,9 +69,9 @@
 
 .banner-info{
 	width:80%;
-	margin:6em auto 0;
+	margin:4em auto 0;
 	/* text-align:center; */
-	/* border:2px solid red; */
+/* 	border:2px solid red; */
 	padding: 0 30px ;
 	font-weight: bold;
 
@@ -99,16 +99,27 @@
 	/* background-color: rgba(255, 255, 255, 0.308);
 	border-radius:10px; */
 }
-#AreaSelect{
+#CitySelect_po{
 	flex: 1;
-	margin-left: 1%;
+	height: 28px;
+	margin:0 2%;
+	/* background-color: rgba(255, 255, 255, 0.308);
+	border-radius:10px; */
 }
 #searchbarButton{
 	/* border: 2px solid; */
 	width: 100%;
 	display: flex;
 }
+#searchbarButton_po{
+	/* border: 2px solid; */
+	width: 100%;
+	display: flex;
+}
 #searchbarButton input{
+	margin: 0 1%;
+}
+#searchbarButton_po input{
 	margin: 0 1%;
 }
 .header_nav a {
@@ -143,22 +154,28 @@
 	display: none;
 }
 #about .container{
-	margin-top: 70px;
-	width: 75%;
+/* 	margin-top: 70px; */
+/* 	border:2px solid; */
+	background-color:white;
+	width: 85%;
+	min-height:1000px;
+	padding:70px 0;
 
 }
 #about h1{
 	font-family: ‘Noto Sans TC’, sans-serif;
 	font-weight: bold;
 	color: #FFB445;
+	margin-left:30px;
 }
 #about .item img{
 	width: 100%;
 }
 #about .item {
-	margin: 8px 0;
+	margin:1em 21px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	width:30%;
 }
 #about .item:hover{
 	background-color: white;
