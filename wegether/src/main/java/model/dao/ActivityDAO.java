@@ -30,7 +30,7 @@ public interface ActivityDAO {
 	
 	public abstract List<ActivityBean> selectByFees(int state, int fees);
 	
-	public abstract List<ActivityBean> selectByClick(int state, int click);
+	public abstract List<ActivityBean> selectByClick(int state);
 
 	public abstract ActivityBean insert(ActivityBean bean);
 
@@ -47,5 +47,13 @@ public interface ActivityDAO {
 	public abstract List<ActivityBean> selectAllState();
 
 	public abstract int getActivityId(int memberid, Date actbegin, Date dateline);
+
+	public abstract List<ActivityBean> selectByHostNow(int hostid);
+
+	public abstract List<ActivityBean> selectByHostHistory(int hostid);
+
+	public abstract List<ActivityBean> selectByAttendMemberStateNow(int memberid, int state);
+
+	public abstract List<ActivityBean> selectByAttendMemberStateHistory(int memberid, int state);
 }
 

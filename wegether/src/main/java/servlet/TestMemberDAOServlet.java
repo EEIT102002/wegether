@@ -70,6 +70,7 @@ public class TestMemberDAOServlet extends HttpServlet {
 		// MemberBean result = memberDaoHibernate.insert(bean);
 
 		// update
+
 		 MemberBean memberBean = memberDaoHibernate.select(4);
 //		 memberBean.setAddr("景安");
 //		 memberBean.setNickname("longlong");
@@ -79,6 +80,7 @@ public class TestMemberDAOServlet extends HttpServlet {
 		 boolean result = memberDaoHibernate.update(memberBean);
 		 out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(memberBean.getPhoto())+"\"/>");
 			
+
 		// delete
 		// boolean result = memberDaoHibernate.delete(1);
 

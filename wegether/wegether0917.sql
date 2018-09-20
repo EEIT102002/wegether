@@ -7,7 +7,7 @@ GO
 
 USE wegether
 GO
-
+select * from member order by signupdate desc
 create sequence member_sq
 start with 1
 increment by 1
@@ -435,12 +435,12 @@ begin
 end
 else if (select state from inserted) = 3
 begin 
-	select  @hostid= hostid , @title = title
+	select  @hostid= hostid , @title = title, @activityid = id
 	from activity
 	where id = (select activityid from inserted)	
 
 	insert into notice(memberid, attendid, noticetime, content, ntype)
-	select @hostid , id, createtime,
+	select memberid , id, createtime,
 		dbo.notice_name_titlestr(@hostid, @title, @activityid),5 --邀請你參加 5
 	from inserted
 end

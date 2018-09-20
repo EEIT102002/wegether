@@ -91,7 +91,6 @@ public class ActivityFormService {
 		ActivityBean bean = activityDAO.selectId(id);
 		if (bean != null) {
 			try {
-				
 				return (JSONObject) (jsonParser.parse(bean.getForm()));
 			} catch (ParseException e) {
 				return null;

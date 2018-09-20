@@ -66,6 +66,13 @@ public class AttendService {
 		}
 		return null;
 	}
+
+	public List<AttendBean> inviteApplys(int activityid , int memberid) {
+		if(activityService.checkHost(memberid, activityid)) {
+			return attendDAO.selectByActivityAndState(activityid, 3);
+		}
+		return null;
+	}
 	
 	public List<AttendBean> acceptApplys(int activityid , int memberid) {
 		if(activityService.checkHost(memberid, activityid)) {
@@ -102,5 +109,15 @@ public class AttendService {
 	public AttendBean attendCheck(int activityid, int memberid) {
 		AttendBean bean = attendDAO.selectByActivityAndMember(activityid, memberid);
 		return bean;
+	}
+
+	public boolean cancelAttend(Integer attendid, Integer memberid) {
+		AttendBean attendBean = attendDAO.select(attendid);
+		if(attendBean != null 
+				&& attendBean.getMemberid() == memberid 
+				&& (attendBean.getState() == 0 || attendBean.getState() == 1)) {
+			return attendDAO.delete(attendid);
+		}		
+		return false;
 	}
 }
