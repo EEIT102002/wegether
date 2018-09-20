@@ -36,7 +36,7 @@ import model.dao.PictureDAO;
 import pictureconvert.PictureConvert;
 
 @Controller
-public class ActivityPageController {
+public class ActivityPageRankController {
 	@Autowired
 	private ActivityDAO activityDAO;
 
@@ -57,11 +57,8 @@ public class ActivityPageController {
 		webDataBinder.registerCustomEditor(java.util.Date.class,
 				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
-	///activityPage.controller?actid=1#
-	// "/activity/{id}"
-	
-	// @PathVariable(name= "id",required= false) Integer actid
-	@RequestMapping("/activityPage.controller")
+
+	@RequestMapping("/activityPageRank.controller")
 	public String method(Model model, Integer actid,
 			@RequestAttribute(name = "memberid", required = false) Integer memberid
 			) {
@@ -170,9 +167,9 @@ public class ActivityPageController {
 			model.addAttribute("actPicList", null);
 
 		if (actPicList.size() != 0)
-			model.addAttribute("actPicListSize", actPicList.size());
+			model.addAttribute("actPicListSize", actPicList.size() - 1);
 		else
-			model.addAttribute("actPicListSize", 0);
+			model.addAttribute("actPicListSize", null);
 
 		if (hostPic!= null)
 			model.addAttribute("hostPic", hostPic);
