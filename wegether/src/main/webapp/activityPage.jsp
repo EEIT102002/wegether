@@ -33,6 +33,7 @@
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/starPage.js"></script>
+<script src="http://malsup.github.io/jquery.form.js" type="text/javascript"></script>
 <!-- 留言 /心得心享 視窗 END -->
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
@@ -169,6 +170,8 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		console.log(" Member logout");
 	
 		}
+	
+	
 
 	  
 
@@ -431,7 +434,6 @@ footer>ul>li ul {
 						
 						<!-- 活動評價 -->
 						<div id="starBlock">
-							<form action="#">
 								<!-- 活動滿意度-->
 								<div id="stardiv1">
 									<span style="font-weight: bold">活動滿意度:</span>
@@ -470,8 +472,8 @@ footer>ul>li ul {
 									<img id="idstar35" class="s" src="images/star.png" />
 									<hr>
 								</div>
-								  <input type="submit" value="送出"  class="btn btn-warning"  >
-							</form>
+								  <input id="startSumit" type="submit" value="送出"  class="btn btn-warning" onclick="sendRank()" >
+									<div id="output1" style="display:none;font-weight: bold;color:#FF0000;"></div>
 						</div>
 					<!-- 活動評價 END-->
 			</div>

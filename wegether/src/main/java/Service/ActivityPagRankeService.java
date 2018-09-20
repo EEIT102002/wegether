@@ -13,25 +13,19 @@ public class ActivityPagRankeService {
 	private AttendDAO attendDAO;
 	
 	
-  public AttendBean updateRank(int activityid,int memberid) {
+  public AttendBean updateRank(int activityid,int memberid, int rank1, int rank2, int rank3) {
 	   AttendBean temp = attendDAO.selectByActivityAndMember(activityid, memberid);
 	  if(temp!=null) {
-		  temp.setRank1(3);
-		  temp.setRank2(3);
-		  temp.setRank3(3);
-		  attendDAO.update(temp);
+		  temp.setRank1(rank1);
+		  temp.setRank2(rank2);
+		  temp.setRank3(rank3);
+		 attendDAO.update(temp);
 	  }
 	  return temp;
   }
   
-  public void selectRank(int activityid,int memberid) {
-	   AttendBean temp = attendDAO.selectByActivityAndMember(activityid, memberid);
-	  if(temp!=null) {
-		  temp.getRank1();
-		  temp.getRank2();
-		  temp.getRank3();
-		  AttendBean bean = attendDAO.update(temp);
-	  }
+  public AttendBean selectRank(int activityid,int memberid) {
+	  return attendDAO.selectByActivityAndMember(activityid, memberid);
  }
 	
 }
