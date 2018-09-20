@@ -23,7 +23,8 @@
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 <!-- 登入使用 END -->
-<!-- 留言 /心得心享 視窗  -->
+
+<!-- 活動頁面使用  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/wegether/css/activityPage.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -31,17 +32,26 @@
 <script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
-<script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/starPage.js"></script>
-<script src="http://malsup.github.io/jquery.form.js" type="text/javascript"></script>
-<!-- 留言 /心得心享 視窗 END -->
+
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
 
+<!-- 推薦活動給好友 -->
+<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
+<script src="/wegether/js/friendSearchBox.js" type="text/javascript"></script>
+
+
 <script>
 var activityid = ${actBean.id};
+var state = ${state};
 
+
+
+
+console.log("state1:"+state);
+var friendbuttonText = '推薦'
 var  actPicListSize;
 if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize = ${actPicListSize} ;
@@ -55,18 +65,6 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			$(this).addClass('active')
 				.siblings().removeClass('active');
 		})
-		
-
-// 		$('#upTop').click(function(){
-// 				var body = $("html, body");
-// 				body.stop().animate({scrollTop:0}, 500, 'swing');
-// 			})
-// 			.mouseover(function(){
-// 				$(this).removeClass('animated');
-// 			})
-// 			.mouseout(function(){
-// 				$(this).addClass('animated');
-// 			})
 			
 		// 推薦 /點閱率 /收藏 文字提示效果
 		$("[data-toggle='tooltip']").tooltip();
@@ -83,26 +81,27 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		$('#msgButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-warning");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
-			 $("#msgBlock").show();
 			 $("#demoArticle").hide();
 			 $("#demo").show();
-			 getMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val());
+			 getMsgs("${actBean.id}");
 		})
 		
 		// 切換心得分享版面
 		$('#articleButId').click(function(){
 			 $("#msgButId").attr("class","btn btn-secondary");	//留言按鍵
 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
-			 $("#msgBlock").hide();
 			 $("#demo").hide();
 			 $("#demoArticle").show();
-			 getArticles("${actBean.id}","${memberid}","${actBean.state}",""); //載入心得
+			 getArticles("${actBean.id}"); //載入心得
 			 
 		})
 		
 				 
+		
+		
+		
 		 //載入留言 
-		 getMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val());
+		 getMsgs("${actBean.id}");
 		 
 		//清除留言預設文字
 		 $('#txt').click(function(){
@@ -154,11 +153,10 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 	
 	function loginDo(){
-		console.log("Member login");
+		
 		 $.get("wegether/activity/attend/check/"+activityid,
 				  function(data){	
 		 			idCheck(data);
-		 
 		 },'json');	
 	
 	
@@ -357,22 +355,22 @@ footer>ul>li ul {
 
 						<div id="up">
 							<div id="left" style="width: auto;">
-								<a href="personal.controller?memberId=${hostBean.id}">
-								<img 	src="data:image/jpg;base64,${hostPic}"							
+								<a href="personal.controller?memberId=${hostBean.id}"  style="text-decoration:none;">
+								<img 	src="/wegether/member/photo/${hostBean.id}"							
 									class="img-circle" width="70"> </a>
-								<!-- 	src="/wegether/picture/15" class="img-circle" -->
 							</div>
 							<div id="left" style="width: auto;">
 								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
 								<p id="txtup">${hostBean.job}</p>
 							</div>
 							<div id="right">
-								<a href="activityPage.controller?actid=1" class="tooltip-test"
-									data-toggle="tooltip" title="推薦給好友"> <img
-									src="images/activityPageImages/invite.png" width="50"></a>&emsp;
+								<a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友" id="friendsearchButton"  style="text-decoration:none;">  
+								 	<img src="images/activityPageImages/invite.png" width="50">
+								</a>&emsp;
 								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
 									<img src="images/activityPageImages/click2.png" width="50">
 								</span>${actBean.click}&emsp; 
+								
 <!-- 								<a href="#" class="tooltip-test" -->
 <!-- 									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton" -->
 <!-- 									src="images/activityPageImages/favoritesOff.png" width="50"></a> -->
@@ -382,13 +380,13 @@ footer>ul>li ul {
 						<!-- 	照片輪播 -->
 						<div class="content">
 							<div class="div1">
-								<img id="imd0" src="data:image/jpg;base64,${actPicList.get(0)}" class="img-thumbnail">
+								<img id="imd0" class="img-thumbnail" style="display:none;">
 									
 							</div>
 							<div class="div2" >
 								<c:set var="temp" value="1" />
 								<c:forEach var="obj" items="${actPicList}">
-									<img id="imd${temp}" src="data:image/jpg;base64,${obj}" class="img-thumbnail">
+									<img id="imd${temp}" src="/wegether/picture/${obj}" class="img-thumbnail">
 									<c:set var="temp" value="${temp+1}" />
 								</c:forEach>
 							</div>
@@ -406,32 +404,6 @@ footer>ul>li ul {
 						<p>${actBean.addr}</p>
 						
 <!-- 						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2197094634926!2d121.54709331488881!3d25.026616844741607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aa32657c4a79%3A0x3d7f7c44e7d85df7!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5pWm5YyW5Y2X6Lev5LqM5q61MjAx6Jmf!5e0!3m2!1szh-TW!2stw!4v1536913293480" width="400" height="250" frameborder="0" style="border: 3px solid #FFBB00;margin：10px;" allowfullscreen></iframe> -->
-						<br><br>
-						<div>
-							<img src="images/activityPageImages/people.png" width="20">&nbsp;${actBean.numberlimit}人
-							&emsp; <img src="images/activityPageImages/fees.png" width="20">&nbsp;${actBean.feed}元
-							&emsp; <img src="images/activityPageImages/deadline.png"
-								width="40">&nbsp;${dateline}
-						</div>
-						<br>
-						<!-- 報名者大頭貼-->
-						<div>
-							<c:forEach var="obj" items="${memPicList}">
-								<a href="personal.controller?memberId=${obj.memberId}"><img
-									src="data:image/jpg;base64,${obj.memberPic}" class="img-circle"
-									width="50"></a>
-								&emsp;
-							</c:forEach>
-						</div>
-						
-						<!-- 報名申請人數 -->
-						<p style="text-align: center">${attedNumber}</p>
-						
-						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
-						<div style="text-align: center" id = "memBut">
-							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
-						</div>
-						
 						<!-- 活動評價 -->
 						<div id="starBlock">
 								<!-- 活動滿意度-->
@@ -476,6 +448,33 @@ footer>ul>li ul {
 									<div id="output1" style="display:none;font-weight: bold;color:#FF0000;"></div>
 						</div>
 					<!-- 活動評價 END-->
+						<br><br>
+						<div>
+							<img src="images/activityPageImages/people.png" width="20">&nbsp;${actBean.numberlimit}人
+							&emsp; <img src="images/activityPageImages/fees.png" width="20">&nbsp;${actBean.feed}元
+							&emsp; <img src="images/activityPageImages/deadline.png"
+								width="40">&nbsp;${dateline}
+						</div>
+						<br>
+						<!-- 報名者大頭貼-->
+						<div>
+							<c:forEach var="obj" items="${attBeans}">
+								<a href="personal.controller?memberId=${obj}"  style="text-decoration:none;" >
+									<img src="/wegether/member/photo/${obj}" class="img-circle" width="50">
+								</a>
+								&emsp;
+							</c:forEach>
+						</div>
+						
+						<!-- 報名申請人數 -->
+						<p style="text-align: center">${attedNumber}</p>
+						
+						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
+						<div style="text-align: center" id = "memBut">
+							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
+						</div>
+						
+						
 			</div>
 			<!-- 上右區塊 end -->
 
@@ -562,6 +561,32 @@ footer>ul>li ul {
 
 		</div>
 	</div>
+
+
+<!-- 推薦活動給好友 -->
+	  <div class="modal fade" id="friendsearchBox" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div>
+					
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 推薦活動給好友 END-->
+	
+	
 	<!-- <footer>
 		<div class="container">
 			<p id="fw">Wegther 2018</p>
@@ -584,4 +609,5 @@ footer>ul>li ul {
 	<p class="text-center">- Wegether 2018 EEIT10202 -</p>
 	</footer>
 </body>
+<script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>
 </html>

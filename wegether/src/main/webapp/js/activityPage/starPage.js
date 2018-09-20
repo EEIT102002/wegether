@@ -9,7 +9,6 @@
     				if (i <= imgidNO1) {
 						$('#idstar1'+ i).removeClass('s').addClass('n');
     				} else {
-    					console.log("in")
     					$('#idstar1'+ i).removeClass('n').addClass('s');	
     				}
     			}
@@ -42,7 +41,6 @@
         				if (i <= imgidNO2) {
     						$('#idstar2'+ i).removeClass('s').addClass('n');
         				} else {
-        					console.log("in")
         					$('#idstar2'+ i).removeClass('n').addClass('s');	
         				}
         			}
@@ -98,7 +96,6 @@
         			
         			
             			function sendRank(){
-            				console.log("imgidNO3="+imgidNO3);
             				$.get("activityPageRank.controller/"+activityid+"/"+imgidNO1+"/"+imgidNO2+"/"+imgidNO3+"",
             						  function(data){	
 	            				 		if(data){

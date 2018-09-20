@@ -1,29 +1,18 @@
-	
-$(function(){
-	console.log("msgPage")
-	
-})
 
 //取得留言功能
-	function getMsgs(act,mem,sta,cont){
-	console.log("msgPage in:"+" actId="+act+" memId="+mem+" state="+sta+" msg="+cont);
+	function getMsgs(act){
 	 var divElem = null ;
 	 var temp="";
-	 $.get("msgs.controller",
-			 { activityid:act, 
-		 		memberid:mem,
-		 		state:sta,
-		 		content:cont
-			 },
+	 $.get("msgs.controller/"+act,
 			 function(result){	
 	 			$.each(result, function(i,item){	
 	 				divElem =("<div id='msgid'>" +
-					'<a href="personal.controller?memberId='+item[0]+'">'+
-					'<img src="data:image/jpg;base64,'+item[1]+'" width="50" class="img-circle">  </a>' +
-					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
-					'<span style="font-size: small;">'+item[3]+'</span>'+
-					'<button id="deleteId" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
-			 		'</br>'+item[4]+'</br>'+
+					'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
+					'<img src="/wegether/member/photo/'+item[0]+'" width="50" class="img-circle">  </a>' +
+					'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
+					'<span style="font-size: small;">'+item[2]+'</span>'+
+					'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
+			 		'</br>'+item[3]+'</br>'+
 					"</div>");
 	 				temp = temp + divElem;
 	 			});	
@@ -47,12 +36,12 @@ console.log("postMsgs in:"+" actId="+act+" memId="+mem+" state="+sta+" msg="+con
 		 function(result){	
  			$.each(result, function(i,item){	
  				divElem =("<div id='msgid'>" +
-				'<a href="personal.controller?memberId='+item[0]+'">'+
-				'<img src="data:image/jpg;base64,'+item[1]+'" width="50" class="img-circle">  </a>' +
-				'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
-				'<span style="font-size: small;">'+item[3]+'</span>'+
-				'<button id="deleteId" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
-		 		'</br>'+item[4]+'</br>'+
+				'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
+				'<img src="/wegether/member/photo/'+item[0]+'" width="50" class="img-circle">  </a>' +
+				'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
+				'<span style="font-size: small;">'+item[2]+'</span>'+
+				'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
+		 		'</br>'+item[3]+'</br>'+
 				"</div>");
  				temp = temp + divElem;
  			});	
@@ -79,12 +68,12 @@ function deleteMsgs(act,mem,sta,cont){
 	      success:function(result){	
 	 			$.each(result, function(i,item){	
 	 				divElem =("<div id='msgid'>" +
-					'<a href="personal.controller?memberId='+item[0]+'">'+
-					'<img src="data:image/jpg;base64,'+item[1]+'" width="50" class="img-circle">  </a>' +
-					'<span style="color: blue;">'+item[2]+'</span> &emsp; '+
-					'<span style="font-size: small;">'+item[3]+'</span>'+
-					'<button id="deleteId" class="btn btn-danger" msgid='+item[5]+'>刪除</button>'+			
-			 		'</br>'+item[4]+'</br>'+
+					'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
+					'<img src="/wegether/member/photo/'+item[0]+'" width="50" class="img-circle">  </a>' +
+					'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
+					'<span style="font-size: small;">'+item[2]+'</span>'+
+					'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
+			 		'</br>'+item[3]+'</br>'+
 					"</div>");
 	 				temp = temp + divElem;
 	 			});	

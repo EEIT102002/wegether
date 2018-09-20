@@ -27,6 +27,10 @@
 		class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/activityPage.jsp"></property>
 	</bean>
+	<bean id="activityPage.error"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/index3.jsp"></property>
+	</bean>
 	<bean id="Service.errors"
 		class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true"></property>

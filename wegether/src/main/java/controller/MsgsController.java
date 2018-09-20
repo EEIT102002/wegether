@@ -26,8 +26,8 @@ import model.dao.ActivityDAO;
 import model.dao.MemberDAO;
 import model.dao.MsgDAO;
 import pictureconvert.PictureConvert;
+import pictureconvert.TimeConvert;
 
-//@Controller
 @RestController
 public class MsgsController {
 	@Autowired
@@ -40,55 +40,21 @@ public class MsgsController {
 	private ActivityDAO activityDAO;
 
 
-	@InitBinder
-	public void registerPropertyEditor(WebDataBinder webDataBinder) {
-		webDataBinder.registerCustomEditor(java.util.Date.class,
-				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
 
-	@GetMapping( path= {"/msgs.controller"}, produces= {"application/json"})
-	public ResponseEntity<?> getInfo(MsgBean bean){
-				System.out.println("msgs");
+	@GetMapping( path= {"/msgs.controller/{id}"}, produces= {"application/json"})
+	public ResponseEntity<?> getInfo(@PathVariable(name="id", required = false) Integer activityid){
+				System.out.println("activityid="+activityid);
 		List<Object[]> msgsList = new ArrayList<>();
-		List<MsgBean> msgBeans = msgDAO.selectByActivity(bean.getActivityid());
+		List<MsgBean> msgBeans = msgDAO.selectByActivity(activityid);
 		if (msgBeans.size() != 0) {
 			msgBeans.forEach(msg -> {
-				Calendar msgtime = Calendar.getInstance();
-				Object[] obj = new Object[6];
+				
+				Object[] obj = new Object[5];
 				obj[0] = msg.getMemberid();				
-			
-				String picMemStr;
-				try {
-					picMemStr = PictureConvert
-							.convertBase64Image(memberDAO.select(msg.getMemberid()).getPhoto());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					picMemStr = null;
-				}
-				
-				obj[1] = picMemStr;
-				obj[2] = memberDAO.select(msg.getMemberid()).getNickname();
-				
-				msgtime.setTime(msg.getMsgtime());
-				int msgMonth = msgtime.get(Calendar.MONTH) + 1;
-				int msgDay = msgtime.get(Calendar.DAY_OF_MONTH);
-				int msgHour = msgtime.get(Calendar.HOUR_OF_DAY);
-				String msgHourStr = Integer.toString(msgHour);
-			
-				if (msgHour < 10)
-					msgHourStr = "0" + msgHourStr;
-
-				int msgMinute = msgtime.get(Calendar.MINUTE);
-				String msgMinuteStr = Integer.toString(msgMinute);
-				if (msgMinute < 10)
-					msgMinuteStr = "0" + msgMinuteStr;
-
-				String msgtimeStr = msgMonth + " 月 " + msgDay + " 日  " + msgHourStr + " : " + msgMinuteStr;
-				obj[3] = msgtimeStr;
-				obj[4] = msg.getContent();
-				obj[5] = msg.getId();
-			//	System.out.println("msgID="+msg.getId());
+				obj[1] = memberDAO.select(msg.getMemberid()).getNickname();
+				obj[2] = TimeConvert.timeConvertString(msg.getMsgtime());
+				obj[3] = msg.getContent();
+				obj[4] = msg.getId();
 				msgsList.add(obj);
 
 			});
@@ -101,7 +67,7 @@ public class MsgsController {
 	
 	@PostMapping( path= {"/msgs.controller"}, produces= {"application/json"})
 	public ResponseEntity<?> insertInfo(MsgBean bean)throws URISyntaxException {
-		//System.out.println(bean.getContent());
+		System.out.println(bean.getContent());
 		
 		if(bean.getContent()!=null && bean.getContent().length()!=0 && 
 				 !bean.getContent().equals("對聚會有任何疑問嘛？留個言吧！") ) {
@@ -111,7 +77,7 @@ public class MsgsController {
 				Boolean result = msgDAO.insert(bean);
 				
 				if(result!=null && result==true) {
-					ResponseEntity<?> temp = getInfo(bean);
+					ResponseEntity<?> temp = getInfo(bean.getActivityid());
 					return temp ;
 				} else {
 					return new ResponseEntity(HttpStatus.NO_CONTENT);			
@@ -129,7 +95,7 @@ public class MsgsController {
 		if(bean!=null) {
 			Boolean result = msgDAO.delete(id);
 			if(result!=null && result==true) {
-				ResponseEntity<?> temp = getInfo(bean);
+				ResponseEntity<?> temp = getInfo(bean.getActivityid());
 				System.out.println("@DeleteMapping=true");
 				return temp ;
 			}else {
