@@ -7,7 +7,7 @@ GO
 
 USE wegether
 GO
-select * from member order by signupdate desc
+
 create sequence member_sq
 start with 1
 increment by 1
