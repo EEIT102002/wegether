@@ -416,7 +416,6 @@ footer>ul>li ul {
 // 								var x = $('#memcity').val();
 // 								alert(x);
 								$('#memcity2').html(array_for_city[${mem.city}]);
-								
 							})
 							</script>
 							</span>

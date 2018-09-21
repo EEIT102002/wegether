@@ -17,8 +17,9 @@
 		<div style="visibility: hidden">
 
 			<input type="text" id="fgName" name="name" value="${param.name}">
-			<input type="text" id="fgEmail" name="account" value="${param.account}"> 
-<%-- 			<input type="text" id="fgPic" name="user_photo" value="${param.user_photo}">  --%>
+			<input type="text" id="fgEmail" name="account"
+				value="${param.account}">
+			<%-- 			<input type="text" id="fgPic" name="user_photo" value="${param.user_photo}">  --%>
 			<input type="submit" value="登入" id="click">
 
 		</div>
@@ -100,10 +101,7 @@
 		// successful.  See statusChangeCallback() for when this call is made.
 		function testAPI() {
 			console.log('Welcome!  Fetching your information.... ');
-			FB
-					.api(
-							'/me',
-							function(response) {
+			FB.api('/me',function(response) {
 								console.log('Successful login for: '
 										+ response.name);
 								document.getElementById('status').innerHTML = 'Thanks for logging in, '

@@ -34,7 +34,12 @@ public class fbcontroller extends HttpServlet {
 
 	@RequestMapping(path = { "/login/fb" }, method = RequestMethod.POST)
 	public String insertfb(String account, String name, Model model, MemberBean bean) throws Exception {
+		
+		//接收資料
 
+		
+		
+		
 		MemberBean checkuser = memberDAOHibernate.selectByAccount(bean.getAccount());
 		System.out.println(bean);
 		System.out.println("有無值:" + checkuser);
