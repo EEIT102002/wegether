@@ -16,15 +16,17 @@ var attendTemp = '<div class="panel panel-default"><div class="panel-heading"><a
 
 var attendcollapse = '<div id="" class="panel-collapse collapse"><div class="panel-body"></div></div>';
 
-var liTemp = '<li class="btn btn-secondary activityli"><div>' +
+var liTemp = '<li class="btn btn-secondary activityli"><a>' +
 	'<div class="title"></div>' +
 	'<div class="info">' +
 	'<div class="host">主辦人: </div>' +
-	'<div class="actbegin">活動時間:</div>' +
-	'<div class="accepts">參加人數:</div>' +
-	'<div class="unresponds">未回應報名:</div>' +
-	'</div></div></li>';
+	'<div class="actbegin">活動時間: </div>' +
+	'<div class="accepts">參加人數: </div>' +
+	'<div class="unresponds">未回應報名: </div>' +
+	'</div></a></li>';
 var respondTemp = '<div class="respondAttend"><button type="button" value="accept">接受</button><button type="button" value="reject">拒絕</button></div>';
+
+var activityid;
 
 $(function () {
 	$('#header_nav ul li').click(function () {
@@ -36,7 +38,7 @@ $(function () {
 		var i = $(this).index();
 		clickContent_xx(i);
 	})
-	var activityid;
+	
 
 	var lis = $('.setting4ul li');
 
@@ -71,7 +73,7 @@ $(function () {
 				break;
 		}
 	}
-	var divList = $('.showContent .friendList');
+	var divList = $('#attendlist');
 
 	///attend詳細
 	function readAttend(url, type) {
@@ -157,12 +159,17 @@ $(function () {
 			, function (data) {
 				$.each(data, function (index, e) {
 					var li = $(liTemp);
-					li.find('.title').html(
-						$('<a/>').text(e.title)
-							.attr('href', '/wegether/activityPage.controller?actid=' + e.activityid)
-							.bind('click', function (event) {
-								event.stopPropagation();
-							}));
+					li.children('a').attr('href', '/wegether/activityPage.controller?actid=' + e.activityid)
+					.bind('click', function (event) {
+						event.stopPropagation();
+					});
+					li.find('.title').text( e.title
+//						$('<a/>').text(e.title)
+//							.attr('href', '/wegether/activityPage.controller?actid=' + e.activityid)
+//							.bind('click', function (event) {
+//								event.stopPropagation();
+//							})
+							);
 					if (i != 0 && i != 4) {
 						li.find('.host').append(document.createTextNode(e.hostname));
 					} else {
@@ -217,21 +224,12 @@ $(function () {
 	
 	//好友列表
 	
-	
-	
-//	var rowtemp = '<div><a href=""><div class="memberPhoto"><div><img src="#" alt=""></div></div><span class="name"></span></a><div class="friendButton"><button type="button" value="invite">邀請</button></div></div>';
-//	var first = 0;
-//	var count = 0;
-//	var scrolltimes = 0;
-//	var listhight = 50;
-//	var friendList= $('#friendsearchBox .modal-body>div');
-//	var scrollDiv = friendList.parent();
-//	
-//	$(document).on('click','.friendButton button',function(){
-//		friendbuttonDo(this);
-//
-//	})
-//	
+
+
+
+})
+
+
 	function friendbuttonDo(e){
 		e=$(e)
 		var url = '/wegether/activity/'+activityid+'/'+e.val()+'/'+e.parent().attr('friendid');
@@ -244,54 +242,3 @@ $(function () {
 //			}
 //		)	
 	}
-//	
-//	scrollDiv.scroll(function () {
-//		if (scrolltimes == 0 && first != 0 && scrollDiv.scrollTop() > (first * listhight)-500 && first % 20 == 0) {
-//			console.log(123)
-//			scrolltimes = 1;
-//			addfriendList(rowtemp, "/wegether/member/Friend/", friendList);
-//		}
-//	})
-//	
-//	$('#friendsearchButton').click(function(){
-//		var searchbox = $('#friendsearchBox');
-//		searchbox.modal();
-//		first = 0;
-//		count = 0;
-//		scrolltimes = 0;
-//		friendList.html("");
-//		addfriendList(rowtemp, "/wegether/member/Friend/", friendList);
-//	})
-//	
-//	function addfriendList(temple, restful, inputdiv) {
-//			$.ajax({
-//				type: "GET",
-//				url: restful + first,
-//				dataType: "json",
-//				success: function (data) {
-//					if (data.state) {
-//						first += data.json.length;
-//						if (count == 0 && data.count != null) {
-//							count = data.count;
-//							if(count != 0){
-//								inputdiv.css('min-height', (count* listhight) + "px");
-//							}
-//						}
-//						$.each(data.json, function (i, e) {
-//							var row = $(temple);
-//							row.find(".name").html(e.nickname);
-//							row.find('.memberPhoto img').attr('src', e.photoSrc);
-//							row.find('a').attr('href', '/wegether/personal.controller?memberId='+e.memberid);
-//							row.find('.friendButton').attr('friendid', e.id);
-//							inputdiv.append(row);
-//						})
-//						scrolltimes = 0;
-//					}
-//				},
-//				error: function (XMLHttpRequest, textStatus, errorThrown) {
-//
-//				}
-//			});
-//		}
-
-})

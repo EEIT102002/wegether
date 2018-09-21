@@ -214,6 +214,7 @@ input[type=checkbox]:checked+span {
 #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(2) div
 	{
 	font-size: 14px;
+	margin-left: auto;
 }
 
 #contentRemind>div .dropdown-item>div:nth-last-child(2)>div:nth-child(2)>a
