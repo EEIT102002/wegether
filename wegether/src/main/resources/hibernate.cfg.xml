@@ -22,5 +22,6 @@
         <mapping class="model.MemberInfoBean"/>
         <mapping class="model.TrackmemberBean"/>
         <mapping class="model.BlacklistBean"/>
+        <mapping class="model.NoticeviewBean"/>
     </session-factory>
 </hibernate-configuration>

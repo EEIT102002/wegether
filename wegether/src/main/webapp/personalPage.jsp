@@ -262,12 +262,12 @@ footer>ul>li ul {
 /* 星級評分 */
 .s {
 	-webkit-filter: grayscale(1); /*沒有任何色彩的黑白影像*/
-	width: 30px;
+	width: 50px;
 }
 
 .n {
 	-webkit-filter: grayscale(0); /*顏色不變*/
-	width: 30px;
+	width: 50px;
 }
 </style>
 </head>
@@ -413,7 +413,17 @@ footer>ul>li ul {
 					<div id="core1">
 						<div id="left" style="padding-top: 6px;">
 							<span
-								style="font-weight: bold; font-style: italic; padding-top: 4px; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">台灣-${mem.city}
+								id="memcity2" style="font-weight: bold; font-style: italic; padding-top: 4px; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">${mem.city}
+								<script>
+							$(function(){
+								var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+								      ,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']
+// 								var x = $('#memcity').val();
+// 								alert(x);
+								$('#memcity2').html(array_for_city[${mem.city}]);
+								
+							})
+							</script>
 							</span>
 						</div>
 
@@ -496,9 +506,19 @@ footer>ul>li ul {
 									<span style="font-size: 15px;">對方未公開</span>
 								</c:when>
 								<c:otherwise>
-									<span style="font-size: 15px;">${mem.city}</span>
+									<span style="font-size: 15px;" id="memcity">${mem.city}</span>
 								</c:otherwise>
 							</c:choose>
+							<script>
+							$(function(){
+								var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+								      ,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']
+// 								var x = $('#memcity').val();
+// 								alert(x);
+								$('#memcity').html(array_for_city[${mem.city}]);
+								
+							})
+							</script>
 						</span>
 						<h4 style="font-weight: bold">喜好活動類型:</h4>
 						<span style="font-size: 15px;"> <c:choose>
