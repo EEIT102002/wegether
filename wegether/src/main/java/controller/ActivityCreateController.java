@@ -49,7 +49,7 @@ public class ActivityCreateController {
 	ApplicationContext context;
 
 	@RequestMapping(path = { "/actCreate.controller" }, method = RequestMethod.POST)
-	public String actCreate(Model model, ActivityBean activityBean, BindingResult bindingResult,
+	public String actCreate(ActivityBean activityBean, BindingResult bindingResult,
 			@RequestParam(value = "picture", required = false) MultipartFile file,
 			@RequestParam(value = "startTime", required = false) String startDate,
 			@RequestParam(value = "startTimepicker", required = false) String starttime,
@@ -58,16 +58,16 @@ public class ActivityCreateController {
 			@RequestParam(value = "endTimepicker", required = false) String endTime,
 			@RequestParam(value = "applyform", required = false) String applyform,
 			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
-			@RequestAttribute(value = "memberid", required = false) Integer id
-			,HttpServletRequest request) throws ParseException, IOException {
-		System.out.println("actCreate()");
+			@RequestAttribute(value = "memberid", required = false) Integer id, HttpServletRequest request, Model model)
+			throws ParseException, IOException {
+		System.out.println(activityBean);
 
 		if (id == null) {
 			model.addAttribute("loginFail", "請登入");
 			return "index.success";
 		}
 
-		System.out.println(applyform);
+		// System.out.println(applyform);
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errMsgs", errors);
 
@@ -78,10 +78,12 @@ public class ActivityCreateController {
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 
 		byte[] pic = null;
-		if (!file.isEmpty()) { // 圖片判定
+		if (!file.isEmpty() || file != null) { // 圖片判定
+			System.out.println("has pic");
 			pic = file.getBytes();
 			activityBean.setPicture(pic);
 		} else {
+			System.out.println("has no pic");
 			File defultPic = new File("..\\repository\\wegether\\src\\main\\webapp\\images\\actcreate.png");
 			try {
 				pic = fileToByte(defultPic);
@@ -94,14 +96,16 @@ public class ActivityCreateController {
 		if (activityBean != null) {
 			col.put("title", activityBean.getTitle());
 
-			if (activityBean.getTitle().isEmpty()) // 標題判定
+			if (activityBean.getTitle().isEmpty() || activityBean.getTitle() == null) // 標題判定
 				errors.put("title", "請輸入聚會標題");
 
-			if (!starttime.isEmpty() && !":".equals(starttime.substring(2, 3))) // 開始日期判定
+			if (!starttime.isEmpty() && !":".equals(starttime.substring(2, 3))) { // 開始日期判定
 				errors.put("starDateTime", "請輸入正確時間 ex 07:30 PM");
-			else if (startDate.isEmpty() || starttime.isEmpty())
+				System.out.println("1");
+			} else if (startDate == null || starttime == null || starttime.isEmpty()) {
 				errors.put("starDateTime", "請輸入開始時間");
-			else if (!startDate.isEmpty()) {
+				System.out.println("2");
+			} else if (!startDate.isEmpty()) {
 				String[] year = startDate.split("-");
 				if (Integer.parseInt(year[0]) >= 2200)
 					errors.put("starDateTime", "請輸入正確年份");
@@ -115,14 +119,15 @@ public class ActivityCreateController {
 					errors.put("endDateTime", "請輸入正確年份");
 			}
 
-			if (activityBean.getContent().isEmpty()) // 內容判定
+			if (activityBean.getContent() == null || activityBean.getContent().isEmpty()) // 內容判定
 				errors.put("content", "請輸入詳細描述");
 
-			if (dateline.isEmpty()) // 截止日期判定
+			if (dateline == null || dateline.isEmpty()) // 截止日期判定
 				errors.put("deathline", "請輸入截止日期");
 
 			if (errors != null && !errors.isEmpty()) {
 				System.out.println("has error msgs");
+				System.out.println(errors);
 				return "actCreateErr.page";
 			}
 		}
@@ -142,12 +147,12 @@ public class ActivityCreateController {
 		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
-		
+
 		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
-		if(applyform == null) {
-			formJson.put("hasForm", false);	
-		}else {
-			formJson.put("hasForm", true);	
+		if (applyform == null) {
+			formJson.put("hasForm", false);
+		} else {
+			formJson.put("hasForm", true);
 		}
 		applyform = formJson.toString();
 		activityBean.setForm(applyform);
@@ -159,15 +164,15 @@ public class ActivityCreateController {
 
 		if (insertResult == null) {
 			errors.put("action", "Insert fail");
-		}else {
+		} else {
 			int activityid = activityDAO.getActivityId(id, aa, bb);
 			System.out.println("activityid = " + activityid);
-	
+
 			PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
 			pictureBean.setActivityid(activityid);
 			pictureBean.setPicture(pic);
 			pictureDAO.insert(pictureBean);
-	
+
 			if (files != null && files.length > 0) {
 				for (int i = 0; i < files.length; i++) {
 					byte[] pics = files[i].getBytes();
@@ -175,14 +180,13 @@ public class ActivityCreateController {
 					pictureBean2.setActivityid(activityid);
 					pictureBean2.setPicture(pics);
 					pictureDAO.insert(pictureBean2);
-	
 				}
 			}
 			request.setAttribute("id", activityBean.getId());
 			request.setAttribute("ntype", 11);
 		}
 		return "actCreateSuc.page";
-		
+
 	}
 
 	public String startDateFormat(String startDate, String starttime) {
