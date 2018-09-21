@@ -11,9 +11,9 @@
 	<link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
 
 	<script>
-		var rowtemp = '<div><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button" value="delete">刪除</button></div></div>';
-		var applyedtemp = '<div class="applyed"><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button" value="accept">接受</button><button type="button" value="reject">拒絕</button></div></div>';
-		var applytemp = '<div><a href=""><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button" value="delete">取消</button></div></div>';
+		var rowtemp = '<div><a href="" target="_parent"><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button" value="delete">刪除</button></div></div>';
+		var applyedtemp = '<div class="applyed"><a href="" target="_parent"><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button" value="accept">接受</button><button type="button" value="reject">拒絕</button></div></div>';
+		var applytemp = '<div><a href="" target="_parent"><div><div class="photoDiv"><img src = ""alt=""></div><span class="name"></span></div></a><div class="friendButton"><button type="button" value="delete">取消</button></div></div>';
 		var friendList;
 		var friendsearch;
 		var first = 0;
@@ -53,15 +53,15 @@
 					friendList.html("");
 					switch (i) {
 						case 0:
-							friendsearch.show();
+							friendsearch.children().show();
 							friendlist();
 							break;
 						case 1:
-							friendsearch.hide();
+							friendsearch.children().hide();
 							friendapplyedlist();
 							break;
 						case 2:
-							friendsearch.show();
+							friendsearch.children().show();
 							friendapplylist();
 							break;
 					}
@@ -137,7 +137,7 @@
 							var row = $(temple);
 							row.find(".name").html(e.nickname);
 							row.find('img').attr('src', e.photoSrc);
-							row.find('a').attr('href', e.memberid);
+							row.find('a').attr('href', '/wegether/personal.controller?memberId='+e.memberid);
 							row.find('.friendButton').attr('friendid', e.id);
 							friendList.append(row);
 							iframe_auto_height();

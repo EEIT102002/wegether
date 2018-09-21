@@ -155,23 +155,34 @@ public class ActivityCreateController {
 		System.out.println(starttime);
 		System.out.println(activityBean);
 
-		activityDAO.insert(activityBean);
+		ActivityBean insertResult = activityDAO.insert(activityBean);
 
-		int activityid = activityDAO.getActivityId(3, aa, bb); // 改
-		System.out.println("activityid = " + activityid);
-
-		if (files != null && files.length > 0) {
-			for (int i = 0; i < files.length; i++) {
-				PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
-				pictureBean.setActivityid(activityid);
-				byte[] pics = files[i].getBytes();
-				pictureBean.setPicture(pics);
-				pictureDAO.insert(pictureBean);
+		if (insertResult == null) {
+			errors.put("action", "Insert fail");
+		}else {
+			int activityid = activityDAO.getActivityId(id, aa, bb);
+			System.out.println("activityid = " + activityid);
+	
+			PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
+			pictureBean.setActivityid(activityid);
+			pictureBean.setPicture(pic);
+			pictureDAO.insert(pictureBean);
+	
+			if (files != null && files.length > 0) {
+				for (int i = 0; i < files.length; i++) {
+					byte[] pics = files[i].getBytes();
+					PictureBean pictureBean2 = (PictureBean) context.getBean("pictureBean");
+					pictureBean2.setActivityid(activityid);
+					pictureBean2.setPicture(pics);
+					pictureDAO.insert(pictureBean2);
+	
+				}
 			}
+			request.setAttribute("id", activityBean.getId());
+			request.setAttribute("ntype", 11);
 		}
-		request.setAttribute("id", activityBean.getId());
-		request.setAttribute("ntype", 11);
 		return "actCreateSuc.page";
+		
 	}
 
 	public String startDateFormat(String startDate, String starttime) {

@@ -63,10 +63,9 @@ function searchServer(formData, url, type){
         success: function(data){
             $.each(data, function(i, e){
                 var row = $(temp);
-                console.log(e.memberid)
                 row.find(".name").html(e.nickname);
                 row.find('img').attr('src', '/wegether/member/photo/'+e.memberid);
-                row.find('a').attr('href', e.memberid);
+                row.find('a').attr('href', '/wegether/personal.controller?memberid='+e.memberid);
                 row.find('.friendButton').attr('memberid', e.memberid);
                 minbody.append(row);
                 searchbox.modal();

@@ -26,17 +26,24 @@ $(function () {
                     var qqq = $(logindiv).closest('.modal');
                     $(qqq).modal('hide');
                     logingroup(data);
+                  
                 }else{
                 	$('.loginerror').text("登入失敗");
                 	$('#pwd').val("");
                 }
+                
             }
             , "json"
         )
     })
-    logoutSub.click(function () {
-        logoutf();
-    })
+//    logoutSub.click(function () {
+//        logoutf();
+//    })
+    $('#tempCon').on("click",'#logoutSubSpanA',function () {
+    	logoutf();
+      })
+      
+      
     $('#loginform').on("click","input",function(){
     	$('.loginerror').text("");
     })
@@ -46,9 +53,13 @@ $(function () {
 })
 
 function logingroup(data){
+	console.log('logingroup');
 	 if(typeof window.loginDo === "function") {
+		console.log('logingroup2');
      	loginDo();//登入後要做的方法放在loginDo()
-     }                   
+     
+     }
+	
      logtoggle();//login或logout後的顯示切換
      connectNotice(data.ntoken);
 }
@@ -61,6 +72,7 @@ function logoutf(){//登出要執行的功能
             , function (data) {
                 if (data.state == true) {
                 	noticeClose();
+                	
                 	logtoggle();
                     if(typeof window.logoutDo === "function") {
                         logoutDo();//登出後要做的方法放在logoutDo()
@@ -72,10 +84,15 @@ function logoutf(){//登出要執行的功能
 }
 
 function logtoggle(){ //login或logout後的顯示切換
-	 loginSpan.toggle();
-     logoutSpan.toggle();
-     loginRing.toggle();
+	 $('#loginSpan').toggle();
+	 $('#logoutSpan').toggle();
+	 $('#liRing').toggle();
+//	   loginSpan.toggle();
+//     logoutSpan.toggle();
+//     loginRing.toggle();
 }
+
+
 
 
 

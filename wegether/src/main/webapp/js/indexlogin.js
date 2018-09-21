@@ -11,7 +11,7 @@ function loginDo(){
 	$.ajax(PageContext+"/member/Info/index",{
 		method:"get",
 		success:function(data){
-//			alert('A');
+		
 //			console.log(data);
 //			console.log(data[0]);
 //			console.log(data[0][1]);
