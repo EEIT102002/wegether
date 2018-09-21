@@ -75,3 +75,85 @@
     background-color: rgba(0, 44, 95, 0.3);
     font-size: 18px;
 }
+
+.memberPhoto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+    flex: 0 0 55px;
+}
+
+.memberPhoto div {
+    width: 50px;
+    height: 50px;
+    background-color: gray;
+    border-radius: 50px;
+}
+
+.memberPhoto div>img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.attend {
+    display: flex;
+    align-items: center;
+}
+
+#attendlist * {
+    padding: 0;
+    margin: 0;
+}
+
+#attendlist .panel-body *{
+	font-size: 16px;
+	text-align: left;
+}
+#attendlist .panel-body h3{
+	font-size: 20px;
+}
+#attendlist .panel-body>div{
+	border-bottom: 1.5px solid rgba(0, 44, 95, 0.3);
+	padding:10px;
+}
+
+#attendlist .panel-body>div div{
+	padding:10px 20px;
+}
+
+#attendlist .panel-body{
+	padding:10px;
+}
+
+#blocklist>div:nth-child(2){
+    overflow-y: scroll;
+    max-height:500px;
+}
+
+#blocklist > div:nth-child(2){
+	max-height:500px;	
+	overflow-y: scroll;
+}
+
+#blocklist div::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+#blocklist div::-webkit-scrollbar-track {
+    background: rgba(200, 226, 255, 0); 
+}
+ 
+/* Handle */
+#blocklist div::-webkit-scrollbar-thumb {
+    background: rgba(70, 114, 165, 0.8);
+}
+
+/* Handle on hover */
+#blocklist div::-webkit-scrollbar-thumb:hover {
+    background: #008CBA;
+}
+
+

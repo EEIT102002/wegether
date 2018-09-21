@@ -86,8 +86,9 @@ public class ActivityDAOHibernate implements ActivityDAO {
 				temp.setNumberlimit(bean.getNumberlimit());
 			if (bean.getFeed() != null)
 				temp.setFeed(bean.getFeed());
+			return temp;
 		}
-		return temp;
+		return null;
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.List;
 import model.FriendBean;
 
 public interface FriendDAO {
-	public abstract List<FriendBean> select(int memberid);
+	public abstract List<FriendBean> selectAllFriendByMemberid(int memberid);
 	
 	public abstract List<FriendBean> selectByMemberState(int memberid,int state , int first);
 	

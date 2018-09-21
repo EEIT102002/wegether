@@ -1,5 +1,7 @@
 package config;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -60,7 +62,11 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localInterceptor());
-		registry.addInterceptor(noticeInterceptor()).addPathPatterns("/Rest/activity/apply/*");
+//		List<String> nlist = new ArrayList<>();
+//		nlist.add("/friend/invite");
+//		nlist.add("/friend/accept");
+//		
+		registry.addInterceptor(noticeInterceptor());
 	}
 	
 	@Bean

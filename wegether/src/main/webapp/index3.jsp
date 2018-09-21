@@ -3,13 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 <title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="css/bootstrap.css" />
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="/wegether/css/bootstrap.css" />
+<link rel="stylesheet" href="/wegether/css/style.css" />
 <link
 	href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
 	rel='stylesheet' type='text/css'>
@@ -22,7 +21,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="/wegether/css/notice.css" />
-<script type="text/javascript" src="/wegether/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript"src="js/preindexFunction.js"></script>
 <script src="/wegether/js/bootstrap.js"></script>
 <script type="text/javascript" src="/wegether/js/index.js"></script>
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>

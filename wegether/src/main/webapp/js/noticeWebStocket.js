@@ -8,11 +8,21 @@ var noticeCollapseTemp = '<div id="" class="panel-collapse collapse"><div class=
 var scrolltimes = 0;
 var nwebSocket;
 
+$(function(){
+	// 按menu內元素時menu不消失
+	$(document).on('click', '#liRing .dropdown-menu', function(e) {
+		e.stopPropagation();
+	});
+	
+	
+})
+
+
 function connectNotice(token) {
 	// 提醒所需變數
 	var unread;
 	var first = 0;
-	var unchick = true;
+	var uncheck = true;
 	var count = null;
 	var scrollHeight;
 
@@ -30,13 +40,24 @@ function connectNotice(token) {
 	nwebSocket.onclose = function() {
 		clearNoticeDiv();
 		console.log("connection closed");
+		//初始
+		noticediv.off('scroll');
+		$('#dropdownMenuButton2').off('click');
+		$(document).off('click', '.spanRemove');
+		$(document).off('click', '.panel:first a[data-toggle="collapse"]');
+		$('#removeAllNotice').off('click');
+		noticediv.off('click', '.panel-collapse button');
 	};
 	nwebSocket.onerror = function wserror(message) {
 		console.log("error: " + message);
 	};
 	// onmessage , 接收到來自Server的訊息時觸發
 	nwebSocket.onmessage = function(message) {
-		unread += 1;
+		console.log(message.data)
+		if(message.data == "1"){
+			unread += 1;
+			$('#supremind').text(unread).show();
+		}
 	};
 
 	// 讀取為查看提醒數
@@ -47,14 +68,13 @@ function connectNotice(token) {
 		}
 	}, 'json')
 
-	// 按menu內元素時menu不消失
-	$(document).on('click', '#liRing .dropdown-menu', function(e) {
-		e.stopPropagation();
-	});
+	
 
 	var noticediv = $('#contentRemind');
 	var noticedivdiv = noticediv.children('div');
 	// 當轉動卷軸時 讀取下10的訊息
+	
+	
 	noticediv.scroll(function() {
 		if (scrolltimes == 0 && first != 0
 				&& noticediv.scrollTop() <= scrollHeight - (first * listhight)
@@ -72,7 +92,7 @@ function connectNotice(token) {
 		if ($(this).attr('aria-expanded') == 'false') {
 			if (unread > 0) {
 				selectNotices(clearNoticeDiv, clearUnread);
-			} else if (unchick) {
+			} else if (uncheck) {
 				selectNotices(clearNoticeDiv, clearUnread);
 			}
 		}
@@ -81,25 +101,26 @@ function connectNotice(token) {
 	// 清空menu
 	function clearNoticeDiv() {
 		first = 0;
+		console.log("clear")
 		noticedivdiv.html("");
 		noticedivdiv.css('min-height', '50px');
 	}
 
 	// 讀取通知
 	function selectNotices(fn1, fn2) {
+		fn1();
 		$.post('/wegether/noitce/select/' + first, function(data) {
 			if (data.state) {
-				fn1();
 				first += data.notices.length;
-				if (count == null && data.count != null) {
+				if (data.count != null) {
 					count = data.count;
+					console.log(count);
 					if (count == 0) {
 						noticedivdiv.text('沒有通知');
 					} else {
 						noticedivdiv.css('min-height', (count * listhight)
 								+ "px");
 					}
-
 				}
 				$.each(data.notices, function(i, e) {
 					var noticeRowDiv = $(noticeRowTemp);
@@ -134,7 +155,7 @@ function connectNotice(token) {
 						noticePhotoDiv.find('img').attr('src',
 								'/wegether/member/photo/' + id)
 						noticePhotoDiv.find('a').attr('href',
-								'wegether/member/' + id);
+								'/wegether/personal.controller?memberId='+ id);
 					}
 
 					switch (e.ntype) {
@@ -236,7 +257,7 @@ function connectNotice(token) {
 	function clearUnread() {
 		unread = 0;
 		noticediv.scrollTop(scrollHeight);
-		unclick = false;
+		uncheck = false;
 		$('#supremind').text(0).hide();
 		// $.get(
 		// '/wegether/noitce/unread/clear'
@@ -313,7 +334,7 @@ function connectNotice(token) {
 	}
 
 	function memberAtage(name, id) {
-		var memberUrl = '/wegether/personal.controller?memberid=';
+		var memberUrl = '/wegether/personal.controller?memberId=';
 		return Atage(name, memberUrl + id);
 	}
 

@@ -9,20 +9,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet"  href="css/bootstrap.css" />
 <link rel="stylesheet"  href="css/style.css"/>
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript"src="js/preindexFunction.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
 <link rel="stylesheet" type="text/css"
 	href="/wegether/css/notice.css" />
-<script type="text/javascript" src="js/index.js"></script>
-<script src="js/jquery.cookie.js" type="text/javascript"></script>
-<script src="js/indexlogin.js"></script>
-<script src="js/noticeWebStocket.js" type="text/javascript"></script>
-<script src="js/logMethod.js" type="text/javascript"></script>
+<script type="text/javascript" src="/wegether/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript"src="/wegether/js/preindexFunction.js"></script>
+<script src="/wegether/js/bootstrap.js"></script>
+<script type="text/javascript" src="/wegether/js/index.js"></script>
+<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="/wegether/js/indexlogin.js"></script>
+<script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
+<script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 <script src="/wegether/js/imageError.js"></script>
 <style>
  	#form_po{
