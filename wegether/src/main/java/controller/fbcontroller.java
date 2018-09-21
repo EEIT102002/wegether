@@ -38,8 +38,8 @@ public class fbcontroller extends HttpServlet {
 		MemberBean checkuser = memberDAOHibernate.selectByAccount(bean.getAccount());
 		System.out.println(bean);
 		System.out.println("有無值:" + checkuser);
-		String beginDate = "2018-08-01";
-		Date t1 = null;
+//		String beginDate = "2018-08-01";
+//		Date t1 = null;
 
 		if (checkuser == null) {
 			System.out.println("temp:" + bean);
@@ -49,14 +49,14 @@ public class fbcontroller extends HttpServlet {
 			bean.setBirthday(new java.util.Date());
 			System.out.println("新增成功:" + bean);
 			memberDAOHibernate.insert(bean);
-			return "register.success";
+			return "register.error";
 
 		} else {
 
 			System.out.println("相同帳號");
 
 		}
-		return "register.success";
+		return "register.error";
 
 	}
 
