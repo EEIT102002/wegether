@@ -123,7 +123,8 @@ footer>ul>li ul {
 }
 
 #right li {
-	border-bottom: 2px solid #5599FF;
+	border-bottom: 1.5px solid #5599FF;
+	border-radius: 0px; */
 	/* 調整地方 */
 }
 
@@ -280,7 +281,7 @@ footer>ul>li ul {
 													<button id="friendsearchButton">邀請好友</button>
 											</div>
 											<div>
-												<div class="friendList panel-group" id="attendlist">
+												<div class="panel-group" id="attendlist">
 												</div>
 											</div>
 										</div>
@@ -328,7 +329,7 @@ footer>ul>li ul {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<div>
+					<div class= 'friendList'>
 					
 					</div>
 				</div>

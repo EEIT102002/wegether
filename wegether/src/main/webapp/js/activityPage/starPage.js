@@ -1,15 +1,16 @@
 			//star1  活動滿意度
 			var flagStar1=true;  
 			var imgidNO1;
+			var rank = ["還不錯","值得參加","值得推薦","很滿意","非常滿意"]
+
 			function over1(){
         		imgidNO1=$(this).attr("id").substr(7);
-        		$('#spa1').text("評分中... "+imgidNO1); 
+        		$('#spa1').text("... "+rank[imgidNO1-1]); 
         		flagStar1=true;
         		for (var i = 1; i < 6; i++) {
     				if (i <= imgidNO1) {
 						$('#idstar1'+ i).removeClass('s').addClass('n');
     				} else {
-    					console.log("in")
     					$('#idstar1'+ i).removeClass('n').addClass('s');	
     				}
     			}
@@ -27,7 +28,7 @@
         	
     			function click1(){
     			imgidNO1=$(this).attr("id").substr(7);          
-                 $('#spa1').text("您評分 "+imgidNO1+" 顆星"); 
+                 $('#spa1').text("... "+rank[imgidNO1-1]); 
                  flagStar1=false;
              }
     			
@@ -36,13 +37,12 @@
     			var imgidNO2;
     			function over2(){
             		imgidNO2=$(this).attr("id").substr(7);
-            		$('#spa2').text("評分中... "+imgidNO2); 
+            		$('#spa2').text("... "+rank[imgidNO2-1]); 
             		flagStar2=true;
             		for (var i = 1; i < 6; i++) {
         				if (i <= imgidNO2) {
     						$('#idstar2'+ i).removeClass('s').addClass('n');
         				} else {
-        					console.log("in")
         					$('#idstar2'+ i).removeClass('n').addClass('s');	
         				}
         			}
@@ -60,7 +60,7 @@
             	
         			function click2(){
         			 imgidNO2=$(this).attr("id").substr(7);          
-                     $('#spa2').text("您評分 "+imgidNO2+" 顆星"); 
+                     $('#spa2').text("... "+rank[imgidNO2-1]); 
                      flagStar2=false;
                  }
 
@@ -69,7 +69,7 @@
         			var imgidNO3;
         			function over3(){
                 		imgidNO3=$(this).attr("id").substr(7);
-                		$('#spa3').text("評分中... "+imgidNO3); 
+                		$('#spa3').text("... "+rank[imgidNO3-1]); 
                 		flagStar3=true;
                 		for (var i = 1; i < 6; i++) {
             				if (i <= imgidNO3) {
@@ -92,13 +92,12 @@
                 	
             			function click3(){
             			 imgidNO3=$(this).attr("id").substr(7);          
-                         $('#spa3').text("您評分 "+imgidNO3+" 顆星"); 
+                         $('#spa3').text("... "+rank[imgidNO3-1]); 
                          flagStar3=false;
                      }	
         			
         			
             			function sendRank(){
-            				console.log("imgidNO3="+imgidNO3);
             				$.get("activityPageRank.controller/"+activityid+"/"+imgidNO1+"/"+imgidNO2+"/"+imgidNO3+"",
             						  function(data){	
 	            				 		if(data){
@@ -111,4 +110,14 @@
             				 
             				 },'json');	
             			}
+            			
+            			function attendShare(){
+            				
+            			}
+            			
+            			
+            			
+            			
+            			
+            			
                    	

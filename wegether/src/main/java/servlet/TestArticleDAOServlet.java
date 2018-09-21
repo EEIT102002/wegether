@@ -51,8 +51,8 @@ public class TestArticleDAOServlet extends HttpServlet {
 		// insert
 		for(int i=0;i<10;i++) {
 		ArticleBean bean = new ArticleBean();
-		bean.setMemberid(5);
-		bean.setActivityid(2);
+		bean.setMemberid(6);
+		bean.setActivityid(1);
 		bean.setContent("item="+i+" <br> 奧萬大與您相約在每一個季節。"
 				);//		bean.setCreatetime(new java.util.Date());
 		ArticleBean result = articleDaoHibernate.insert(bean);

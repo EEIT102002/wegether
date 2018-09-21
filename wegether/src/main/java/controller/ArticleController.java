@@ -25,6 +25,7 @@ import model.dao.ArticleDAO;
 import model.dao.MemberDAO;
 import model.dao.PictureDAO;
 import pictureconvert.PictureConvert;
+import pictureconvert.TimeConvert;
 
 //@Controller
 @RestController
@@ -42,70 +43,30 @@ public class ArticleController {
 	@Autowired
 	private ArticleDAO articleDAO;
 
-	@InitBinder
-	public void registerPropertyEditor(WebDataBinder webDataBinder) {
-		webDataBinder.registerCustomEditor(java.util.Date.class,
-				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
-
+	
 	@GetMapping( path= {"/article.controller"}, produces= {"application/json"})
 	public ResponseEntity<?> getInfo(ArticleBean bean){
 		System.out.println("ArticleBean="+bean);
 		
-//		if(bean.getContent()!=null && bean.getContent().length()!=0 ) {
-//			if(bean.getContent().startsWith("deleteMsgId")) {
-//				articleDAO.delete(Integer.parseInt(bean.getContent().substring(12)));
-//				System.out.println("GOOD");
-//			}
-//		}
 		
 		List<Object[]> articleList = new ArrayList<>();
 		List<ArticleBean> articleBeans = articleDAO.selectByActivityId(bean.getActivityid());
 		if (articleBeans.size() != 0) {
-			System.out.println("articleBeans.size()="+articleBeans.size());
 			articleBeans.forEach(art -> {
 				Calendar arttime = Calendar.getInstance();
-				Object[] obj = new Object[7];
+				Object[] obj = new Object[6];
 				obj[0] = art.getMemberid();				
-			
-				String picMemStr;
-				try {
-					picMemStr = PictureConvert
-							.convertBase64Image(memberDAO.select(art.getMemberid()).getPhoto());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					picMemStr = null;
-				}
-				
-				obj[1] = picMemStr;
-				obj[2] = memberDAO.select(art.getMemberid()).getNickname();
-				
-				arttime.setTime(art.getCreatetime());
-				int artMonth = arttime.get(Calendar.MONTH) + 1;
-				int artDay = arttime.get(Calendar.DAY_OF_MONTH);
-				int artHour = arttime.get(Calendar.HOUR_OF_DAY);
-				String artHourStr = Integer.toString(artHour);
-			
-				if (artHour < 10)
-					artHourStr = "0" + artHourStr;
-
-				int artMinute = arttime.get(Calendar.MINUTE);
-				String artMinuteStr = Integer.toString(artMinute);
-				if (artMinute < 10)
-					artMinuteStr = "0" + artMinuteStr;
-
-				String arttimeStr = artMonth + " 月 " + artDay + " 日  " + artHourStr + " : " + artMinuteStr;
-				obj[3] = arttimeStr;
-				obj[4] = art.getContent();
-				obj[5] = art.getId();
+				obj[1] = memberDAO.select(art.getMemberid()).getNickname();
+				obj[2] = TimeConvert.timeConvertString(art.getCreatetime());
+				obj[3] = art.getContent();
+				obj[4] = art.getId();
 				
 				List<Integer> picArticleId = new ArrayList<Integer>();
 				List<PictureBean>  picArticle = pictureDAO.selectByArticle(art.getId());
 				picArticle.forEach(pic->{
 					picArticleId.add(pic.getId());
 				});
-				obj[6] = picArticleId;
+				obj[5] = picArticleId;
 
 				articleList.add(obj);
 
@@ -119,13 +80,11 @@ public class ArticleController {
 	
 	@DeleteMapping(path= {"/article.controller/{id}"}, produces= {"application/json"})
 	public ResponseEntity<?> delete(@PathVariable int id) throws URISyntaxException{
-		System.out.println("@DeleteMapping");
 		ArticleBean bean = articleDAO.select(id);
 		if(bean!=null) {
 			Boolean result = articleDAO.delete(id);
 			if(result!=null && result==true) {
 				ResponseEntity<?> temp = getInfo(bean);
-				System.out.println("@DeleteMapping=true");
 				return temp ;
 			}else {
 				return new ResponseEntity(HttpStatus.NO_CONTENT);	
