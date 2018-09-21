@@ -167,7 +167,7 @@ public class MemberSettingController {
 		}
 	}
 	
-	@RequestMapping( path= {"/member/photo"}, produces= {"application/json"})
+	@RequestMapping( path= {"/member/Info/photo"}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?> updatePhoto(
 			MemberBean bean
 			,@RequestAttribute("memberid") Integer id 
@@ -175,7 +175,7 @@ public class MemberSettingController {
 		if(id == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+		System.out.println(123);
 		bean.setId(id);
 		MemberInfoBean check = memberServic.setMemberInfo(bean);
 		

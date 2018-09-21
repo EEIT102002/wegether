@@ -7,7 +7,7 @@ var CollapsButtomTemp = '<a data-toggle="collapse" data-parent="#noticeCollapses
 var noticeCollapseTemp = '<div id="" class="panel-collapse collapse"><div class="dropdown-item"><button type="button" value="accept">接受</button><button type="button" value="reject">拒絕</button></div></div>';
 var scrolltimes = 0;
 var nwebSocket;
-
+var num = 1;
 $(function(){
 	// 按menu內元素時menu不消失
 	$(document).on('click', '#liRing .dropdown-menu', function(e) {
@@ -73,11 +73,13 @@ function connectNotice(token) {
 	var noticediv = $('#contentRemind');
 	var noticedivdiv = noticediv.children('div');
 	// 當轉動卷軸時 讀取下10的訊息
-	
-	
 	noticediv.scroll(function() {
+		readNextNoticeScroll();
+	})
+	
+	function readNextNoticeScroll(){
 		if (scrolltimes == 0 && first != 0
-				&& noticediv.scrollTop() <= scrollHeight - (first * listhight)
+				&& noticediv.scrollTop() <= scrollHeight - (noticedivdiv.children('div').length * listhight)+100
 				&& first % 10 == 0) {
 			scrolltimes = 1;
 			selectNotices(function() {
@@ -85,7 +87,7 @@ function connectNotice(token) {
 				scrolltimes = 0;
 			});
 		}
-	})
+	}
 
 	// 打開menu時 如果unread>0或是先前還未開啟menu讀取前10條提醒
 	$('#dropdownMenuButton2').click(function() {
@@ -101,7 +103,6 @@ function connectNotice(token) {
 	// 清空menu
 	function clearNoticeDiv() {
 		first = 0;
-		console.log("clear")
 		noticedivdiv.html("");
 		noticedivdiv.css('min-height', '50px');
 	}
@@ -110,8 +111,8 @@ function connectNotice(token) {
 	function selectNotices(fn1, fn2) {
 		fn1();
 		$.post('/wegether/noitce/select/' + first, function(data) {
-			if (data.state) {
-				first += data.notices.length;
+			if (true) {
+				first += data.notices!= null ? data.notices.length:0;
 				if (data.count != null) {
 					count = data.count;
 					console.log(count);
@@ -125,6 +126,9 @@ function connectNotice(token) {
 				$.each(data.notices, function(i, e) {
 					var noticeRowDiv = $(noticeRowTemp);
 					noticedivdiv.append(noticeRowDiv);
+					if(e.state == 1){
+						noticeRowDiv.css('background-color','#f0f1e6');
+					}
 
 					var noticeRowMain = $(noticeRowMainTemp);
 					noticeRowDiv.append(noticeRowMain);
@@ -134,10 +138,11 @@ function connectNotice(token) {
 					noticeRowMain.prepend(noticeContentDiv);
 
 					noticeContentDiv.append($(divTemp).html(noticeContent(e)));
-
 					var date = new Date(e.noticetime);
 					var noticeContentTimeDiv = $(divTemp).append(
-							$(divTemp).text(date.customFormat('#MM#/#DD#')));
+							$(divTemp).text(
+									date.customFormat('#MM#/#DD#')
+									));
 					noticeContentDiv.append(noticeContentTimeDiv);
 
 					switch (e.ntype) {
@@ -151,11 +156,10 @@ function connectNotice(token) {
 					default:
 						var noticePhotoDiv = $(noticePhotoTemp);
 						noticeRowMain.prepend(noticePhotoDiv);
-						var id = e.content.split(',')[1];
 						noticePhotoDiv.find('img').attr('src',
-								'/wegether/member/photo/' + id)
+								'/wegether/member/photo/' + e.cmemberid)
 						noticePhotoDiv.find('a').attr('href',
-								'/wegether/personal.controller?memberId='+ id);
+								'/wegether/personal.controller?memberId='+ e.cmemberid);
 					}
 
 					switch (e.ntype) {
@@ -191,8 +195,9 @@ function connectNotice(token) {
 
 	$(document).on('click', '.spanRemove', function() {
 		var e = $(this);
-		$.post('/wegether/notice/delete//' + e.attr('noticeid'), function() {
+		$.post('/wegether/notice/delete/' + e.attr('noticeid'), function() {
 			removeNotice(e);
+			readNextNoticeScroll();
 			if (noticedivdiv.children('div').length == 0) {
 				clearNoticeDiv();
 				noticedivdiv.html("沒有通知");
@@ -252,6 +257,7 @@ function connectNotice(token) {
 		noticeRow.remove();
 		noticedivdiv.css('min-height',
 				(noticedivdiv[0].offsetHeight - rowheight) + "px");
+		scrollHeight -= rowheight;
 	}
 	// 未讀通知歸0
 	function clearUnread() {
@@ -259,88 +265,84 @@ function connectNotice(token) {
 		noticediv.scrollTop(scrollHeight);
 		uncheck = false;
 		$('#supremind').text(0).hide();
-		// $.get(
-		// '/wegether/noitce/unread/clear'
-		// , function (data) {
-		// if (data.state) {
-		// unread = 0;
-		// $('#supremind').text(0).hide();
-		// }
-		// }
-		// , 'json'
-		// )
+		$.get(
+				'/wegether/noitce/unread/clear'
+				, function (data) {
+					if (data.state) {
+						unread = 0;
+						$('#supremind').text(0).hide();
+					}
+				}
+				, 'json'
+		 )
 	}
 
 	// 通知內容
 	function noticeContent(e) {
-		var str = e.content.split(',');
 		switch (e.ntype) {
 		case 1:
-			return noticeMT(str, '提出好友邀請');
+			return noticeMT(e, ' 提出好友邀請 ');
 		case 2:
-			return noticeMT(str, '接受好友邀請');
+			return noticeMT(e, ' 接受好友邀請 ');
 		case 3:
-			return noticeMTA(str, '向你推薦');
+			return noticeMTA(e, ' 向你推薦 ');
 		case 4:
-			return noticeMTA(str, '申請參加');
+			return noticeMTA(e, ' 申請參加 ');
 		case 5:
-			return noticeMTA(str, '邀請你參加');
+			return noticeMTA(e, ' 邀請你參加 ');
 		case 6:
-			return noticeAT(str, '報名成功');
+			return noticeAT(e, ' 報名成功 ');
 		case 7:
-			return noticeAT(str, '報名失敗');
+			return noticeAT(e, ' 報名失敗 ');
 		case 8:
-			return noticeMTA(str, '同意參加');
+			return noticeMTA(e, ' 同意參加 ');
 		case 9:
-			return noticeMTA(str, '拒絕參加');
+			return noticeMTA(e, ' 拒絕參加 ');
 		case 10:
-			return noticeMTA(str, '發表參加').append('心得');
+			return noticeMTA(e, ' 發表參加 ').append(textToSpan(' 心得'));
 		case 11:
-			str[3] = e.activityid;
-			return noticeMTA(str, '發起');
+			return noticeMTA(e, ' 發起 ');
 		case 12:
-			return $(divTemp).text('活動:' + str[0] + '取消');
+			return $(divTemp).text(textToSpan('活動:' + e.ctitle + '取消'));
 		case 13:
-			str[1] = e.activityid;
-			return noticeAT(str, '內容變更');
+			return noticeAT(e, ' 內容變更');
 		case 14:
-			str[1] = e.activityid;
-			return noticeAT(str, '有新的留言');
+			return noticeAT(e, ' 有新的留言');
 		case 15:
-			return noticeAT(str, '的心得有新的留言').prepend(textToSpan('在'));
+			return noticeAT(e, ' 的心得有新的留言').prepend(textToSpan('在 '));
 
 		}
 		return e.id;
 	}
 
-	function noticeMT(str, text) {
+	function noticeMT(e, text) {
 		var div = $(divTemp);
-		return div.append(memberAtage(str[0], str[1]), textToSpan(text));
+		return div.append(memberAtage(e), textToSpan(text));
 	}
 
 	function textToSpan(text) {
 		return $('<span/>').text(text);
 	}
 
-	function noticeMTA(str, text) {
+	function noticeMTA(e, text) {
 		var div = $(divTemp);
-		return div.append(memberAtage(str[0], str[1]), textToSpan(text),
-				activityAtage(str[2], str[3]));
+		return div.append(memberAtage(e), textToSpan(text),
+				activityAtage(e));
 	}
 
-	function noticeAT(str, text) {
+	function noticeAT(e, text) {
 		var div = $(divTemp);
-		return div.append(activityAtage(str[0], str[1]), textToSpan(text));
+		return div.append(activityAtage(e), textToSpan(text));
 	}
 
-	function memberAtage(name, id) {
+	function memberAtage(e) {
 		var memberUrl = '/wegether/personal.controller?memberId=';
-		return Atage(name, memberUrl + id);
+		return Atage(e.cnickname, memberUrl + e.cmemberid);
 	}
 
-	function activityAtage(name, id) {
+	function activityAtage(e) {
 		var activityUrl = '/wegether/activityPage.controller?actid=';
-		return Atage('活動:' + name, activityUrl + id);
+		return Atage('活動:' + e.ctitle, activityUrl + e.cactivityid);
 	}
 
 	function Atage(name, url) {

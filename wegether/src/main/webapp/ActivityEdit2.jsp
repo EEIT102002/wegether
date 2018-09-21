@@ -20,12 +20,6 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
-<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/default.css">
-<link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="js/fileinput.js" type="text/javascript"></script>
-
 <script src="js/jquery.timepicker.min.js"></script>
 <script>
 	$(function() {
@@ -41,37 +35,6 @@
 		}
 
 		var dade = $('#deathLine').val();
-		
-		$('.allPic').mouseover(function(){
-			$(this).css('opacity', '0.4');
-		})
-		$('.allPic').mouseout(function(){
-			$(this).css('opacity', '1');
-		})
-		
-		var nameAr = $('.allPic').attr('name');
-		var thisName = nameAr.substring(1,(nameAr.length-1))
-		var ids = thisName.split(',');
-		for(i = 0; i < ids.length; i++){
-			$('img[id=' + (i+2) + ']').attr('id', ids[i]);
-		}
-		
-		var PageContext = $("#PageContext").val();
-		$('.deleteEditPics').click(function(){
-			var picId = $(this).parent().children().attr('id');
-			var thisNum = $(this).attr('id').charAt(10);
-
-			$.ajax(PageContext+"/pictureD/" + picId,{
-				method:"DELETE",
-				success:function(a){
- 					$('#actEditPic' + thisNum).remove();
-				}
-			})
-		})
-		
-		$('#addOtherPics').click(function(){
-			$('.form-group').css('display','block');
-		})
 	})
 
 	$(document).ready(function() {
@@ -91,25 +54,29 @@
 	$(function() {
 		var now = new Date();
 		if ((now.getMonth() + 1) < 10 && now.getDate() < 10) {
-			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0' + now.getDate();
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) < 10 && now.getDate() >= 10) {
-			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-' + now.getDate();
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() < 10) {
-			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0' + now.getDate();
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() >= 10) {
-			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
@@ -130,30 +97,38 @@
 						v2 = v2 - 1;
 						var d = new Date(v1, v2, v3);
 						if (d.getDate() < 10 && (d.getMonth() + 1) > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-' + (d.getMonth() + 1)
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && (d.getMonth() + 1) < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-0' + (d.getMonth() + 1)
 											+ '-' + d.getDate())
 						else if (d.getDate() < 10 && (d.getMonth() + 1) < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-0' + (d.getMonth() + 1)
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && (d.getMonth() + 1) > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-' + (d.getMonth() + 1)
 											+ '-' + d.getDate())
 					} else {
 						var d = new Date(v1, v2, v3);
 						if (d.getDate() < 10 && d.getMonth() > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + d.getMonth() + '-0'
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-' + d.getMonth() + '-0'
 											+ d.getDate())
 						else if (d.getDate() > 10 && d.getMonth() < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + d.getMonth() + '-'
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-0' + d.getMonth() + '-'
 											+ d.getDate())
 						else if (d.getDate() < 10 && d.getMonth() < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + d.getMonth()
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-0' + d.getMonth()
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && d.getMonth() > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + d.getMonth() + '-'
+							$('#deathLine').attr(
+									'max', d.getFullYear() + '-' + d.getMonth() + '-'
 											+ d.getDate())
 					}
 				})
@@ -166,7 +141,8 @@
 	})
 	
 	$(function() {
-		$('#preBotton').click(function() {
+		$('#preBotton').click(
+				function() {
 					var datas = [];
 					$(':checked[name="classtype"]').each(function() {
 						datas.push($(this).val())
@@ -279,22 +255,13 @@ footer>ul>li ul {
 .container p {
 	color: white;
 }
-.selPic , .allPic {
+.selPic {
 	height: 180px;
-	border-radius: 15px;	
+	border-radius: 15px;
 }
 .actPic {
 	height: 100px;
 	border-radius: 10px;
-}
- .picContainerEdit{ 
- 	position:relative;
- 	display:inline;
- } 
-.deleteEditPics{
-	position: absolute;
-	bottom:-70px;
-	left:5px;
 }
 </style>
 </head>
@@ -394,37 +361,12 @@ footer>ul>li ul {
 							<input type="file" name="picture" id="actPic" accept="image/*"></td>
 					</tr>
 					<tr>
-						<td>其他照片</td>
-						<td><div>
-							<c:set var="temp" value="2" />
-							<c:forEach var="i" items="${actAllPic}">
-								<div class="picContainerEdit" id="actEditPic${temp}">
-								<img src="data:image/jpg;base64,${i}" class="allPic" name='${actAllId}' id="${temp}">
-								<div class="deleteEditPics" id="delEditPic${temp}">
-								<img src="images/trash_can.png"></div></div>
-								<c:set var="temp" value="${temp+1}" />
-							</c:forEach>
+						<td>聚會封面</td>
+						<td><div><c:forEach var="i" items="${actAllPic}">
+									<img src="data:image/jpg;base64,${i}" id="" class="selPic">
+								 </c:forEach>
 							</div>
-							<input type="button" value="我要新增其他照片" id="addOtherPics"/>
-							<div class="form-group" style="display:none">
-							<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-									data-min-file-count="2" name="pics">
-							</div>
-							<script>
-							$("#file-1").fileinput({
-								uploadExtraData: {'activitiId':${actid}},
-        						uploadUrl: '/wegether/insertOtherPics.do', // you must set a valid URL here else you will get an error
-        						allowedFileExtensions : ['jpg', 'png','gif'],
-        						overwriteInitial: false,
-        						maxFileSize: 1000,
-        						maxFilesNum: 10,
-        						//allowedFileTypes: ['image', 'video', 'flash'],
-        						slugCallback: function(filename) {
-            						return filename.replace('(', '_').replace(']', '_');
-								}
-        						
-							});    
-							</script></td>
+							<input type="file" name="picture2" id="actPic2" accept="image/*"></td>
 					</tr>
 					<tr>
 						<td>聚會標題</td>
@@ -504,7 +446,8 @@ footer>ul>li ul {
 									<table>
 										<tr>
 											<td>聚會封面</td>
-											<td id="actPicture"></td>
+											<td id="actPicture"><img src="images/actcreate.jpg"
+												id="actPiczone" class="actPic"></td>
 										</tr>
 										<tr>
 											<td>聚會標題</td>
@@ -582,6 +525,6 @@ footer>ul>li ul {
 	</ul>
 	<p class="text-center">- Wegether 2018 EEIT10202 -</p>
 	</footer>
-<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
+</body>
 </body>
 </html>

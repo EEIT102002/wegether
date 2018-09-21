@@ -1,9 +1,8 @@
 $(function(){
 		var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
-			,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖'];
-		var PageContext = $("#PageContext").val();//因為JSP中可以使用EL語法 但 單純JS黨不行 所以當東西改成外部 必須 先取得當前路徑 
+			,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖'];		
 //		alert(PageContext);
-		$.ajax(PageContext+"/activity",{
+		$.ajax("/wegether/activity",{
 			method:"GET",
 			success:function(jsonArray){
 				indexSelectFromDB(jsonArray);
@@ -26,7 +25,7 @@ $(function(){
 		$('#form_act').submit(function(){
 			$('html,body').animate({scrollTop:$('#about').offset().top},800);
 			var str1="";
-			$.ajax(PageContext+"/select_activity",{
+			$.ajax("/wegether/select_activity",{
 				method:"GET",
 				data:$('#form_act').serialize(),
 				success:function(jsonArray){
@@ -91,7 +90,7 @@ $(function(){
 		$('#form_po').submit(function(){
 			$('html,body').animate({scrollTop:$('#about').offset().top},800);
 			var str1="";
-			$.ajax(PageContext+"/select_po",{
+			$.ajax("/wegether/select_po",{
 				method:"GET",
 				data:	$('#form_po').serialize(),
 				success:function(jsonArray){

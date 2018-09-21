@@ -107,6 +107,15 @@ public class AttendService {
 	}
 
 	@SuppressWarnings("unchecked")
+	public JSONObject attendToJson(AttendBean bean) {
+		JSONObject row = (JSONObject) applicationContext.getBean("newJson");
+		row.put("rank1", bean.getRank1());
+		row.put("rank2", bean.getRank2());
+		row.put("rank3", bean.getRank3());
+		return row;
+	}
+	
+	@SuppressWarnings("unchecked")
 	private JSONObject createRow(MemberBean bean) {
 		JSONObject row = (JSONObject) applicationContext.getBean("newJson");
 		row.put("nickname", bean.getNickname());

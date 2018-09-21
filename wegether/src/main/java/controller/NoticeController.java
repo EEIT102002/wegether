@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import Service.NoticeService;
 import model.NoticeBean;
+import model.NoticeviewBean;
 
 @Controller
 public class NoticeController {
@@ -53,7 +54,8 @@ public class NoticeController {
 	public @ResponseBody ResponseEntity<?> selectNotices(@RequestAttribute("memberid") Integer memberid,
 			@PathVariable(name = "first") Integer first) {
 
-		List<NoticeBean> beans = noticeService.selectNotices(memberid, first);
+		List<NoticeviewBean> beans = noticeService.selectNotices(memberid, first);
+		System.out.println(beans);
 		Map<String, Object> result = new HashMap<>();
 		if (first == 0) {
 			result.put("count", noticeService.noticesCount(memberid));
