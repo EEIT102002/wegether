@@ -202,10 +202,7 @@ footer>ul>li ul {
 					<span class="form-group">問題名稱 :</span> <input type="text"
 						name="title" placeholder="請輸入-標題" required="required"
 						value="${param.title}">
-
 					<td>${errors.title}</td>
-					<td>${errors.memberid}</td> <br>
-
 				</div>
 				<div class="AreaCon">
 					<label>問題類型 :</label> <select name="classtype" id="classtype"
@@ -221,21 +218,15 @@ footer>ul>li ul {
 				<div class="Content" id="Content">
 					<label>問題描述 :</label>
 					<textarea rows="5" cols="105" placeholder="請輸入問題" name="content"
-						required="required"></textarea>
+						required="required"></textarea><td>${errors.content}</td>
 				</div>
-
 				<div id="searchbarButton">
 					<input type="submit" name="servicemethod" value="提交"
 						class="btn btn-warning form-control "> <input type="reset"
 						value="清除" class="btn btn-warning form-control">
 				</div>
-				<tr>
-					<td>${errors.action}</td>
-				</tr>
+				<tr><span>${errors.LoginError} ~~~訊息顯示</span></tr>
 			</form>
-			<!-- 			<a href="ServiceSelect.controller" -->
-			<!-- 				class="btn btn-warning form-control">select</a> -->
-
 		</div>
 	</div>
 

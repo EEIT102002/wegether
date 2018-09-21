@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Service.AttendService;
+import Service.ClickthroughRateService;
 import model.ActivityBean;
 import model.AttendBean;
 import model.MemberBean;
@@ -51,6 +52,8 @@ public class ActivityPageController {
 
 	@Autowired
 	private MsgDAO msgDAO;
+	@Autowired
+	private ClickthroughRateService clickthroughRateService;
 
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
@@ -66,6 +69,7 @@ public class ActivityPageController {
 			@RequestAttribute(name = "memberid", required = false) Integer memberid
 			) {
 		System.out.println("id :" + memberid);
+		clickthroughRateService.click(actid);
 		
 		// 時間轉換
 		String[] week = { "(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)" };
