@@ -37,7 +37,7 @@ $(function () {
         )
     })
     
-    $(document).on("click",'#logoutSubSpanA',function () {
+    $('body').on("click",'#logoutSubSpanA',function () {
     	logoutf();
       })
       
@@ -62,6 +62,7 @@ function logingroup(data){
 
 function logoutf(){//登出要執行的功能
 	console.log('close1');
+	alert('logout')
 	$.post(
             "/wegether/logout.do"
             , ""

@@ -38,11 +38,10 @@ function idCheck(data) {
 						});
 				}))
 				}else if(actState==1){
-					 $("#stardiv1").show();
-					 $("#stardiv2").show();
-					 $("#stardiv3").show();
-					 $("#startSumit").show();
-					 $("#attendShare").show();
+					
+					rankgo();
+					console.log("rankgo1")
+					
 				}
 				break;
 			case 2:
