@@ -145,7 +145,10 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			$('#stardiv3 img').click(click3)
 	        .hover(over3,out3);
 	
-	
+			//我要分享心得
+			$('#attendShare').click(function() {
+				document.location.href = "actEdit.getBean.controller?actid="+activityid;
+			})
 		
 	})
 	
@@ -368,10 +371,18 @@ footer>ul>li ul {
 								<p id="txtup">${hostBean.job}</p>
 							</div>
 							<div id="right">
-								<a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友" id="friendsearchButton"  style="text-decoration:none;">  
-								 	<img src="images/activityPageImages/invite.png" width="50">
-								</a>&emsp;
-								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
+								<c:if test="${empty memberid}">
+									<a href="#" class="tooltip-test" title="推薦給好友" data-toggle="modal" data-target="#ActPageBox" style="text-decoration:none;">  
+									 	<img src="images/activityPageImages/invite.png" width="50">
+									</a>&emsp;
+								</c:if>
+								<c:if test="${not empty memberid}">
+									<a href="#" class="tooltip-test" title="推薦給好友" id="friendsearchButton"  style="text-decoration:none;">  
+									 	<img src="images/activityPageImages/invite.png" width="50">
+									</a>&emsp;
+								</c:if>
+								
+								<span class="tooltip-test"  title="活動點閱率">
 									<img src="images/activityPageImages/click2.png" width="50">
 								</span>${actBean.click}&emsp; 
 								
@@ -432,7 +443,13 @@ footer>ul>li ul {
 						
 						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
 						<div style="text-align: center" id = "memBut">
+						<c:if test="${empty memberid}">
+							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ActPageBox">請 先 登 入 才 能 報 名</button>
+						</c:if>
+						<c:if test="${not empty memberid}">
 							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
+						</c:if>
+							
 						</div>
 						<!-- 活動評價 -->
 						<div id="starBlock">
@@ -478,7 +495,7 @@ footer>ul>li ul {
 								  <input id="startSumit" type="submit" value="送出"  class="btn btn-warning" onclick="sendRank()" >
 								  <span id="output1" style="display:none;font-weight: bold;color:#FF0000;"></span>
 								
-								  <input id="attendShare" type="button" value="我要分享心得"  class="btn btn-warning" onclick="attendShare()" >
+								  <input id="attendShare" type="button" value="我要分享心得"  class="btn btn-warning" >
 						</div>
 					<!-- 活動評價 END-->
 						
@@ -497,7 +514,12 @@ footer>ul>li ul {
 						<h4>留下意見:</h4>
 						<textarea id="txt" cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
 						</br> 
-						<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
+						<c:if test="${empty memberid}">
+							<input type="button" class="btn btn-primary" value="留言" data-toggle="modal" data-target="#ActPageBox" />
+						</c:if>
+						<c:if test="${not empty memberid}">
+							<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
+						</c:if>
 						</br> </br>
 					</div>
 					<!--  留言、心得分享  切換按鍵-->
@@ -530,6 +552,7 @@ footer>ul>li ul {
 				<div class="modal-body"></div>
 				<div class="modal-footer">
 					<button type="button" id='sendApply' class="btn btn-default">報名</button>
+
 				</div>
 			</div>
 

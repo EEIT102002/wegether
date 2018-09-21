@@ -111,11 +111,68 @@
             				 },'json');	
             			}
             			
-            			function attendShare(){
+            			
+            			
+            			function rankgo(){
+            				console.log("rankgo2")
+
+            				$.get("activityPageRank.controller/"+activityid,
+            						  function(data){	
+	            				 		if(data){
+	            				 			
+	            				 			if(data.rank1!=null || data.rank2!=null || data.rank3!=null ){
+	            				 				
+			            				 				 $("#stardiv1").show();
+			            		       					 $("#stardiv2").show();
+			            		       					 $("#stardiv3").show();
+		//	            		       					 $("#startSumit").show();
+			            		       					 $("#attendShare").show();
+			            		       					 
+			            				 				 $('#stardiv1 img').unbind();
+				            				 			 $('#stardiv2 img').unbind();
+				            				 			 $('#stardiv3 img').unbind();
+				            				 			 $('#output1').html("感謝您的評點！").show();   
+				            				 			 $('#startSumit').hide();
+				            				 			 
+				            				 			//-----		            				 			 
+				            							for (var i = 1; i <= 5; i++) {
+				            								if (i <= data.rank1) {
+				            									$('#idstar1'+ i).removeClass('s').addClass('n');                             
+				            								} else {
+				            									$('#idstar1'+ i).removeClass('n').addClass('s');
+				            								}
+				            							}
+				            							$('#spa1').text("... "+rank[data.rank1-1]); 
+				            							
+				            							for (var i = 1; i <= 5; i++) {
+				            								if (i <= data.rank2) {
+				            									$('#idstar2'+ i).removeClass('s').addClass('n');                             
+				            								} else {
+				            									$('#idstar2'+ i).removeClass('n').addClass('s');
+				            								}
+				            							}
+				            							$('#spa2').text("... "+rank[data.rank2-1]); 
+				            							
+				            							for (var i = 1; i <= 5; i++) {
+				            								if (i <= data.rank3) {
+				            									$('#idstar3'+ i).removeClass('s').addClass('n');                             
+				            								} else {
+				            									$('#idstar3'+ i).removeClass('n').addClass('s');
+				            								}
+				            							}
+				            							$('#spa3').text("... "+rank[data.rank3-1]); 
+			            				 				//-----end
+			            				 				
+			            				 			}
+	            				 			
+	            				 			
+	            				 		}	
+            				 
+            				 },'json');	
             				
+            				
+	            			 
             			}
-            			
-            			
             			
             			
             			
