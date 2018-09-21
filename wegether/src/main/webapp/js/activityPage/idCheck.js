@@ -7,9 +7,17 @@ function idCheck(data) {
 	var memBut = $('#memBut');
 	memBut.html('');
 	if (data.host) {
-		memBut.append($(buttonTemp).text('編 輯 活 動 ').click(function() {
-			document.location.href = "actEdit.getBean.controller?actid="+activityid;
-		}))
+		console.log("actState:"+actState);
+		if(actState==0){
+			memBut.append($(buttonTemp).text('編 輯 活 動 ').click(function() {
+				document.location.href = "actEdit.getBean.controller?actid="+activityid;
+			}))
+		}else if(actState==1){
+			 console.log("state5="+actState)
+//			 $("#stardiv1").show();
+			 $("#attendShare").show();
+			
+		}
 	}else if(data.state != null) {
 		// --報名狀態 0:報名中 1:報名成功 2:報名失敗 3:活動主辦人邀請s
 		memBut.attr("attendid",data.attendid);
@@ -18,6 +26,7 @@ function idCheck(data) {
 				memBut.append($(buttonTemp).text('報名審核中...'))
 				break;
 			case 1:
+				if(actState==0){
 				memBut.append($(buttonTemp).text('取消參加').click(function() {
 					console.log("取消參加:"+data.attendid);
 					 $.ajax({
@@ -28,6 +37,13 @@ function idCheck(data) {
 						  }
 						});
 				}))
+				}else if(actState==1){
+					 $("#stardiv1").show();
+					 $("#stardiv2").show();
+					 $("#stardiv3").show();
+					 $("#startSumit").show();
+					 $("#attendShare").show();
+				}
 				break;
 			case 2:
 				memBut.append($(buttonTemp).text('報名失敗'));

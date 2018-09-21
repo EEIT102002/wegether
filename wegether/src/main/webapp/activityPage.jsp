@@ -156,8 +156,9 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		
 		 $.get("wegether/activity/attend/check/"+activityid,
 				  function(data){	
-			 if(actState==0) idCheck(data);
-		 },'json');	
+			 		idCheck(data);
+			 		
+		 			},'json');	
 		 
 		 
 		 
@@ -435,6 +436,7 @@ footer>ul>li ul {
 						</div>
 						<!-- 活動評價 -->
 						<div id="starBlock">
+						
 								<!-- 活動滿意度-->
 								<div id="stardiv1">
 									<span style="font-weight: bold">活動滿意度:</span>
@@ -474,9 +476,9 @@ footer>ul>li ul {
 									<hr>
 								</div>
 								  <input id="startSumit" type="submit" value="送出"  class="btn btn-warning" onclick="sendRank()" >
-									<span id="output1" style="display:none;font-weight: bold;color:#FF0000;"></span>
-									 <input id="attendShare" type="button" value="我要分享心得"  class="btn btn-warning" onclick="attendShare()" >
-									
+								  <span id="output1" style="display:none;font-weight: bold;color:#FF0000;"></span>
+								
+								  <input id="attendShare" type="button" value="我要分享心得"  class="btn btn-warning" onclick="attendShare()" >
 						</div>
 					<!-- 活動評價 END-->
 						

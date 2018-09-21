@@ -76,7 +76,7 @@ public class ActivityPageController {
 			Date actBeginTime = activityBean.getActbegin();
 			Date now = new java.util.Date();
 			
-			if(now.before(actBeginTime)) state=0;
+			if(actBeginTime.before(now)) state=0;
 			else state=1;
 
 			activityTime = activityPageService.activityTime(actid);
