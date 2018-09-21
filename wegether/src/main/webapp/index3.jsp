@@ -19,10 +19,9 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="/wegether/css/notice.css" />
+<link rel="stylesheet" type="text/css" href="/wegether/css/notice.css" />
 <script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript"src="js/preindexFunction.js"></script>
+<script type="text/javascript" src="js/preindexFunction.js"></script>
 <script src="/wegether/js/bootstrap.js"></script>
 <script type="text/javascript" src="/wegether/js/index.js"></script>
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
@@ -58,8 +57,6 @@
 #search_for_act:hover, #search_for_po:hover {
 	background-color: rgba(255, 255, 255, 0.46);
 }
-
-
 </style>
 </head>
 

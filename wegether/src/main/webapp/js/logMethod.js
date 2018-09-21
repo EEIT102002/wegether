@@ -36,10 +36,8 @@ $(function () {
             , "json"
         )
     })
-//    logoutSub.click(function () {
-//        logoutf();
-//    })
-    $('#tempCon').on("click",'#logoutSubSpanA',function () {
+    
+    $('body').on("click",'#logoutSubSpanA',function () {
     	logoutf();
       })
       
@@ -53,29 +51,28 @@ $(function () {
 })
 
 function logingroup(data){
-	console.log('logingroup');
 	 if(typeof window.loginDo === "function") {
 		console.log('logingroup2');
      	loginDo();//登入後要做的方法放在loginDo()
-     
      }
-	
+	 loginheaderDO();
      logtoggle();//login或logout後的顯示切換
      connectNotice(data.ntoken);
 }
 
 function logoutf(){//登出要執行的功能
 	console.log('close1');
+	alert('logout')
 	$.post(
             "/wegether/logout.do"
             , ""
             , function (data) {
                 if (data.state == true) {
-                	noticeClose();
-                	
+                	noticeClose();    	
                 	logtoggle();
                     if(typeof window.logoutDo === "function") {
                         logoutDo();//登出後要做的方法放在logoutDo()
+                        logoutheaderDo()
                     }  
                 }
             }
