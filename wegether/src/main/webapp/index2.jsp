@@ -7,8 +7,9 @@
 <title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet"  href="css/bootstrap.css" />
-<link rel="stylesheet"  href="css/style.css"/>
+<link rel="stylesheet"  href="/wegether/css/bootstrap.css" />
+<link rel="stylesheet"  href="/wegether/css/style.css"/>
+<link rel="stylesheet" href="/wegether/css/index.css">
 <link href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,59 +25,7 @@
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 <script src="/wegether/js/imageError.js"></script>
-<style>
- 	#form_po{
- 		display: none;
- 	}
-	#search_for_act , #search_for_po{
-/* 		background-color: yellow; */
-		width: 100px;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
-		cursor: pointer;
-		letter-spacing: 5px;
-	}
-	#search_for_act{
-		color: #FFB445;
-	}
-	#search_for_po{
-		color: white;
-	}
-	#search_for_act:hover , #search_for_po:hover{ 
-		background-color: rgba(255, 255, 255, 0.46);
-	}
-	.hidden-input {
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-	}
-	input[type=checkbox]+span {
-    display: inline-block;
-    height: 2em;
-    width: 2em;
-    border-radius: 4px;
-    background-color: gray;        
-	}
 
-	input[type=checkbox]:checked+span {
-	    background-color: #FFB445;
-	}
-	.labelflex{
-		display: flex;
-		width:5em;
-	}
-	.labelflex p{
-		position:relative;
-		top:12px;
-		left:2px;
-	}
- 	#labelflexCon{
- 		margin-top: -14px;
- 		margin-left: -40px; 
-		display: flex;
- 	}
-</style>
 </head>	
 <body>
 	<div class="banner">
