@@ -17,6 +17,7 @@
 	 				temp = temp + divElem;
 	 			});	
 	 			$('#demo').html(temp);
+	 			
 	 });	
 	 
  }
