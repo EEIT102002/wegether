@@ -1,10 +1,8 @@
-function loginDo(){
-	var PageContext = $("#PageContext").val();
+function loginheaderDO(){
 	$('.header_nav>ul>li:eq(0)').addClass('active');
-	$.ajax(PageContext+"/member/Info/index",{
+	$.ajax("/wegether/member/Info/index",{
 		method:"get",
 		success:function(data){
-		
 			$('#dropdownMenuButton>#userinfo').html(data[0][0].nickname);
 			$('#dropdownMenuButton>img').attr('src',data[0][1]);
 
@@ -17,7 +15,7 @@ function loginDo(){
 	// 把正確的連結放進去
 }
 
-function logoutDo() {
+function logoutheaderDo() {
 	alert("期待下次見到你/妳");
 //	$('.header_nav>ul>li:eq(0)').addClass('active');
 }

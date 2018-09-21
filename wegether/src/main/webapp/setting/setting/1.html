@@ -86,15 +86,15 @@
             $('#photo').change(function () {
                 fileViewer($('#photo')[0].files[0], $('#photoUpdateShow'));
             })
-            $('#photoUpdata').click(photoUpdata)
+            $('#photoUpdata').click(memberphotoUpdata)
 
         });
 
-        function photoUpdata() {
+        function memberphotoUpdata() {
             var file = $('#photo')[0].files[0];
             if (file != null)
                 fileResizetoFile(file, 0.6, function (file) {
-                    photoUpdate("/wegether/member/photo", file, function (data) {
+                	photoUpdate('/wegether/member/Info/photo', file, function (data) {
                         var photoSrc = data["photoSrc"];
                         if (photoSrc != null) {
                             $('#photoShow').html($('<img/>').attr('src', photoSrc));
@@ -367,9 +367,6 @@
                  	<div id="photoUpdateShow">
             		</div>
                    <input type="file" name="photo" id="photo" accept="image/*">
-            		<br>
-           
-            <img id='test' />
                 </div>
                 <div class="modal-footer">
                  	<button type="button" id='photoUpdata' class="btn btn-default" data-dismiss="modal">上傳</button>

@@ -37,7 +37,7 @@ $(function () {
         )
     })
     
-    $('#tempCon').on("click",'#logoutSubSpanA',function () {
+    $(document).on("click",'#logoutSubSpanA',function () {
     	logoutf();
       })
       
