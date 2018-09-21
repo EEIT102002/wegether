@@ -33,6 +33,13 @@
 			var x1 = "<option value="+i+">" + array_for_city[i-1] + "</option>"		
 			$('#selCity').append(x1);
 		}
+		
+		$('#setForm').click(function(){
+			$('#ownForm').css('display','inline');
+		})
+		$('#notSetForm').click(function(){
+			$('#ownForm').css('display','none');
+		})
 	})
 	$(function() {
 		var now = new Date();
@@ -415,7 +422,7 @@ footer>ul>li ul {
 						<tr>
 							<td>聚會標題</td>
 							<td>
-								<input type="text" name="title" id="insertActname" value="${colVal.title}">${errMsgs.title}
+								<input type="text" name="title" id="insertActname" value="${param.title}">${errMsgs.title}
 							</td>
 						</tr>
 						<tr>
@@ -434,7 +441,7 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>地點</td>
-							<td><input type="text" name="addr" id="insertWhere" value="館前路36號"></td>
+							<td><input type="text" name="addr" id="insertWhere" value="${param.addr}"></td>
 						</tr>
 						<tr>
 							<td>開始時間</td>
@@ -453,7 +460,7 @@ footer>ul>li ul {
 						<tr>
 							<td>詳細描述</td>
 							<td>
-								<textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${errMsgs.content}
+								<textarea name="content" id="insertDes" cols="30" rows="10">${param.content}</textarea>${errMsgs.content}
 							</td>
 						</tr>
 						<tr>
@@ -463,7 +470,7 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>聚會預算</td>
-							<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" ng-init="fee = 100"></td>
+							<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" ng-init="fee = 100" value="${param.feed}"></td>
 						</tr>
 						<tr>
 							<td>報名截止日期</td>
@@ -472,11 +479,14 @@ footer>ul>li ul {
 
 						<tr>
 							<td>是否創建報名表單</td>
-							<td><input type="radio" name="setFormOrNot" value="yes">是
-								<input type="radio" name="setFormOrNot" value="no">否</td>
+							<td><input type="radio" name="setFormOrNot" value="yes" id="setForm">是
+								<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否</td>
 						</tr>
 					</table>
-					<input type="button" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
+					<input type="button" name="" value="預覽" id="preBotton" data-target="#preview"
+						   data-toggle="modal" />
+					<input type="button" name="" value="製作報名表單" id="ownForm" data-target="#setMyform"
+						   data-toggle="modal" style="display:none"/>
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
