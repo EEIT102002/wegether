@@ -61,12 +61,8 @@ public class MemberRegisterController extends HttpServlet {
 //			 
 //		 return "register.success";
 //		 }
-		
 
 		System.out.println(memberid);
-
-		
-
 		// 帳號信箱驗證
 		String email = bean.getAccount();
 		Pattern patternemail = Pattern.compile("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$");
@@ -84,14 +80,14 @@ public class MemberRegisterController extends HttpServlet {
 
 		// 密碼格式驗證 密碼長度8~16碼、不能有特殊符號、必須要有英文及數字
 		String code = new String(bean.getPwd());
-		Pattern patterncode = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$");
+		Pattern patterncode = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?=^\\S*$).{8,16}$");
 		Matcher matchercode = patterncode.matcher(code);
 		boolean checkcode = matchercode.matches();
 		// System.out.println(code);
 
 		// 確認密碼 密碼長度8~16碼、不能有特殊符號、必須要有英文及數字
 		String recode = new String(pwdre);
-		Pattern patterncodere = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$");
+		Pattern patterncodere = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?=^\\S*$).{8,16}$");
 		Matcher rematchercode = patterncodere.matcher(recode);
 		boolean recheckcode = rematchercode.matches();
 		// System.out.println(recheckcode);
