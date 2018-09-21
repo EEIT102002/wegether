@@ -16,11 +16,14 @@
 <script src="js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+<link rel="stylesheet" type="text/css"
+	href="/wegether/css/notice.css" />
 <script type="text/javascript" src="js/index.js"></script>
 <script src="js/jquery.cookie.js" type="text/javascript"></script>
 <script src="js/indexlogin.js"></script>
 <script src="js/noticeWebStocket.js" type="text/javascript"></script>
 <script src="js/logMethod.js" type="text/javascript"></script>
+<script src="/wegether/js/imageError.js"></script>
 <style>
  	#form_po{
  		display: none;
@@ -42,83 +45,6 @@
 	}
 	#search_for_act:hover , #search_for_po:hover{ 
 		background-color: rgba(255, 255, 255, 0.46);
-	}
-
-	
-	
-	#dropdownMenuButton{
-		display: flex;
-		cursor: pointer;
-/*   		border: 2px solid green;   */
-		width: 160px;
-		height:50px;
-		
-	}
-	#dropdownMenuButton img{
-		flex:0.3;
-		margin-left: 15px;
-	}
-	#dropdownMenuButton #userinfo{
-/* 	border:2px solid;   */
-		flex:0.7;
-		text-align: center;
-	}
-	.header_nav li{
-/*  		border:2px solid blue;  */
-		height: 50px;
-		line-height: 50px
-	}
-	.header_nav a span{
-/* 		border:2px dotted; */
-		height: 50px;
-		line-height: 50px;
-	}
-	#userinfo{
-		color:white;
-	}
-	.dropdown-menu> a{
-		width: 80%;
-		height: 42px;
-		display:block;
-/* 		border: 2px solid; */
-		margin: auto;
-		text-align: center;
-	
-	}
-	.dropdown-menu> a:hover{
-		background-color: #ccc;
-	}
-	.dropdown-menu> a , .dropdown-menu> a:hover , .dropdown-menu> a :active,.dropdown-menu> a :checked {
-	text-decoration: none;
-	list-style: none;
-	color:black;
-}
-	#liRing i{
-		font-size:1.5em;
-		color:white;
-/*  		border:2px solid yellow;  */
-/* 		background-color:green; */
-		line-height:50px;
-		height: 50px;
-		cursor: pointer;
-		margin-right: 20px;
-	}
-	#supremind{
-/*  	border:2px solid green;  */
-	font-size:0.4em;
-	border-radius:50%;
-	background-color: red;
-	color:white;
-	font-weight: bold;
-	width: 30px;
-	height:20px;
-	line-height: 20px;
-	text-align: center;
-	position:relative;
-	top:-42px;
-	left:15px;
-	z-index:9999999999;
-
 	}
 	.hidden-input {
     opacity: 0;
@@ -150,11 +76,6 @@
  		margin-left: -40px; 
 		display: flex;
  	}
- 	#contentRemind{
- 		min-width: 320px;
- 		position: absolute;
- 		left:-260px;
- 	}
 </style>
 </head>	
 <body>
@@ -178,23 +99,29 @@
 							<li><a href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="發起活動">發起活動</span></a></li>
 							<li><a href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="發起心得">發起心得</span></a></li>
 							<li id="loginSpan"><a  href="#" class="scroll" data-toggle="modal" data-target="#ActPageBox"><span data-hover="登入">登入</span></a></li>
-							<li id="liRing" style="display:none;">
-								<div class="dropdown">
-								<div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-bell" aria-hidden="true"><div id="supremind">999</div></i>
+							<li id="liRing" style="display: none;">
+						<div class="dropdown" auto-close="disabled">
+							<div class="dropdown-toggle" id="dropdownMenuButton2"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">
+								<i class="fa fa-bell" aria-hidden="true">
+									<div id="supremind" hidden>0</div>
+								</i>
+							</div>
+							<div class="dropdown-menu noticemenu"
+								aria-labelledby="dropdownMenuButton2">
+								<div>通知</div>
+								<div id="contentRemind">
+									<div class="dropdown-menu panel-group" id="noticeCollapses">
+									</div>
 								</div>
-								<div class="dropdown-menu" id="contentRemind" aria-labelledby="dropdownMenuButton2">
-								
-										<a class="dropdown-item">1</a>
-										<a class="dropdown-item">2</a>
-										<a class="dropdown-item">3</a>
-										<a class="dropdown-item">4</a>
-										<a class="dropdown-item">5</a>
-										<a class="dropdown-item">6</a>
-										<a class="dropdown-item">閱讀更多</a>
-									
-								</div>		
-							</li>
+								<div>
+									<button id="removeAllNotice">清除所有通知</button>
+									<button class='dropdown-toggle' data-toggle='dropdown'>關閉</button>
+								</div>
+
+							</div>
+					</li>
 							<li id="logoutSpan" style="display:none;">
 							<div class="dropdown">
 								<div class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -374,25 +301,25 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="searchBox" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <!--白色遮罩層-->
-                <div class="modal-body">
-                    <!--       // modal-body  有差padding -->
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="mid-body">
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--     <div class="modal fade" id="searchBox" tabindex="-1" role="dialog"> -->
+<!--         <div class="modal-dialog modal-lg" role="document"> -->
+<!--             <div class="modal-content"> -->
+<!--                 白色遮罩層 -->
+<!--                 <div class="modal-body"> -->
+<!--                           // modal-body  有差padding -->
+<!--                     <div class="modal-header"> -->
+<!--                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!--                             <span aria-hidden="true">&times;</span> -->
+<!--                         </button> -->
+<!--                     </div> -->
+<!--                     <div class="modal-body" id="mid-body"> -->
+<!--                     </div> -->
+<!--                     <div class="modal-footer"> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
 	<div class="about" id="about">
 			<div class="container">
 				<h1>活動</h1>
