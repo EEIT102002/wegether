@@ -39,6 +39,13 @@
 					+ "</option>"
 			$('#selCity').append(x1);
 		}
+		
+		$('#setForm').click(function(){
+			$('#ownForm').css('display','inline');
+		})
+		$('#notSetForm').click(function(){
+			$('#ownForm').css('display','none');
+		})
 	})
 	$(function() {
 		var now = new Date();
@@ -448,8 +455,9 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>聚會標題</td>
-							<td><input type="text" name="title" id="insertActname"
-								value="${colVal.title}">${errMsgs.title}</td>
+							<td>
+								<input type="text" name="title" id="insertActname" value="${param.title}">${errMsgs.title}
+							</td>
 						</tr>
 						<tr>
 							<td>聚會類型</td>
@@ -468,14 +476,33 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>地點</td>
-							<td><input type="text" name="addr" id="insertWhere"
-								value="館前路36號"></td>
+
+							<td><input type="text" name="addr" id="insertWhere" value="${param.addr}"></td>
 						</tr>
 						<tr>
+
 							<td>開始時間</td>
-							<td><input type="date" id="startTime" name="startTime">
-								<input type="text" id="startTime2" name="startTimepicker"
-								class="timepicker" autocomplete="off" />${errMsgs.starDateTime}
+							<td>
+								<input type="date" id="startTime" name="startTime">
+								<input type="text" id="startTime2" name="startTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.starDateTime}
+							</td>
+						</tr>
+						<tr>
+							<td>結束時間</td>
+							<td>
+								<input type="date" id="endTime" name="endTime">
+								<input type="text" id="endTime2" name="endTimepicker" class="timepicker" autocomplete="off"/>${errMsgs.endDateTime}
+							</td>
+						</tr>
+						<tr>
+							<td>詳細描述</td>
+							<td>
+								<textarea name="content" id="insertDes" cols="30" rows="10">${param.content}</textarea>${errMsgs.content}
+							</td>
+						</tr>
+						<tr>
+							<td>聚會人數</td>
+							<td><input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax" min="1" ng-init="peoplemax = 5">
 							</td>
 						</tr>
 						<tr>
@@ -497,8 +524,8 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>聚會預算</td>
-							<td><input step="50" type="number" id="selBud" name="feed"
-								ng-model="fee" min="0" ng-init="fee = 100"></td>
+
+							<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" ng-init="fee = 100" value="${param.feed}"></td>
 						</tr>
 						<tr>
 							<td>報名截止日期</td>
@@ -507,14 +534,16 @@ footer>ul>li ul {
 
 						<tr>
 							<td>是否創建報名表單</td>
-							<td><input type="radio" name="setFormOrNot" value="true">是
-								<input type="radio" name="setFormOrNot" value="false">否
-									<button type="button" name="" id="formBotton"
-								data-target="#setMyform" data-toggle="modal">報名表單</button></td>
+
+							<td><input type="radio" name="setFormOrNot" value="yes" id="setForm">是
+								<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否</td>
 						</tr>
+
 					</table>
-					<input type="button" name="" value="預覽" id="preBotton"
-						data-target="#preview" data-toggle="modal" />
+					<input type="button" name="" value="預覽" id="preBotton" data-target="#preview"
+						   data-toggle="modal" />
+					<input type="button" name="" value="製作報名表單" id="ownForm" data-target="#setMyform"
+						   data-toggle="modal" style="display:none"/>
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
