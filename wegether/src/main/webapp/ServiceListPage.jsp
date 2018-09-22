@@ -245,7 +245,7 @@ footer>ul>li ul {
 			 															test="${obj.classtype==3}">建議</c:if> <c:if  
 																		test="${obj.classtype==4}">其他</c:if></td>  
 															</span>
-
+																<td>${errors.SelectError}</td>
 														</div>
 														<td>${obj.content}</td>
 														<td><input type="hidden" name="id" value="${param.id}"></input></td>
