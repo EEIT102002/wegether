@@ -90,49 +90,42 @@
     });
   }
   
-
+  var Fbid,Fbname,Fbemail;
+  var Fbpicture;
   //把資料送到後端比對
   function returnMemberData(){
+	
 		alert("login succest");
-		var id,name,email;
-		var picture;
+		
 		FB.api('/me',{fields : 'id,name,email,picture'},function(response) { //呼叫FB.api()取得使用者資料
-			console.log("response.id:"+ response.id);
-			id = response.id;
-			console.log("response.name:"+ response.name);
-			name = response.name;
-			console.log("response.email:"+ response.email);
-			email = response.email;
-			console.log("response.picture:"+ response.picture);
-			picture = response.picture;
+			Fbid = response.id;
+			console.log("response.id:"+ Fbid);
+			Fbname = response.name;
+			console.log("response.name:"+ Fbname);
+			Fbemail = response.email;
+			console.log("response.email:"+ Fbemail);
+// 			Fbpicture = response.picture;
+// 			console.log("response.picture:"+ Fbpicture);
+			returnback();
 			});
-		
-		
-// 		$.post("loginfb.controller",
-// 				 { FbId:id, 
-// 			 	   FbName:name,	
-// 			 	   Email:email,
-// 			 	   Picture:picture
-// 				 },
-// 				 function(result){	
-// 		 			$.each(result, function(i,item){	
-// 		 				divElem =("<div id='msgid'>" +
-// 						'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
-// 						'<img src="/wegether/member/photo/'+item[0]+'" width="50" class="img-circle">  </a>' +
-// 						'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
-// 						'<span style="font-size: small;">'+item[2]+'</span>'+
-// 						'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
-// 				 		'</br>'+item[3]+'</br>'+
-// 						"</div>");
-// 		 				temp = temp + divElem;
-// 		 			});	
-// 		 			$('#demo').html(temp);
-// 		 }
-// 			);	
-		
-		
 	};
-  
+  	function returnback(){
+  		console.log("responseout.email:"+ Fbemail);
+// 		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbname+"/"+Fbemail,
+		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbemail+"/"+Fbname ,
+				  function(data){
+			
+// 			 		if(data){
+// 			 			 $('#stardiv1 img').unbind();
+// 			 			 $('#stardiv2 img').unbind();
+// 			 			 $('#stardiv3 img').unbind();
+// 			 			 $('#output1').html("感謝您的評點！").show();   
+// 			 			 $('#startSumit').hide();
+// 			 		}	
+		 
+		 },'json');	
+		
+  	}
   
   
 </script>

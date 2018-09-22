@@ -35,18 +35,18 @@ public class fbcontroller extends HttpServlet {
 				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 
 	}
-
-	@RequestMapping(path = { "/loginfb.controller" }, method = RequestMethod.POST)
+//@ResponseBody  ResponseEntity<?>
+	@RequestMapping(path = { "/login/fb" }, method = RequestMethod.POST)
 	public @ResponseBody  ResponseEntity<?> insertfb(
 			String account, String name, Model model, MemberBean bean,Integer id1,String name1,
-			@PathVariable(name="FbId") Integer fbid,@PathVariable(name="FbName") Integer fbname,
-			@PathVariable(name="Email") Integer fbemail
+			@PathVariable(name="FbId") String fbid,@PathVariable(name="FbName") String fbname,
+			@PathVariable(name="Email") String fbemail
 			) throws Exception {
-		
+		System.out.println("FBlogin");
 		//接收資料
-		System.out.println("fbid="+fbid);
-		System.out.println("fbname="+fbname);
-		System.out.print("fbemail"+fbemail);
+//		System.out.println("fbid="+fbid);
+//		System.out.println("fbname="+fbname);
+//		System.out.print("fbemail"+fbemail);
 		
 		
 		
@@ -71,7 +71,9 @@ public class fbcontroller extends HttpServlet {
 //			System.out.println("相同帳號");
 //
 //		}
-		return new ResponseEntity<>(true,HttpStatus.OK);
+//		
+//		return "activityPage";
+		return null;
 
 	}
 
