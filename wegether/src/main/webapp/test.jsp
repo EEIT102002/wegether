@@ -9,5 +9,6 @@
 </head>
 <body>
 <p>${param.test}</p>
+<p><a href="login.do?account=willie12256@gmail.com&pwd=EA123456">ActivityPage</a></p>
 </body>
 </html>

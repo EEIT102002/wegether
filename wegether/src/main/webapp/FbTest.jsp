@@ -104,17 +104,16 @@
 			console.log("response.name:"+ Fbname);
 			Fbemail = response.email;
 			console.log("response.email:"+ Fbemail);
-// 			Fbpicture = response.picture;
-// 			console.log("response.picture:"+ Fbpicture);
+			Fbpicture = response.picture;
+			console.log("response.picture:"+ Fbpicture);
 			returnback();
 			});
 	};
   	function returnback(){
   		console.log("responseout.email:"+ Fbemail);
-// 		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbname+"/"+Fbemail,
-		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbemail+"/"+Fbname ,
+		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbemail+"/"+Fbname+"/"+Fbpicture ,
 				  function(data){
-			
+					fblogin();
 // 			 		if(data){
 // 			 			 $('#stardiv1 img').unbind();
 // 			 			 $('#stardiv2 img').unbind();
@@ -125,6 +124,28 @@
 		 
 		 },'json');	
 		
+  	}
+  	
+  	function fblogin(){
+
+        $.post(
+            "/wegether/login.do"
+            , {account:Fbemail ,pwd:"EA123456"}
+            , function (data) {
+                if (data.state == true) {
+                    var qqq = $(logindiv).closest('.modal');
+                    $(qqq).modal('hide');
+                    logingroup(data);
+                  
+                }else{
+                	$('.loginerror').text("登入失敗");
+                	$('#pwd').val("");
+                }
+                
+            }
+            , "json"
+        )
+  		
   	}
   
   
