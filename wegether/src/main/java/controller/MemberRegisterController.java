@@ -70,7 +70,7 @@ public class MemberRegisterController extends HttpServlet {
 			pic = file.getBytes();
 			bean.setPhoto(pic);
 		} else {
-			File defultPic = new File("wegether/images/04.jpg");
+			File defultPic = new File("/wegether/images/04.jpg");
 //			/wegether/src/main/webapp/images/04.jpg
 					
 			try {

@@ -129,7 +129,7 @@
 					</div>
 					<div class="modal-footer">
 						<p class="small text-left">
-							還沒註冊嗎?趕緊註冊一個帳號吧! <a href="javascript:void(0)">點我註冊</a>
+							還沒註冊嗎?趕緊註冊一個帳號吧! <a href="/wegether/RegisterPage.jsp">點我註冊</a>
 						</p>
 
 					</div>
