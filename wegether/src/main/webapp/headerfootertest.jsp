@@ -13,6 +13,7 @@
 
 	<div class="container">
 		<div id="small_con">
+		
 		</div>
 	</div>
 	<jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>

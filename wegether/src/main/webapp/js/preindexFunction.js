@@ -1,8 +1,6 @@
 function indexSelectFromDB(jsonArray){
 	var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
 		,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖'];
-	
-//	console.log(jsonArray);
 	var i = 0;
 	var str1="";
     $.each(jsonArray, function() {

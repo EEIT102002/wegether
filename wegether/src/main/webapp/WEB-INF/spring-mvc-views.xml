@@ -18,7 +18,6 @@
 	<!-- <property name="contextRelative" value="true"></property> -->
 	<!-- <property name="url" value="/personal.jsp"></property> -->
 	<!-- </bean> -->
-
 	<bean id="personal.success"
 		class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/personalPage.jsp"></property>
@@ -52,15 +51,13 @@
 		<property name="contextRelative" value="true"></property>
 		<property name="url" value="/ServiceEditPage.jsp"></property>
 	</bean>
-	<bean class="org.springframework.web.servlet.view.RedirectView"
+	<bean class="org.springframework.web.servlet.view.InternalResourceView"
 		id="actCreateErr.page">
-		<property value="true" name="contextRelative" />
 		<property value="/ActivityCreate.jsp" name="url" />
 	</bean>
-	<bean class="org.springframework.web.servlet.view.RedirectView"
+	<bean class="org.springframework.web.servlet.view.InternalResourceView"
 		id="actCreateSuc.page">
-		<property value="true" name="contextRelative" />
-		<property value="/index.jsp" name="url" />
+		<property value="/index2.jsp" name="url" />
 	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"

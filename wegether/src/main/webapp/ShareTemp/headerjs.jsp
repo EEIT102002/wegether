@@ -21,7 +21,7 @@
 <script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
 <script src="/wegether/js/bootstrap.js"></script>
 <script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="/wegether/js/indexlogin.js"></script>
+<script src="/wegether/js/tempLogin.js" type="text/javascript"></script>
 <script src="/wegether/js/imageError.js"></script>
 <script src="/wegether/js/logMethod.js" type="text/javascript"></script>
 <script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>

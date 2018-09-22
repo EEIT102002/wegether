@@ -2,11 +2,12 @@ package Service;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import model.MemberBean;
@@ -22,6 +23,8 @@ public class MemberService {
 	private MemberInfoDAO memberInfoDAO;
 	@Autowired
 	private SessionFactory sessionFactory;
+	private Pattern pwdcheck = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?=^\\S*$).{8,16}$");
+	private Pattern telcheck =  Pattern.compile("[0-9]{10}");
 	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
@@ -44,6 +47,17 @@ public class MemberService {
 		}
 		return null;
 	}
+	
+	public void checkPwdRule(String pwd, String pwdrepeat, Map<String, String> errors ){
+		
+		if(!pwd.equals(pwdrepeat)) {
+			errors.put("notrepeat", "重複密碼不相同");
+		}
+		if(!pwdcheck.matcher(pwd).matches()) {
+			errors.put("repeat", "違反密碼規則: 至少有一個數字、小寫字母、大寫字母、非空白特殊符號，長度為8~16");
+		}
+		
+	}
 
 	//0:失敗, 1:成功 , 2:與舊密碼重複 , 3:違反密碼規則
 	public Integer changePassword(Integer id, String oldPassword, String newPassword) {
@@ -64,7 +78,7 @@ public class MemberService {
 		return 0;
 	}
 
-	public MemberInfoBean setMemberInfo(MemberBean bean) {
+	public MemberInfoBean setMemberInfo(MemberBean bean, Map<String, Object> errors) {
 
 		MemberBean result = memberDAO.select(bean.getId());
 
@@ -77,8 +91,12 @@ public class MemberService {
 			i++;
 		}
 		if (bean.getNickname() != null ) {
-			result.setNickname(bean.getNickname());
-			i++;
+			if(bean.getNickname().trim().length()!= 0) {
+				result.setNickname(bean.getNickname().trim());
+				i++;
+			}else {
+				errors.put("error", "暱稱不能為空白");
+			}	
 		}
 		if (bean.getJob() != null) {
 			result.setJob(bean.getJob());
@@ -93,8 +111,12 @@ public class MemberService {
 			i++;
 		}
 		if (bean.getTel() != null) {
-			result.setTel(bean.getTel());
-			i++;
+			if(telcheck.matcher(bean.getTel()).matches()) {
+				result.setTel(bean.getTel());
+				i++;
+			}else {
+				errors.put("error", "手機號碼錯誤");
+			}
 		}
 		if (bean.getContent() != null) {
 			result.setContent(bean.getContent());

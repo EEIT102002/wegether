@@ -62,7 +62,7 @@ public class MemberSettingController {
 	@Autowired
 	private BlacklistDAO blacklistDAO;
 	@Autowired
-	private MemberService memberServic;
+	private MemberService memberService;
 	@Autowired
 	private SettingService settingService;
 	
@@ -80,21 +80,17 @@ public class MemberSettingController {
 	
 	@RequestMapping( path= {"/member/Info/setting"}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?> setInfo(
-			MemberBean bean
+			MemberBean bean,BindingResult bindingResult
 			, @RequestAttribute("memberid") Integer id
-			,BindingResult bindingResult){
+			){
 		if(id == null || bindingResult.hasFieldErrors()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+		Map<String, Object> result = new HashMap<>();
 		bean.setId(id);
-		MemberInfoBean result = memberServic.setMemberInfo(bean);
+		result.put("bean",memberService.setMemberInfo(bean, result));
 
-		if(result!=null) {
-			return new ResponseEntity<MemberInfoBean>(result, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	@RequestMapping( path= {"/member/Info/account"}, produces= {"application/json"})
@@ -106,19 +102,13 @@ public class MemberSettingController {
 		Map<String, String> errors = new HashMap<String, String>();
 		Map<String, Object> result = new HashMap<>();
 		result.put("errors", errors);
-		
-	
-		if(!pwd.equals(pwdrepeat)) {
-			errors.put("notrepeat", "重複密碼不相同");
-		}
-		
+		memberService.checkPwdRule(pwd, pwdrepeat, errors);
 		if(errors.size() >0) {
 			result.put("state", false);
 			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 		}
 		
-		
-		Integer changed = memberServic.changePassword(id, oldpwd, pwd);
+		Integer changed = memberService.changePassword(id, oldpwd, pwd);
 
 		if(changed == 1) {
 			result.put("state", true);
@@ -167,7 +157,7 @@ public class MemberSettingController {
 		}
 	}
 	
-	@RequestMapping( path= {"/member/photo"}, produces= {"application/json"})
+	@RequestMapping( path= {"/member/Info/photo"}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?> updatePhoto(
 			MemberBean bean
 			,@RequestAttribute("memberid") Integer id 
@@ -176,16 +166,16 @@ public class MemberSettingController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
+		Map<String, Object> result = new HashMap<>();
 		bean.setId(id);
-		MemberInfoBean check = memberServic.setMemberInfo(bean);
-		
+		MemberInfoBean check = memberService.setMemberInfo(bean,result);
 		if(check!=null) {
-			Map<String, Object> result = new HashMap<>();
+			result.put("state", true);
 			result.put("photoSrc", check.getPhotoSrc());
-			return new ResponseEntity<>(result, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			result.put("state", false);
 		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
 
 	}
 }
