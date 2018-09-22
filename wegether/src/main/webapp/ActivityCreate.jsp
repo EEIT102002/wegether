@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
+	media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -16,9 +17,12 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
 	rel='stylesheet' type='text/css'>
 <script src="js/bootstrap.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 <link rel="stylesheet" href="css/jquery.timepicker.min.css" />
 <script src="js/jquery.timepicker.min.js"></script>
 <script type="text/javascript" src="js/createApplyForm.js"></script>
@@ -27,10 +31,12 @@
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-		var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
-			,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']			
-		for(var i = 1; i <= array_for_city.length; i++) {
-			var x1 = "<option value="+i+">" + array_for_city[i-1] + "</option>"		
+		var array_for_city = [ '基隆市', '台北市', '新北市', '宜蘭縣', '桃園市', '新竹市', '新竹縣',
+				'苗栗縣', '台中市', '彰化縣', '南投縣', '雲林縣', '嘉義市', '嘉義縣', '台南市', '高雄市',
+				'屏東縣', '花蓮縣', '台東縣', '澎湖', '金門', '馬祖' ]
+		for (var i = 1; i <= array_for_city.length; i++) {
+			var x1 = "<option value="+i+">" + array_for_city[i - 1]
+					+ "</option>"
 			$('#selCity').append(x1);
 		}
 		
@@ -44,25 +50,29 @@
 	$(function() {
 		var now = new Date();
 		if ((now.getMonth() + 1) < 10 && now.getDate() < 10) {
-			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0' + now.getDate();
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) < 10 && now.getDate() >= 10) {
-			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-' + now.getDate();
+			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() < 10) {
-			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0' + now.getDate();
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() >= 10) {
-			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
+					+ now.getDate();
 			$('#startTime').attr('min', min);
 			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
@@ -83,30 +93,46 @@
 						v2 = v2 - 1;
 						var d = new Date(v1, v2, v3);
 						if (d.getDate() < 10 && (d.getMonth() + 1) > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + (d.getMonth() + 1)
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && (d.getMonth() + 1) < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + (d.getMonth() + 1)
 											+ '-' + d.getDate())
 						else if (d.getDate() < 10 && (d.getMonth() + 1) < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + (d.getMonth() + 1)
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && (d.getMonth() + 1) > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + (d.getMonth() + 1)
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + (d.getMonth() + 1)
 											+ '-' + d.getDate())
 					} else {
 						var d = new Date(v1, v2, v3);
 						if (d.getDate() < 10 && d.getMonth() > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + d.getMonth() + '-0'
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + d.getMonth() + '-0'
 											+ d.getDate())
 						else if (d.getDate() > 10 && d.getMonth() < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + d.getMonth() + '-'
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + d.getMonth() + '-'
 											+ d.getDate())
 						else if (d.getDate() < 10 && d.getMonth() < 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-0' + d.getMonth()
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-0' + d.getMonth()
 											+ '-0' + d.getDate())
 						else if (d.getDate() > 10 && d.getMonth() > 10)
-							$('#deathLine').attr('max', d.getFullYear() + '-' + d.getMonth() + '-'
+							$('#deathLine').attr(
+									'max',
+									d.getFullYear() + '-' + d.getMonth() + '-'
 											+ d.getDate())
 					}
 				})
@@ -119,8 +145,10 @@
 	})
 
 	document.addEventListener("DOMContentLoaded", function() {
-		document.getElementById("actPic").addEventListener("change", fileViewer);
-		document.getElementById("actPic2").addEventListener("change", fileMultiViewer);
+		document.getElementById("actPic")
+				.addEventListener("change", fileViewer);
+		document.getElementById("actPic2").addEventListener("change",
+				fileMultiViewer);
 	});
 
 	function fileViewer() {
@@ -145,7 +173,7 @@
 			reader.readAsDataURL(theFiles[i]);
 		}
 	}
-	
+
 	function fileMultiViewer() {
 		$('#picZone2').empty();
 		$('#otherPic').empty();
@@ -163,9 +191,9 @@
 				var imgobj2 = document.createElement("img");
 				//6. 設定img的src屬性
 				imgobj.setAttribute("src", fileMultiContent);
-				imgobj.setAttribute("height","150px");
+				imgobj.setAttribute("height", "150px");
 				imgobj2.setAttribute("src", fileMultiContent);
-				imgobj2.setAttribute("height","100px");
+				imgobj2.setAttribute("height", "100px");
 				document.getElementById("picZone2").appendChild(imgobj);
 				document.getElementById("otherPic").appendChild(imgobj2);
 			});
@@ -201,10 +229,12 @@
 
 					$('#actName').empty().append($('#insertActname').val());
 					$('#actType').empty().append(typeArr);
-					$('#actCity').empty().append($('#selCity').find('option:selected').text());
+					$('#actCity').empty().append(
+							$('#selCity').find('option:selected').text());
 					$('#actWhere').empty().append($('#insertWhere').val());
 					$('#actStarttime').empty().append(
-							$('#startTime').val() + ' ' + $('#startTime2').val());
+							$('#startTime').val() + ' '
+									+ $('#startTime2').val());
 					$('#actEndtime').empty().append(
 							$('#endTime').val() + ' ' + $('#endTime2').val());
 					$('#actDescription').empty().append($('#insertDes').val());
@@ -344,7 +374,7 @@ footer>ul>li ul {
 		</div>
 		</nav>
 	</div>
-<div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
+	<div class="modal fade" id="ActPageBox" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<!--白色遮罩層-->
@@ -364,15 +394,16 @@ footer>ul>li ul {
 						<form id="loginform">
 							<p class="loginerror"></p>
 							<div class="form-group" id="ACT">
-								<label for="recipient-name" class="col-form-label">帳號:</label>
-								<input type="text" class="form-control" id="account" name="account">
+								<label for="recipient-name" class="col-form-label">帳號:</label> <input
+									type="text" class="form-control" id="account" name="account">
 							</div>
 							<div class="form-group" id="PWD">
-								<label for="recipient-name" class="col-form-label">密碼:</label>
-								<input type="password" class="form-control" id="pwd" name="pwd">
+								<label for="recipient-name" class="col-form-label">密碼:</label> <input
+									type="password" class="form-control" id="pwd" name="pwd">
 							</div>
 							<button type="button" class="btn btn-primary" id="login">登入</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">取消</button>
 						</form>
 						<div id="or" class="bg-primary text-white">
 							<h4>or</h4>
@@ -406,18 +437,21 @@ footer>ul>li ul {
 	<div class="container">
 		<div id="small_con">
 			<div>
-				<form id="ActivityCreateForm" action="<c:url value="/actCreate.controller"/>"
-					  method="post" accept-charset="ISO-8859-1" enctype="multipart/form-data">
+				<form id="ActivityCreateForm"
+					action="<c:url value="/actCreate.controller"/>" method="post"
+					accept-charset="ISO-8859-1" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td>聚會封面</td>
-							<td><img src="images/actcreate.png" id="picZone" class="selPic">
-								<input type="file" name="picture" id="actPic" accept="image/*"></td>
+							<td><img src="images/actcreate.png" id="picZone"
+								class="selPic"> <input type="file" name="picture"
+								id="actPic" accept="image/*"></td>
 						</tr>
 						<tr>
 							<td>其他照片</td>
-							<td><div id="picZone2" class="selPic2"></div>
-								<input type="file" name="multipicture" multiple id="actPic2" accept="image/*"></td>
+							<td><div id="picZone2" class="selPic2"></div> <input
+								type="file" name="multipicture" multiple id="actPic2"
+								accept="image/*"></td>
 						</tr>
 						<tr>
 							<td>聚會標題</td>
@@ -429,21 +463,24 @@ footer>ul>li ul {
 							<td>聚會類型</td>
 							<td><input type="checkbox" name="classtype" value="輕鬆聊">輕鬆聊
 								<input type="checkbox" name="classtype" value="浪漫約會">浪漫約會
-								<input type="checkbox" name="classtype" value="寵物">寵物
-								<input type="checkbox" name="classtype" value="桌遊">桌遊
-								<input type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青
-								<input type="checkbox" name="classtype" value="電影">電影</td>
+								<input type="checkbox" name="classtype" value="寵物">寵物 <input
+								type="checkbox" name="classtype" value="桌遊">桌遊 <input
+								type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青 <input
+								type="checkbox" name="classtype" value="電影">電影</td>
 						</tr>
 						<tr>
 							<td>城市/所在地</td>
 							<td><select name="city" id="selCity">
-								<option>請選擇</option></select></td>
+									<option>請選擇</option>
+							</select></td>
 						</tr>
 						<tr>
 							<td>地點</td>
+
 							<td><input type="text" name="addr" id="insertWhere" value="${param.addr}"></td>
 						</tr>
 						<tr>
+
 							<td>開始時間</td>
 							<td>
 								<input type="date" id="startTime" name="startTime">
@@ -469,7 +506,25 @@ footer>ul>li ul {
 							</td>
 						</tr>
 						<tr>
+							<td>結束時間</td>
+							<td><input type="date" id="endTime" name="endTime">
+								<input type="text" id="endTime2" name="endTimepicker"
+								class="timepicker" autocomplete="off" />${errMsgs.endDateTime}</td>
+						</tr>
+						<tr>
+							<td>詳細描述</td>
+							<td><textarea name="content" id="insertDes" cols="30"
+									rows="10"></textarea>${errMsgs.content}</td>
+						</tr>
+						<tr>
+							<td>聚會人數</td>
+							<td><input step="1" type="number" id="selNum"
+								name="numberlimit" ng-model="peoplemax" min="1"
+								ng-init="peoplemax = 5"></td>
+						</tr>
+						<tr>
 							<td>聚會預算</td>
+
 							<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" ng-init="fee = 100" value="${param.feed}"></td>
 						</tr>
 						<tr>
@@ -479,9 +534,11 @@ footer>ul>li ul {
 
 						<tr>
 							<td>是否創建報名表單</td>
+
 							<td><input type="radio" name="setFormOrNot" value="yes" id="setForm">是
 								<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否</td>
 						</tr>
+
 					</table>
 					<input type="button" name="" value="預覽" id="preBotton" data-target="#preview"
 						   data-toggle="modal" />
@@ -557,7 +614,8 @@ footer>ul>li ul {
 									</div>
 									<div class="modal-footer">
 										<button type="submit" class="btn btn-primary">確認送出</button>
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">修改</button>
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">修改</button>
 									</div>
 								</div>
 							</div>

@@ -12,6 +12,10 @@ $(function () {
     	        , function (data) {
     	            if (data.state == true) {      	
     	            	logingroup(data);
+    	            }else{
+    	            	if(typeof window.loginfail === "function") {
+    	            		loginfail();//登入後要做的方法放在loginDo()
+    	                 }
     	            }
     	        }
     	        , "json"
@@ -52,7 +56,6 @@ $(function () {
 
 function logingroup(data){
 	 if(typeof window.loginDo === "function") {
-		console.log('logingroup2');
      	loginDo();//登入後要做的方法放在loginDo()
      }
 	 loginheaderDO();
