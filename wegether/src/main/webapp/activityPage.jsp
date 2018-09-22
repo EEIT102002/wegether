@@ -147,7 +147,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-				document.location.href = "actEdit.getBean.controller?actid="+activityid;
+				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+${actBean.title};
 			})
 		
 	})
