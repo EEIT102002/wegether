@@ -35,7 +35,7 @@
                     memberinfo["addrs"] = addr;
                 $('.setting1 > table tr').each(function () {
                     var info = memberinfo[$(this).attr('id')]
-                    if (info != null) {
+                    if (info != null && info != "") {
                         if ($(this).attr('id') == "birthday")
                             info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
                         this.children[1].innerHTML = info;
@@ -66,17 +66,22 @@
             });
 
             $('.setting1 form > button').click(function () {
-                var td = $(this).parent().parent();
+            	var e = $(this)
+                var td = e.parent().parent();
                 var button = td.next('td').children('button');
-                var form = $(this).parent('form').serialize();
+                var form = e.parent('form').serialize();
                 $.post(
                     "/wegether/member/Info/setting"
                     , form
                     , function (data) {
-                        insertInfo(data);
-                        td.toggle().prev().toggle();
-                        button.text(
+                    	if(data.bean != null ){
+                        	insertInfo(data.bean);
+                        	td.toggle().prev().toggle();
+                        	button.text(
                             button.text() == "編輯" ? "取消" : "編輯");
+                    	}else if(data.error!= null ){
+                    		e.prev().prev().val("").attr('placeholder',data.error);
+                    	}
                     }
                     , "json"
                 );
@@ -86,15 +91,15 @@
             $('#photo').change(function () {
                 fileViewer($('#photo')[0].files[0], $('#photoUpdateShow'));
             })
-            $('#photoUpdata').click(photoUpdata)
+            $('#photoUpdata').click(memberphotoUpdata)
 
         });
 
-        function photoUpdata() {
+        function memberphotoUpdata() {
             var file = $('#photo')[0].files[0];
             if (file != null)
                 fileResizetoFile(file, 0.6, function (file) {
-                    photoUpdate("/wegether/member/photo", file, function (data) {
+                	photoUpdate('/wegether/member/Info/photo', file, function (data) {
                         var photoSrc = data["photoSrc"];
                         if (photoSrc != null) {
                             $('#photoShow').html($('<img/>').attr('src', photoSrc));
@@ -367,9 +372,6 @@
                  	<div id="photoUpdateShow">
             		</div>
                    <input type="file" name="photo" id="photo" accept="image/*">
-            		<br>
-           
-            <img id='test' />
                 </div>
                 <div class="modal-footer">
                  	<button type="button" id='photoUpdata' class="btn btn-default" data-dismiss="modal">上傳</button>

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import model.MemberBean;
 import model.NoticeBean;
+import model.NoticeviewBean;
 import model.dao.MemberDAO;
 import model.dao.NoticeDAO;
+import model.dao.NoticeviewDAO;
 
 @Service
 public class NoticeService {
@@ -16,6 +18,8 @@ public class NoticeService {
 	private NoticeDAO noticeDAO;
 	@Autowired
 	private MemberDAO memberDAO;
+	@Autowired
+	private NoticeviewDAO noticeviewDAO;
 
 	public List<NoticeBean> getNotice(Integer id, Integer ntype) {
 		switch (ntype) {
@@ -65,8 +69,8 @@ public class NoticeService {
 		return false;
 	}
 	
-	public List<NoticeBean> selectNotices(int memberid, int first) {
-		return  noticeDAO.selectByMemberId(memberid, first);
+	public List<NoticeviewBean> selectNotices(int memberid, int first) {
+		return  noticeviewDAO.selectByMemberId(memberid, first);
 	}
 	
 	public Integer noticesCount(Integer memberid) {

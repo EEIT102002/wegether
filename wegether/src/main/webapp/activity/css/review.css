@@ -1,22 +1,31 @@
 .activityli {
-	height: 80px;
+	height: 60px;
 	display: flex;
 	align-items: center;
+	
+}
+
+.activityli *{
+	color: #004080;
+}
+
+.activityli:hover {
+		background-color: rgba(200, 226, 255, 0.459);
 }
 
 .activityli>button {
 	flex: 1 1 60px;
 	display: block;
-	height: 100%;
+	height: 70%;
 }
 
-.activityli>div {
+.activityli>a {
 	flex: 3 3 300px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	justify-content: center;
+	justify-content: flex-start;
 	position: relative;
 	overflow: hidden;
 }
@@ -25,18 +34,18 @@
 	font-size: 20px;
 }
 
-.activityli>div .info {
+.activityli>a .info {
 	display: flex;
 	position: absolute;
 	bottom: 0;
 	font-size: 12px;
 }
 
-.activityli>div .info div {
+.activityli>a .info div {
 	margin-right: 10px;
 }
 
-.activityli>div .info * {
+.activityli>a .info * {
 	font-size: 12px;
 }
 .setting4ul {
@@ -76,26 +85,7 @@
     font-size: 18px;
 }
 
-.memberPhoto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 5px;
-    flex: 0 0 55px;
-}
 
-.memberPhoto div {
-    width: 50px;
-    height: 50px;
-    background-color: gray;
-    border-radius: 50px;
-}
-
-.memberPhoto div>img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-}
 
 .attend {
     display: flex;
@@ -137,23 +127,53 @@
 	overflow-y: scroll;
 }
 
-#blocklist div::-webkit-scrollbar {
+#blocklist div::-webkit-scrollbar ,
+#right>div::-webkit-scrollbar {
     width: 10px;
 }
 
 /* Track */
-#blocklist div::-webkit-scrollbar-track {
+#blocklist div::-webkit-scrollbar-track ,
+#right>div::-webkit-scrollbar-track{
     background: rgba(200, 226, 255, 0); 
 }
  
 /* Handle */
-#blocklist div::-webkit-scrollbar-thumb {
+#blocklist div::-webkit-scrollbar-thumb ,
+#right>div::-webkit-scrollbar-thumb {
     background: rgba(70, 114, 165, 0.8);
 }
 
 /* Handle on hover */
-#blocklist div::-webkit-scrollbar-thumb:hover {
+#blocklist div::-webkit-scrollbar-thumb:hover ,
+#right>div::-webkit-scrollbar-thumb:hover{
     background: #008CBA;
 }
+
+#right>div{
+	overflow-y: scroll;
+	max-height:580px;	
+}
+
+#right button {
+  padding: 3px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #008CBA;
+  border: none;
+  transition:opacity 0s;
+}
+
+#right button:hover {
+	background-color: rgba(0, 44, 95, 0.6);
+	}
+
+#right button:active{
+	opacity:0.5
+	}
 
 

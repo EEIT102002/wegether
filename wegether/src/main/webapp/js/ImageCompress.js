@@ -63,3 +63,26 @@ function fileViewer(file,div) {
     rd.readAsDataURL(file);
 }
 
+
+function photoUpdate(url,file, fn) {//上傳到server
+    var data = new FormData();
+    data.append('photo', file);
+    $.ajax({
+        url: url,
+        data: data,// Add as Data the Previously create formData
+        type: "POST",
+        contentType: false,
+        processData: false,
+        cache: false,
+        dataType: "json", // Change this according to your response from the server.
+        error: function (err) {
+            console.error(err);
+        },
+        success: function (data) {
+            fn(data);
+        },
+        complete: function () {
+            console.log("Request finished.");
+        }
+    });
+}

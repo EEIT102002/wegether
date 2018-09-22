@@ -113,24 +113,12 @@ public class TestPictureDAOServlet extends HttpServlet {
 
 		//insert		/wegether/src/main/webapp/images/06.jpg
 		PictureBean pcB = new PictureBean();
-		
-		String path1 = this.getServletContext().getRealPath("images/06.jpg");
-		System.out.println(path1);
-		
-		String path2 = this.getServletContext().getRealPath("");
-		System.out.println(path2);
-		File file = new File(path1);
-//		 String path = "D:\\TEMP\\picture\\九份\\1.jpg";
-//		 File file = new File("a.htm");
-//		    File file = new File(path);
-//		    System.out.println(file.getAbsolutePath());//输出读取到的文件路径
 
-		
-		
+		File file = new File("C:\\Users\\User\\Desktop\\images\\5.jpg");
 		pcB.setPicture(PictureConvert.converFileToByte(file));
-		pcB.setActivityid(2);
+		pcB.setActivityid(null);
 		pcB.setArticleid(null);
-		pcB.setMemberid(null);
+		pcB.setMemberid(1);
 		PictureBean temp = pictureDAOHibernate.insert(pcB);
 ////	 	out.println(temp);		
 //////	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");

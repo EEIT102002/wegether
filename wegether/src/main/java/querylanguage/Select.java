@@ -13,6 +13,16 @@ public class Select {
 	public static final String noticeByAttend = noticeSql("attendid");
 	public static final String noticeByFriend = noticeSql("friendid");
 	public static final String noticeByInvite = noticeSql("inviteid");
+	
+	
+	public static final String noticeviewByMember = "select {n.*} from noticeview n where memberid = :id order by [state] asc, noticetime desc "
+			+ offset;
+	public static final String noticeviewByActivity = noticeviewSql("activityid");
+	public static final String noticeviewByArticle = noticeviewSql("articleid");
+	public static final String noticeviewByAttend = noticeviewSql("attendid");
+	public static final String noticeviewByFriend = noticeviewSql("friendid");
+	public static final String noticeviewByInvite = noticeviewSql("inviteid");
+	
 	public static final String msgByActivity = msgSql("activityid");
 	public static final String msgByArticle = msgSql("activityid");
 	public static final String msgByActivityOffset = addOffset(msgByActivity);
@@ -61,6 +71,10 @@ public class Select {
 
 	private static String noticeSql(String tableid) {
 		return "from NoticeBean where " + tableid + " = :id and ntype = :ntype and state = 0";
+	}
+	
+	private static String noticeviewSql(String tableid) {
+		return "from NoticeviewBean where " + tableid + " = :id and ntype = :ntype and state = 0";
 	}
 
 }

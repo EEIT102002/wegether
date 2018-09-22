@@ -2,26 +2,19 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -31,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.MemberBean;
-
+import model.dao.PictureDAO;
 import model.dao.implement.MemberDAOHibernate;
 import pictureconvert.PictureConvert;
 
@@ -40,6 +33,9 @@ public class MemberRegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MemberDAOHibernate memberDAOHibernate;
+	
+	@Autowired
+	private PictureDAO pictureDAO;
 
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
@@ -53,19 +49,38 @@ public class MemberRegisterController extends HttpServlet {
 	public String selectMethod(Model model, MemberBean bean,
 			@RequestAttribute(name = "memberid", required = false) Integer memberid,
 			@RequestParam(value = "account", required = false) String account1,
-			@RequestParam(value = "pwd2", required = false) String pwdre) throws IOException {
+			@RequestParam(value = "pwd2", required = false) String pwdre,
+			@RequestParam(value = "photo2", required = false) MultipartFile file) throws IOException {
 
 		// flag= 0:未登入 1:登入
-//		 Integer flag = 0;
-//		 if (memberid != null) {
-//			 
-//		 return "register.success";
-//		 }
-		
-
+		// Integer flag = 0;
+		// if (memberid != null) {
+		//
+		// return "register.success";
+		// }
 		System.out.println(memberid);
 
+		// 圖片轉換
+		byte[] pic = null;
+		if (!file.isEmpty()) { // 圖片判定
+			pic = file.getBytes();
+			bean.setPhoto(pic);
+		} else {
+//			File defultPic = new File("/wegether/images/04.jpg");
+			
 		
+//			System.out.println(defultPic);
+					
+			try {
+				bean.setPhoto(pictureDAO.Select(1).getPicture());
+				// pic = ((MultipartFile) defultPic).getBytes();
+//				pic = PictureConvert.converFileToByte(defultPic);
+//				bean.setPhoto(pic);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		// 帳號信箱驗證
 		String email = bean.getAccount();
 		Pattern patternemail = Pattern.compile("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$");
@@ -81,16 +96,16 @@ public class MemberRegisterController extends HttpServlet {
 		Matcher matchercell = patterncell.matcher(cellphone);
 		boolean checkcel = matchercell.matches();
 
-		// 密碼格式驗證 密碼長度8~16碼、不能有特殊符號、必須要有英文及數字
+		// 密碼格式驗證 密碼長度8~16碼、必須有[!@#$%^&*]、必須要有英文及數字
 		String code = new String(bean.getPwd());
-		Pattern patterncode = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$");
+		Pattern patterncode = Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\\W]).{8,16}$");
 		Matcher matchercode = patterncode.matcher(code);
 		boolean checkcode = matchercode.matches();
 		// System.out.println(code);
 
-		// 確認密碼 密碼長度8~16碼、不能有特殊符號、必須要有英文及數字
+		// 確認密碼 密碼長度8~16碼、必須有[!@#$%^&*]、必須要有英文及數字
 		String recode = new String(pwdre);
-		Pattern patterncodere = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$");
+		Pattern patterncodere = Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\\W]).{8,16}$");
 		Matcher rematchercode = patterncodere.matcher(recode);
 		boolean recheckcode = rematchercode.matches();
 		// System.out.println(recheckcode);
@@ -112,17 +127,19 @@ public class MemberRegisterController extends HttpServlet {
 		}
 		// 地址驗證 只能輸入中文
 		String addr = StringEscapeUtils.unescapeHtml(bean.getAddr());
-		Pattern patternaddr = Pattern.compile("[\u4E00-\u9FBF]+");
+		Pattern patternaddr = Pattern.compile("^[\u4E00-\u9FBF_0-9]+$");
+		// ^[\u4e00-\u9fa5_0-9]+$
 		Matcher rematcheraddr = patternaddr.matcher(addr);
 		boolean checkaddr = rematcheraddr.matches();
 		System.out.println(addr);
 		System.out.println(checkaddr);
-		
+
 		// 地址驗證 只能輸入中文
 		String job = StringEscapeUtils.unescapeHtml(bean.getJob());
 		Pattern patternjob = Pattern.compile("[\u4E00-\u9FBF]+");
 		Matcher rematcherjob = patternjob.matcher(job);
 		boolean checkjob = rematcherjob.matches();
+
 		System.out.println(job);
 		System.out.println(checkjob);
 
@@ -147,11 +164,10 @@ public class MemberRegisterController extends HttpServlet {
 		if (pwdre == null || pwdre.length() == 0) {
 			errors.put("pwd2", "密碼未輸入");
 		} else if (!recheckcode) {
-			errors.put("pwd2", "密碼格式錯誤");
+			errors.put("pwd2", "請在確認密碼");
 		} else if (code.equals(recode) == false) {
-			errors.put("pwd2", "密碼不一致");
+			errors.put("pwd2", "請在確認密碼");
 		}
-
 
 		// 電話錯誤訊息
 		if (bean.getTel() == null || bean.getTel().length() == 0) {
@@ -168,15 +184,24 @@ public class MemberRegisterController extends HttpServlet {
 			errors.put("name", "姓名格式錯誤");
 		}
 
+		// 日期錯誤訊息
+		if (bean.getBirthday() == null) {
+			errors.put("birthday", "請輸入日期");
+		}
+
 		// 地址錯誤訊息
-		if (!checkaddr && bean.getAddr().length()>0) {
+		if (!checkaddr && bean.getAddr().length() > 0) {
 			errors.put("addr", "請輸入中文");
-		} 
+		}
 		// 職業錯誤訊息
-				if (!checkjob && bean.getJob().length()>0&&bean.getJob()!=null) {
-					errors.put("job", "請輸入中文");
-				} 
-		
+		if (!checkjob && bean.getJob().length() > 0 && bean.getJob() != null) {
+			errors.put("job", "請輸入中文");
+		}
+		// 轉進位 暱稱 介紹 最愛
+		String nickname = StringEscapeUtils.unescapeHtml(bean.getNickname());
+		String content = StringEscapeUtils.unescapeHtml(bean.getContent());
+		String favorite = StringEscapeUtils.unescapeHtml(bean.getFavorite());
+
 		if (errors != null && !errors.isEmpty()) {
 			model.addAttribute("inputRrrors", errors);
 			System.out.println("所得到的bean:" + bean);
@@ -184,14 +209,23 @@ public class MemberRegisterController extends HttpServlet {
 
 			return "register.error";
 		} else {
+
 			System.out.println(bean);
+			bean.setName(name);
+			bean.setNickname(nickname);
+			bean.setJob(job);
+			bean.setAddr(addr);
+			bean.setFavorite(favorite);
+			bean.setContent(content);
+
 			memberDAOHibernate.insert(bean);
-//			bean.getId()
+			
+			// bean.getId()
 			// flag=1;
 
 			return "register.success";
 		}
 
 	}
-	
+
 }

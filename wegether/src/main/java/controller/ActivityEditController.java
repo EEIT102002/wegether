@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,14 +21,18 @@ import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.ActivityBean;
@@ -59,6 +65,7 @@ public class ActivityEditController {
 		}
 
 		List<String> actPics = new ArrayList<>();
+		List<Integer> actIds = new ArrayList<>();
 
 		System.out.println("getBeanToJsp() actid = " + actid);
 		ActivityBean result = activityDAO.selectId(actid);
@@ -118,6 +125,10 @@ public class ActivityEditController {
 			String picture = PictureConvert.convertBase64Image(oneBean.getPicture());
 			actPics.add(picture);
 			model.addAttribute("actAllPic", actPics);
+
+			Integer oneId = oneBean.getId();
+			actIds.add(oneId);
+			model.addAttribute("actAllId", actIds);
 		}
 
 		return "actGetBeanSuc.page";
@@ -130,8 +141,7 @@ public class ActivityEditController {
 			@RequestParam(value = "startTimepicker", required = false) String starttime,
 			@RequestParam(required = false) String dateline,
 			@RequestParam(value = "endTime", required = false) String endDate,
-			@RequestParam(value = "endTimepicker", required = false) String endTime
-			,HttpServletRequest request)
+			@RequestParam(value = "endTimepicker", required = false) String endTime, HttpServletRequest request)
 			throws ParseException, IOException {
 
 		System.out.println(activityBean);
@@ -223,10 +233,26 @@ public class ActivityEditController {
 
 		if (updateResult == null)
 			return "actEditErr.page";
-		
-		request.setAttribute("id",activityBean.getId());
-		request.setAttribute("ntype",13);
+
+		request.setAttribute("id", activityBean.getId());
+		request.setAttribute("ntype", 13);
 		return "actEditErr.page";
+	}
+
+	@RequestMapping("/insertOtherPics.do")
+	@ResponseBody
+	public PictureBean create(@RequestParam(value = "pics", required = false) MultipartFile[] picture, int activitiId)
+			throws URISyntaxException, IOException {
+		PictureBean result;
+		for (int i = 0; i < picture.length; i++) {
+			PictureBean pictureBean = (PictureBean) context.getBean("pictureBean");
+			picture[i].getBytes();
+			pictureBean.setActivityid(activitiId);
+			pictureBean.setPicture(picture[i].getBytes());
+			result = pictureDAO.insert(pictureBean);
+			return result;
+		}
+		return null;
 	}
 
 	public String startDateFormat(String startDate, String starttime) {

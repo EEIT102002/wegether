@@ -7,7 +7,7 @@ GO
 
 USE wegether
 GO
-select * from member order by signupdate desc
+
 create sequence member_sq
 start with 1
 increment by 1
@@ -268,6 +268,26 @@ constraint picture_chk check(
 )
 GO 
 
+CREATE VIEW noticeview as
+select nn.*, m.nickname as cnickname, m.id as cmemberid 
+from (select n.*, a.id as cactivityid , a.title as ctitle, a.hostid as chostid
+from notice n 
+left join activity a
+on (n.ntype = 3 and a.id = (select activityid from invite where id = n.inviteid)
+	)or( n.ntype in (4,5,6,7,8,9) and a.id = (select activityid from attend where id = n.attendid)
+	) or (n.ntype in (10, 15) and a.id = (select activityid from article where id = n.articleid)
+	)or (n.ntype in (11,14,13,12) and a.id = n.activityid)
+)nn
+left join member m 
+on  (nn.ntype = 1 and m.id = (select memberid from friend where id = nn.friendid))
+	or (nn.ntype = 2 and m.id = (select memberidf from friend where id = nn.friendid))
+	or (nn.ntype = 3 and m.id = (select memberid from invite where id = nn.inviteid))
+	or ( nn.ntype in (4, 8 ,9) and m.id = (select memberid from attend where id = nn.attendid)
+	)or (nn.ntype = 5 and m.id = (select hostid from activity where id = nn.chostid)
+	)or (nn.ntype = 10 and m.id = (select memberid from article where id = nn.articleid)
+	)or( nn.ntype = 11 and m.id = (select hostid from activity where id = nn.activityid))
+go	
+
 create trigger setting_member_insert on member
 for insert
 as
@@ -292,30 +312,17 @@ begin
 end
 go
 
-create function notice_name
-(@memberid int)
-returns nvarchar(max)
-as
-begin
-	return 
-	(select nickname
-		from member 
-		where id = @memberid
-		)+','+cast(@memberid as varchar)
-end
-go
-
 create trigger notice_friend_insert on friend --提醒新的好友申請
 after insert
 as
 begin 
-	declare @f_id int, @f_memberid int, @f_friendid int , @f_state int, @content nvarchar(max)
+	declare @f_id int, @f_memberid int, @f_friendid int , @f_state int
 	select @f_id = id, @f_memberid = memberid, @f_friendid = memberidf , @f_state = state
 	from inserted
 	if(@f_state = 0)
 	begin
-		set @content = dbo.notice_name(@f_memberid) --好友申請1
-		insert into notice (memberid, content, friendid, ntype) values (@f_friendid, @content, @f_id, 1)
+		 --好友申請1
+		insert into notice (memberid, friendid, ntype) values (@f_friendid, @f_id, 1)
 	end
 end
 go
@@ -339,11 +346,9 @@ begin
 			from inserted
 		end
 
-		declare @content nvarchar(max)
-		set @content = dbo.notice_name((select memberidf from inserted)) --邀請接受2
-
-		insert into notice (memberid, content, friendid, ntype)
-		select memberid , @content , id , 2
+		--邀請接受2
+		insert into notice (memberid, friendid, ntype)
+		select memberid , id , 2
 		from inserted
 
 		delete notice 
@@ -372,16 +377,6 @@ begin
 end
 go
 
-create function notice_name_title
-(@memberid int, @activityid int)
-returns nvarchar(max)
-as
-begin
-	return dbo.notice_name(@memberid)
-		+','+(select title from activity where id = @activityid)+','+cast(@activityid as varchar)
-end
-go
-
 create trigger check_invite_insert on invite -- check 被推薦人設置
 instead of insert
 as
@@ -400,20 +395,9 @@ create trigger notice_invite_insert on invite --invite table 新增時 notice ta
 for insert
 as
 begin
-	insert into notice (memberid, inviteid,ntype, content)
-	select invitedid , id, 3,
-	dbo.notice_name_title(i.memberid, i.activityid) --推薦你參加3
+	insert into notice (memberid, inviteid,ntype)
+	select invitedid , id, 3  --推薦你參加3
 	from inserted i
-end
-go
-
-create function notice_name_titlestr
-(@memberid int, @title nvarchar(max), @activityid int)
-returns nvarchar(max)
-as
-begin
-	return dbo.notice_name(@memberid)
-		+','+@title+','+cast(@activityid as varchar)
 end
 go
 
@@ -428,9 +412,8 @@ begin
 	from activity
 	where id = (select activityid from inserted)
 
-	insert into notice(memberid, attendid, noticetime, content, ntype)
-	select @hostid , id, createtime, 
-		dbo.notice_name_titlestr(i.memberid, @title, @activityid),4  --申請參加 4
+	insert into notice(memberid, attendid, noticetime, ntype)
+	select @hostid , id, createtime,4  --申請參加 4
 	from inserted i
 end
 else if (select state from inserted) = 3
@@ -439,9 +422,8 @@ begin
 	from activity
 	where id = (select activityid from inserted)	
 
-	insert into notice(memberid, attendid, noticetime, content, ntype)
-	select memberid , id, createtime,
-		dbo.notice_name_titlestr(@hostid, @title, @activityid),5 --邀請你參加 5
+	insert into notice(memberid, attendid, noticetime, ntype)
+	select memberid , id, createtime ,5 --邀請你參加 5
 	from inserted
 end
 end
@@ -469,23 +451,22 @@ on notice.attendid = a.id
 when matched then 
 	delete;
 
-insert into  notice  (memberid , attendid , ntype, content)
+insert into  notice  (memberid , attendid , ntype)
 select  memberid, id ,
 	(case istate 
 		when 1 then 6 --報名成功6
 		when 2 then 7 --報名失敗7
-		end),title+','+cast(activityid as varchar)
+		end)
 from #uattend
 where dstate = 0
 
-insert into  notice  (memberid , attendid, ntype, content)
+insert into  notice  (memberid , attendid, ntype)
 select  hostid, id , 
 	(case istate 
 		when 1 then 8 --接受邀請 8
 		when 2 then 9  --拒絕邀請 9
 		end 
-		), 
-	dbo.notice_name_titlestr(memberid, title, activityid)
+		)
 from #uattend
 where dstate = 3
 end
@@ -495,17 +476,15 @@ create trigger notice_article_insert on article --article table 新增時 在not
 for insert
 as
 begin
-	declare @actorname nvarchar(max)
-	set @actorname = dbo.notice_name_title((select memberid from inserted),(select activityid from inserted)) --有新的文章10
-
-	insert into notice (memberid, articleid , content, noticetime,ntype)
-	(select memberidf, i.id, @actorname, i.createtime,10
+	 --有新的文章10
+	insert into notice (memberid, articleid , noticetime,ntype)
+	(select memberidf, i.id, i.createtime,10
 	from friend
 	join inserted i
 	on state = 1 and friend.memberid = i.memberid 
 	and (select friendarticle from setting where memberid = memberidf) = 0)
 	union
-	(select fanid, i.id, @actorname, i.createtime,10
+	(select fanid, i.id, i.createtime,10
 	from trackmember t
 	join inserted i 
 	on t.memberid = i.memberid)
@@ -516,20 +495,16 @@ create trigger notice_activity_insert on activity --activity table 新增 notice
 for insert
 as
 begin
-	declare @hostname nvarchar(max)
-	set @hostname = dbo.notice_name_titlestr(
-	(select hostid from inserted), 
-	(select title from inserted),
-	(select id from inserted))  -- 發起新活動 11
+	 -- 發起新活動 11
 
-	insert into notice(memberid,content,noticetime , activityid, ntype)
-	(select memberidf, @hostname, i.createtime ,i.id, 11
+	insert into notice(memberid,noticetime , activityid, ntype)
+	(select memberidf, i.createtime ,i.id, 11
 	from friend f
 	join inserted i
 	on f.state = 1 and f.memberid = i.hostid
 	and (select friendactivity from setting where memberid = f.memberidf) = 0)
 	union
-	(select fanid, @hostname, i.createtime, i.id, 11
+	(select fanid, i.createtime, i.id, 11
 	from trackmember t
 	join inserted i
 	on t.memberid = i.hostid)
@@ -543,8 +518,8 @@ as
 begin
 if (select count(id) from inserted) =1
 begin
-	declare @date datetime  = getDate(), @title nvarchar(50), @id int
-	select @title = title , @id=id
+	declare @date datetime  = getDate(), @id int
+	select @id=id
 	from inserted
 
 	if (select state from deleted) = 0 
@@ -554,8 +529,8 @@ begin
 		where activityid = @id 
 		or (attendid is not null and attendid in (select id from attend where activityid = @id))
 
-		insert into notice (memberid, content , noticetime, ntype, activityid)
-		select memberid, @title, @date,12,@id  --活動取消12
+		insert into notice (memberid , noticetime, ntype, activityid)
+		select memberid, @date,12,@id  --活動取消12
 		from attend
 		where activityid = @id and state = 1
 
@@ -575,12 +550,11 @@ begin
 		on notice.memberid = a.memberid and notice.activityid = a.activityid and notice.ntype = 13
 		when matched then
 			update
-			set content = @title,  --活動變更13
-				noticetime = @date,
+			set noticetime = @date, --活動變更13
 				state = 0
 		when not matched then
-			insert (memberid, activityid, content, ntype)
-			values(a.memberid, a.activityid, @title, 13);
+			insert (memberid, activityid, ntype)
+			values(a.memberid, a.activityid, 13);
 	end
 end
 end
@@ -672,8 +646,8 @@ begin
 				n.msgcountu +=1,
 				n.state = 0
 		when not matched then
-			insert (memberid, activityid, content , noticetime, msgcount, msgcountu, ntype)
-			values (a.hostid, a.id, a.title, @date, 1, 1, 14); --活動有新的留言14
+			insert (memberid, activityid , noticetime, msgcount, msgcountu, ntype)
+			values (a.hostid, a.id, @date, 1, 1, 14); --活動有新的留言14
 	end
 	else if @articleid is not null and (select articlemsg from setting where memberid = (select memberid from article where id = @articleid)) = 0
 	begin
@@ -687,9 +661,8 @@ begin
 				n.msgcountu +=1,
 				n.state = 0
 		when not matched then 
-			insert (memberid, articleid, noticetime, msgcount, msgcountu,content, ntype)
-			values (a.memberid, a.id, @date,1,1, 
-				dbo.notice_title(a.activityid), 15); --文章有新的留言15
+			insert (memberid, articleid, noticetime, msgcount, msgcountu, ntype)
+			values (a.memberid, a.id, @date,1,1, 15); --文章有新的留言15
 	end
 end
 go
