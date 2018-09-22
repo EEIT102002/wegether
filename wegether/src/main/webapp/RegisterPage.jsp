@@ -274,7 +274,7 @@ footer>ul>li ul {
 						<tr>
 							<td>性&nbsp;别:</td>
 							<td><select name="sex" size="1">
-									<option value="0">男生</option>
+									<option value="0" >男生</option>
 									<option value="1">女生</option>
 							</select></td>
 						</tr>

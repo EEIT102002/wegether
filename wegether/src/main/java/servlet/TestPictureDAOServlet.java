@@ -112,11 +112,11 @@ public class TestPictureDAOServlet extends HttpServlet {
 
 		//insert		
 		PictureBean pcB = new PictureBean();
-		File file = new File("D:\\TEMP\\picture\\奧萬大\\6.jpg");
+		File file = new File("C:\\Users\\User\\Desktop\\images\\5.jpg");
 		pcB.setPicture(PictureConvert.converFileToByte(file));
 		pcB.setActivityid(null);
-		pcB.setArticleid(6);
-		pcB.setMemberid(null);
+		pcB.setArticleid(null);
+		pcB.setMemberid(1);
 		PictureBean temp = pictureDAOHibernate.insert(pcB);
 	 	out.println(temp);		
 //	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
