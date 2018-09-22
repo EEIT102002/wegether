@@ -47,7 +47,7 @@
 	<a href="#" id="loginGoogle" class="fa fa-google icon icon-border googleplus"> </a>
 
 	<br />
-	<form action="<c:url value="/login/fb" />" method="post" id="form1">
+	<form action="<c:url value="/loginfb.controller" />" method="post" id="form1">
 
 		<div style="visibility: hidden">
 			<input type="text" id="fgId" name="id"value="${param.id}"> 

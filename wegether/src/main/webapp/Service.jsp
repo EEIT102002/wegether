@@ -6,9 +6,10 @@
 <html>
 <head>
 <title>問題回報</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<!-- 1 -->
+<jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
+<link rel="stylesheet" href="/wegether/css/Non-home.css">
+<!-- 1 -->
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -24,62 +25,9 @@
 		// 	})
 	})
 </script>
-<style>
-* {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	/* background-color: rgb(145, 145, 145);
-         */
-	background: url(images/v6.jpg) no-repeat;
-	background-size: cover;
-	background-attachment: fixed;
-}
-
-#small_con {
-	width: 100%;
-	min-height: 800px;
-	background-color: rgba(255, 255, 255, 0.363);
-}
-
-footer {
-	margin-top: 20px;
-}
-
-footer ul {
-	text-align: center;
-	/* border: 2px solid red; */
-	display: flex;
-	width: 70%;
-	margin: auto;
-}
-
-footer>ul>li {
-	/* border: 2px solid green; */
-	flex: 1;
-}
-
-footer>ul>li a {
-	font-size: 1.2em;
-}
-
-footer>ul>li ul {
-	display: flex;
-	flex-direction: column;
-	width: 80%;
-	color: rgb(255, 153, 0);
-}
-
-.container p {
-	color: white;
-}
-</style>
 </head>
 <body>
-	
+		<jsp:include page="/ShareTemp/headertemp.jsp"></jsp:include>
 	<div class="container">
 		<div id="small_con">
 			<!--       寫在這 -->
@@ -116,7 +64,9 @@ footer>ul>li ul {
 			</form>
 		</div>
 	</div>
-
+<!-- 	1 -->
+	<jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>
+<!-- 	1 -->
 	
 </body>
 </html>
