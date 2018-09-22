@@ -71,11 +71,11 @@ public class TestMemberDAOServlet extends HttpServlet {
 
 		// update
 
-		 MemberBean memberBean = memberDaoHibernate.select(4);
+		 MemberBean memberBean = memberDaoHibernate.select(195);
 //		 memberBean.setAddr("景安");
 //		 memberBean.setNickname("longlong");
 		 PictureBean pcB = new PictureBean();
-		 File file = new File("C:\\temp\\01.jpg");
+		 File file = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\06.jpg");
 		 memberBean.setPhoto(PictureConvert.converFileToByte(file));
 		 boolean result = memberDaoHibernate.update(memberBean);
 		 out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(memberBean.getPhoto())+"\"/>");

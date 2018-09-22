@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import Service.ServiceService;
 import model.ServiceBean;
+import sun.security.action.PutAllAction;
 
 @Controller
 @SessionAttributes(names = { "select", "action" })
@@ -34,8 +35,8 @@ public class ServiceController {
 
 		// 接收資料
 		// 轉換資料
-		Map<String, String> errors = new HashMap<>();
-		model.addAttribute("errors", errors);
+		HashMap<String, String> errors = new HashMap<>();
+		
 		
 		// if (bindingResult != null && bindingResult.hasFieldErrors()) {
 		//// if (bindingResult.hasFieldErrors("memberid")) {
@@ -64,20 +65,23 @@ public class ServiceController {
 		
 		
 		
-		if (errors != null && !errors.isEmpty()) {
-			return "Service.errors";
-		}
+//		if (errors != null && !errors.isEmpty()) {
+//			return "Service.errors";
+//		}
 		
 		//登入驗證
-		if (id==null&&id==null) {
+		if (id==null) {
 			System.out.println("未登入");
+			errors.put("LoginError", "請先登入");
+			System.out.println(errors.get("LoginError"));
+			model.addAttribute("errors", errors);
 			return "Service.errors";
-		}
-
+		}else
+			
+		//查詢
 		if ("Select".equals(servicemethod)) {
 			bean.setMemberid(id); // 把memberid寫入到bean
 			System.out.println(bean);
-			
 			List<ServiceBean> result = serviceService.select(bean);
 			
 			if (result != null) {
@@ -87,6 +91,7 @@ public class ServiceController {
 					return "Service.List";
 				} else {
 					errors.put("SelectResult", "查無資料");
+					model.addAttribute("SelectError", errors);
 					return "Service.List";
 				}
 			}
@@ -103,9 +108,8 @@ public class ServiceController {
 			if (result == null) {
 
 				System.out.println("false");
-				errors.put("title", "Insert fail");
+				errors.put("error", "提交失敗");
 				return "Service.errors";
-
 			} else {
 				System.out.println("succest");
 				List<ServiceBean> insertresult = serviceService.select(bean);
@@ -125,7 +129,10 @@ public class ServiceController {
 			return "Service.List";
 		}
 		errors.put("action", "Unknown Action:" + servicemethod);
+		
+		model.addAttribute("errors", errors);
 		return "Service.errors";
+		
 	}
 
 	@RequestMapping(path = { "/ServiceSelect.controller" })
@@ -133,6 +140,8 @@ public class ServiceController {
 		bean.setMemberid(id);
 		List<ServiceBean> result = serviceService.select(bean);
 		model.addAttribute("select", result);
+		
+//		model.addAttribute("errors", errors);
 		return "Service.List";
 	}
 }

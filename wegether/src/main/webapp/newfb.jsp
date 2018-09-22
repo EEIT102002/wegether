@@ -50,7 +50,7 @@
 	<form action="<c:url value="/login/fb" />" method="post" id="form1">
 
 		<div style="visibility: hidden">
-
+			<input type="text" id="fgId" name="id"value="${param.id}"> 
 			<input type="text" id="fgName" name="name"value="${param.name}"> 
 			<input type="text" id="fgEmail"name="account" value="${param.account}">
 			<input type="text" id="fgPic" name="user_photo" value="${param.user_photo}">
@@ -94,6 +94,11 @@
 		}
 		startApp();
 
+		
+		
+		
+		
+		
 		//FB初始化
 		window.fbAsyncInit = function() {
 			FB.init({
@@ -126,7 +131,7 @@
 			console.log("response.name:"+ response.name);
 			console.log("response.email:"+ response.email);
 			//取得資料送至controller比對
-
+			document.getElementById("fgId").value = response.id;
 			document.getElementById("fgName").value = response.name;
 			document.getElementById("fgEmail").value = response.email;
 			document.getElementById("fgPic").value = response.picture;
@@ -135,8 +140,9 @@
 			} else { //沒授權過應用程式	          
 				FB.login(function(response) { //呼叫FB.login()請求使用者授權
 					if (response.authResponse) {
-						FB.api('/me',{fields : 'id,name,email'},
+						FB.api('/me',{fields : 'id,name,email,picture'},
 							function(response) {
+							document.getElementById("fgId").value = response.id;
 							document.getElementById("fgName").value = response.name;
 							document.getElementById("fgEmail").value = response.email;
 							document.getElementById("fgPic").value = response.picture;
