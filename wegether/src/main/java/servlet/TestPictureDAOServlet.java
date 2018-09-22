@@ -38,6 +38,7 @@ public class TestPictureDAOServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 //		selectByMember
 //		List<PictureBean> Memberresult = pictureDAOHibernate.selectByMember(5);
+//		List<PictureBean> Memberresult = pictureDAOHibernate.selectByActivity(2);
 //		out.println("<p>selectByMember</p>");
 //		out.println(Memberresult);
 //		Memberresult.forEach(x->{
@@ -110,16 +111,29 @@ public class TestPictureDAOServlet extends HttpServlet {
 //
 //		out.print("<br>==================================================");
 
-		//insert		
+		//insert		/wegether/src/main/webapp/images/06.jpg
 		PictureBean pcB = new PictureBean();
-		File file = new File("D:\\TEMP\\picture\\奧萬大\\6.jpg");
+		
+		String path1 = this.getServletContext().getRealPath("images/06.jpg");
+		System.out.println(path1);
+		
+		String path2 = this.getServletContext().getRealPath("");
+		System.out.println(path2);
+		File file = new File(path1);
+//		 String path = "D:\\TEMP\\picture\\九份\\1.jpg";
+//		 File file = new File("a.htm");
+//		    File file = new File(path);
+//		    System.out.println(file.getAbsolutePath());//输出读取到的文件路径
+
+		
+		
 		pcB.setPicture(PictureConvert.converFileToByte(file));
-		pcB.setActivityid(null);
-		pcB.setArticleid(6);
+		pcB.setActivityid(2);
+		pcB.setArticleid(null);
 		pcB.setMemberid(null);
 		PictureBean temp = pictureDAOHibernate.insert(pcB);
-	 	out.println(temp);		
-//	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
+////	 	out.println(temp);		
+//////	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(temp.getPicture())+"\"/>");
 		String pic = "<img src='/wegether/picture/"+temp.getId()+"' width='350' height='250' style=' border: 2px solid #272727; margin: 10px;'>";
 		out.println(pic);
 		
@@ -128,21 +142,25 @@ public class TestPictureDAOServlet extends HttpServlet {
 //		out.println(deleresult);
 //		
 		// update
-//		List<PictureBean> AP = pictureDAOHibernate.selectByActivity(3);
+//		List<PictureBean> AP = pictureDAOHibernate.selectByActivity(2);
 //		List<PictureBean> AP = pictureDAOHibernate.selectByArticle(3);
 //		List<PictureBean> AP = pictureDAOHibernate.selectByMember(3);
 //
 ////		out.print(AP.get(1).getId());
 //		int x = AP.get(0).getId();
 //		
-//		PictureBean finalresult = pictureDAOHibernate.Select(x);
-
-//		File picfile = new File("wegether/act014.jpg");
+//		PictureBean finalresult = pictureDAOHibernate.Select(2);
+////
+//		File picfile = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\04.jpg");
 //		finalresult.setPicture(PictureConvert.converFileToByte(picfile));
 //		PictureBean updateresult = pictureDAOHibernate.update(finalresult);
 //		out.println(updateresult);		
 //	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(updateresult.getPicture())+"\"/>");
-	 	
+//	 	
+//		out.println("<img src='images/04.jpg'>");
+		
+//		String pic = "<img src='/wegether/picture/2' width='350' height='250' style=' border: 2px solid #272727; margin: 10px;'>";
+//		out.println(pic);
 		out.close();
 	}
 
