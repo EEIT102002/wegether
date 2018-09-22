@@ -49,7 +49,8 @@
 							</div>
 							<div>
 								<button id="removeAllNotice">清除所有通知</button>
-								<button class='dropdown-toggle' data-toggle='dropdown'>關閉</button>
+								<button class='dropdown-to
+								ggle' data-toggle='dropdown'>關閉</button>
 							</div>
 
 						</div>
