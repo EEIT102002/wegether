@@ -103,7 +103,7 @@ public class LoginController {
 		return result;
 	}
 	@RequestMapping(value = "/login.check", produces = "application/json")
-	public @ResponseBody Map<String, Object> checkLogin(@RequestAttribute("memberid") Integer id) {
+	public @ResponseBody Map<String, Object> checkLogin(@RequestAttribute(name = "memberid", required=false) Integer id) {
 		Map<String, Object> result = new HashMap<>();
 		if(id != null) {			
 			result.put("state", true);
