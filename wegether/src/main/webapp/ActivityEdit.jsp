@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>修改我的活動</title>
+<title>修改我揪的團</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -25,7 +25,6 @@
 <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="js/fileinput.js" type="text/javascript"></script>
-
 <script src="js/jquery.timepicker.min.js"></script>
 <script>
 	$(function() {
@@ -57,12 +56,11 @@
 			$('img[id=' + (i+2) + ']').attr('id', ids[i]);
 		}
 		
-		var PageContext = $("#PageContext").val();
 		$('.deleteEditPics').click(function(){
 			var picId = $(this).parent().children().attr('id');
 			var thisNum = $(this).attr('id').charAt(10);
 
-			$.ajax(PageContext+"/pictureD/" + picId,{
+			$.ajax("/wegether/pictureD/" + picId,{
 				method:"DELETE",
 				success:function(a){
  					$('#actEditPic' + thisNum).remove();
@@ -409,8 +407,7 @@ footer>ul>li ul {
 							<input type="button" value="我要新增其他照片" id="addOtherPics"/>
 							<div class="form-group" style="display:none">
 							<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-									data-min-file-count="2" name="pics">
-							</div>
+									data-min-file-count="2" name="pics"></div>
 							<script>
 							$("#file-1").fileinput({
 								uploadExtraData: {'activitiId': ${actid}},
@@ -423,7 +420,6 @@ footer>ul>li ul {
         						slugCallback: function(filename) {
             						return filename.replace('(', '_').replace(']', '_');
 								}
-        						
 							});    
 							</script></td>
 					</tr>
@@ -583,6 +579,5 @@ footer>ul>li ul {
 	</ul>
 	<p class="text-center">- Wegether 2018 EEIT10202 -</p>
 	</footer>
-<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
 </body>
 </html>

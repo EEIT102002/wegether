@@ -1,12 +1,10 @@
 package controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,17 +16,14 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import Service.ActivityPageService;
+import Service.ClickthroughRateService;
 import model.ActivityBean;
-import model.AttendBean;
 import model.MemberBean;
-import model.PictureBean;
 import model.dao.ActivityDAO;
 import model.dao.AttendDAO;
 import model.dao.MemberDAO;
 import model.dao.MsgDAO;
 import model.dao.PictureDAO;
-import pictureconvert.PictureConvert;
-import pictureconvert.TimeConvert;
 
 @Controller
 public class ActivityPageController {
@@ -46,9 +41,13 @@ public class ActivityPageController {
 
 	@Autowired
 	private MsgDAO msgDAO;
-	
+
+	@Autowired
+	private ClickthroughRateService clickthroughRateService;
+
 	@Autowired
 	private ActivityPageService activityPageService;
+
 
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
@@ -61,9 +60,11 @@ public class ActivityPageController {
 	// @PathVariable(name= "id",required= false) Integer actid
 	@RequestMapping("/activityPage.controller")
 	public String method(Model model, Integer actid,
+
 			@RequestAttribute(name = "memberid", required = false) Integer memberid) {
 			
 		System.out.println("actid:"+actid+" / memberid :" + memberid);
+		clickthroughRateService.click(actid);
 
 		Map<String, String> activityTime = new HashMap<String, String>();
 		String actbegin = null , dateline = null;
