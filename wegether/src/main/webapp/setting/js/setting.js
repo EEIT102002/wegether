@@ -27,4 +27,7 @@ function logoutDo() {
 	location.replace("/wegether/index.jsp");
 }
 
+//function loginfail(){
+//	location.replace("/wegether/index.jsp");
+//}
 

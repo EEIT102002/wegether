@@ -17,5 +17,5 @@
 			<li>-聯絡我們</li>
 		</ul></li>
 </ul>
-<p class="text-center">- Wegther 2018 EEIT10202 -</p>
+<p class="text-center">- Wegether 2018 EEIT10202 -</p>
 </footer>
