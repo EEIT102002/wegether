@@ -241,6 +241,11 @@ footer>ul>li ul {
 							<td class="s1">(1.密碼長度8~16碼、2.必須有[!@#$%^&*]、3.必須要有英文及數字)</td>
 						</tr>
 						<tr>
+							<td>大&nbsp;頭&nbsp;照:</td>
+							<td><input id="" type="file" name="photo2" value="${param.photo}" accept="image/*"> 							
+							</td>
+						</tr>
+						<tr>
 							<td>姓&nbsp;名:</td>
 							<td><input id="idName" type="text" name="name"
 								value="${param.name}"> 
