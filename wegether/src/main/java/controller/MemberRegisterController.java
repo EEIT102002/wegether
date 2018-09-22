@@ -78,16 +78,16 @@ public class MemberRegisterController extends HttpServlet {
 		Matcher matchercell = patterncell.matcher(cellphone);
 		boolean checkcel = matchercell.matches();
 
-		// 密碼格式驗證 密碼長度8~16碼、不能有特殊符號、必須要有英文及數字
+		// 密碼格式驗證 密碼長度8~16碼、必須有[!@#$%^&*]、必須要有英文及數字
 		String code = new String(bean.getPwd());
-		Pattern patterncode = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?=^\\S*$).{8,16}$");
+		Pattern patterncode = Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\\W]).{8,16}$");
 		Matcher matchercode = patterncode.matcher(code);
 		boolean checkcode = matchercode.matches();
 		// System.out.println(code);
 
-		// 確認密碼 密碼長度8~16碼、不能有特殊符號、必須要有英文及數字
+		// 確認密碼 密碼長度8~16碼、必須有[!@#$%^&*]、必須要有英文及數字
 		String recode = new String(pwdre);
-		Pattern patterncodere = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?=^\\S*$).{8,16}$");
+		Pattern patterncodere = Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\\W]).{8,16}$");
 		Matcher rematchercode = patterncodere.matcher(recode);
 		boolean recheckcode = rematchercode.matches();
 		// System.out.println(recheckcode);
@@ -109,7 +109,8 @@ public class MemberRegisterController extends HttpServlet {
 		}
 		// 地址驗證 只能輸入中文
 		String addr = StringEscapeUtils.unescapeHtml(bean.getAddr());
-		Pattern patternaddr = Pattern.compile("[\u4E00-\u9FBF]+");
+		Pattern patternaddr = Pattern.compile("^[\u4E00-\u9FBF_0-9]+$");
+//		^[\u4e00-\u9fa5_0-9]+$
 		Matcher rematcheraddr = patternaddr.matcher(addr);
 		boolean checkaddr = rematcheraddr.matches();
 		System.out.println(addr);

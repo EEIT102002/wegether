@@ -110,7 +110,7 @@
 // 	//地址中文驗證
 	function chaddr() {
 		var idaddr = document.getElementById("idaddr").value;
-		var re = /^[\u4e00-\u9fff]{0,}$/; //中文字在unicode的區間
+		var re = /^[\u4e00-\u9fff_0-9]{0,}$/; //中文字在unicode的區間
 		if (idaddr == "") {
 			document.getElementById("idspaddr").innerHTML = "";
 		} else if (re.test(idaddr))
@@ -238,7 +238,7 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td></td>
-							<td class="s1">(1.密碼長度8~16碼、2.不能有特殊符號、3.必須要有英文及數字)</td>
+							<td class="s1">(1.密碼長度8~16碼、2.必須有[!@#$%^&*]、3.必須要有英文及數字)</td>
 						</tr>
 						<tr>
 							<td>姓&nbsp;名:</td>
