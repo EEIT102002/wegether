@@ -6,11 +6,8 @@
 <head>
 <title>增加心得</title>
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
-<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/default.css">
 <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-		crossorigin="anonymous"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="js/fileinput.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
@@ -21,9 +18,6 @@
 		})
 	})
 	$(function() {
-		$('#preBotton').click(function() {
-			$('#actDescription').empty().append($('#insertDes').val());
-		})
 		$('#addOtherPics').click(function(){
 			$('.form-group').css('display','block');
 			$('#addOtherPics').css('display','none');
@@ -47,7 +41,7 @@
 				<table>
 					<tr>
 						<td>聚會標題</td>
-						<td>123</td>
+						<td>${param.actname}<input type="hidden" value="${param.actid}" name="actid"/></td>
 					</tr>
 					<tr>
 						<td>心得</td>
@@ -56,19 +50,22 @@
 					<tr>
 						<td>上傳活動照片</td>
 						<td>
-						<input type="button" value="我要新增心得照片" id="addOtherPics"/>
+						<input type="button" value="我要上傳心得照片" id="addOtherPics"/>
 						<div class="form-group" style="display:none">
 						<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-							   data-min-file-count="2" name="pics"></div>
+							   data-min-file-count="2" name="multipicture"></div>
 						<script>
 						$("#file-1").fileinput({
 							//uploadExtraData: {'activitiId' : ${actid}},
-        					uploadUrl: '/wegether/insertOtherPics.do', // you must set a valid URL here else you will get an error
+        					uploadUrl: '/wegether/articleCreate.controller', // you must set a valid URL here else you will get an error
         					allowedFileExtensions : ['jpg', 'png','gif'],
         					overwriteInitial: false,
-        					showUpload: false, //是否显示上传按钮
+        					showUpload: false,
         			        showCaption: false,
-        			        fileActionSettings: {showUpload: false},
+        			        fileActionSettings: {showUpload: false, showZoom: false,
+        			        					 removeIcon: '<img src="images/trash_can_red.png">'},
+        			        removeIcon: '<img src="images/trash_can.png" style="height:20px">',
+        			        browseIcon: '<img src="images/open_folder2.png"  style="height:20px">',
         					maxFileSize: 1000,
         					maxFilesNum: 10,
         					//allowedFileTypes: ['image', 'video', 'flash'],
@@ -78,47 +75,9 @@
 						});    
 						</script></td>
 					</tr>
-
 				</table>
-				<input type="button" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
-				<div class="modal fade" id="preview" tabindex="-1" role="dialog">
-					<div class="modal-dialog modal-lg" role="document">
-						<div class="modal-content">
-							<!--白色遮罩層-->
-							<div class="modal-body">
-								<!--       // modal-body  有差padding -->
-								<div class="modal-header">
-									<h5 class="modal-title lead">
-										<strong>預覽</strong>
-									</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body" id="mid-body">
-									<table>
-										<tr>
-											<td>聚會標題</td>
-											<td id="actName"></td>
-										</tr>
-										<tr>
-											<td>詳細描述</td>
-											<td id="actDescription"></td>
-										</tr>
-										<tr>
-											<td>上傳活動照片</td>
-											<td id="artPic"></td>
-										</tr>
-									</table>
-								</div>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary">確認送出</button>
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">修改</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<input type="submit" name="" value="送出" id="preBotton" data-target="#preview" data-toggle="modal" />
+				<input type="reset" value="清除"/>
 			</form>
 		</div>
 	</div>

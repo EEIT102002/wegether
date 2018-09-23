@@ -1,5 +1,6 @@
 package model.dao.implement;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.sound.midi.Soundbank;
@@ -60,26 +61,28 @@ public class ArticleDAOHibernate implements ArticleDAO {
 	}
 
 	private final String getActid = "select distinct activityid from ArticleBean";
+
 	@Override
 	public List<Integer> selectAllForActid() {
 		return this.getSession().createQuery(getActid).list();
 	}
 
 	private final String selectByActivityId = "from ArticleBean  WHERE activityid=:activityId ";
+
 	@Override
-	public List<ArticleBean> selectByActivityId(int activityId){
+	public List<ArticleBean> selectByActivityId(int activityId) {
 		return this.getSession().createQuery(selectByActivityId, ArticleBean.class)
 				.setParameter("activityId", activityId).list();
 	}
-	
-	
+
 	private String HqlGetArticleId = "SELECT id FROM ArticleBean WHERE MEMBERID = :MID AND ACTIVITYID = :AID";
+
 	@Override
 	public int getArticleId(int memberid, int activityid) {
 		Query query = this.getSession().createQuery(HqlGetArticleId);
 		query.setParameter("MID", memberid);
 		query.setParameter("AID", activityid);
 		List<Integer> obj = query.list();
-		return obj.get(0);
+		return obj.get(obj.size() - 1);
 	}
 }
