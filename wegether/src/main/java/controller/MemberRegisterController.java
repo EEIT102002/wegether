@@ -72,7 +72,7 @@ public class MemberRegisterController extends HttpServlet {
 //			System.out.println(defultPic);
 					
 			try {
-				bean.setPhoto(pictureDAO.Select(1).getPicture());
+				bean.setPhoto(memberDAOHibernate.select(1).getPhoto());
 				// pic = ((MultipartFile) defultPic).getBytes();
 //				pic = PictureConvert.converFileToByte(defultPic);
 //				bean.setPhoto(pic);
@@ -129,7 +129,7 @@ public class MemberRegisterController extends HttpServlet {
 		String addr = StringEscapeUtils.unescapeHtml(bean.getAddr());
 		Pattern patternaddr = Pattern.compile("^[\u4E00-\u9FBF_0-9]+$");
 		// ^[\u4e00-\u9fa5_0-9]+$
-		Matcher rematcheraddr = patternaddr.matcher(addr);
+		Matcher rematcheraddr =   patternaddr.matcher(addr);
 		boolean checkaddr = rematcheraddr.matches();
 		System.out.println(addr);
 		System.out.println(checkaddr);
