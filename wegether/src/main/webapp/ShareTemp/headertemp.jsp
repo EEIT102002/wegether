@@ -66,7 +66,7 @@
 						</div>
 						<div class="dropdown-menu" id="membergroup"
 							aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">會員資料</a> <a
+							<a class="dropdown-item" href="/wegether/personalPage.jsp">會員資料</a> <a
 								class="dropdown-item" href="#">好友名單</a> <a class="dropdown-item"
 								href="#">個人設定</a> <a class="dropdown-item" href="#">我的活動</a> <a
 								class="dropdown-item" href="#">我的心得</a> <a class="dropdown-item"

@@ -3,11 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Home</title>
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
+<script type="text/javascript" src="/wegether/js/personalLogin.js"></script>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
 
 
@@ -208,8 +210,8 @@
 						<!-- 						<img class="img-circle" -->
 						<%-- 							src="data:image/jpg;base64,${picbean.get(0)}" width="280" --%>
 						<!-- 							style="position: relative; top: 20px;"> -->
-						<img src="/wegether/member/photo/${pic}" class="img-circle"
-							width="280" height="280">
+						<img src="/wegether/member/photo/5" class="img-circle"
+							width="280" height="280"/>
 					</div>
 					<div style="text-align: center">
 						<br> <br>
@@ -347,8 +349,7 @@
 								      ,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']
 // 								var x = $('#memcity').val();
 // 								alert(x);
-								$('#memcity').html(array_for_city[${mem.city}]);
-								
+								$('#memcity').html(array_for_city[${mem.city}]);	
 							})
 							</script>
 						</span>
@@ -431,7 +432,8 @@
 					</div>
 					<!--change_fourth end -->
 				</div>
-
+			<input type="text" value="${mem.content}" id="memid">${mem.content}
+			</input>
 			</div>
 			<!-- core end -->
 

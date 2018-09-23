@@ -64,7 +64,7 @@ public class indexRestController {
 		if(result.size()>0) {
 			result.forEach(bean->{
 			
-				Object[] obj = new Object[4];
+				Object[] obj = new Object[5];
 //				StringBuilder sb = new StringBuilder();
 //				sb.append("data:image/jpg;base64,");
 //				sb.append(org.apache.commons.codec.binary.StringUtils
@@ -74,6 +74,7 @@ public class indexRestController {
 				obj[1] = "/wegether/activity/photo/"+bean.getId();
 				obj[2] = bean.getMemberBean().getNickname();
 				obj[3] = "/wegether/member/photo/"+bean.getMemberBean().getId();
+				obj[4] = bean.getMemberBean().getId();
 				// System.out.println(bean.getMemberBean().getNickname());
 				bean.setMemberBean(null);
 				bean.setArticleBean(null);
@@ -99,7 +100,7 @@ public class indexRestController {
 		if(result.size()>0) {
 			result.forEach(bean->{
 			
-				Object[] obj = new Object[4];
+				Object[] obj = new Object[5];
 //				StringBuilder sb = new StringBuilder();
 //				sb.append("data:image/jpg;base64,");
 //				sb.append(org.apache.commons.codec.binary.StringUtils
@@ -107,8 +108,10 @@ public class indexRestController {
 				sessionFactory.getCurrentSession().evict(bean);
 				obj[0] = bean;
 				obj[1] = "/wegether/activity/photo/"+bean.getId();
+//				obj[2] = bean.getMemberBean();
 				obj[2] = bean.getMemberBean().getNickname();
 				obj[3] = "/wegether/member/photo/"+bean.getMemberBean().getId();
+				obj[4] = bean.getMemberBean().getId();
 				// System.out.println(bean.getMemberBean().getNickname());
 				bean.setMemberBean(null);
 				bean.setArticleBean(null);

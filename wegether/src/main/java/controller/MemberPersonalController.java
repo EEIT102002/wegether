@@ -156,6 +156,7 @@ public class MemberPersonalController {
 		MemberBeanTemp membean = new MemberBeanTemp();
 		// 抓會員資料到暫存bean
 		MemberBean membeansource = memberDaoHibernate.select(memberid);
+		membean.setId(membeansource.getId());
 		membean.setNickname(membeansource.getNickname());
 		membean.setBirthday(membeansource.getBirthday());
 		membean.setSex(membeansource.getSex());
@@ -174,6 +175,7 @@ public class MemberPersonalController {
 		membean.setState(membeansource.getState());
 		membean.setFbid(membeansource.getFbid());
 		membean.setGoogleid(membeansource.getGoogleid());
+		System.out.println("ID:"+membean.getId());
 		System.out.println("暱稱:"+membean.getNickname());
 		System.out.println("生日:"+membean.getBirthday());
 		System.out.println("性別:"+membean.getSex());
