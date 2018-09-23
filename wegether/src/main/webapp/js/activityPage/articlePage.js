@@ -14,7 +14,7 @@
 	 			$.each(result, function(i,item){	
 	 				divElem1 =("<div id='msgid'>" +
 					'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
-					'<img src="/wegether/member/photo/'+item[0]+'" width="50" class="img-circle">  </a>' +
+					'<img src="/wegether/member/photo/'+item[0]+'" class="img-circle" width="70" height="70">  </a>' +
 					'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
 					'<span style="font-size: small;">'+item[2]+'</span>'+
 					'<button id="deleteId" href="#" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			

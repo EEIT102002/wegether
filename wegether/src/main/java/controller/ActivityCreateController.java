@@ -34,7 +34,7 @@ import model.dao.ActivityDAO;
 import model.dao.PictureDAO;
 
 @Controller
-@SessionAttributes(names = { "errMsgs", "colVal" })
+@SessionAttributes(names = { "errMsgs"})
 public class ActivityCreateController {
 
 	@Autowired
@@ -71,14 +71,11 @@ public class ActivityCreateController {
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errMsgs", errors);
 
-		Map<String, String> col = new HashMap<>();
-		model.addAttribute("colVal", col);
-
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd k:mm");
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 
 		byte[] pic = null;
-		if (!file.isEmpty() || file != null) { // 圖片判定
+		if (!file.isEmpty()) { // 圖片判定
 			System.out.println("has pic");
 			pic = file.getBytes();
 			activityBean.setPicture(pic);
@@ -94,7 +91,6 @@ public class ActivityCreateController {
 		}
 
 		if (activityBean != null) {
-			col.put("title", activityBean.getTitle());
 
 			if (activityBean.getTitle().isEmpty() || activityBean.getTitle() == null) // 標題判定
 				errors.put("title", "請輸入聚會標題");
@@ -148,14 +144,14 @@ public class ActivityCreateController {
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 
-		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
-		if (applyform == null) {
-			formJson.put("hasForm", false);
-		} else {
-			formJson.put("hasForm", true);
-		}
-		applyform = formJson.toString();
-		activityBean.setForm(applyform);
+//		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
+//		if (applyform == null) {
+//			formJson.put("hasForm", false);
+//		} else {
+//			formJson.put("hasForm", true);
+//		}
+//		applyform = formJson.toString();
+//		activityBean.setForm(applyform);
 		System.out.println(startDate);
 		System.out.println(starttime);
 		System.out.println(activityBean);
@@ -185,7 +181,7 @@ public class ActivityCreateController {
 			request.setAttribute("id", activityBean.getId());
 			request.setAttribute("ntype", 11);
 		}
-		return "actCreateSuc.page";
+		return "actCreateErr.page";
 
 	}
 

@@ -2,26 +2,19 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -31,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.MemberBean;
-
+import model.dao.PictureDAO;
 import model.dao.implement.MemberDAOHibernate;
 import pictureconvert.PictureConvert;
 
@@ -40,6 +33,9 @@ public class MemberRegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MemberDAOHibernate memberDAOHibernate;
+	
+	@Autowired
+	private PictureDAO pictureDAO;
 
 	@InitBinder
 	public void registerPropertyEditor(WebDataBinder webDataBinder) {
@@ -58,10 +54,10 @@ public class MemberRegisterController extends HttpServlet {
 
 		// flag= 0:未登入 1:登入
 		// Integer flag = 0;
-		// if (memberid != null) {
-		//
-		// return "register.success";
-		// }
+		 if (memberid != null) {
+		
+		 return "register.success";
+		 }
 		System.out.println(memberid);
 
 		// 圖片轉換
@@ -70,13 +66,16 @@ public class MemberRegisterController extends HttpServlet {
 			pic = file.getBytes();
 			bean.setPhoto(pic);
 		} else {
-			File defultPic = new File("/wegether/images/04.jpg");
-//			/wegether/src/main/webapp/images/04.jpg
+//			File defultPic = new File("/wegether/images/04.jpg");
+			
+		
+//			System.out.println(defultPic);
 					
 			try {
+				bean.setPhoto(memberDAOHibernate.select(1).getPhoto());
 				// pic = ((MultipartFile) defultPic).getBytes();
-				pic = PictureConvert.converFileToByte(defultPic);
-				bean.setPhoto(pic);
+//				pic = PictureConvert.converFileToByte(defultPic);
+//				bean.setPhoto(pic);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -130,7 +129,7 @@ public class MemberRegisterController extends HttpServlet {
 		String addr = StringEscapeUtils.unescapeHtml(bean.getAddr());
 		Pattern patternaddr = Pattern.compile("^[\u4E00-\u9FBF_0-9]+$");
 		// ^[\u4e00-\u9fa5_0-9]+$
-		Matcher rematcheraddr = patternaddr.matcher(addr);
+		Matcher rematcheraddr =   patternaddr.matcher(addr);
 		boolean checkaddr = rematcheraddr.matches();
 		System.out.println(addr);
 		System.out.println(checkaddr);
@@ -220,6 +219,7 @@ public class MemberRegisterController extends HttpServlet {
 			bean.setContent(content);
 
 			memberDAOHibernate.insert(bean);
+			
 			// bean.getId()
 			// flag=1;
 
