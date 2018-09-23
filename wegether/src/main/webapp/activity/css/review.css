@@ -51,9 +51,9 @@
 	/*  	border: 2px solid yellow;  */
 }
 
-#right li {
+#right .content_xx li {
 	border-bottom: 1.5px solid #5599FF;
-	border-radius: 0px; */
+	border-radius: 0px;
 	/* 調整地方 */
 }
 
@@ -77,7 +77,6 @@
 	display: flex;
 	align-items: center;
 	border:0;
-	box-shadow: 4px 4px 12px -2px rgba(20%, 20%, 40%, 0.6);
 }
 
 .activityli *{
@@ -85,7 +84,8 @@
 }
 
 .activityli:hover {
-		background-color: rgba(200, 226, 255, 0.459);
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: 4px 4px 12px -2px rgba(20%, 20%, 40%, 0.6);
 }
 
 .activityli>button {
@@ -188,7 +188,7 @@
 	font-size: 20px;
 }
 #attendlist .panel-body>div{
-	border-bottom: 1.5px solid rgba(0, 44, 95, 0.3);
+	border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
 	padding:10px;
 }
 
@@ -260,12 +260,18 @@
 	}
 
 #blocklist .panel{
-	background-color: rgba(0, 0, 0, 0);
-	box-shadow: 4px 4px 12px -4px rgba(20%, 20%, 40%, 0.6);
+	background-color: rgba(255, 255, 255, 0);
 	border:0;
+	border-bottom: 1.5px solid #5599FF;
 	border-radius:0;
 	margin-right:10px;
 	margin-bottom:5px;
+}
+
+#blocklist .panel:hover{
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: 4px 4px 12px -4px rgba(20%, 20%, 40%, 0.6);
+
 }
 #blocklist .panel-heading{
 	background-color: rgba(255, 255, 255, 0);
@@ -273,10 +279,37 @@
 	border:0;
 	
 }
+
 #blocklist .panel-body{
-	background-color:white;
+	background-color: white;
 }
 
 #attendlist .attend .nickname{
 	margin-left:10px;
 }
+
+#blocklist  .panel-choose{
+		background-color: rgba(255, 255, 255, 0.4);
+
+	box-shadow: 4px 4px 12px -4px rgba(20%, 20%, 40%, 0.6);
+	border:0;
+}
+
+.respondAttend{
+	display: flex;
+    justify-content: center;
+}
+
+#right .respondAttend button{
+	margin: 0 10px;
+	font-size:18px;
+}
+
+#right .respondAttend button:nth-child(1){
+	background-color: #008CBA;
+}
+
+#right .respondAttend button:nth-child(2){
+	background-color: #f44336;
+}
+

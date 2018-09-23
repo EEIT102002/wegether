@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.query.Query;
@@ -17,7 +18,7 @@ public interface ArticleDAO {
 	public abstract boolean delete(int id);
 
 	public abstract List<Integer> selectAllForActid();
-	
+
 	public abstract List<ArticleBean> selectByActivityId(int activityId);
 
 	public abstract int getArticleId(int memberid, int activityid);

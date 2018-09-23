@@ -71,7 +71,7 @@ public class fbcontroller extends HttpServlet {
 //			System.out.println("相同帳號");
 //
 //		}
-//		
+		
 //		return "activityPage";
 		return null;
 

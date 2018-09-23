@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,9 +32,15 @@ public class ArticleCreateController {
 
 	@RequestMapping(path = { "/articleCreate.controller" }, method = RequestMethod.POST)
 	public String artCreate(Model model, @RequestParam(required = false) String content,
-			@RequestParam(value = "multipicture", required = false) MultipartFile[] files
-			,HttpServletRequest request) throws IOException {
+			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
+			@RequestParam(required = false) String actid, HttpServletRequest request,
+			@RequestAttribute(value = "memberid", required = false) Integer id) throws IOException {
 		System.out.println("articleCreate()");
+
+		if (id == null) {
+			model.addAttribute("loginFail", "請登入");
+			return "index.success";
+		}
 
 		if (content.isEmpty()) {
 			model.addAttribute("content", "請輸入內容");
@@ -42,13 +49,15 @@ public class ArticleCreateController {
 
 		ArticleBean articleBean = (ArticleBean) context.getBean("articleBean");
 
-		articleBean.setMemberid(4); // 改
-		articleBean.setActivityid(71); // 改
+		int actid2 = Integer.parseInt(actid);
+
+		articleBean.setMemberid(id);
+		articleBean.setActivityid(actid2); // 改
 		articleBean.setContent(content);
 		articleDAO.insert(articleBean);
 		System.out.println("1");
 
-		int articleId = articleDAO.getArticleId(4, 71); // 改
+		int articleId = articleDAO.getArticleId(id, actid2); // 改
 		System.out.println("articleId = " + articleId);
 
 		System.out.println("files.length = " + files.length);

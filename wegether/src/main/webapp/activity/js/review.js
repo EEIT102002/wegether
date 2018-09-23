@@ -32,6 +32,11 @@ var activityid;
 
 $(function () {
 	
+	$('#blocklist').on('click','.panel',function(){
+		var e = $(this);
+		e.addClass('panel-choose').siblings(".panel-choose").removeClass('panel-choose');
+	})
+	
 	var lis = $('.setting4ul li');
 	var friendsearch = $('.friendsearch');
 	
@@ -40,14 +45,16 @@ $(function () {
 	$('#left .content_xx li:eq(0)').addClass('choose').siblings(".choose").removeClass('choose');
 	
 	if( showattend != null && showattend != ""){
-		console.log(showattend)
 		$('#right>div:first-child').children('.content_xx').hide().next().show();
 		friendsearch.hide();
 		lis.eq(1).addClass('choose').siblings(".choose").removeClass('choose');
 		$.get(
 			'/wegether/attend/'+showattend
 			,function(data){
-				pushAttend(data, 1);
+				var div = pushAttend(data, 1);
+				div.addClass('panel-choose')
+				divList.append(div);
+				div.find('.collapse').collapse();
 			}
 			,'json')
 	}else{
@@ -108,7 +115,8 @@ $(function () {
 			url
 			, function (data) {
 				$.each(data, function (i, e) {
-					pushAttend(e, type)
+					
+					divList.append(pushAttend(e, type));
 				})
 			}
 			, 'json'
@@ -123,7 +131,6 @@ $(function () {
 				event.stopPropagation();
 			}));
 		var attcoll = $(attendcollapse);
-
 		if (e.applyForm != 'default') {
 			var formjson = jQuery.parseJSON(e.applyForm);
 			var panelbody = attcoll.find('.panel-body');
@@ -164,8 +171,8 @@ $(function () {
 		if(type == 2){
 			attenddiv.find('.attend').append($('<button value="cancel"/>').text('取消邀請')).attr('attendid',e.attendid);
 		}
+		return attenddiv;
 		
-		divList.append(attenddiv);
 	}
 
 	divList.on('click','.panel button',function(){
