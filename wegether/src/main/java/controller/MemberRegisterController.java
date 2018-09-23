@@ -54,10 +54,10 @@ public class MemberRegisterController extends HttpServlet {
 
 		// flag= 0:未登入 1:登入
 		// Integer flag = 0;
-		// if (memberid != null) {
-		//
-		// return "register.success";
-		// }
+		 if (memberid != null) {
+		
+		 return "register.success";
+		 }
 		System.out.println(memberid);
 
 		// 圖片轉換
