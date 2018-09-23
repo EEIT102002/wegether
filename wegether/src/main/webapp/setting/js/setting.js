@@ -1,14 +1,22 @@
 var iframe;
 $(document).ready(function () {
 	iframe = $('iframe');
+	
+	var page = new URL(window.location.href).searchParams.get("page");
+	
+	if( page != null && page != ""){
+		$('#list li').eq(page).addClass('choose').siblings(".choose").removeClass('choose');
+		loadIframe('./setting/' + (parseInt(page)+1) + '.html')
+	}
+	
 	$("#list").on('click', 'li', function () {
 		var div = $(this);
 		div.siblings(".choose").removeClass('choose');
 		div.addClass('choose');
 		var i = div.index() + 1;
 		loadIframe('./setting/' + i + '.html')
-
 	});
+	
 	$('#setting').bind('resize', function () {
 		console.log('Height changed to' + $(this).height());
 	});

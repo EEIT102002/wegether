@@ -66,8 +66,8 @@
 						<div class="dropdown-menu" id="membergroup"
 							aria-labelledby="dropdownMenuButton">
 							<a class="dropdown-item" href="#">會員資料</a> <a
-								class="dropdown-item" href="#">好友名單</a> <a class="dropdown-item"
-								href="#">個人設定</a> <a class="dropdown-item" href="#">我的活動</a> <a
+								class="dropdown-item" href="/wegether/setting/setting.jsp?page=3">好友名單</a> <a class="dropdown-item"
+								href="/wegether/setting/setting.jsp">個人設定</a> <a class="dropdown-item" href="/wegether/activity/ActivityReview.jsp">我的活動</a> <a
 								class="dropdown-item" href="#">我的心得</a> <a class="dropdown-item"
 								id="logoutSubSpanA" class="scrol dropdown-item" href="#">登出</a>
 						</div>
