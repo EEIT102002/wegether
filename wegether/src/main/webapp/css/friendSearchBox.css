@@ -89,20 +89,6 @@
 	min-width:60px;
 }
 
-.friendList img {
-	width: 60px;
-	height: 60px;
-	border-radius: 60px;
-}
-
-.friendList .photoDiv{
-	width: 60px;
-	height: 60px;
-	border-radius: 60px;
-	margin: 0 10px 0 10px;
-	background-color: rgb(255, 255, 255);
-}
-
 .friendsearch button{
 	padding: 7px 8px;
 	min-width: 60px;
@@ -118,15 +104,16 @@
 }
 
 .memberPhoto div {
-    width: 50px;
-    height: 50px;
-    background-color: gray;
-    border-radius: 50px;
+	background: url(/wegether/images/presetPhoto.jpg);
+	background-size: 60px 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
 }
 
 .memberPhoto div>img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
 }
 
