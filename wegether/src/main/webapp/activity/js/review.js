@@ -12,6 +12,8 @@ var reviewButton = [
 	, '取消申請'
 ]
 
+var friendbuttonText= "邀請";
+
 var attendTemp = '<div class="panel panel-default"><div class="panel-heading"><a data-toggle="collapse" data-parent="#attendlist" href="" class="attend"><div class="memberPhoto"><div><img src="#" alt=""></div></div><div class="nickname"></div></a></div></div>';
 
 var attendcollapse = '<div id="" class="panel-collapse collapse"><div class="panel-body"></div></div>';
@@ -29,13 +31,36 @@ var respondTemp = '<div class="respondAttend"><button type="button" value="accep
 var activityid;
 
 $(function () {
-	$('#header_nav ul li').click(function () {
-		$(this).addClass('active').siblings().removeClass('active');
-	})
-	clickContent_xx(0);
-
+	
+	var lis = $('.setting4ul li');
+	var friendsearch = $('.friendsearch');
+	
+	//check url 有無 params
+	var showattend = new URL(window.location.href).searchParams.get("attendid");
+	$('#left .content_xx li:eq(0)').addClass('choose').siblings(".choose").removeClass('choose');
+	
+	if( showattend != null && showattend != ""){
+		console.log(showattend)
+		$('#right>div:first-child').children('.content_xx').hide().next().show();
+		friendsearch.hide();
+		lis.eq(1).addClass('choose').siblings(".choose").removeClass('choose');
+		$.get(
+			'/wegether/attend/'+showattend
+			,function(data){
+				pushAttend(data, 1);
+			}
+			,'json')
+	}else{
+		clickContent_xx(0);
+	}
+	
+	
+	//左邊選單
 	$('#left .content_xx').on('click', '.changePage', function () {
-		var i = $(this).index();
+		console.log(123);
+		var li = $(this);
+		var i = li.index();
+		li.addClass('choose').siblings(".choose").removeClass('choose');
 		clickContent_xx(i);
 	})
 	
@@ -49,7 +74,8 @@ $(function () {
 		switchContent(0);
 	})
 
-	friendsearch = $('.friendsearch');
+	
+	
 	$('.setting4ul li').click(function () {
 		var li = $(this);
 		var i = li.index();
@@ -82,60 +108,64 @@ $(function () {
 			url
 			, function (data) {
 				$.each(data, function (i, e) {
-					var attenddiv = $(attendTemp);
-					attenddiv.find('.memberPhoto img').attr('scr', '/wegether/member/photo/' + e.memberid);
-					attenddiv.find('.nickname').html(
-						$('<a/>').text(e.nickname).attr('href', '/wegether/personal.controller?memberId=' + e.memberid).bind('click', function (event) {
-							event.stopPropagation();
-						}));
-					var attcoll = $(attendcollapse);
-
-					if (e.applyForm != 'default') {
-						var formjson = jQuery.parseJSON(e.applyForm);
-						var panelbody = attcoll.find('.panel-body');
-						$.each(formjson, function (j, a) {
-							var div = $('<div/>').append($('<h3/>').text(a.title));
-							var answer = $('<div/>')
-							if (a.answer != null && a.answer != "") {
-								if (Array.isArray(a.answer)) {
-									if (a.answer.length != 0) {
-										$.each(a.answer, function (i, e) {
-											answer.append($('<p/>').text(e));
-										})
-									} else {
-										answer.append($('<p/>').text('無回答'));
-									}
-								} else {
-									answer.append($('<p/>').text(a.answer));
-								}
-							} else {
-								answer.append($('<p/>').text('無回答'));
-							}
-							div.append(answer);
-							panelbody.append(div);
-						})
-						
-					}
-					
-					if(type == 1) {
-						 attcoll.find('.panel-body').append( $(respondTemp).attr('attendid', e.attendid));
-					}
-					if (e.applyForm != 'default' || type == 1){
-						var attendid = 'attendlistid' + e.attendid;
-						attcoll.attr('id', attendid);
-						attenddiv.find('.attend').attr('href', '#' + attendid);
-						attenddiv.append(attcoll);
-					}
-					
-					if(type == 2){
-						attenddiv.find('.attend').append($('<button value="cancel"/>').text('取消邀請')).attr('attendid',e.attendid);
-					}
-					
-					divList.append(attenddiv);
+					pushAttend(e, type)
 				})
 			}
 			, 'json'
 		);
+	}
+	
+	function pushAttend(e, type){
+		var attenddiv = $(attendTemp);
+		attenddiv.find('.memberPhoto img').attr('scr', '/wegether/member/photo/' + e.memberid);
+		attenddiv.find('.nickname').html(
+			$('<a/>').text(e.nickname).attr('href', '/wegether/personal.controller?memberId=' + e.memberid).bind('click', function (event) {
+				event.stopPropagation();
+			}));
+		var attcoll = $(attendcollapse);
+
+		if (e.applyForm != 'default') {
+			var formjson = jQuery.parseJSON(e.applyForm);
+			var panelbody = attcoll.find('.panel-body');
+			$.each(formjson, function (j, a) {
+				var div = $('<div/>').append($('<h3/>').text(a.title));
+				var answer = $('<div/>')
+				if (a.answer != null && a.answer != "") {
+					if (Array.isArray(a.answer)) {
+						if (a.answer.length != 0) {
+							$.each(a.answer, function (i, e) {
+								answer.append($('<p/>').text(e));
+							})
+						} else {
+							answer.append($('<p/>').text('無回答'));
+						}
+					} else {
+						answer.append($('<p/>').text(a.answer));
+					}
+				} else {
+					answer.append($('<p/>').text('無回答'));
+				}
+				div.append(answer);
+				panelbody.append(div);
+			})
+			
+		}
+		
+		if(type == 1) {
+			 attcoll.find('.panel-body').append( $(respondTemp).attr('attendid', e.attendid));
+		}
+		if (e.applyForm != 'default' || type == 1){
+			var attendid = 'attendlistid' + e.attendid;
+			attcoll.attr('id', attendid);
+			attenddiv.find('.attend').attr('href', '#' + attendid);
+			attenddiv.append(attcoll);
+		}
+		
+		if(type == 2){
+			attenddiv.find('.attend').append($('<button value="cancel"/>').text('取消邀請')).attr('attendid',e.attendid);
+		}
+		
+		divList.append(attenddiv);
 	}
 
 	divList.on('click','.panel button',function(){

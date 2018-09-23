@@ -506,23 +506,6 @@ footer>ul>li ul {
 							</td>
 						</tr>
 						<tr>
-							<td>結束時間</td>
-							<td><input type="date" id="endTime" name="endTime">
-								<input type="text" id="endTime2" name="endTimepicker"
-								class="timepicker" autocomplete="off" />${errMsgs.endDateTime}</td>
-						</tr>
-						<tr>
-							<td>詳細描述</td>
-							<td><textarea name="content" id="insertDes" cols="30"
-									rows="10"></textarea>${errMsgs.content}</td>
-						</tr>
-						<tr>
-							<td>聚會人數</td>
-							<td><input step="1" type="number" id="selNum"
-								name="numberlimit" ng-model="peoplemax" min="1"
-								ng-init="peoplemax = 5"></td>
-						</tr>
-						<tr>
 							<td>聚會預算</td>
 
 							<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" ng-init="fee = 100" value="${param.feed}"></td>
@@ -536,14 +519,15 @@ footer>ul>li ul {
 							<td>是否創建報名表單</td>
 
 							<td><input type="radio" name="setFormOrNot" value="yes" id="setForm">是
-								<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否</td>
+								<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否
+								<input type="button" name="" value="製作報名表單" id="ownForm" data-target="#setMyform"
+						   data-toggle="modal" style="display:none"/></td>
 						</tr>
 
 					</table>
 					<input type="button" name="" value="預覽" id="preBotton" data-target="#preview"
 						   data-toggle="modal" />
-					<input type="button" name="" value="製作報名表單" id="ownForm" data-target="#setMyform"
-						   data-toggle="modal" style="display:none"/>
+					
 					<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">

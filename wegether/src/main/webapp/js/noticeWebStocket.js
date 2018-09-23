@@ -178,6 +178,9 @@ function connectNotice(token) {
 									'ntype', e.ntype).attr('friendid',
 									e.friendid);
 						} else {
+							if(e.ntype == 4 ){
+								noticeCollapseDiv.prepend($('<a class="attendsrc"/>').attr('href','/wegether/activity/ActivityReview.jsp?attendid='+e.attendid).text('查看詳細'))
+							}
 							noticeCollapseDiv.children('.dropdown-item').attr(
 									'ntype', e.ntype).attr('attendid',
 									e.attendid);

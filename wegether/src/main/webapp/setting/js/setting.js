@@ -12,6 +12,23 @@ $(document).ready(function () {
 	$('#setting').bind('resize', function () {
 		console.log('Height changed to' + $(this).height());
 	});
+	
+	$('#searchBox').on('click','.friendButton button',function(){		
+    	var e = $(this);
+    	var friendlist = e.parents('.friendList');
+    	$.post(
+    		friendlist.attr('url')
+    		,friendlist.attr('param')+e.parent().attr('memberid')
+    		,function(data){
+    			if(data.state){
+    				var iframe = e.parents('body').find('iframe')[0];	
+    				iframe.src = friendlist.attr('param') == 'memberidf=' ?  '/wegether/setting/setting/4.html?page=2': iframe.src;
+    				e.parent().parent().remove();		
+    			}
+    		}
+    		,'json'
+    	)
+    })
 
 })
 

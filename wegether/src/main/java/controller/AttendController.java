@@ -141,4 +141,12 @@ public class AttendController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}		
 	}
+	
+	@RequestMapping(path= {"/attend/{attendid}"})
+	public @ResponseBody ResponseEntity<?> getAttend(
+			@PathVariable(name="attendid") Integer attendid,
+			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
+		
+			return new ResponseEntity<>(attendService.getAttend(attendid, memberid),HttpStatus.OK);		
+	}
 }
