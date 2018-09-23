@@ -93,10 +93,7 @@
   var Fbid,Fbname,Fbemail;
   var Fbpicture;
   //把資料送到後端比對
-  function returnMemberData(){
-	
-		alert("login succest");
-		
+  function returnMemberData(){	
 		FB.api('/me',{fields : 'id,name,email,picture'},function(response) { //呼叫FB.api()取得使用者資料
 			Fbid = response.id;
 			console.log("response.id:"+ Fbid);
@@ -111,17 +108,9 @@
 	};
   	function returnback(){
   		console.log("responseout.email:"+ Fbemail);
-		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbemail+"/"+Fbname+"/"+Fbpicture ,
+		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbemail+"/"+Fbname ,
 				  function(data){
 					fblogin();
-// 			 		if(data){
-// 			 			 $('#stardiv1 img').unbind();
-// 			 			 $('#stardiv2 img').unbind();
-// 			 			 $('#stardiv3 img').unbind();
-// 			 			 $('#output1').html("感謝您的評點！").show();   
-// 			 			 $('#startSumit').hide();
-// 			 		}	
-		 
 		 },'json');	
 		
   	}
@@ -156,13 +145,22 @@
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
-	<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>  -->
+<!-- 按鈕1 -->
+<!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"> -->
+<!-- </fb:login-button>   -->
+<!-- 按鈕1 -->
 
-	<div class="fb-login-button" data-width="80" data-max-rows="1"
-		data-size="large" data-button-type="continue_with"
-		data-show-faces="true" data-auto-logout-link="true"
-		data-use-continue-as="true"></div>
+<!-- 按鈕2 -->
+<!-- 	<div class="fb-login-button" data-width="80" data-max-rows="1" -->
+<!-- 		data-size="large" data-button-type="continue_with" -->
+<!-- 		data-show-faces="true" data-auto-logout-link="true" -->
+<!-- 		data-use-continue-as="true" onlogin="checkLoginState();" ></div> -->
+<!-- 按鈕2 -->
+
+<!-- 按鈕3 -->
+<div class="fb-login-button" data-size="large" data-button-type="login_with"
+ data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div>
+<!-- 按鈕3 -->
 
 	<div id="status"></div>
 
