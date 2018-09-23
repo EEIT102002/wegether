@@ -58,7 +58,9 @@ public class ActivityCreateController {
 			@RequestParam(value = "endTimepicker", required = false) String endTime,
 			@RequestParam(value = "applyform", required = false) String applyform,
 			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
-			@RequestAttribute(value = "memberid", required = false) Integer id, HttpServletRequest request, Model model)
+			@RequestAttribute(value = "memberid", required = false) Integer id,
+			@RequestParam(value = "setFormOrNot", required = false) String setForm,
+			HttpServletRequest request, Model model)
 			throws ParseException, IOException {
 		System.out.println(activityBean);
 
@@ -143,15 +145,22 @@ public class ActivityCreateController {
 		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
+		
+		if(applyform == null) {
+			applyform = "";
+		}
 
-//		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
-//		if (applyform == null) {
-//			formJson.put("hasForm", false);
-//		} else {
-//			formJson.put("hasForm", true);
-//		}
-//		applyform = formJson.toString();
-//		activityBean.setForm(applyform);
+		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
+		
+		if (setForm != null && "yes".equals(setForm)) {
+			formJson.put("hasForm", true);
+		} else {
+			formJson.put("hasForm", false);	
+		}
+		
+		applyform = formJson.toString();
+		activityBean.setForm(applyform);
+		
 		System.out.println(startDate);
 		System.out.println(starttime);
 		System.out.println(activityBean);
