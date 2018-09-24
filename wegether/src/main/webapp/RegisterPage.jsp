@@ -280,7 +280,7 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>職&nbsp;業:</td>
-							<td><input type="text" name="job" value="${param.name}" id="idjob"><i style=color:red; id="idspjob">${inputRrrors.job}</i></td>
+							<td><input type="text" name="job" value="${param.job}" id="idjob"><i style=color:red; id="idspjob">${inputRrrors.job}</i></td>
 						</tr>
 						<tr>
 							<td>城&nbsp;市&nbsp;/&nbsp;地&nbsp;址&nbsp;:&nbsp;</td>
