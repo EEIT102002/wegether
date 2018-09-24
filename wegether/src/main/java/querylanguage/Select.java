@@ -24,7 +24,7 @@ public class Select {
 	public static final String noticeviewByInvite = noticeviewSql("inviteid");
 	
 	public static final String msgByActivity = msgSql("activityid");
-	public static final String msgByArticle = msgSql("activityid");
+	public static final String msgByArticle = msgSql("articleid");
 	public static final String msgByActivityOffset = addOffset(msgByActivity);
 	public static final String msgByArticleOffset = addOffset(msgByArticle);
 	public static final String friendByMemberState = addOffset(friendSql("memberid"));

@@ -1,9 +1,9 @@
 
 //取得留言功能
-	function getMsgs(act){
+	function getMsgs(activityid){
 	 var divElem = null ;
 	 var temp="";
-	 $.get("msgs.controller/"+act,
+	 $.get("msgs.controller/"+activityid,
 			 function(result){	
 	 			$.each(result, function(i,item){	
 	 				divElem =("<div id='msgid'>" +
