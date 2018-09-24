@@ -34,10 +34,8 @@
 
 var activityid = ${actBean.id};
 var actState = ${state};
-alert(actState)
+alert("actState:"+actState)
 
-
-alert('A')
 
 
 
@@ -50,7 +48,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
  }else{
 	 actPicListSize =0;
  }
-alert(actPicListSize)
+alert("actPicListSize"+actPicListSize)
 
 // var flag=0;
 	$(function() {
@@ -94,6 +92,7 @@ alert(actPicListSize)
 		
 		
 		 //載入留言 
+// 		 console.log(${actBean.id});
 		 getMsgs("${actBean.id}");
 		 
 		//清除留言預設文字
@@ -140,7 +139,8 @@ alert(actPicListSize)
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+${actBean.title};
+				alert("actname:"+$('#right>h3').val())
+				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#right>h3').val();
 			})
 		
 	})
@@ -156,7 +156,7 @@ alert(actPicListSize)
 			 		
 		 			},'json');	
 		 
-		 
+		 $('input[value=留言]').removeAttr('data-toggle');
 		 
 	
 	
