@@ -205,7 +205,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		if (classtype != null && classtype.length() != 0) {
 			String[] CTArray = classtype.split(",");
 			if (CTArray.length == 1) {
-				selectOfIndex = selectOfIndex + " and classtype=\'" + CTArray[0] + "\'";
+				selectOfIndex = selectOfIndex + " and classtype= \'" + CTArray[0] + "\'";
 			} else {
 				selectOfIndex = selectOfIndex + " and classtype in(\'" + CTArray[0] + "\'";
 				for (int i = 1; i < CTArray.length; i++) {
@@ -238,9 +238,9 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		if (classtype != null && classtype.length() != 0) {
 			String[] CTArray = classtype.split(",");
 			if (CTArray.length == 1) {
-				selectOfIndex = selectOfIndex + " and classtype=\'" + CTArray[0] + "\'";
+				selectOfIndex = selectOfIndex + " and classtype=  \'" + CTArray[0] + "\'";
 			} else {
-				selectOfIndex = selectOfIndex + " and classtype in(\'" + CTArray[0] + "\'";
+				selectOfIndex = selectOfIndex + " and classtype in (\'" + CTArray[0] + "\'";
 				for (int i = 1; i < CTArray.length; i++) {
 					selectOfIndex += ",'" + CTArray[i] + "\'";
 				}
@@ -249,7 +249,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 
 		}
 		if (title != "" && title.length() != 0)
-			selectOfIndex = selectOfIndex + " and title like \'%" + title + "%\'";
+			selectOfIndex = selectOfIndex + " and title like N\'%" + title + "%\'";
 		if (Actid.size() == 1) {
 			selectOfIndex = selectOfIndex + " and id=\'" + Actid.get(0) + "\'";
 		} else {
