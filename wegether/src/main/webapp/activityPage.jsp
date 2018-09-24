@@ -35,7 +35,7 @@
 var activityid = ${actBean.id};
 var actState = ${state};
 alert("actState:"+actState)
-
+alert(activityid)
 
 
 
@@ -49,6 +49,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize =0;
  }
 alert("actPicListSize"+actPicListSize)
+
 
 // var flag=0;
 	$(function() {
@@ -93,7 +94,7 @@ alert("actPicListSize"+actPicListSize)
 		
 		 //載入留言 
 // 		 console.log(${actBean.id});
-		 getMsgs("${actBean.id}");
+// 		 getMsgs("${actBean.id}");
 		 
 		//清除留言預設文字
 		 $('#txt').click(function(){

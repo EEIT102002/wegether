@@ -69,7 +69,7 @@ public class MsgsController {
 	
 	@PostMapping( path= {"/msgs.controller"}, produces= {"application/json"})
 	public ResponseEntity<?> insertInfo(MsgBean bean)throws URISyntaxException {
-		System.out.println(bean.getContent());
+		System.out.println("MsgBean:"+bean);
 		
 		if(bean.getContent()!=null && bean.getContent().length()!=0 && 
 				 !bean.getContent().equals("對聚會有任何疑問嘛？留個言吧！") ) {
