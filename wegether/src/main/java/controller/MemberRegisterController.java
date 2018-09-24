@@ -116,7 +116,7 @@ public class MemberRegisterController extends HttpServlet {
 
 		// 姓名驗證 只能中文2~7
 		String name = StringEscapeUtils.unescapeHtml(bean.getName());
-		Pattern patternname = Pattern.compile("^\\w{2,20}+");
+		Pattern patternname = Pattern.compile("[\u4E00-\u9FBF]{2,7}+");
 		Matcher rematchername = patternname.matcher(name);
 		boolean checkname = rematchername.matches();
 		// System.out.println(name);
@@ -128,18 +128,18 @@ public class MemberRegisterController extends HttpServlet {
 			checknickname = bean.getName();
 			bean.setNickname(checknickname);
 		}
-		
-		// 地址驗證 
+		// 地址驗證 只能輸入中文
 		String addr = StringEscapeUtils.unescapeHtml(bean.getAddr());
-		Pattern patternaddr = Pattern.compile("^\\w+$");
+		Pattern patternaddr = Pattern.compile("^[\u4E00-\u9FBF_0-9]+$");
 		// ^[\u4e00-\u9fa5_0-9]+$
 		Matcher rematcheraddr =   patternaddr.matcher(addr);
 		boolean checkaddr = rematcheraddr.matches();
 		System.out.println(addr);
 		System.out.println(checkaddr);
 
+		// 地址驗證 只能輸入中文
 		String job = StringEscapeUtils.unescapeHtml(bean.getJob());
-		Pattern patternjob = Pattern.compile("^\\w+$");
+		Pattern patternjob = Pattern.compile("[\u4E00-\u9FBF]+");
 		Matcher rematcherjob = patternjob.matcher(job);
 		boolean checkjob = rematcherjob.matches();
 
@@ -194,11 +194,11 @@ public class MemberRegisterController extends HttpServlet {
 
 		// 地址錯誤訊息
 		if (!checkaddr && bean.getAddr().length() > 0) {
-			errors.put("addr", "格式錯誤");
+			errors.put("addr", "請輸入中文");
 		}
 		// 職業錯誤訊息
 		if (!checkjob && bean.getJob().length() > 0 && bean.getJob() != null) {
-			errors.put("job", "格式錯誤");
+			errors.put("job", "請輸入中文");
 		}
 		// 轉進位 暱稱 介紹 最愛
 		String nickname = StringEscapeUtils.unescapeHtml(bean.getNickname());
