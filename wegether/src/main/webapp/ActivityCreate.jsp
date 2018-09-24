@@ -325,10 +325,6 @@
 												id="actPiczone" class="actPic"></td>
 										</tr>
 										<tr>
-											<td>其他照片</td>
-											<td><div id="otherPic"></div></td>
-										</tr>
-										<tr>
 											<td>聚會標題</td>
 											<td id="actName"></td>
 										</tr>
