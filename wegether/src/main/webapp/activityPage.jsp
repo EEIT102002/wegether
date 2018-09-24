@@ -34,12 +34,7 @@
 
 var activityid = ${actBean.id};
 var actState = ${state};
-alert("actState:"+actState)
 
-
-
-
-console.log("state1:"+actState);
 var friendbuttonText = '推薦'
 var  actPicListSize;
 
@@ -48,7 +43,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
  }else{
 	 actPicListSize =0;
  }
-alert("actPicListSize"+actPicListSize)
+
 
 // var flag=0;
 	$(function() {
