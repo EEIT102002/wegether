@@ -155,7 +155,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		 			},'json');	
 		 
 		 $('input[value=留言]').removeAttr('data-toggle');
-		 
+		 $('a[title=推薦給好友]').removeAttr('data-toggle');
 	
 	
 	}
@@ -453,7 +453,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 
 
 <!-- 推薦活動給好友 -->
-	  <div class="modal fade" id="friendsearchBox" role="dialog">
+	  <div class="modal fade" id="friendsearchBox" role="dialog" style="border:2px solid;">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
