@@ -92,9 +92,10 @@
   
   var Fbid,Fbname,Fbemail;
   var Fbpicture;
+  var Fbbirthday;
   //把資料送到後端比對
   function returnMemberData(){	
-		FB.api('/me',{fields : 'id,name,email,picture'},function(response) { //呼叫FB.api()取得使用者資料
+		FB.api('/me',{fields : 'id,name,email,picture,birthday'},function(response) { //呼叫FB.api()取得使用者資料
 			Fbid = response.id;
 			console.log("response.id:"+ Fbid);
 			Fbname = response.name;
@@ -103,6 +104,9 @@
 			console.log("response.email:"+ Fbemail);
 			Fbpicture = response.picture;
 			console.log("response.picture:"+ Fbpicture);
+			Fbbirthday=response.birthday;
+			console.log("response.birthday:"+ Fbbirthday);
+			
 			returnback();
 			});
 	};

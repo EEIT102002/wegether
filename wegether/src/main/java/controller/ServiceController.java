@@ -1,32 +1,26 @@
 package controller;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import Service.ServiceService;
 import model.ServiceBean;
-import sun.security.action.PutAllAction;
 
 @Controller
-@SessionAttributes(names = { "select", "action" })
+@SessionAttributes(names = { "select", "action" ,"memberid","memberid2","errors","loginerror"})
 public class ServiceController {
 	@Autowired
-	private ServiceService serviceService;
-
+	private ServiceService serviceService;	
+	
 	@RequestMapping(path = { "/Service.controller" })
 	public String method(Model model, String servicemethod,  @RequestAttribute(name = "memberid",required = false) Integer id, ServiceBean bean,
 			BindingResult bindingResult) {
@@ -36,6 +30,7 @@ public class ServiceController {
 		// 接收資料
 		// 轉換資料
 		HashMap<String, String> errors = new HashMap<>();
+		List<String> loginerror = new ArrayList<>();
 		
 		
 		// if (bindingResult != null && bindingResult.hasFieldErrors()) {
@@ -72,9 +67,10 @@ public class ServiceController {
 		//登入驗證
 		if (id==null) {
 			System.out.println("未登入");
-			errors.put("LoginError", "請先登入");
-			System.out.println(errors.get("LoginError"));
-			model.addAttribute("errors", errors);
+//			loginerror.add("請先登入");
+			errors.put("loginerror","請先登入");
+			System.out.println(loginerror);
+			model.addAttribute("loginerror", errors);
 			return "Service.errors";
 		}else
 			
@@ -136,7 +132,7 @@ public class ServiceController {
 	}
 
 	@RequestMapping(path = { "/ServiceSelect.controller" })
-	public String selectMethod(Model model, @RequestAttribute("memberid") Integer id, ServiceBean bean) {
+	public String selectMethod(Model model, @RequestAttribute(name = "memberid",required = false) Integer id, ServiceBean bean) {
 		bean.setMemberid(id);
 		List<ServiceBean> result = serviceService.select(bean);
 		model.addAttribute("select", result);

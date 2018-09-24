@@ -10,7 +10,7 @@
 <body>
 	<a href="ServiceSelect.controller" class="btn btn-warning form-control">select</a>
 	<br>
-	<a href="Service.jsp">Service 回報區</a>
+	<a href="ServiceEnter.controller">Service 回報區</a>
 	<br>
 
 	<form action="<c:url value="/Trackmember.insert" />" method="POST">
