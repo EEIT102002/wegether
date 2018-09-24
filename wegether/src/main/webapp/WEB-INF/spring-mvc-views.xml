@@ -78,7 +78,7 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"
 		id="actEditSuc.page">
-		<property value="/index.jsp" name="url" />
+		<property value="/index2.jsp" name="url" />
 	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"

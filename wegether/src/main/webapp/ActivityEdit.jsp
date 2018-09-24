@@ -18,7 +18,7 @@
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-
+		
 		var types = $('#hidecheckbox').val();
 
 		var ss = types.split(',');
@@ -80,25 +80,21 @@
 		if ((now.getMonth() + 1) < 10 && now.getDate() < 10) {
 			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-0' + now.getDate();
 			$('#startTime').attr('min', min);
-			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) < 10 && now.getDate() >= 10) {
 			var min = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-' + now.getDate();
 			$('#startTime').attr('min', min);
-			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() < 10) {
 			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-0' + now.getDate();
 			$('#startTime').attr('min', min);
-			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 		if ((now.getMonth() + 1) >= 10 && now.getDate() >= 10) {
 			var min = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 			$('#startTime').attr('min', min);
-			$('#startTime').val(min);
 			$('#deathLine').attr('min', min);
 		}
 
@@ -201,7 +197,7 @@
 				// alert(fileContent)
 				//5. 找到img標籤
 				var imgobj = document.getElementById("picZone");
-				var imgobj2 = document.getElementById("actPiczone");
+				var imgobj2 = document.getElementById("actPicture");
 				//6. 設定img的src屬性
 				imgobj.setAttribute("src", fileContent);
 				imgobj2.setAttribute("src", fileContent);
@@ -243,7 +239,8 @@
 					<tr>
 						<td>聚會封面</td>
 						<td><img src="data:image/jpg;base64,${actOnePic}" id="picZone" class="selPic">
-							<input type="file" name="picture" id="actPic" accept="image/*"></td>
+							<input type="file" name="picture" id="actPic" accept="image/*">
+							<input type="hidden" value="${result.id}" name="id"></td>
 					</tr>
 					<tr>
 						<td>其他照片</td>
@@ -360,7 +357,8 @@
 									<table>
 										<tr>
 											<td>聚會封面</td>
-											<td id="actPicture"></td>
+											<img id="actPicture" src="data:image/jpg;base64,${actOnePic}"
+												 class="selPic"/></td>
 										</tr>
 										<tr>
 											<td>聚會標題</td>
