@@ -1,12 +1,11 @@
 
+
 //取得留言功能
-	function getMsgs(act){
+	function getMsgs(activityid){
 	 var divElem = null ;
 	 var temp="";
-	 $.get({
-		 url:"msgs.controller/"+act,
-		 success:function(result){
-			 alert('success')
+	 $.get("msgs.controller/"+activityid,
+			 function(result){	
 	 			$.each(result, function(i,item){	
 	 				divElem =("<div id='msgid'>" +
 					'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
@@ -18,13 +17,12 @@
 					"</div>");
 	 				temp = temp + divElem;
 	 			});	
-	 			$('#demo').html(temp);	
-		 }
-	 });
-
-	 	
+	 			$('#demo').html(temp);
+	 			
+	 });	
 	 
  }
+	
 	//取得留言功能 END	
 //	$('#demo').html("<h3 style='color:black'>目前沒有留言</h3>")
 //新增留言功能

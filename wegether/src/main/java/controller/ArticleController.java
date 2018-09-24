@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.ArticleBean;
@@ -23,6 +24,7 @@ import model.PictureBean;
 import model.dao.ActivityDAO;
 import model.dao.ArticleDAO;
 import model.dao.MemberDAO;
+import model.dao.MsgDAO;
 import model.dao.PictureDAO;
 import pictureconvert.PictureConvert;
 import pictureconvert.TimeConvert;
@@ -42,15 +44,17 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleDAO articleDAO;
+	
+	@Autowired
+	private MsgDAO msgDAO;
 
 	
-	@GetMapping( path= {"/article.controller"}, produces= {"application/json"})
-	public ResponseEntity<?> getInfo(ArticleBean bean){
-		System.out.println("ArticleBean="+bean);
+	@GetMapping( path= {"/article.controller/{activityid}"}, produces= {"application/json"})
+	public ResponseEntity<?> getInfo(@PathVariable int activityid){
 		
 		
 		List<Object[]> articleList = new ArrayList<>();
-		List<ArticleBean> articleBeans = articleDAO.selectByActivityId(bean.getActivityid());
+		List<ArticleBean> articleBeans = articleDAO.selectByActivityId(activityid);
 		if (articleBeans.size() != 0) {
 			articleBeans.forEach(art -> {
 				Calendar arttime = Calendar.getInstance();
@@ -78,19 +82,21 @@ public class ArticleController {
 		
 	}
 	
-	@DeleteMapping(path= {"/article.controller/{id}"}, produces= {"application/json"})
-	public ResponseEntity<?> delete(@PathVariable int id) throws URISyntaxException{
-		ArticleBean bean = articleDAO.select(id);
+	
+	
+	
+	@DeleteMapping(path= {"/article.controller/{articleid}"}, produces= {"application/json"})
+	public ResponseEntity<?> delete(@PathVariable int articleid) throws URISyntaxException{
+		ArticleBean bean = articleDAO.select(articleid);
 		if(bean!=null) {
-			Boolean result = articleDAO.delete(id);
+			Boolean result = articleDAO.delete(articleid);
 			if(result!=null && result==true) {
-				ResponseEntity<?> temp = getInfo(bean);
+				ResponseEntity<?> temp = getInfo(bean.getActivityid());
 				return temp ;
 			}else {
 				return new ResponseEntity(HttpStatus.NO_CONTENT);	
 			}
 		}else {
-			System.out.println("@DeleteMapping=false");
 			return new ResponseEntity(HttpStatus.NO_CONTENT);	
 		}
 	}
