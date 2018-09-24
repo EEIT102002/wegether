@@ -16,6 +16,6 @@ function loginheaderDO(){
 }
 
 function logoutheaderDo() {
-	alert("期待下次見到你/妳");
+//	alert("期待下次見到你/妳");
 //	$('.header_nav>ul>li:eq(0)').addClass('active');
 }
