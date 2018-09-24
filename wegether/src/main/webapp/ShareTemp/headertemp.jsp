@@ -59,16 +59,16 @@
 					<div class="dropdown">
 						<div class="dropdown-toggle" id="dropdownMenuButton"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img src='images/01.jpg' alt='' class='img-circle'
+							<img src='' alt='' class='img-circle'
 								style='width: 50px; height: 50px'>
 
-							<div id="userinfo">XXX</div>
+							<div id="userinfo"></div>
 						</div>
 						<div class="dropdown-menu" id="membergroup"
 							aria-labelledby="dropdownMenuButton">
 							<a class="dropdown-item" href="/wegether/personalPage.jsp">會員資料</a> <a
-								class="dropdown-item" href="#">好友名單</a> <a class="dropdown-item"
-								href="#">個人設定</a> <a class="dropdown-item" href="#">我的活動</a> <a
+								class="dropdown-item" href="/wegether/setting/setting.jsp?page=3"">好友名單</a> <a class="dropdown-item"
+								href="/wegether/setting/setting.jsp">個人設定</a> <a class="dropdown-item" href="/wegether/activity/ActivityReview.jsp">我的活動</a> <a
 								class="dropdown-item" href="#">我的心得</a> <a class="dropdown-item"
 								id="logoutSubSpanA" class="scrol dropdown-item" href="#">登出</a>
 						</div>
@@ -115,10 +115,11 @@
 						</div>
 						<button type="button" class="btn big_use Google_i">
 							<i class="fa fa-google" aria-hidden="true"></i>Google 登入
-						</button>
-						<button type="button" class="btn big_use Fb_i">
-							<i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入
-						</button>
+						</button>						
+						
+						<button class="btn fb-login-button big_use Fb_i" data-size="large" data-button-type="login_with"
+ 						data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></button>
+
 						<div class="AreaCon">
 							<button type="button" class="btn small_use Google_i">
 								<i class="fa fa-google" aria-hidden="true"></i>

@@ -1,8 +1,82 @@
+#core1 {
+	overflow: auto;
+	width: 100%;
+	/* 	border: 1px solid gray; */
+}
+
+#left {
+	margin: 20px 0 20px 0;
+	width: 20%;
+	float: left;
+	height: 760px;
+	border-right: 2px solid rgba(0, 44, 95, 0.3);
+	/* 調整地方 */
+}
+
+#left li {
+	border-radius: inherit;
+	border:0;
+	padding: 4px;
+	padding-left: 10px;
+	padding-right: 20px;
+	font-size:18px;
+	line-height:1.5em;
+	position: relation;
+}
+
+#left li:hover,#left li:focus {
+	color: white;
+	background-color: rgba(0, 44, 95, 0.100);
+}
+
+#left .choose {
+	color: white;
+	background-color: rgba(0, 44, 95, 0.3);
+}
+
+
+.content_xx {
+	display: flex;
+	flex-direction: column;
+	font-family: Microsoft JhengHei;
+	color: #0044BB;
+	/* 調整地方 */
+}
+
+#right {
+	width: 80%;
+	float: right;
+	height: 800px;
+	/* 調整地方 */
+	/*  	border: 2px solid yellow;  */
+}
+
+#right .content_xx li {
+	border-bottom: 1.5px solid #5599FF;
+	border-radius: 0px;
+	/* 調整地方 */
+}
+
+#txtup {
+	text-align: left;
+}
+
+#txtcenter {
+	text-align: center;
+}
+
+#change_area {
+	border: 2px solid;
+}
+
+#small_con{
+	padding: 0 0 20px 0;
+}
 .activityli {
 	height: 60px;
 	display: flex;
 	align-items: center;
-	
+	border:0;
 }
 
 .activityli *{
@@ -10,7 +84,8 @@
 }
 
 .activityli:hover {
-		background-color: rgba(200, 226, 255, 0.459);
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: 4px 4px 12px -2px rgba(20%, 20%, 40%, 0.6);
 }
 
 .activityli>button {
@@ -55,6 +130,10 @@
     align-items: flex-end;
 }
 
+.setting4{
+	margin:5px 0 0 0;
+}
+
 .setting4ul li {
     padding: 4px;
     width: 100px;
@@ -65,6 +144,7 @@
     cursor: pointer;
     color: rgba(30, 30, 30, 0.7);
     background-color: rgba(0, 44, 95, 0.1);
+    font-size:16px;
 }
 
 .setting4ul li:hover {
@@ -85,11 +165,13 @@
     font-size: 18px;
 }
 
-
-
 .attend {
     display: flex;
     align-items: center;
+    height:60px;
+	border-radius: 0px;
+	background-color:rgba(0, 0, 0, 0);
+	
 }
 
 #attendlist * {
@@ -100,12 +182,13 @@
 #attendlist .panel-body *{
 	font-size: 16px;
 	text-align: left;
+	border:0;
 }
 #attendlist .panel-body h3{
 	font-size: 20px;
 }
 #attendlist .panel-body>div{
-	border-bottom: 1.5px solid rgba(0, 44, 95, 0.3);
+	border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
 	padding:10px;
 }
 
@@ -176,4 +259,57 @@
 	opacity:0.5
 	}
 
+#blocklist .panel{
+	background-color: rgba(255, 255, 255, 0);
+	border:0;
+	border-bottom: 1.5px solid #5599FF;
+	border-radius:0;
+	margin-right:10px;
+	margin-bottom:5px;
+}
+
+#blocklist .panel:hover{
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: 4px 4px 12px -4px rgba(20%, 20%, 40%, 0.6);
+
+}
+#blocklist .panel-heading{
+	background-color: rgba(255, 255, 255, 0);
+	border-bottom: 1.5px solid #5599FF;
+	border:0;
+	
+}
+
+#blocklist .panel-body{
+	background-color: white;
+}
+
+#attendlist .attend .nickname{
+	margin-left:10px;
+}
+
+#blocklist  .panel-choose{
+		background-color: rgba(255, 255, 255, 0.5);
+
+	box-shadow: 4px 4px 12px -4px rgba(20%, 20%, 40%, 0.6);
+	border:0;
+}
+
+.respondAttend{
+	display: flex;
+    justify-content: center;
+}
+
+#right .respondAttend button{
+	margin: 0 10px;
+	font-size:18px;
+}
+
+#right .respondAttend button:nth-child(1){
+	background-color: #008CBA;
+}
+
+#right .respondAttend button:nth-child(2){
+	background-color: #f44336;
+}
 

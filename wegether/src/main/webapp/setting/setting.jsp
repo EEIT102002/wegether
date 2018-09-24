@@ -13,14 +13,6 @@
     <link rel="stylesheet" href="/wegether/setting/css/setting.css">
     <script>
         $(function () {
-            // $('#upTop').click(function(){
-            // 	var body = $("html, body");
-            // 	body.stop().animate({scrollTop:0}, 500, 'swing');
-            // 	}).mouseover(function(){
-            // 		$(this).removeClass('animated');
-            // 	}).mouseout(function(){
-            // 		$(this).addClass('animated');
-            // 	})
             $('#header_nav ul li').click(function () {
                 $(this).addClass('active').siblings().removeClass('active');
             })
