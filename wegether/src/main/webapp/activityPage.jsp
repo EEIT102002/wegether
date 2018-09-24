@@ -30,20 +30,27 @@
 
 
 <script>
+
+
 var activityid = ${actBean.id};
 var actState = ${state};
+alert(actState)
 
+
+alert('A')
 
 
 
 console.log("state1:"+actState);
 var friendbuttonText = '推薦'
 var  actPicListSize;
+
 if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize = ${actPicListSize} ;
  }else{
 	 actPicListSize =0;
  }
+alert(actPicListSize)
 
 // var flag=0;
 	$(function() {
