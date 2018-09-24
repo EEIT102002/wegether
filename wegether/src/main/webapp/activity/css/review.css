@@ -73,7 +73,7 @@
 	padding: 0 0 20px 0;
 }
 .activityli {
-	height: 60px;
+	height: 70px;
 	display: flex;
 	align-items: center;
 	border:0;
@@ -106,14 +106,14 @@
 }
 
 .activityli .title {
-	font-size: 20px;
+	font-size: 28px;
 }
 
 .activityli>a .info {
 	display: flex;
 	position: absolute;
 	bottom: 0;
-	font-size: 12px;
+	font-size: 16px;
 }
 
 .activityli>a .info div {
@@ -168,7 +168,7 @@
 .attend {
     display: flex;
     align-items: center;
-    height:60px;
+    height:70px;
 	border-radius: 0px;
 	background-color:rgba(0, 0, 0, 0);
 	

@@ -23,7 +23,7 @@ $(document).ready(function () {
             case "select":
             case "checkbox":
                 inputDD.html('<ol>' + inputOption() +
-                    '</ol><button type="button" class="addOption">新增選項</button>');
+                    '</ol><button type="button" class="addOption btn btn-default">新增選項</button>');
                 checkOnly(inputDD.children('ol'));
                 break;
             default:

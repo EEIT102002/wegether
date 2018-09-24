@@ -1,9 +1,10 @@
 
+
 //取得留言功能
-	function getMsgs(act){
+	function getMsgs(activityid){
 	 var divElem = null ;
 	 var temp="";
-	 $.get("msgs.controller/"+act,
+	 $.get("msgs.controller/"+activityid,
 			 function(result){	
 	 			$.each(result, function(i,item){	
 	 				divElem =("<div id='msgid'>" +
@@ -21,8 +22,9 @@
 	 });	
 	 
  }
+	
 	//取得留言功能 END	
-
+//	$('#demo').html("<h3 style='color:black'>目前沒有留言</h3>")
 //新增留言功能
 function postMsgs(act,mem,sta,cont){
 console.log("postMsgs in:"+" actId="+act+" memId="+mem+" state="+sta+" msg="+cont);
