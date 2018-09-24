@@ -13,7 +13,7 @@
 <script type="text/javascript" src="js/createApplyForm.js"></script>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
 <link rel="stylesheet" href="css/createApplyForm.css" />
-<link rel="stylesheet" type="text/css" href="css/default.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/default.css"> -->
 <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 <script src="js/fileinput.js" type="text/javascript"></script>
 <script>
