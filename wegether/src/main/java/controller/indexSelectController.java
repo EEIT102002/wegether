@@ -64,7 +64,7 @@ public class indexSelectController {
 			List<Object[]> resultlist = new ArrayList<>();
 			if (result.size() > 0) {
 				result.forEach(bean -> {
-					Object[] obj = new Object[4];	
+					Object[] obj = new Object[5];	
 //					StringBuilder sb = new StringBuilder();
 //					sb.append("data:image/jpg;base64,");
 //					sb.append(org.apache.commons.codec.binary.StringUtils
@@ -74,7 +74,7 @@ public class indexSelectController {
 					obj[1] = "/wegether/activity/photo/"+bean.getId();
 					obj[2] = bean.getMemberBean().getNickname();
 					obj[3] = "/wegether/member/photo/"+bean.getMemberBean().getId();
-					
+					obj[4] = bean.getMemberBean().getId();
 					bean.setMemberBean(null);
 					bean.setArticleBean(null);
 					bean.setPictureBean(null);

@@ -7,20 +7,19 @@
 <html>
 <head>
 <title>ActivityPage</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
 <!-- 活動頁面使用  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/wegether/css/activityPage.css">
+<script type="text/javascript" src="/wegether/js/headerfootertest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/activityPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/starPage.js"></script>
-
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
@@ -31,16 +30,21 @@
 
 
 <script>
+
+
 var activityid = ${actBean.id};
 var actState = ${state};
+// alert("actState:"+actState)
 
 var friendbuttonText = '推薦'
 var  actPicListSize;
+
 if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize = ${actPicListSize} ;
  }else{
 	 actPicListSize =0;
  }
+// alert("actPicListSize"+actPicListSize)
 
 // var flag=0;
 	$(function() {
@@ -85,8 +89,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		
 		 //載入留言 
 		 getMsgs(activityid);
-		 
-		//清除留言預設文字
+	//清除留言預設文字
 		 $('#txt').click(function(){
 			 $("#txt").val('');
 		});
@@ -130,7 +133,8 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-				document.location.href = "actEdit.getBean.controller?actid="+activityid;
+// 				alert("actname:"+$('#right>h3').val())
+				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#right>h3').val();
 			})
 		
 	})
@@ -146,7 +150,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			 		
 		 			},'json');	
 		 
-		 
+		 $('input[value=留言]').removeAttr('data-toggle');
 		 
 	
 	
@@ -216,11 +220,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 								<p id="txtup">${hostBean.job}</p>
 							</div>
 							&emsp;
-						      <!-- 	預設大頭照測試 --> 
-							   <img src="images/activityPageImages/w1.png" class="img-circle" width="70" height="70">&emsp;
-							   <img src="images/activityPageImages/w2.png" class="img-circle" width="70" height="70">&emsp;
-							   <img src="images/activityPageImages/w3.png" class="img-circle" width="70" height="70">
-							
+						      
 							
 							
 							
@@ -470,7 +470,6 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		</div>
 	</div>
 	<!-- 推薦活動給好友 END-->
-	
 	<jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>
 </body>
 <script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>

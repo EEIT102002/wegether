@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
-<link rel="stylesheet" href="/wegether/css/Non-home.css">
-</head>
-<body>
-	<script>
-  // This is called with the results from from FB.getLoginStatus().
+// This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -23,8 +13,8 @@
       testAPI();
     } else {
       // The person is not logged into your app or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
+//      document.getElementById('status').innerHTML = 'Please log ' +
+//        'into this app.';
     }
   }
 
@@ -137,32 +127,3 @@
   		
   	}
   
-  
-</script>
-
-	<!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
-<!-- 按鈕1 -->
-<!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"> -->
-<!-- </fb:login-button>   -->
-<!-- 按鈕1 -->
-
-<!-- 按鈕2 -->
-<!-- 	<div class="fb-login-button" data-width="80" data-max-rows="1" -->
-<!-- 		data-size="large" data-button-type="continue_with" -->
-<!-- 		data-show-faces="true" data-auto-logout-link="true" -->
-<!-- 		data-use-continue-as="true" onlogin="checkLoginState();" ></div> -->
-<!-- 按鈕2 -->
-
-<!-- 按鈕3 -->
-<div class="fb-login-button" data-size="large" data-button-type="login_with"
- data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div>
-<!-- 按鈕3 -->
-
-	<div id="status"></div>
-
-</body>
-</html>

@@ -42,12 +42,14 @@ public class MsgsController {
 
 
 
+
 	@GetMapping( path= {"/msgs.controller/{activityid}"}, produces= {"application/json"})
 	public ResponseEntity<?> getInfo(
 			@PathVariable(name="activityid", required = false) Integer activityid){
+
 		List<Object[]> msgsList = new ArrayList<>();
 		List<MsgBean> msgBeans = msgDAO.selectByActivity(activityid);
-		
+
 		if (msgBeans.size() != 0) {
 			msgBeans.forEach(msg -> {
 				Object[] obj = new Object[5];
@@ -57,8 +59,9 @@ public class MsgsController {
 				obj[3] = msg.getContent();
 				obj[4] = msg.getId();
 				msgsList.add(obj);
-
+				System.out.println(msgsList);
 			});
+			System.out.println('A');
 			return new ResponseEntity<List<Object[]>>(msgsList, HttpStatus.OK);
 		} else {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);

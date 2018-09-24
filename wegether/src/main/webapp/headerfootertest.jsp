@@ -6,6 +6,7 @@
 <head>
 <title>Home</title>
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
+<script type="text/javascript" src="/wegether/js/headerfootertest.js"></script>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
 </head>
 <body>

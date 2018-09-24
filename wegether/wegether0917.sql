@@ -184,7 +184,7 @@ increment by 1
 create TABLE	notice	(	--11.提醒通知Table	推薦活動, 文章, 好友申請, 活動申請, 留言, 活動變更, 
 id int primary key default next value for notice_sq,
 memberid	Int	NOT NULL  FOREIGN KEY REFERENCES member(id),	--會員ID
-content nvarchar(max) not null,	
+content nvarchar(max),	
 noticetime	datetime not null default getDate(),
 activityid int references activity(id),--活動id
 articleid int references article(id) on delete cascade,  --文章id

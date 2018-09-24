@@ -22,11 +22,47 @@
 			$('.form-group').css('display','block');
 			$('#addOtherPics').css('display','none');
 		})
+		
+		$('.allPic').mouseover(function(){
+			$(this).css('opacity', '0.4');
+		})
+		$('.allPic').mouseout(function(){
+			$(this).css('opacity', '1');
+		})
+		
+		var nameAr = $('.allPic').attr('name');
+		var thisName = nameAr.substring(1,(nameAr.length-1))
+		var ids = thisName.split(',');
+		for(i = 0; i < ids.length; i++){
+			$('img[id=' + (i+2) + ']').attr('id', ids[i]);
+		}
+		
+		$('.deleteEditPics').click(function(){
+			var picId = $(this).parent().children().attr('id');
+			var thisNum = $(this).attr('id').charAt(10);
+
+			$.ajax("/wegether/pictureD/" + picId,{
+				method:"DELETE",
+				success:function(a){
+ 					$('#actEditPic' + thisNum).remove();
+				}
+			})
+		})
 	})
 </script>
 <style>
-.multi{
-	height:150px;
+.allPic {
+	height: 180px;
+	border-radius: 15px;	
+}
+ .picContainerEdit{ 
+ 	position:relative;
+ 	display:inline;
+ } 
+.deleteEditPics{
+	position: absolute;
+	bottom:-70px;
+	left:5px;
 }
 </style>
 </head>
@@ -34,44 +70,52 @@
 	<jsp:include page="/ShareTemp/headertemp.jsp"></jsp:include>
 	<div class="container">
 		<div id="small_con">
-		增加心得
-			<form id="ArticleCreateForm"
-				action="<c:url value="/articleCreate.controller"/>" method="post"
+		修改心得
+			<form id="ArticleEditForm"
+				action="<c:url value="/artEdit.edit.controller"/>" method="post"
 				accept-charset="ISO-8859-1" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<td>聚會標題</td>
-						<td>${param.actname}<input type="hidden" value="${param.actid}" name="actid"/></td>
+						<td>${param.actname}${title}<input type="hidden" value="${param.artid}" name="artid"/></td>
 					</tr>
 					<tr>
 						<td>心得</td>
-						<td><textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${content}</td>
+						<td><textarea name="content" id="insertDes" cols="30" rows="10">${param.content}${articleResult.content}</textarea>${content}</td>
 					</tr>
 					<tr>
 						<td>上傳活動照片</td>
-						<td>
-						<input type="button" value="我要上傳心得照片" id="addOtherPics"/>
+						<td><div>
+							<c:set var="temp" value="2" />
+							<c:forEach var="i" items="${articlePics}">
+								<div class="picContainerEdit" id="actEditPic${temp}">
+								<img src="data:image/jpg;base64,${i}" class="allPic" name='${picIds}' id="${temp}">
+								<div class="deleteEditPics" id="delEditPic${temp}">
+								<img src="images/trash_can.png"></div></div>
+								<c:set var="temp" value="${temp+1}" />
+							</c:forEach>
+							</div>
+						<input type="button" value="我要上傳其他照片" id="addOtherPics"/>
 						<div class="form-group" style="display:none">
-						<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-							   data-min-file-count="2" name="multipicture"></div>
+						<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" name="multipicture"></div>
 						<script>
 						$("#file-1").fileinput({
-							//uploadExtraData: {'activitiId' : ${actid}},
-        					uploadUrl: '/wegether/articleCreate.controller', // you must set a valid URL here else you will get an error
+							uploadExtraData: {'articleId' : ${artid}},
+        					uploadUrl: '/wegether/insertArtOtherPics.do', // you must set a valid URL here else you will get an error
         					allowedFileExtensions : ['jpg', 'png','gif'],
         					overwriteInitial: false,
-        					showUpload: false,
         			        showCaption: false,
-        			        fileActionSettings: {showUpload: false, showZoom: false,
+        			        fileActionSettings: {showZoom: false,
+        			        					 uploadIcon: '<img src="images/upload_16.png">',
         			        					 removeIcon: '<img src="images/trash_can_red.png">'},
         			        removeIcon: '<img src="images/trash_can.png" style="height:20px">',
         			        browseIcon: '<img src="images/open_folder2.png"  style="height:20px">',
+        			        uploadIcon: '<img src="images/upload.png"  style="height:20px">',
         					maxFileSize: 1000,
         					maxFilesNum: 10,
         					//allowedFileTypes: ['image', 'video', 'flash'],
         					slugCallback: function(filename) {
-            					return filename.replace('(', '_').replace(']', '_');
-							}
+            					return filename.replace('(', '_').replace(']', '_');}
 						});    
 						</script></td>
 					</tr>

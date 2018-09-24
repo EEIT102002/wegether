@@ -5,8 +5,6 @@
 <html>
 <head>
 <title>Home</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
 <link rel="stylesheet" href="/wegether/css/style.css">
 <link rel="stylesheet" href="/wegether/css/index.css">
@@ -146,6 +144,5 @@
 		</div>
 	</footer> -->
 	<i  id="upTop" class="fa fa-chevron-circle-up animated infinite bounce" aria-hidden="true"></i>
-	<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
 </body>
 </html>

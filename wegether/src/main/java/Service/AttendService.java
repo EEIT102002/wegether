@@ -13,6 +13,7 @@ import model.MemberBean;
 import model.dao.AttendDAO;
 
 @Service
+@SuppressWarnings("unchecked")
 public class AttendService {
 	@Autowired
 	private AttendDAO attendDAO;
@@ -94,19 +95,15 @@ public class AttendService {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public JSONArray attendToJsons(List<AttendBean> beans) {
 		JSONArray result = (JSONArray) applicationContext.getBean("newJsonArray");
 		beans.forEach(x -> {
-			JSONObject row = createRow(x.getMemberBean());
-			row.put("attendid", x.getId());
-			row.put("applyForm", x.getForm());
+			JSONObject row = rowAddAttendInfo(x);
 			result.add(row);
 		});
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
 	public JSONObject attendToJson(AttendBean bean) {
 		JSONObject row = (JSONObject) applicationContext.getBean("newJson");
 		row.put("rank1", bean.getRank1());
@@ -115,7 +112,21 @@ public class AttendService {
 		return row;
 	}
 	
-	@SuppressWarnings("unchecked")
+	public JSONObject getAttend(int attendid, int memberid) {
+		AttendBean bean = attendDAO.select(attendid);
+		if(memberid == bean.getActivityBean().getHostid()) {
+			return rowAddAttendInfo(bean);
+		}
+		return null;
+	}
+	
+	private JSONObject rowAddAttendInfo(AttendBean bean) {
+		JSONObject row = createRow(bean.getMemberBean());
+		row.put("attendid", bean.getId());
+		row.put("applyForm", bean.getForm());
+		return row;
+	}
+	
 	private JSONObject createRow(MemberBean bean) {
 		JSONObject row = (JSONObject) applicationContext.getBean("newJson");
 		row.put("nickname", bean.getNickname());

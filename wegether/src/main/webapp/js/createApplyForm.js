@@ -1,7 +1,7 @@
-var script = document.createElement('script');
-script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
-script.type = 'text/javascript';
-document.getElementsByTagName('head')[0].appendChild(script);
+//var script = document.createElement('script');
+//script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+//script.type = 'text/javascript';
+//document.getElementsByTagName('head')[0].appendChild(script);
 
 var template;
 var formDiv_applyForm;
@@ -23,7 +23,7 @@ $(document).ready(function () {
             case "select":
             case "checkbox":
                 inputDD.html('<ol>' + inputOption() +
-                    '</ol><button type="button" class="addOption">新增選項</button>');
+                    '</ol><button type="button" class="addOption btn btn-default">新增選項</button>');
                 checkOnly(inputDD.children('ol'));
                 break;
             default:

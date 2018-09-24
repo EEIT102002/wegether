@@ -1,4 +1,5 @@
 
+
 //取得留言功能
 	function getMsgs(activityid){
 	 var divElem = null ;
@@ -21,8 +22,9 @@
 	 });	
 	 
  }
+	
 	//取得留言功能 END	
-
+//	$('#demo').html("<h3 style='color:black'>目前沒有留言</h3>")
 //新增留言功能
 function postMsgs(act,mem,sta,cont){
 console.log("postMsgs in:"+" actId="+act+" memId="+mem+" state="+sta+" msg="+cont);

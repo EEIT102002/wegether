@@ -78,21 +78,5 @@ function searchServer(formData, url, type){
         dataType:"json"
     })
     var pathname = window.location.pathname;
-    searchbox.on('click','.friendButton button',function(){
-    	var e = $(this);
-    	var friendlist = e.parents('.friendList');
-    	$.post(
-    		friendlist.attr('url')
-    		,friendlist.attr('param')+e.parent().attr('memberid')
-    		,function(data){
-    			if(data.state){
-    				var iframe = e.parents('body').find('iframe')[0];	
-    				iframe.src = friendlist.attr('param') == 'memberidf=' ?  '/wegether/setting/setting/4.html?page=2': iframe.src;
-    				console.log(iframe.src);
-    				e.parent().parent().remove();		
-    			}
-    		}
-    		,'json'
-    	)
-    })
+    
 }

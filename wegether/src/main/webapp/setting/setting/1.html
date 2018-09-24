@@ -1,386 +1,520 @@
 <!DOCTYPE html>
-<html  lang="zh-Hant-TW">
+<html lang="zh-Hant-TW">
 
 <head>
-<meta charset="UTF-8"> 
-    <script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="/wegether/js/jquery-3.3.1.min.js"></script>
 
-    <script src="/wegether/js/jquery-ui.js"></script>
-    <script src="/wegether/js/ImageCompress.js" type="text/javascript"></script>
-    <script src="../js/iframeautoheight.js" type="text/javascript"></script>
-    <script src="/wegether/js/imageError.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        var memberinfo = null;
-        $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: "/wegether/member/Info",
-                dataType: "json",
-                success: function (json) {
-                    insertInfo(json);
-                }
+	<script src="/wegether/js/jquery-ui.js"></script>
+	<script src="/wegether/js/ImageCompress.js" type="text/javascript"></script>
+	<script src="../js/iframeautoheight.js" type="text/javascript"></script>
+	<script src="/wegether/js/imageError.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/wegether/setting/js/cutPicture.js"></script>
+	<script>
+		var memberinfo = null;
+		var array_for_city = ['基隆市', '台北市', '新北市', '宜蘭縣', '桃園市', '新竹市', '新竹縣',
+			'苗栗縣', '台中市', '彰化縣', '南投縣', '雲林縣', '嘉義市', '嘉義縣', '台南市', '高雄市',
+			'屏東縣', '花蓮縣', '台東縣', '澎湖', '金門', '馬祖'];
+		var favorite = ['運動', '休閒', '音樂', '美食', '聊天'];
+		$(document).ready(
+			function () {
+				var selectCity = $('select[name="city"]')
+				$.each(array_for_city, function (i, e) {
+					selectCity.append($('<option/>').val(i + 1).text(e))
+				})
 
-            });
-            function insertInfo(json) {
-                memberinfo = json;
-                var photoSrc = memberinfo["photoSrc"];
-                if (photoSrc != null) {
-                    $('#photoShow').html($('<img/>').attr('src', photoSrc));
-                }
-                var addr = memberinfo["city"] != null ? city(memberinfo["city"]) + " " : "";
-                addr += memberinfo["addr"] != null ? memberinfo["addr"] : "";
-                if (addr.length != 0)
-                    memberinfo["addrs"] = addr;
-                $('.setting1 > table tr').each(function () {
-                    var info = memberinfo[$(this).attr('id')]
-                    if (info != null && info != "") {
-                        if ($(this).attr('id') == "birthday")
-                            info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
-                        this.children[1].innerHTML = info;
-                    } else {
-                        this.children[1].innerHTML = '<span class="notinput">未填寫</span>';
-                    }
-                });
-                
-            }
+				$.ajax({
+					type: "GET",
+					url: "/wegether/member/Info",
+					dataType: "json",
+					success: function (json) {
+						insertInfo(json);
+					}
 
-            $('.setting1 > table tr > td > button').click(function () {
-                var prevtd = $(this).parent().prev();
-                var tr = prevtd.parent();
-                $(tr).siblings("tr:has(form)").each(function () {
-                    if ($(this.children[3].children).text() == '取消') {
-                        $(this.children[1]).show().next().hide().next().children().text('編輯');
-                    }
-                });
-                var key = tr.attr('id');
-                prevtd.toggle().prev().toggle();
-                $(this).text(
-                    $(this).text() == "編輯" ? "取消" : "編輯");
-                switch (key) {
-                    case "addrs": editAddr(prevtd); break;
-                    case 'content': editTextarea(prevtd, key); break;
-                    default: editInput(prevtd, key); break;
-                };
-            });
+				});
+				function insertInfo(json) {
+					memberinfo = json;
+					var photoSrc = memberinfo["photoSrc"];
+					if (photoSrc != null) {
+						$('#photoShow').html($('<img/>').attr('src', photoSrc));
+					}
+					var addr = memberinfo["city"] != null ? array_for_city[memberinfo["city"] - 1] + " " : "";
+					addr += memberinfo["addr"] != null ? memberinfo["addr"] : "";
+					if (addr.length != 0)
+						memberinfo["addrs"] = addr;
+					$('.setting1 > table tr').each(function () {
+						var info = memberinfo[$(this).attr('id')];
+						var e = $(this);
+						if (info != null && info != "") {
+							if (e.attr('id') == "birthday")
+								info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
+							if(e.attr('id') != "favorite"){
+								e.children().eq(1).text(info)
+							}else{
+								var favoritediv = $('<div class="favoritediv"/>');
+								e.children().eq(1).html(favoritediv);
+								var infos = info.split(',');
+								$.each(infos, function(i,e){
+									favoritediv.append($('<div>').text(e))
+								})
+							}
+						} else {
+							this.children[1].innerHTML = '<span class="notinput">未填寫</span>';
+						}
+					});
 
-            $('.setting1 form > button').click(function () {
-            	var e = $(this)
-                var td = e.parent().parent();
-                var button = td.next('td').children('button');
-                var form = e.parent('form').serialize();
-                $.post(
-                    "/wegether/member/Info/setting"
-                    , form
-                    , function (data) {
-                    	if(data.bean != null ){
-                        	insertInfo(data.bean);
-                        	td.toggle().prev().toggle();
-                        	button.text(
-                            button.text() == "編輯" ? "取消" : "編輯");
-                    	}else if(data.error!= null ){
-                    		e.prev().prev().val("").attr('placeholder',data.error);
-                    	}
-                    }
-                    , "json"
-                );
+				}
 
-            })
+				$('.setting1 > table tr > td > button').click(function () {
+					var prevtd = $(this).parent().prev();
+					var tr = prevtd.parent();
+					$(tr).siblings("tr:has(form)").each(
+						function () {
+							if ($(this.children[3].children).text() == '取消') {
+								$(this.children[1]).show().next().hide().next().children().text('編輯');
+							}
+						});
+					var key = tr.attr('id');
+					prevtd.toggle().prev().toggle();
+					$(this).text($(this).text() == "編輯" ? "取消" : "編輯");
+					switch (key) {
+						case "addrs":
+							editAddr(prevtd);
+							break;
+						case 'content':
+							editTextarea(prevtd, key);
+							break;
+						case 'favorite':
+							editFavorite(prevtd, key);
+							break;
+						default:
+							editInput(prevtd, key);
+							break;
+					}
+					;
+				});
 
-            $('#photo').change(function () {
-                fileViewer($('#photo')[0].files[0], $('#photoUpdateShow'));
-            })
-            $('#photoUpdata').click(memberphotoUpdata)
+				$('.setting1 form > .submit').click(function () {
+					var e = $(this)
+					var td = e.parent().parent();
+					var button = td.next('td').children('button');
+					var form;
+					
+					if(e.attr('id') == 'sedfavorite' ){
+						var types =  e.siblings('.favoritediv').children();
+						var ftext = '';
+						$.each(types, function(i,type){
+							ftext += (i == 0? '':',')+$(type).val();
+						})
+						form= $('<form/>').append($('<input type="text" name="favorite"/>').val(ftext)).serialize()
+					}else{
+					 	form= e.parent('form').serialize();
+					}
+					console.log(form)
+					$.post(
+						"/wegether/member/Info/setting",
+						form,
+						function (data) {
+							if (data.bean != null) {
+								insertInfo(data.bean);
+								td.toggle().prev().toggle();
+								button.text(button.text() == "編輯" ? "取消" : "編輯");
+							} else if (data.error != null) {
+								e.prev().prev().val("").attr('placeholder', data.error);
+							}
+						}, "json");
+				})
 
-        });
+				$('#addFavorite').click(function(){
+					var e = $(this)
+					var val = e.parent().find('select').val();
+					if(val != "" || val != null){
+						e.parent().find('option[value="'+val+'"]').remove();
+						$('#favorite form .favoritediv').append($('<div>').val(val).text(val).append($('<button type="button">&times;</button>')))
+					}
+				})
+				
+				$('.favoritediv').on('click','button',function(){
+					var e= $(this);
+					var val = e.parent().val();
+					e.parents('.favoritediv').next().append($('<option/>').val(val).text(val));
+					e.parent().remove();
+				})
 
-        function memberphotoUpdata() {
-            var file = $('#photo')[0].files[0];
-            if (file != null)
-                fileResizetoFile(file, 0.6, function (file) {
-                	photoUpdate('/wegether/member/Info/photo', file, function (data) {
-                        var photoSrc = data["photoSrc"];
-                        if (photoSrc != null) {
-                            $('#photoShow').html($('<img/>').attr('src', photoSrc));
-                        }
-                    });
-                })
+				$('#photo').change(
+					function () {
+						fileViewer($('#photo')[0].files[0],
+							$('#photoUpdateShow'));
+					})
+				$('#photoUpdata').click(memberphotoUpdata)
 
-        }
+			});
 
-        function editInput(td, key) {
-            var val = $(memberinfo).attr(key);
-            var input = $(td).find('input')
-            if (val != null)
-                input.val(val);
-        }
+		function memberphotoUpdata() {
+			var file = $('#photo')[0].files[0];
+			if (file != null)
+				fileResizetoFile(file, 0.6, function (file) {
+					photoUpdate('/wegether/member/Info/photo', file,
+						function (data) {
+							var photoSrc = data["photoSrc"];
+							if (photoSrc != null) {
+								$('#photoShow').html(
+									$('<img/>').attr('src', photoSrc));
+							}
+						});
+				})
 
-        function editTextarea(td, key) {
-            var val = $(memberinfo).attr(key);
-            if (val != null)
-                $(td).find('textarea').val(val);
-        }
+		}
 
-        function editAddr(tr) {
-            var city = $(memberinfo).attr('city');
-            var addr = $(memberinfo).attr('addr');
-            if (city != null && addr != null) {
-                $(tr).find('select[name="city"]').val(city);
-                $(tr).find('input').val($(memberinfo).attr("addr"));
-            }
-        }
+		function editInput(td, key) {
+			var val = $(memberinfo).attr(key);
+			var input = $(td).find('input')
+			if (val != null)
+				input.val(val);
+		}
 
-        function city(i) {
-            switch (i) {
-                case 1:
-                    return "台北市";
-                case 2:
-                    return "新北市";
-                default:
-                    return null;
-            }
-        }
-    </script>
+		function editTextarea(td, key) {
+			var val = $(memberinfo).attr(key);
+			if (val != null)
+				$(td).find('textarea').val(val);
+		}
 
-    <link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+		function editAddr(tr) {
+			var city = $(memberinfo).attr('city');
+			var addr = $(memberinfo).attr('addr');
+			if (city != null && addr != null) {
+				$(tr).find('select[name="city"]').val(city);
+				$(tr).find('input').val($(memberinfo).attr("addr"));
+			}
+		}
 
-        body {
-            width: 800px;
-            min-hight:450px;
-            background-color: rgba(0, 0, 0, 0);
-        }
+		function editFavorite(td, key) {
+			var selectFavorite = $('select[name="favorite"]').html("")
+			var val = $(memberinfo).attr(key);
+			var vals;
+			if (val == null) {
+				vals = [];
+			} else {
+				vals = val.split(',');
+			}
+			var favoritediv=$('#favorite form .favoritediv').html("");
+			$.each(vals, function(i,e){
+				favoritediv.append($('<div/>').val(e).text(e).append($('<button type="button">&times;</button>')))
+			})
+			$.each(favorite, function (i, e) {
+				var re = 0;
+				$.each(vals, function (i2, e2) {
+					if (e == e2) {
+						re++;
+					}
+				})
+				if (re == 0) {
+					selectFavorite.append($('<option/>').val(e).text(e))
+				}
+			})
+		}
+	</script>
 
-        .setting1 {
-            display: inline-block;
-            vertical-align: top;
-            /* padding:10px; */
-        }
+	<link href="../css/body.css" rel="stylesheet" type="text/css" media="all" />
 
-        .setting1 table {
-            /* background-color: red; */
-            border-top: 3px solid rgba(0, 44, 95, 0.3);
-            border-bottom: 3px solid rgba(0, 44, 95, 0.3);
-            border-collapse: collapse;
-        }
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
 
-        .setting1 tr {
-            vertical-align: top;
-        }
+		body {
+			width: 800px;
+			min-height: 600px;
+			background-color: rgba(0, 0, 0, 0);
+		}
 
-        .setting1 td {
-            padding: 10px;
-            border-top: 1.5px solid rgba(0, 44, 95, 0.2);
-        }
+		.setting1 {
+			display: inline-block;
+			vertical-align: top;
+			/* padding:10px; */
+		}
 
-        .setting1 tr td:nth-child(2) {
-            width: 360px;
-        }
+		.setting1 table {
+			/* background-color: red; */
+			border-top: 3px solid rgba(0, 44, 95, 0.3);
+			border-bottom: 3px solid rgba(0, 44, 95, 0.3);
+			border-collapse: collapse;
+		}
 
-        .photoDiv {
-            display: inline-block;
-            vertical-align: top;
-            width: 150px;
-            margin-left: 20px;
-        }
-        .photoDiv>div{
-        	position: relative;
-        	display: table;
-        	background:rgba(255, 255, 255,0.3);
-        }
-        .photoDiv div, img, canvas{
-            border-radius: 100px;
-             height: 150px;
-            width: 150px;
-        }
-        
-        .photoDiv p {
-            margin :0 0 0 0;
-            text-align: center;
-            font-size:18px;
-            vertical-align: middle;
-            display: table-cell; 
-        }
+		.setting1 tr {
+			vertical-align: top;
+		}
 
-        .notinput {
-            color: grey
-        }
+		.setting1 td {
+			padding: 10px;
+			border-top: 1.5px solid rgba(0, 44, 95, 0.2);
+		}
 
-        #photoShow {       
-            position: absolute;
-            top: 0px;
-            left: 0px;
-        }
-        
+		.setting1 tr td:nth-child(2) {
+			width: 360px;
+		}
 
-        #photobutton {
-            background: rgba(0, 0, 0,0);
-            cursor: pointer;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            padding: 50px;
+		.photoDiv {
+			display: inline-block;
+			vertical-align: top;
+			width: 150px;
+			margin-left: 20px;
+		}
 
-        }
+		.photoDiv>div {
+			position: relative;
+			display: table;
+			background: rgba(255, 255, 255, 0.3);
+		}
 
-        #photobutton:hover {
-            background: rgba(0, 0, 0, 0.185);
-        }
-        
-        .modal-backdrop{
-        	background-color: rgba(0,0, 0, 0);
-        }
-        
-    </style>
+		.photoDiv div,
+		img{
+			border-radius: 100px;
+			height: 150px;
+			width: 150px;
+		}
+
+		.photoDiv p {
+			margin: 0 0 0 0;
+			text-align: center;
+			font-size: 18px;
+			vertical-align: middle;
+			display: table-cell;
+		}
+
+		.notinput {
+			color: grey
+		}
+
+		#photoShow {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
+
+		#photobutton {
+			background: rgba(0, 0, 0, 0);
+			cursor: pointer;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			padding: 50px;
+		}
+
+		#photobutton:hover {
+			background: rgba(0, 0, 0, 0.185);
+		}
+
+		.modal-backdrop {
+			background-color: rgba(0, 0, 0, 0);
+		}
+		
+		.favoritediv{
+			display:inline-block;
+			
+		}
+		.favoritediv>div{
+			display:inline-block;
+			min-width:50px;
+			height:25px;
+			background-color:rgb(65, 155, 199);
+			color:white;
+			padding-left:5px;
+			margin: 0 5px;
+		}
+		.favoritediv button{
+			    background-color: initial;
+    		margin: 0;
+		}
+		
+		#addFavorite{
+			margin:0;
+		}
+		
+		.minBox {
+			position: absolute;
+			height: 8px;
+			width: 8px;
+			background-color: white;
+		}
+
+		.right-down {
+			bottom: -4px;
+			right: -4px;
+			cursor: se-resize;
+		}
+
+		#cutBox {
+			border: 1px solid white;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 150px;
+			height: 150px;
+			cursor: move;
+		}
+
+		#cropBox {
+			position: relative;
+		}
+		#opaque{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
 </head>
 
 <body>
-    <div class='body'>
-        <div class="setting1">
-            <table>
-                <tr id="name">
-                    <td>姓名</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="nickname">
-                    <td>暱稱</td>
-                    <td></td>
-                    <td style="display: none;">
-                        <form>
-                            <input type="text" name="nickname" id="" value="" />
-                            <br/>
-                            <button type="button">儲存</button>
-                        </form>
-                    </td>
-                    <td>
-                        <button type="button">編輯</button>
-                    </td>
-                </tr>
-                <tr id="birthday">
-                    <td>生日</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="sex">
-                    <td>性別</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="job">
-                    <td>職業</td>
-                    <td></td>
-                    <td style="display: none;">
-                        <form>
-                            <input type="text" name="job" id="" value="" />
-                            <br/>
-                            <button type="button">儲存</button>
-                        </form>
-                    </td>
-                    <td>
-                        <button type="button">編輯</button>
-                    </td>
-                </tr>
-                <tr id="addrs">
-                    <td>居住地區</td>
-                    <td></td>
-                    <td style="display: none;">
-                        <form>
-                            <select name="city">
-                                <option value="1">台北</option>
-                                <option value="2">新北</option>
-                            </select>
-                            <input type="text" name="addr" id="" value="" />
-                            <br/>
-                            <button type="button">儲存</button>
-                        </form>
-                    </td>
-                    <td>
-                        <button type="button">編輯</button>
-                    </td>
-                </tr>
-                <tr id="tel">
-                    <td>電話</td>
-                    <td></td>
-                    <td style="display: none;">
-                        <form>
-                            <input type="text" name="tel" id="" value="" />
-                            <br/>
-                            <button type="button">儲存</button>
-                        </form>
-                    </td>
-                    <td>
-                        <button type="button">編輯</button>
-                    </td>
-                </tr>
-                <tr id="content">
-                    <td>自我介紹</td>
-                    <td></td>
-                    <td style="display: none;">
-                        <form>
-                            <textarea name="content" id="" cols="40" rows="5"> </textarea>
-                            <br/>
-                            <button type="button">儲存</button>
-                        </form>
-                    </td>
-                    <td>
-                        <button type="button">編輯</button>
-                    </td>
-                </tr>
-                <tr id="favorite">
-                    <td>喜好活動類型</td>
-                    <td></td>
-                    <td style="display: none;">
-                        <form>
-                            <input type="text" name="favorite" id="" value="" />
-                            <br/>
-                            <button type="button">儲存</button>
-                        </form>
-                    </td>
-                    <td>
-                        <button type="button">編輯</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="photoDiv">
-        	<div>
-        	<p>大頭照</p>
-            <div id="photoShow">
-            </div>
-            <div id="photobutton" data-toggle="modal" data-target="#myModal"></div>   
-            </div>  
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+	<div class='body'>
+		<div class="setting1">
+			<table>
+				<tr id="name">
+					<td>姓名</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr id="nickname">
+					<td>暱稱</td>
+					<td></td>
+					<td style="display: none;">
+						<form>
+							<input type="text" name="nickname" id="" value="" />
+							<br />
+							<button class="submit" type="button">儲存</button>
+						</form>
+					</td>
+					<td>
+						<button type="button">編輯</button>
+					</td>
+				</tr>
+				<tr id="birthday">
+					<td>生日</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr id="sex">
+					<td>性別</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr id="job">
+					<td>職業</td>
+					<td></td>
+					<td style="display: none;">
+						<form>
+							<input type="text" name="job" id="" value="" />
+							<br />
+							<button class="submit" type="button">儲存</button>
+						</form>
+					</td>
+					<td>
+						<button type="button">編輯</button>
+					</td>
+				</tr>
+				<tr id="addrs">
+					<td>居住地區</td>
+					<td></td>
+					<td style="display: none;">
+						<form>
+							<select name="city">
+								<option value="">--請選擇--</option>
+							</select>
+							<input type="text" name="addr" id="" value="" />
+							<br />
+							<button class="submit" type="button">儲存</button>
+						</form>
+					</td>
+					<td>
+						<button type="button">編輯</button>
+					</td>
+				</tr>
+				<tr id="tel">
+					<td>電話</td>
+					<td></td>
+					<td style="display: none;">
+						<form>
+							<input type="text" name="tel" id="" value="" />
+							<br />
+							<button class="submit" type="button">儲存</button>
+						</form>
+					</td>
+					<td>
+						<button type="button">編輯</button>
+					</td>
+				</tr>
+				<tr id="content">
+					<td>自我介紹</td>
+					<td></td>
+					<td style="display: none;">
+						<form>
+							<textarea name="content" id="" cols="40" rows="5"> </textarea>
+							<br />
+							<button class="submit" type="button">儲存</button>
+						</form>
+					</td>
+					<td>
+						<button class="submit" type="button">編輯</button>
+					</td>
+				</tr>
+				<tr id="favorite">
+					<td>喜好活動類型</td>
+					<td ></td>
+					<td style="display: none;">
+						<form>
+							<div class="favoritediv"></div><select name="favorite">
+							</select>
+							<button type="button" id="addFavorite">增加</button>
+							<br />
+							<button class="submit" id="sedfavorite" type="button">儲存</button>
+						</form>
+					</td>
+					<td>
+						<button type="button">編輯</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="photoDiv">
+			<div>
+				<p>大頭照</p>
+				<div id="photoShow"></div>
+				<div id="photobutton" data-toggle="modal" data-target="#myModal"></div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">挑選一張相片</h4>
-                </div>
-                <div class="modal-body">
-                 	<div id="photoUpdateShow">
-            		</div>
-                   <input type="file" name="photo" id="photo" accept="image/*">
-                </div>
-                <div class="modal-footer">
-                 	<button type="button" id='photoUpdata' class="btn btn-default" data-dismiss="modal">上傳</button>
-                </div>
-            </div>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">挑選一張相片</h4>
+				</div>
+				<div class="modal-body">
+						<div id="cropBox">
+								<div id="photoUpdateShow"></div>
+								<canvas id="opaque"></canvas>
+								<div id="cutBox" hidden>
+									<div id="rightdown" class="minBox right-down"></div>
+								</div>
+							</div>
+					<input type="file" name="photo" id="photo" accept="image/*">
+				</div>
+				<div class="modal-footer">
+					<button type="button" id='photoUpdata' class="btn btn-default" data-dismiss="modal">上傳</button>
+				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 
 
 </body>
+
 </html>

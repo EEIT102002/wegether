@@ -70,14 +70,14 @@ public class indexSelectPoController {
 		List<Object[]> resultlist = new ArrayList<>();
 		if(result.size()>0) {
 			result.forEach(bean->{
-			Object[] obj = new Object[4];
+			Object[] obj = new Object[5];
 			
 				sessionFactory.getCurrentSession().evict(bean);
 				obj[0] = bean;
 				obj[1] = "/wegether/activity/photo/"+bean.getId();
 				obj[2] = bean.getMemberBean().getNickname();
 				obj[3] = "/wegether/member/photo/"+bean.getMemberBean().getId();
-				
+				obj[4] = bean.getMemberBean().getId();
 				
 				bean.setMemberBean(null);
 				bean.setArticleBean(null);
