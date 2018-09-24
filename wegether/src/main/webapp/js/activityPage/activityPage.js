@@ -1,5 +1,4 @@
 $(function(){
-	
 	if(actState==0){
 		console.log("state3="+actState)
 		 $("#demoArticle").hide();
