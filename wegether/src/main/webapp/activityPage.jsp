@@ -7,20 +7,19 @@
 <html>
 <head>
 <title>ActivityPage</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
 <!-- 活動頁面使用  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/wegether/css/activityPage.css">
+<script type="text/javascript" src="/wegether/js/headerfootertest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/activityPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/msgPage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/starPage.js"></script>
-
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
@@ -464,7 +463,6 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		</div>
 	</div>
 	<!-- 推薦活動給好友 END-->
-	
 	<jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>
 </body>
 <script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>

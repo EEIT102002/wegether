@@ -201,12 +201,9 @@
 	font-size: 1.5em;
 	padding-bottom:5px;
 }
-.Fb_i{
-	background-color: #3C599B;   
-}
-.Fb_i:hover{
-	background-color: rgb(30, 68, 156);   
-}
+/* .Fb_i{ */
+/* 	background-color: rgb(66,103,178);    */
+/* } */
 .Google_i{
 	background-color: #DE4F42;
 }

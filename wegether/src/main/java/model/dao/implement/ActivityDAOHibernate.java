@@ -41,7 +41,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery("from ActivityBean", ActivityBean.class).list();
 	}
 
-	private final String selectAllState = "from ActivityBean  WHERE state=0";
+	private final String selectAllState = "from ActivityBean  WHERE state=0 ORDER BY id DESC";
 
 	@Override
 	public List<ActivityBean> selectAllState() {
