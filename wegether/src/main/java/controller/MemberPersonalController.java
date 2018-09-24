@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import Service.MidAndIdCheckServices;
+import javassist.expr.NewArray;
 import model.ActivityBean;
 import model.AttendBean;
 import model.BlacklistBean;
@@ -138,15 +139,14 @@ public class MemberPersonalController {
 			@RequestAttribute(name = "memberid", required = false) Integer id) {
 		
 		//檢查是否有收到memberid
-		
-		
+		//登入下拉選單看自己的個人頁面 只須給登入id
+		if(memberId==null) {
+			memberId=id;
+		}
 		//檢查memberid和id關西
 		int status =midAndIdCheckServices.check(id, memberId);// 狀態 1好友2非好友3黑名單4非會員未登入5自己
 		int memberid = memberId;
-		//防意外狀況
-		if(memberid==0) {
-			memberid=id;
-		}
+
 		System.out.println("login=" + id);
 		System.out.println("member=" + memberid);
 		System.out.println("檢查後狀態為" + status);

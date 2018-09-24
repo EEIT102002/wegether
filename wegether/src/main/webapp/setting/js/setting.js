@@ -1,14 +1,14 @@
 var iframe;
 $(document).ready(function () {
 	iframe = $('iframe');
-	
+
 	var page = new URL(window.location.href).searchParams.get("page");
 	
 	if( page != null && page != ""){
 		$('#list li').eq(page).addClass('choose').siblings(".choose").removeClass('choose');
 		loadIframe('./setting/' + (parseInt(page)+1) + '.html')
 	}
-	
+
 	$("#list").on('click', 'li', function () {
 		var div = $(this);
 		div.siblings(".choose").removeClass('choose');
@@ -41,7 +41,7 @@ $(document).ready(function () {
 })
 
 function loginDo(){
-	loadIframe('./setting/1.html');
+	goPage();
 }
 
 function loadIframe(url) {
@@ -52,6 +52,17 @@ function logoutDo() {
 	location.replace("/wegether/index.jsp");
 }
 
+
+function goPage(){
+	var page = new URL(window.location.href).searchParams.get("page");
+	
+	if( page != null && page != ""){
+		$('#list li').eq(page).addClass('choose').siblings(".choose").removeClass('choose');
+		loadIframe('./setting/' + (parseInt(page)+1) + '.html')
+	}else{
+		loadIframe('./setting/1.html');
+	}
+}
 //function loginfail(){
 //	location.replace("/wegether/index.jsp");
 //}
