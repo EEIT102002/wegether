@@ -63,7 +63,7 @@ function goPage(){
 		loadIframe('./setting/1.html');
 	}
 }
-//function loginfail(){
-//	location.replace("/wegether/index.jsp");
-//}
+function loginfail(){
+	location.replace("/wegether/index.jsp");
+}
 

@@ -12,8 +12,6 @@ function logoutDo() {
 
 }
 function connectTo(memberInfo){
-	alert('connectTo:'+memberInfo[0][0].id)
-	alert(memberInfo[0][0].name)
 	$.ajax({
 		url:'/wegether/personal.controller',
 		data:{
