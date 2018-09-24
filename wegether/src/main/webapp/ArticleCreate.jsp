@@ -41,7 +41,7 @@
 				<table>
 					<tr>
 						<td>聚會標題</td>
-						<td>${param.actname}<input type="hidden" value="${param.actid}" name="actid"/></td>
+						<td>${param.actname}${actname}<input type="hidden" value="${param.actid}" name="actid"/></td>
 					</tr>
 					<tr>
 						<td>心得</td>

@@ -34,7 +34,12 @@
 
 var activityid = ${actBean.id};
 var actState = ${state};
+alert("actState:"+actState)
 
+
+
+
+console.log("state1:"+actState);
 var friendbuttonText = '推薦'
 var  actPicListSize;
 
@@ -43,8 +48,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
  }else{
 	 actPicListSize =0;
  }
-// alert("actPicListSize"+actPicListSize)
-
+alert("actPicListSize"+actPicListSize)
 
 // var flag=0;
 	$(function() {
@@ -70,7 +74,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
 			 $("#demoArticle").hide();
 			 $("#demo").show();
-			 getMsgs(activityid);
+			 getMsgs("${actBean.id}");
 		})
 		
 		// 切換心得分享版面
@@ -79,7 +83,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
 			 $("#demo").hide();
 			 $("#demoArticle").show();
-			 getArticles(activityid); //載入心得
+			 getArticles("${actBean.id}"); //載入心得
 			 
 		})
 		
@@ -88,19 +92,17 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		
 		
 		 //載入留言 
-
 // 		 console.log(${actBean.id});
 		 getMsgs("${actBean.id}");
 		 
 		//清除留言預設文字
-
 		 $('#txt').click(function(){
 			 $("#txt").val('');
 		});
 		 
 		//新增留言
 		 $('#txtbut').click(function(){
-			 postMsgs(activityid,"${memberid}","${actBean.state}",$("#txt").val()); 
+			 postMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val()); 
 			 $("#txt").val('');
 		});
 			
@@ -108,19 +110,19 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			$('#demo').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-				 	 deleteMsgs(activityid,"${memberid}","${actBean.state}",temp);
+				 	 deleteMsgs("${actBean.id}","${memberid}","${actBean.state}",temp);
 		    		 $("#txt").val('');
 		        }
 		    });
 		
 		 //載入心得
-// 		 getArticles(activityid);
+// 		 getArticles();
 		 
 		//刪除心得
 			$('#demoArticle').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
-					var articleid = $(event.target).attr("articleid")
-				 	 deleteArticles(articleid);
+					var temp = $(event.target).attr("msgid")
+				 	 deleteArticles("${actBean.id}","${memberid}","${actBean.state}",temp);
 		        }
 		    });
 		
@@ -137,8 +139,8 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-// 				alert("actname:"+$('#right>h3').val())
-				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#right>h3').val();
+				//alert("actname:"+$('#gettitle').val())
+				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#gettitle').val();
 			})
 		
 	})
@@ -217,18 +219,12 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 							<div id="left" style="width: auto;">
 								<a href="personal.controller?memberId=${hostBean.id}"  style="text-decoration:none;">
 								<img 	src="/wegether/member/photo/${hostBean.id}"							
-									class="img-circle" width="70" height="70"> </a>								
+									class="img-circle" width="70" height="70"> </a>
 							</div>
 							<div id="left" style="width: auto;">
-								<p id="txtup" >${hostBean.nickname}</p>
+								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
 								<p id="txtup">${hostBean.job}</p>
 							</div>
-							&emsp;
-						      
-							
-							
-							
-							
 							<div id="right">
 								<c:if test="${empty memberid}">
 									<a href="#" class="tooltip-test" title="推薦給好友" data-toggle="modal" data-target="#ActPageBox" style="text-decoration:none;">  
@@ -271,7 +267,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 
 					<!-- 上右區塊  -->
 					<div id="right">
-						<h3>${actBean.title}</h3>
+						<h3 class="getTitle">${actBean.title}</h3>
 						<!-- right1 end -->
 						<p>${actbegin}</p>
 						<!-- right2 end -->
@@ -365,7 +361,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 				<!-- 上面區 end -->
 				<!-- 下面區塊 -->
 				<div id="down">
-					<h2>${actBean.title}</h2>
+					<h2>${actBean.title}</h2><input type="hidden" value="${actBean.title}" id="gettitle">
 					<p>${actBean.content}</p>
 					</br>
 
