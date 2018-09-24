@@ -60,7 +60,7 @@
                 <div class="vl">
                 </div>
                 <div id="maindiv">
-                    <iframe frameborder="0" scrolling="no"></iframe>
+                    <iframe frameborder="0" scrolling="no" id="settingchild"></iframe>
                 </div>
             </div>
         </div>

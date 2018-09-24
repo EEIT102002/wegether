@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
 
-<!-- 	connection local DB -->
-<!--     <Resource name="jdbc/wegether" -->
+
+
+
+<!-- 	connection cloud DB -->
+<!-- 	<Resource name="jdbc/wegether" -->
+
 <!--           auth="Container" -->
 <!--           type="javax.sql.DataSource" -->
 <!--           username="sa" -->
@@ -10,8 +14,6 @@
 <!--           driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
 <!--           url="jdbc:sqlserver://localhost:1433;database=wegether"/> -->
 	
-	
-<!-- 	connection cloud DB -->
 	<Resource name="jdbc/wegether"
           auth="Container"
           type="javax.sql.DataSource"
