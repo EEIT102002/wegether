@@ -432,8 +432,8 @@
 					</div>
 					<!--change_fourth end -->
 				</div>
-			${mem.content}
-			</input>
+<%-- 			${mem.content} --%>
+<!-- 			</input> -->
 			</div>
 			<!-- core end -->
 
