@@ -11,10 +11,23 @@ function imagetoCanvas(image) {
     var ctx = cvs.getContext('2d');
     var width = image.width;
     var height = image.height;
-    var qrt = width < height ? width : height;
-    cvs.width = 150;
-    cvs.height = 150;
-    ctx.drawImage(image, 0, 0,qrt,qrt,0,0,150, 150);
+    var qrt = width < height ? width/300 : height/300;
+    cvs.width = width/qrt;
+    cvs.height = height/qrt;
+    ctx.drawImage(image, 0, 0,width,height,0,0, width/qrt, height/qrt);
+    return cvs;
+};
+
+
+function imagetoCanvasCut(image,top,left,side) {
+    var cvs = document.createElement("canvas");
+    var ctx = cvs.getContext('2d');
+    var width = image.width;
+    var height = image.height;
+    var qrt = width < height ? width/300 : height/300;
+    cvs.width = side;
+    cvs.height = side;
+    ctx.drawImage(image, left*qrt, top*qrt,side*qrt,side*qrt,0,0,side,side);
     return cvs;
 };
 
@@ -40,15 +53,15 @@ function dataURLtoImage(dataurl, fn) {
     img.src = dataurl;
 };
 
-function fileResizetoFile(file, quality, fn) {
+function fileResizetoFile(file, quality,top,left,side, fn) {
     filetoDataURL(file, function (dataurl) {
         dataURLtoImage(dataurl, function (image) {
-            canvasResizetoFile(imagetoCanvas(image), quality, fn);
+            canvasResizetoFile(imagetoCanvasCut(image,top,left,side), quality, fn);
         })
     })
 }
 
-function fileViewer(file,div) {
+function fileViewer(file,div,fn) {
     //1. 建立FileReader物件
     var rd = new FileReader();
     //2. 使用readAsDataURL方法，讀取檔案內容
@@ -58,6 +71,7 @@ function fileViewer(file,div) {
         var img = e.target.result;
         dataURLtoImage(img, function (image) {
             div.html(imagetoCanvas(image));
+            fn(div);
         })
     };
     rd.readAsDataURL(file);

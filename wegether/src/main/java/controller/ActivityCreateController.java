@@ -34,7 +34,7 @@ import model.dao.ActivityDAO;
 import model.dao.PictureDAO;
 
 @Controller
-@SessionAttributes(names = { "errMsgs"})
+@SessionAttributes(names = { "errMsgs" })
 public class ActivityCreateController {
 
 	@Autowired
@@ -59,9 +59,8 @@ public class ActivityCreateController {
 			@RequestParam(value = "applyform", required = false) String applyform,
 			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
 			@RequestAttribute(value = "memberid", required = false) Integer id,
-			@RequestParam(value = "setFormOrNot", required = false) String setForm,
-			HttpServletRequest request, Model model)
-			throws ParseException, IOException {
+			@RequestParam(value = "setFormOrNot", required = false) String setForm, HttpServletRequest request,
+			Model model) throws ParseException, IOException {
 		System.out.println(activityBean);
 
 		if (id == null) {
@@ -77,7 +76,7 @@ public class ActivityCreateController {
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 
 		byte[] pic = null;
-		if (!file.isEmpty()) { // 圖片判定
+		if (file != null || !file.isEmpty()) { // 圖片判定
 			System.out.println("has pic");
 			pic = file.getBytes();
 			activityBean.setPicture(pic);
@@ -145,22 +144,22 @@ public class ActivityCreateController {
 		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
-		
-		if(applyform == null) {
-			applyform = "";
-		}
 
-		JSONObject formJson = activityFormService.stringToJsonObject(applyform);
-		
-		if (setForm != null && "yes".equals(setForm)) {
-			formJson.put("hasForm", true);
-		} else {
-			formJson.put("hasForm", false);	
-		}
-		
-		applyform = formJson.toString();
-		activityBean.setForm(applyform);
-		
+		 if (applyform == null) {
+		 applyform = "";
+		 }
+
+		 JSONObject formJson = activityFormService.stringToJsonObject(applyform);
+		 
+		 if (setForm != null && "yes".equals(setForm)) {
+			 formJson.put("hasForm", true);
+		 } else {
+			 formJson.put("hasForm", false);
+		 }
+
+		 applyform = formJson.toString();
+		 activityBean.setForm(applyform);
+
 		System.out.println(startDate);
 		System.out.println(starttime);
 		System.out.println(activityBean);
@@ -180,12 +179,17 @@ public class ActivityCreateController {
 
 			if (files != null && files.length > 0) {
 				for (int i = 0; i < files.length; i++) {
-					byte[] pics = files[i].getBytes();
-					PictureBean pictureBean2 = (PictureBean) context.getBean("pictureBean");
-					pictureBean2.setActivityid(activityid);
-					pictureBean2.setPicture(pics);
-					pictureDAO.insert(pictureBean2);
+					if (files[i].isEmpty()) {
+						System.out.println("picture is empty");
+					} else {
+						byte[] pics = files[i].getBytes();
+						PictureBean pictureBean2 = (PictureBean) context.getBean("pictureBean");
+						pictureBean2.setActivityid(activityid);
+						pictureBean2.setPicture(pics);
+						pictureDAO.insert(pictureBean2);
+					}
 				}
+
 			}
 			request.setAttribute("id", activityBean.getId());
 			request.setAttribute("ntype", 11);

@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//TW" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>我要揪團</title>
+<title>Home</title>
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
@@ -13,8 +13,9 @@
 <script type="text/javascript" src="js/createApplyForm.js"></script>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
 <link rel="stylesheet" href="css/createApplyForm.css" />
-<!-- <link rel="stylesheet" type="text/css" href="css/default.css"> -->
+<link rel="stylesheet" type="text/css" href="css/default.css">
 <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<!-- <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 <script src="js/fileinput.js" type="text/javascript"></script>
 <script>
 	$(function() {
@@ -40,7 +41,7 @@
 			$('.form-group').css('display', 'block');
 			$('#addOtherPics').css('display', 'none');
 		})
-	})
+	});
 	$(function() {
 		var now = new Date();
 		if ((now.getMonth() + 1) < 10 && now.getDate() < 10) {
@@ -137,8 +138,8 @@
 		}
 	}
 
-	$(document).ready(function() {
-		$('input.timepicker').timepicker({});
+	$(function() {
+		$('input.timepicker').timepicker();
 	});
 
 	$(function() {
@@ -190,6 +191,49 @@
 	});
 </script>
 <style>
+* {
+	/*         list-style: none; */
+	margin: 0;
+	padding: 0;
+}
+body {
+	/* background-color: rgb(145, 145, 145);
+         */
+	background: url(images/v6.jpg) no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+#small_con {
+	width: 100%;
+	min-height: 800px;
+	background-color: rgba(255, 255, 255, 0.363);
+}
+footer {
+	margin-top: 20px;
+}
+footer ul {
+	text-align: center;
+	/* border: 2px solid red; */
+	display: flex;
+	width: 70%;
+	margin: auto;
+}
+footer>ul>li {
+	/* border: 2px solid green; */
+	flex: 1;
+}
+footer>ul>li a {
+	font-size: 1.2em;
+}
+footer>ul>li ul {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	color: rgb(255, 153, 0);
+}
+.container p {
+	color: white;
+}
 .selPic {
 	height: 180px;
 	border-radius: 15px;
@@ -215,7 +259,7 @@
 					</tr>
 					<tr>
 						<td>其他照片</td>
-						<td><input type="button" value="我要上傳照片" id="addOtherPics" />
+						<td><input type="button" value="我要上傳心得照片" id="addOtherPics" />
 							<div class="form-group" style="display: none">
 								<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
 									   data-min-file-count="2" name="multipicture">
@@ -246,11 +290,12 @@
 					</tr>
 					<tr>
 						<td>聚會類型</td>
-						<td><input type="checkbox" name="classtype" value="運動">運動
-							<input type="checkbox" name="classtype" value="休閒">休閒
-							<input type="checkbox" name="classtype" value="音樂">音樂
-							<input type="checkbox" name="classtype" value="美食">美食
-							<input type="checkbox" name="classtype" value="聊天">聊天</td>
+						<td><input type="checkbox" name="classtype" value="輕鬆聊">輕鬆聊
+							<input type="checkbox" name="classtype" value="浪漫約會">浪漫約會
+							<input type="checkbox" name="classtype" value="寵物">寵物
+							<input type="checkbox" name="classtype" value="桌遊">桌遊
+							<input type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青
+							<input type="checkbox" name="classtype" value="電影">電影</td>
 					</tr>
 					<tr>
 						<td>城市/所在地</td>
@@ -325,6 +370,10 @@
 												id="actPiczone" class="actPic"></td>
 										</tr>
 										<tr>
+											<td>其他照片</td>
+											<td><div id="otherPic"></div></td>
+										</tr>
+										<tr>
 											<td>聚會標題</td>
 											<td id="actName"></td>
 										</tr>
@@ -390,7 +439,7 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-body formbody" id="mid-body">
+							<div class="modal-body" id="mid-body">
 								<div id="applyForm" style="font-size: 16px;">
 									<div id="template" style="display: none;">
 										<div class="inputDiv_applyForm">
@@ -419,13 +468,12 @@
 									</div>
 									<div id="formDiv_applyForm"></div>
 									<div>
-										<button type="button" class="add btn btn-default">新增問題</button>
+										<button type="button" class="add">新增問題</button>
+										<button type="button" id="save">儲存</button>
 									</div>
 								</div>
 							</div>
-							<div class="modal-footer">
-								<button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
-							</div>
+							<div class="modal-footer"></div>
 						</div>
 					</div>
 				</div>

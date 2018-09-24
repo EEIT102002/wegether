@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import model.ActivityBean;
 import model.ArticleBean;
 import model.PictureBean;
+import model.dao.ActivityDAO;
 import model.dao.ArticleDAO;
 import model.dao.PictureDAO;
 import pictureconvert.PictureConvert;
@@ -31,6 +33,9 @@ public class ArticleEditController {
 
 	@Autowired
 	PictureDAO pictureDAO;
+
+	@Autowired
+	ActivityDAO activityDAO;
 
 	@Autowired
 	ApplicationContext context;
@@ -48,12 +53,16 @@ public class ArticleEditController {
 
 		model.addAttribute("artid", artid);
 
-		ArticleBean articleResult = articleDAO.select(artid); // 改
+		ArticleBean articleResult = articleDAO.select(artid);
 		model.addAttribute("articleResult", articleResult);
+
+		Integer actid = articleResult.getActivityid();
+		String titleOfActivity = activityDAO.selectId(actid).getTitle();
+		model.addAttribute("title",titleOfActivity);
 
 		List<String> articlePics = new ArrayList<>();
 		List<Integer> picIds = new ArrayList<>();
-		List<PictureBean> pictureResult = pictureDAO.selectByArticle(artid); // 改
+		List<PictureBean> pictureResult = pictureDAO.selectByArticle(artid);
 
 		int len = pictureResult.size();
 		if (len == 0) {
