@@ -34,7 +34,6 @@
 
 var activityid = ${actBean.id};
 var actState = ${state};
-// alert("actState:"+actState)
 
 var friendbuttonText = '推薦'
 var  actPicListSize;
@@ -45,6 +44,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize =0;
  }
 // alert("actPicListSize"+actPicListSize)
+
 
 // var flag=0;
 	$(function() {
@@ -88,8 +88,12 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		
 		
 		 //載入留言 
-		 getMsgs(activityid);
-	//清除留言預設文字
+
+// 		 console.log(${actBean.id});
+		 getMsgs("${actBean.id}");
+		 
+		//清除留言預設文字
+
 		 $('#txt').click(function(){
 			 $("#txt").val('');
 		});
