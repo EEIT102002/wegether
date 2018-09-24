@@ -55,7 +55,7 @@ $(function () {
 })
 
 function logingroup(data){
-	alert('typeof window.loginDo')
+
 	 if(typeof window.loginDo === "function") {
      	loginDo();//登入後要做的方法放在loginDo()
      }

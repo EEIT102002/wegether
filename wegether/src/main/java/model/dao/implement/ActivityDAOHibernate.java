@@ -215,42 +215,11 @@ public class ActivityDAOHibernate implements ActivityDAO {
 			}
 		}
 		if (title != "" && title.length() != 0)
-			selectOfIndex = selectOfIndex + " and title like \'%" + title + "%\'";
+			selectOfIndex = selectOfIndex + " and title like N\'%" + title + "%\'";
 
 		return this.getSession().createNativeQuery(selectOfIndex, ActivityBean.class).list();
 	}
-//	private String selectOfIndex = "select * from Activity  WHERE ";
-//
-//	@Override
-//	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype) {
-//		String selectOfIndex = "select * from Activity  WHERE ";
-//		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
-//
-//			selectOfIndex = selectOfIndex + " actbegin >='" + beginDate + "'AND actend <='" + endDate + "'and [state]="+ state;
-//		} else if (beginDate == "" && endDate != "") {
-//			selectOfIndex = selectOfIndex + "actend <='" + endDate + "'and [state]=" + state;
-//		} else if (endDate == "" && beginDate != "") {
-//			selectOfIndex = selectOfIndex + "actbegin >='" + beginDate + "'and [state]=" + state;
-//		} else
-//			selectOfIndex = selectOfIndex + "[state]=" + state;
-//
-//		if (city != 0)
-//			selectOfIndex = selectOfIndex + " and city=" + city;
-//
-//		if (classtype != null && classtype.length() != 0) {
-//			String[] CTArray = classtype.split(",");
-//			if (CTArray.length == 1) {
-//				selectOfIndex = selectOfIndex + " and classtype=\'" + CTArray[0] + "\'";
-//			} else {
-//				selectOfIndex = selectOfIndex + " and classtype in(\'" + CTArray[0] + "\'";
-//				for (int i = 1; i < CTArray.length; i++) {
-//					selectOfIndex += ",'" + CTArray[i] + "\'";
-//				}
-//				selectOfIndex += ")";
-//			}
-//		}
-//		return this.getSession().createNativeQuery(selectOfIndex, ActivityBean.class).list();
-//	}
+
 	@Override
 	public List<ActivityBean> selectOfIndexPo(int state, int city, String beginDate, String endDate, String classtype,
 			String title, List<Integer> Actid) {
