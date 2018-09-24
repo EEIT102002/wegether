@@ -156,7 +156,8 @@
 		}(document, 'script', 'facebook-jssdk'));
 
 		$(function() {
-			$("#loginFB").click(function() { //點擊登入按鈕	      
+			$("#loginFB").click(function() { //點擊登入按鈕	  
+				alert("onclick")
 			FB.getLoginStatus(function(response) { //檢查臉書登入狀態	        
 			if (response.authResponse) { //如果已經有授權過應用程式	
 			FB.api('/me',{fields : 'id,name,email,picture'},function(response) { //呼叫FB.api()取得使用者資料

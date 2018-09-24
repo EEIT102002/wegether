@@ -1,20 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Home</title>
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
 <script type="text/javascript" src="/wegether/js/personalLogin.js"></script>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
-</head>
-<body>
-	<jsp:include page="/ShareTemp/headertemp.jsp"></jsp:include>
-	<div class="container">
-		<div id="small_con">
 	<script>
+	
+	$(function() {
+		$('#header_nav ul li').click(function() {
+			$(this).addClass('active').siblings().removeClass('active');
+		})	
+	
+	
   // This is called with the results from from FB.getLoginStatus().
 //   function statusChangeCallback(response) {
 //     console.log('statusChangeCallback');
@@ -117,7 +121,9 @@
   
   var Fbid,Fbname,Fbemail;
   $(function() {
-		$("#loginFB").click(function() { //點擊登入按鈕	 
+		$("#loginFB").click(
+				
+		function(){ //點擊登入按鈕	 
 			alert('onclick');
 		FB.getLoginStatus(function(response) { //檢查臉書登入狀態	        
 		if (response.authResponse) { //如果已經有授權過應用程式	
@@ -129,14 +135,17 @@
 		Fbemail = response.email;
 		console.log("response.email:"+ response.email);
 		//取得資料送至controller比對
-		returnback();
+// 		returnback();
 // 		document.getElementById("fgName").value = response.name;
 // 		document.getElementById("fgEmail").value = response.email;
 // 		document.getElementById("fgPic").value = response.picture;
-// 		document.getElementById("click").click();});
+		document.getElementById("click").click();
+		});
 
-		}else { 							//沒授權過應用程式	          
-			FB.login(function(response) { //呼叫FB.login()請求使用者授權
+		}else { 	
+			//沒授權過應用程式	          
+			FB.login(function(response) { 
+				//呼叫FB.login()請求使用者授權
 				if (response.authResponse) {
 					FB.api('/me',{fields : 'id,name,email'},
 						function(response) {
@@ -151,7 +160,7 @@
 // 						document.getElementById("fgPic").value = response.picture;
 // 						document.getElementById("click").click();
 						//取得資料送至controller比對
-						returnback();
+// 						returnback();
 						});
 					}
 				},
@@ -225,9 +234,9 @@
   	}	
   	
   	
-    function myFun(){
-    	   alert("[JavaScript-基本類]按鈕的使用onClick-點擊按鈕時呼叫函數" + "<br>");
-    	  }
+  	$("#loginFB").click(function(){
+  		
+  	});
   	
   
 </script>
@@ -255,7 +264,7 @@
 <!-- 按鈕3 -->
 <!-- 按鈕4 -->
 <a href="#" id="loginFB" class="fa fa-facebook icon icon-border facebook">6666666666</a>
-<input type="button" value="請點擊" onClick="myFun()">
+<input type="button" value="請點擊" onClick="fb()">
 <!-- 按鈕4 -->
 	<div id="status"></div>
 <jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>
