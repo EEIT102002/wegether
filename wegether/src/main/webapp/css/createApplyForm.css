@@ -1,13 +1,25 @@
 #applyForm{
     font-size: 16px;
-    width: 550px;
+    width: 450px;
     list-style-type: decimal;
     font-size: initial !important;
     line-height:1.2;
 }
+
+#applyForm *{
+    font-size: 16px;
+    list-style-type: decimal;
+    line-height:1.2;
+}
+
+#applyForm ol{
+	padding-left:40px;
+}
+
+
 #formDiv_applyForm>div {
 	font-size: 16px;
-    width: 500px;
+    width: 450px;
 /*     background-color: rgba(200, 226, 255, 0.459); */
 /*     box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5); */
     /* overflow: auto; */
@@ -205,4 +217,14 @@
 .model-4 .checkbox_applyForm input:checked+label:after {
     background: #0078e9;
     left: 22px;
+}
+
+#setMyform .applyform{
+	min-width:650px;
+}
+#setMyform .formbody{
+	padding-left:0;
+	padding-right:0;
+	display:flex;
+    justify-content: center;
 }

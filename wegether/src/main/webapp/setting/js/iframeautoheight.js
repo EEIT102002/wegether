@@ -31,10 +31,11 @@ function createTemp(type){
 
 function iframe_auto_height() {
 	var iframe;
-	$(parent.document).find("iframe").map(function() { // 找到自己的iframe
-		if ($(this).contents().get(0).location == window.location)
-			iframe = this;
-	});
+//	$(parent.document).find("iframe").map(function() { // 找到自己的iframe
+//		if ($(this).contents().get(0)[0].location == window.location)
+//			iframe = this;
+//	});
+	iframe = $(parent.document).find('#settingchild')[0];
 	if (!iframe)
 		return;// no parent
 	var content_height = $("html").height();
@@ -43,8 +44,8 @@ function iframe_auto_height() {
 			: content_height;
 	content_width = typeof content_width == 'number' ? content_width + "px"
 			: content_width;
-	iframe.style.height = content_height;
-	iframe.style.width = content_width;
+	iframe.height = content_height;
+	iframe.width = content_width;
 }
 
 function searchServer(formData, url, type){
