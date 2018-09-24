@@ -259,7 +259,7 @@
 							<input type="button" value="我要新增其他照片" id="addOtherPics"/>
 							<div class="form-group" style="display:none">
 							<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-									data-min-file-count="2" name="pics"></div>
+									name="pics"></div>
 							<script>
 							$("#file-1").fileinput({
 								uploadExtraData: {'activitiId' : ${actid}},
@@ -288,12 +288,11 @@
 							value="${result.title}${param.title}">${errMsgs.title}</td>
 					</tr>
 					<tr><td>聚會類型</td>
-						<td><input type="checkbox" name="classtype" value="輕鬆聊">輕鬆聊
-							<input type="checkbox" name="classtype" value="浪漫約會">浪漫約會
-							<input type="checkbox" name="classtype" value="寵物">寵物
-							<input type="checkbox" name="classtype" value="桌遊">桌遊
-							<input type="checkbox" name="classtype" value="郊遊踏青">郊遊踏青
-							<input type="checkbox" name="classtype" value="電影">電影</td>
+						<td><input type="checkbox" name="classtype" value="運動">運動
+							<input type="checkbox" name="classtype" value="休閒">休閒
+							<input type="checkbox" name="classtype" value="音樂">音樂
+							<input type="checkbox" name="classtype" value="美食">美食
+							<input type="checkbox" name="classtype" value="聊天">聊天</td>
 							<input type="hidden" name="hidecheckbox" id="hidecheckbox" value="${type}">
 					</tr>
 					<tr><td>城市/所在地</td>

@@ -71,6 +71,10 @@ $(function(){
         method='area';
     })
     
+    $(document).mouseup(function(){
+        click = false;
+        method ='';
+    })
 
     $('.modal-body').mousemove(function(e){
         e.stopPropagation();
