@@ -55,7 +55,6 @@ $(function () {
 })
 
 function logingroup(data){
-	alert('typeof window.loginDo')
 	 if(typeof window.loginDo === "function") {
      	loginDo();//登入後要做的方法放在loginDo()
      }
@@ -65,7 +64,6 @@ function logingroup(data){
 }
 
 function logoutf(){//登出要執行的功能
-	console.log('close1');
 	$.post(
             "/wegether/logout.do"
             , ""
