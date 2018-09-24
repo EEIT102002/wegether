@@ -309,12 +309,12 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>聚&nbsp;會&nbsp;類&nbsp;型:&nbsp;</td>
-							<td><input type="checkbox" name="favorite" value="1"
-								checked>運動 <input type="checkbox" name="favorite"
-								value="2">休閒 <input type="checkbox" name="favorite"
-								value="3">音樂 <br> <input type="checkbox"
-								name="favorite" value="4">美食 <input type="checkbox"
-								name="favorite" value="5">聊天 </td>
+							<td><input type="checkbox" name="favorite" value="聊天"
+								checked>聊天 <input type="checkbox" name="favorite"
+								value="運動">運動 <input type="checkbox" name="favorite"
+								value="休閒">休閒 <br> <input type="checkbox"
+								name="favorite" value="美食">美食 <input type="checkbox"
+								name="favorite" value="音樂">音樂 </td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input
