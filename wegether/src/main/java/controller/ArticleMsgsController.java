@@ -30,7 +30,7 @@ import pictureconvert.PictureConvert;
 import pictureconvert.TimeConvert;
 
 @RestController
-public class MsgsController {
+public class ArticleMsgsController {
 	@Autowired
 	private MsgDAO msgDAO;
 	
@@ -42,16 +42,19 @@ public class MsgsController {
 
 
 
-
-	@GetMapping( path= {"/msgs.controller/{activityid}"}, produces= {"application/json"})
+	@GetMapping( path= {"/articlemsgs.controller/{articleid}"}, produces= {"application/json"})
 	public ResponseEntity<?> getInfo(
-			@PathVariable(name="activityid", required = false) Integer activityid){
-
+			@PathVariable(name="articleid", required = false) Integer articleid
+			){
+//				System.out.println("activityid="+id);
 		List<Object[]> msgsList = new ArrayList<>();
-		List<MsgBean> msgBeans = msgDAO.selectByActivity(activityid);
-
+		List<MsgBean> msgBeans = msgDAO.selectByArticle(articleid);
+		
 		if (msgBeans.size() != 0) {
+			System.out.println("5");
 			msgBeans.forEach(msg -> {
+				System.out.println("6");
+				System.out.println("GetmsgBean:"+msg);
 				Object[] obj = new Object[5];
 				obj[0] = msg.getMemberid();				
 				obj[1] = memberDAO.select(msg.getMemberid()).getNickname();
@@ -59,9 +62,8 @@ public class MsgsController {
 				obj[3] = msg.getContent();
 				obj[4] = msg.getId();
 				msgsList.add(obj);
-				System.out.println(msgsList);
+
 			});
-			System.out.println('A');
 			return new ResponseEntity<List<Object[]>>(msgsList, HttpStatus.OK);
 		} else {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -69,14 +71,10 @@ public class MsgsController {
 		
 	}
 	
-	@PostMapping( path= {"/msgs.controller"}, produces= {"application/json"})
+	@PostMapping( path= {"/articlemsgs.controller"}, produces= {"application/json"})
 	public ResponseEntity<?> insertInfo(MsgBean bean)throws URISyntaxException {
-
-		System.out.println("MsgBean:"+bean);
-
 		ResponseEntity<?> temp = null;
 		System.out.println("PostmsgBean:"+bean);
-
 		
 		if(bean.getContent()!=null && bean.getContent().length()!=0 && 
 				 !bean.getContent().equals("對聚會有任何疑問嘛？留個言吧！") ) {
@@ -87,7 +85,7 @@ public class MsgsController {
 				System.out.println("1");
 				if(result!=null && result==true) {
 					System.out.println("2");
-					temp = getInfo(bean.getActivityid());
+					temp = getInfo(bean.getArticleid());
 					System.out.println("3");
 					return temp ;
 				} else {
@@ -99,14 +97,14 @@ public class MsgsController {
 	
 	
 	
-	@DeleteMapping(path= {"/msgs.controller/{id}"}, produces= {"application/json"})
+	@DeleteMapping(path= {"/articlemsgs.controller/{id}"}, produces= {"application/json"})
 	public ResponseEntity<?> delete(@PathVariable int id) throws URISyntaxException{
 		System.out.println("@DeleteMapping");
 		MsgBean bean = msgDAO.selectById(id);
 		if(bean!=null) {
 			Boolean result = msgDAO.delete(id);
 			if(result!=null && result==true) {
-				ResponseEntity<?> temp = getInfo(bean.getActivityid());
+				ResponseEntity<?> temp = getInfo(bean.getArticleid());
 				return temp ;
 			}else {
 				return new ResponseEntity(HttpStatus.NO_CONTENT);	

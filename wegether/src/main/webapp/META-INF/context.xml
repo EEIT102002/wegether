@@ -2,7 +2,11 @@
 <Context>
 
 
-<!--     <Resource name="jdbc/wegether" -->
+
+
+<!-- 	connection cloud DB -->
+<!-- 	<Resource name="jdbc/wegether" -->
+
 <!--           auth="Container" -->
 <!--           type="javax.sql.DataSource" -->
 <!--           username="sa" -->

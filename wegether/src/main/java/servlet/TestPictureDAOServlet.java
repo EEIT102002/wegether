@@ -3,6 +3,7 @@ package servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -132,22 +133,35 @@ public class TestPictureDAOServlet extends HttpServlet {
 		// update
 //		List<PictureBean> AP = pictureDAOHibernate.selectByActivity(2);
 //		List<PictureBean> AP = pictureDAOHibernate.selectByArticle(3);
-		List<PictureBean> AP = pictureDAOHibernate.selectByMember(194);
-//
-		out.print(AP.get(1).getId());
-		int x = AP.get(0).getId();
-//		
-		PictureBean finalresult = pictureDAOHibernate.Select(x);
+//		List<PictureBean> AP = pictureDAOHibernate.selectByMember(194);
 ////
-		File picfile = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\06.jpg");
-		finalresult.setPicture(PictureConvert.converFileToByte(picfile));
-		PictureBean updateresult = pictureDAOHibernate.update(finalresult);
-		out.println(updateresult);		
-	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(updateresult.getPicture())+"\"/>");
-//	 	
+//		out.print(AP.get(1).getId());
+//		int x = AP.get(0).getId();
+////		
+//		PictureBean finalresult = pictureDAOHibernate.Select(x);
+//////
+//		File picfile = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\06.jpg");
+//		finalresult.setPicture(PictureConvert.converFileToByte(picfile));
+//		PictureBean updateresult = pictureDAOHibernate.update(finalresult);
+//		out.println(updateresult);		
+//	 	out.println("<img src=\"data:image/jpg;base64,"+PictureConvert.convertBase64Image(updateresult.getPicture())+"\"/>");
+////	 	
+//		
+//		String pic = "<img src='/wegether/picture/2' width='350' height='250' style=' border: 2px solid #272727; margin: 10px;'>";
+//		out.println(pic);
 		
-		String pic = "<img src='/wegether/picture/2' width='350' height='250' style=' border: 2px solid #272727; margin: 10px;'>";
-		out.println(pic);
+		//test==========================
+//		File picfile = new File("D:\\WegetherGitHub\\wegether\\src\\main\\webapp\\images\\06.jpg");
+////		byte[] by = PictureConvert.converFileToByte(picfile);
+//		 String a = picfile.getAbsolutePath();
+//		 String b =	picfile.getCanonicalPath();
+//		System.out.println("a:"+a);
+//		System.out.println("b:"+b);
+//		File f = new File("a.html");
+//		System.out.println("c:"+f.getPath());
+//		System.out.println("c:"+f.getAbsolutePath());
+//		System.out.println("c:"+f.getCanonicalPath());
+		
 		out.close();
 	}
 

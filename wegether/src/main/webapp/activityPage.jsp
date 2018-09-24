@@ -34,12 +34,7 @@
 
 var activityid = ${actBean.id};
 var actState = ${state};
-alert("actState:"+actState)
-alert(activityid)
 
-
-
-console.log("state1:"+actState);
 var friendbuttonText = '推薦'
 var  actPicListSize;
 
@@ -48,7 +43,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
  }else{
 	 actPicListSize =0;
  }
-alert("actPicListSize"+actPicListSize)
+// alert("actPicListSize"+actPicListSize)
 
 
 // var flag=0;
@@ -75,7 +70,7 @@ alert("actPicListSize"+actPicListSize)
 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
 			 $("#demoArticle").hide();
 			 $("#demo").show();
-			 getMsgs("${actBean.id}");
+			 getMsgs(activityid);
 		})
 		
 		// 切換心得分享版面
@@ -84,7 +79,7 @@ alert("actPicListSize"+actPicListSize)
 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
 			 $("#demo").hide();
 			 $("#demoArticle").show();
-			 getArticles("${actBean.id}"); //載入心得
+			 getArticles(activityid); //載入心得
 			 
 		})
 		
@@ -93,17 +88,19 @@ alert("actPicListSize"+actPicListSize)
 		
 		
 		 //載入留言 
+
 // 		 console.log(${actBean.id});
-// 		 getMsgs("${actBean.id}");
+		 getMsgs("${actBean.id}");
 		 
 		//清除留言預設文字
+
 		 $('#txt').click(function(){
 			 $("#txt").val('');
 		});
 		 
 		//新增留言
 		 $('#txtbut').click(function(){
-			 postMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val()); 
+			 postMsgs(activityid,"${memberid}","${actBean.state}",$("#txt").val()); 
 			 $("#txt").val('');
 		});
 			
@@ -111,19 +108,19 @@ alert("actPicListSize"+actPicListSize)
 			$('#demo').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-				 	 deleteMsgs("${actBean.id}","${memberid}","${actBean.state}",temp);
+				 	 deleteMsgs(activityid,"${memberid}","${actBean.state}",temp);
 		    		 $("#txt").val('');
 		        }
 		    });
 		
 		 //載入心得
-// 		 getArticles();
+// 		 getArticles(activityid);
 		 
 		//刪除心得
 			$('#demoArticle').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
-					var temp = $(event.target).attr("msgid")
-				 	 deleteArticles("${actBean.id}","${memberid}","${actBean.state}",temp);
+					var articleid = $(event.target).attr("articleid")
+				 	 deleteArticles(articleid);
 		        }
 		    });
 		
@@ -140,7 +137,7 @@ alert("actPicListSize"+actPicListSize)
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-				alert("actname:"+$('#right>h3').val())
+// 				alert("actname:"+$('#right>h3').val())
 				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#right>h3').val();
 			})
 		
@@ -220,12 +217,18 @@ alert("actPicListSize"+actPicListSize)
 							<div id="left" style="width: auto;">
 								<a href="personal.controller?memberId=${hostBean.id}"  style="text-decoration:none;">
 								<img 	src="/wegether/member/photo/${hostBean.id}"							
-									class="img-circle" width="70" height="70"> </a>
+									class="img-circle" width="70" height="70"> </a>								
 							</div>
 							<div id="left" style="width: auto;">
-								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
+								<p id="txtup" >${hostBean.nickname}</p>
 								<p id="txtup">${hostBean.job}</p>
 							</div>
+							&emsp;
+						      
+							
+							
+							
+							
 							<div id="right">
 								<c:if test="${empty memberid}">
 									<a href="#" class="tooltip-test" title="推薦給好友" data-toggle="modal" data-target="#ActPageBox" style="text-decoration:none;">  

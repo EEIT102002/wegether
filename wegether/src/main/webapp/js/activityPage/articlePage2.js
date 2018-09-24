@@ -1,9 +1,15 @@
 	
-//載入心得   
- function getArticles(activityid){
+//載入心得   state 活動狀態:0 進行中;1 已結束,可以心得分享;2 活動取消 
+ function getArticles(act,mem,sta,cont){
+	console.log("ArticlePage in:"+" actId="+act+" memId="+mem+" state="+sta+" msg="+cont);
 	 var divElem1 = null ;
 	 var temp="";
-	 $.get("article.controller/"+activityid,
+	 $.get("article.controller",
+			 { activityid:act, 
+		 	   memberid:mem,
+		 	   state:sta,
+		 	   content:cont
+			 },
 			 function(result){	
 	 			$.each(result, function(i,item){	
 	 				divElem1 =("<div id='msgid'>" +
@@ -11,7 +17,7 @@
 					'<img src="/wegether/member/photo/'+item[0]+'" class="img-circle" width="70" height="70">  </a>' +
 					'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
 					'<span style="font-size: small;">'+item[2]+'</span>'+
-					'<button id="deleteId" class="btn btn-danger" articleid='+item[4]+'>刪除</button>'+			
+					'<button id="deleteId" href="#" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
 			 		'</br>'+item[3]+'</br>'
 			 		);
 	 				 var divElem2 = null ;
@@ -30,12 +36,19 @@
  }
 
 //刪除心得功能
-function deleteArticles(articleid){
+function deleteArticles(act,mem,sta,cont){
+	console.log("deleteArticles in:"+" actId="+act+" memId="+mem+" state="+sta+" msgId="+cont);
 	 var divElem = null ;
 	 var temp="";
 	 $.ajax({
-		  url: 'article.controller/'+articleid,
+		  url: 'article.controller/'+cont,
 		  type: 'DELETE',
+		  data: {
+			  	activityid:act, 
+		 		memberid:mem,
+		 		state:sta,
+		 		content:cont
+		  },
 	      success:function(result){	
 	 			$.each(result, function(i,item){	
 	 				divElem1 =("<div id='msgid'>" +
@@ -43,7 +56,7 @@ function deleteArticles(articleid){
 					'<img src="/wegether/member/photo/'+item[0]+'"class="img-circle" width="70" height="70"> </a>' +
 					'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
 					'<span style="font-size: small;">'+item[2]+'</span>'+
-					'<button id="deleteId" class="btn btn-danger" articleid='+item[4]+'>刪除</button>'+			
+					'<button id="deleteId" href="#" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
 			 		'</br>'+item[3]+'</br>'
 			 		);
 	 				 var divElem2 = null ;

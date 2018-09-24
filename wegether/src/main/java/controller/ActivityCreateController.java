@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -141,24 +142,30 @@ public class ActivityCreateController {
 			activityBean.setActend(cc);
 		}
 
+		activityBean.setTitle(StringEscapeUtils.unescapeHtml(activityBean.getTitle()));
+		if (activityBean.getAddr() != null || !activityBean.getAddr().isEmpty())
+			activityBean.setAddr(StringEscapeUtils.unescapeHtml(activityBean.getAddr()));
+		if (activityBean.getClasstype() != null || !activityBean.getClasstype().isEmpty())
+			activityBean.setClasstype(StringEscapeUtils.unescapeHtml(activityBean.getClasstype()));
+		activityBean.setContent(StringEscapeUtils.unescapeHtml(activityBean.getContent()));
 		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 
-		// if (applyform == null) {
-		// applyform = "";
-		// }
+		 if (applyform == null) {
+		 applyform = "";
+		 }
 
-		// JSONObject formJson = activityFormService.stringToJsonObject(applyform);
-		//
-		// if (setForm != null && "yes".equals(setForm)) {
-		// formJson.put("hasForm", true);
-		// } else {
-		// formJson.put("hasForm", false);
-		// }
+		 JSONObject formJson = activityFormService.stringToJsonObject(applyform);
+		 
+		 if (setForm != null && "yes".equals(setForm)) {
+			 formJson.put("hasForm", true);
+		 } else {
+			 formJson.put("hasForm", false);
+		 }
 
-		// applyform = formJson.toString();
-		// activityBean.setForm(applyform);
+		 applyform = formJson.toString();
+		 activityBean.setForm(applyform);
 
 		System.out.println(startDate);
 		System.out.println(starttime);
@@ -194,7 +201,7 @@ public class ActivityCreateController {
 			request.setAttribute("id", activityBean.getId());
 			request.setAttribute("ntype", 11);
 		}
-		return "actCreateErr.page";
+		return "actCreateSuc.page";
 
 	}
 
