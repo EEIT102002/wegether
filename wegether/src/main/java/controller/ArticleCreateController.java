@@ -33,8 +33,9 @@ public class ArticleCreateController {
 	@RequestMapping(path = { "/articleCreate.controller" }, method = RequestMethod.POST)
 	public String artCreate(Model model, @RequestParam(required = false) String content,
 			@RequestParam(value = "multipicture", required = false) MultipartFile[] files,
-			@RequestParam(required = false) String actid, HttpServletRequest request,
-			@RequestAttribute(value = "memberid", required = false) Integer id) throws IOException {
+			@RequestParam(required = false) String actid, @RequestParam(required = false) String actname,
+			HttpServletRequest request, @RequestAttribute(value = "memberid", required = false) Integer id)
+			throws IOException {
 		System.out.println("articleCreate()");
 
 		if (id == null) {
@@ -46,6 +47,8 @@ public class ArticleCreateController {
 			model.addAttribute("content", "請輸入內容");
 			return "artCreSuc.page";
 		}
+
+		model.addAttribute("actname", actname);
 
 		ArticleBean articleBean = (ArticleBean) context.getBean("articleBean");
 
