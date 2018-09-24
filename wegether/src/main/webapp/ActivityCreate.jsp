@@ -394,7 +394,7 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-body" id="mid-body">
+							<div class="modal-body formbody" id="mid-body">
 								<div id="applyForm" style="font-size: 16px;">
 									<div id="template" style="display: none;">
 										<div class="inputDiv_applyForm">
@@ -423,12 +423,13 @@
 									</div>
 									<div id="formDiv_applyForm"></div>
 									<div>
-										<button type="button" class="add">新增問題</button>
-										<button type="button" id="save">儲存</button>
+										<button type="button" class="add btn btn-default">新增問題</button>
 									</div>
 								</div>
 							</div>
-							<div class="modal-footer"></div>
+							<div class="modal-footer">
+								<button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
+							</div>
 						</div>
 					</div>
 				</div>
