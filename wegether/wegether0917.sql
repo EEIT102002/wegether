@@ -27,7 +27,7 @@ city	int, 		--縣市
 addr	nvarchar(50), 		--詳細地址	
 tel	char(20), 		--電話	
 content	nvarchar(max), 		--自我介紹	
-favorite	varchar(max) 	,	--喜好活動類型	
+favorite	nvarchar(max) 	,	--喜好活動類型	
 signupdate	datetime not null default getdate(),		--註冊日期		
 rank1	decimal(2,1) check(rank1 between 0 and 5),		--活動滿意度	
 rank2	decimal(2,1) check(rank2 between 0 and 5),		--事前溝通安排	

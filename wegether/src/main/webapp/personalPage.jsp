@@ -210,7 +210,7 @@
 						<!-- 						<img class="img-circle" -->
 						<%-- 							src="data:image/jpg;base64,${picbean.get(0)}" width="280" --%>
 						<!-- 							style="position: relative; top: 20px;"> -->
-						<img src="/wegether/member/photo/5" class="img-circle"
+						<img src="/wegether/member/photo/${pic}" class="img-circle"
 							width="280" height="280"/>
 					</div>
 					<div style="text-align: center">
@@ -241,7 +241,7 @@
 					<div id="core1">
 						<div id="left" style="padding-top: 6px;">
 							<span id="memcity2"
-								style="font-weight: bold; font-style: italic; padding-top: 4px; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">${mem.city}
+								style="font-weight: bold; font-style: italic; padding-top: 4px; -shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">${mem.city}
 								<script>
 							$(function(){
 								var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
@@ -432,7 +432,7 @@
 					</div>
 					<!--change_fourth end -->
 				</div>
-			<input type="text" value="${mem.content}" id="memid">${mem.content}
+			${mem.content}
 			</input>
 			</div>
 			<!-- core end -->

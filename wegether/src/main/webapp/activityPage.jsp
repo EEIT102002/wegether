@@ -30,8 +30,11 @@
 
 
 <script>
+
+
 var activityid = ${actBean.id};
 var actState = ${state};
+alert("actState:"+actState)
 
 
 
@@ -39,11 +42,13 @@ var actState = ${state};
 console.log("state1:"+actState);
 var friendbuttonText = '推薦'
 var  actPicListSize;
+
 if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize = ${actPicListSize} ;
  }else{
 	 actPicListSize =0;
  }
+alert("actPicListSize"+actPicListSize)
 
 // var flag=0;
 	$(function() {
@@ -87,6 +92,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		
 		
 		 //載入留言 
+// 		 console.log(${actBean.id});
 		 getMsgs("${actBean.id}");
 		 
 		//清除留言預設文字
@@ -133,7 +139,8 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+${actBean.title};
+				alert("actname:"+$('#right>h3').val())
+				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#right>h3').val();
 			})
 		
 	})
@@ -149,7 +156,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			 		
 		 			},'json');	
 		 
-		 
+		 $('input[value=留言]').removeAttr('data-toggle');
 		 
 	
 	

@@ -285,7 +285,7 @@ footer>ul>li ul {
 						<tr>
 							<td>城&nbsp;市&nbsp;/&nbsp;地&nbsp;址&nbsp;:&nbsp;</td>
 							<td><select name="city" id="zzz">
-									<option value="0">請選擇</option>
+									<option value="">請選擇</option>
 							</select> <input style="width: 110px; height: 25px;" type="text"
 								name="addr" value="${param.addr}" id="idaddr"><i style=color:red; id="idspaddr">${inputRrrors.addr}</i></td>
                                                                                        
