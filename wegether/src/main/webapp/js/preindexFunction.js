@@ -4,7 +4,6 @@ function indexSelectFromDB(jsonArray){
 	var i = 0;
 	var str1="";
     $.each(jsonArray, function() {
-    	console.log(jsonArray[i][2]);
 	var date = new Date(jsonArray[i][0].actbegin);
 	Y = date.getFullYear() + '-';
 	M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
