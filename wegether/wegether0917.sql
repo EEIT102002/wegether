@@ -516,7 +516,10 @@ create trigger notice_activity_update on activity --activity table更新 活動�
 for update
 as
 begin
-if (select count(id) from inserted) =1
+if (select count(id) from inserted) = 1 and (
+	(select click from deleted) = (select click from inserted)
+	or (select click from inserted) is null
+	)
 begin
 	declare @date datetime  = getDate(), @id int
 	select @id=id
@@ -693,8 +696,7 @@ begin
 				where activityid = n.activityid or articleid = n.articleid
 				group by activityid , articleid);
 end
-go
-
+z
 create trigger notice_member_update on member
 for update
 as

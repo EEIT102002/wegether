@@ -1,5 +1,7 @@
 package controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.File;
 import java.util.Date;
 
@@ -37,7 +39,7 @@ public class FacebookLoginCheckController {
 
 	@RequestMapping( path= {("/FbloginCheck.controller/{Fbid}/{Fbemail}/{Fbname}")}, produces= {"application/json"})
 	public @ResponseBody ResponseEntity<?>  method(
-//			@RequestAttribute(name = "memberid", required = false) Integer memberid,
+			@RequestAttribute(name = "memberid", required = false) Integer Id,
 			@PathVariable(name="Fbid") String fbid,
 			@PathVariable(name="Fbname") String fbName,
 			@PathVariable(name="Fbemail") String fbEmail
@@ -45,7 +47,9 @@ public class FacebookLoginCheckController {
 			System.out.println("fbid="+fbid);
 			System.out.println("fbName="+fbName);
 			System.out.println("fbEmail="+fbEmail);
-			
+			if(Id!=null) {
+				return new ResponseEntity(HttpStatus.NOT_FOUND);
+			}
 			MemberBean bean = new MemberBean();
 			MemberBean checkuser = memberDAO.selectByAccount(fbEmail);//檢查有無相同帳號
 			System.out.println(fbEmail);

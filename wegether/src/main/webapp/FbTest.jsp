@@ -1,42 +1,53 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Home</title>
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
+<script type="text/javascript" src="/wegether/js/personalLogin.js"></script>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
-</head>
-<body>
 	<script>
+	
+	$(function() {
+		$('#header_nav ul li').click(function() {
+			$(this).addClass('active').siblings().removeClass('active');
+		})	
+	
+	
   // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      //登入後要執行的function
-      returnMemberData();
-      testAPI();
-    } else {
-      // The person is not logged into your app or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    }
-  }
+//   function statusChangeCallback(response) {
+//     console.log('statusChangeCallback');
+//     console.log(response);
+//     // The response object is returned with a status field that lets the
+//     // app know the current login status of the person.
+//     // Full docs on the response object can be found in the documentation
+//     // for FB.getLoginStatus().
+//     if (response.status === 'connected') {
+//       // Logged into your app and Facebook.
+//       //登入後要執行的function
+//       returnMemberData();
+//       testAPI();
+//     } else {
+//       // The person is not logged into your app or we are unable to tell.
+//       document.getElementById('status').innerHTML = 'Please log ' +
+//         'into this app.';
+//     }
+//   }
 
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
   //登錄完後呼叫 FB.getLoginStatus() 來取得最新的登入狀態
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+//   function checkLoginState() {
+//     FB.getLoginStatus(function(response) {
+//       statusChangeCallback(response);
+//     });
+//   }
 	//初始化
   window.fbAsyncInit = function() {
     FB.init({
@@ -44,7 +55,7 @@
       cookie     : true,  // enable cookies to allow the server to access 
                           // the session
       xfbml      : true,  // parse social plugins on this page
-      version    : 'v2.8' // use graph api version 2.8
+      version    : 'v3.1' // use graph api version 2.8
     });
 
     // Now that we've initialized the JavaScript SDK, we call 
@@ -60,52 +71,137 @@
     // These three cases are handled in the callback function.
     
 	//呼叫 FB.getLoginStatus() 來取得最新的登入狀態
-    FB.getLoginStatus(function(response) {
+//     FB.getLoginStatus(function(response) {
     	
-      statusChangeCallback(response);//呼叫第10行印出response內容
+//       statusChangeCallback(response);//呼叫第10行印出response內容
 
-    });
+//     });
 
   };
 
   // Load the SDK asynchronously
   //非同步載入Facebook JavaScript SDK
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+//   (function(d, s, id) {
+//     var js, fjs = d.getElementsByTagName(s)[0];
+//     if (d.getElementById(id)) return;
+//     js = d.createElement(s); js.id = id;
+//     js.src = "https://connect.facebook.net/en_US/sdk.js";
+//     fjs.parentNode.insertBefore(js, fjs);
+//   }(document, 'script', 'facebook-jssdk'));
+  
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://connect.facebook.net/zh_TW/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
 
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
   //測試程式
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
+//   function testAPI() {
+//     console.log('Welcome!  Fetching your information.... ');
+//     FB.api('/me', function(response) {
+//       console.log('Successful login for: ' + response.name);
+//       document.getElementById('status').innerHTML =
+//         'Thanks for logging in, ' + response.name + '!';
+//     });
+//   }
+  
+  
+  
+  
+  
+  
+  
   
   var Fbid,Fbname,Fbemail;
-  var Fbpicture;
-  //把資料送到後端比對
-  function returnMemberData(){	
+  $(function() {
+		$("#loginFB").click(
+				
+		function(){ //點擊登入按鈕	 
+			alert('onclick');
+		FB.getLoginStatus(function(response) { //檢查臉書登入狀態	        
+		if (response.authResponse) { //如果已經有授權過應用程式	
 		FB.api('/me',{fields : 'id,name,email,picture'},function(response) { //呼叫FB.api()取得使用者資料
-			Fbid = response.id;
-			console.log("response.id:"+ Fbid);
-			Fbname = response.name;
-			console.log("response.name:"+ Fbname);
-			Fbemail = response.email;
-			console.log("response.email:"+ Fbemail);
-			Fbpicture = response.picture;
-			console.log("response.picture:"+ Fbpicture);
-			returnback();
-			});
-	};
+		Fbid = response.id;
+		console.log("response.id:"+ response.id);
+		Fbname = response.name;
+		console.log("response.name:"+ response.name);
+		Fbemail = response.email;
+		console.log("response.email:"+ response.email);
+		//取得資料送至controller比對
+// 		returnback();
+// 		document.getElementById("fgName").value = response.name;
+// 		document.getElementById("fgEmail").value = response.email;
+// 		document.getElementById("fgPic").value = response.picture;
+		document.getElementById("click").click();
+		});
+
+		}else { 	
+			//沒授權過應用程式	          
+			FB.login(function(response) { 
+				//呼叫FB.login()請求使用者授權
+				if (response.authResponse) {
+					FB.api('/me',{fields : 'id,name,email'},
+						function(response) {
+						Fbid = response.id;
+						console.log("response.id:"+ response.id);
+						Fbname = response.name;
+						console.log("response.name:"+ response.name);
+						Fbemail = response.email;
+						console.log("response.email:"+ response.email);
+// 						document.getElementById("fgName").value = response.name;
+// 						document.getElementById("fgEmail").value = response.email;
+// 						document.getElementById("fgPic").value = response.picture;
+// 						document.getElementById("click").click();
+						//取得資料送至controller比對
+// 						returnback();
+						});
+					}
+				},
+					{scope : 'email'});
+										}
+									});
+						});
+	});
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+//   var Fbid,Fbname,Fbemail;
+//   var Fbpicture;
+//   var Fbbirthday;
+  //把資料送到後端比對
+//   function returnMemberData(){	
+// 		FB.api('/me',{fields : 'id,name,email,picture,birthday'},function(response) { //呼叫FB.api()取得使用者資料
+// 			Fbid = response.id;
+// 			console.log("response.id:"+ Fbid);
+// 			Fbname = response.name;
+// 			console.log("response.name:"+ Fbname);
+// 			Fbemail = response.email;
+// 			console.log("response.email:"+ Fbemail);
+// 			Fbpicture = response.picture;
+// 			console.log("response.picture:"+ Fbpicture);
+// 			Fbbirthday=response.birthday;
+// 			console.log("response.birthday:"+ Fbbirthday);
+			
+// 			returnback();
+// 			});
+// 	};
   	function returnback(){
   		console.log("responseout.email:"+ Fbemail);
 		$.get("FbloginCheck.controller/"+Fbid+"/"+Fbemail+"/"+Fbname ,
@@ -135,8 +231,13 @@
             , "json"
         )
   		
-  	}
-  
+  	}	
+  	
+  	
+  	$("#loginFB").click(function(){
+  		
+  	});
+  	
   
 </script>
 
@@ -158,11 +259,14 @@
 <!-- 按鈕2 -->
 
 <!-- 按鈕3 -->
-<div class="fb-login-button" data-size="large" data-button-type="login_with"
- data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div>
+<!-- <div class="fb-login-button" data-size="large" data-button-type="login_with" -->
+<!--  data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div> -->
 <!-- 按鈕3 -->
-
+<!-- 按鈕4 -->
+<a href="#" id="loginFB" class="fa fa-facebook icon icon-border facebook">6666666666</a>
+<input type="button" value="請點擊" onClick="fb()">
+<!-- 按鈕4 -->
 	<div id="status"></div>
-
+<jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>
 </body>
 </html>
