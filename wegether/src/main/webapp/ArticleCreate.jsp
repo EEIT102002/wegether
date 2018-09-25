@@ -53,7 +53,7 @@
 						<input type="button" value="我要上傳心得照片" id="addOtherPics"/>
 						<div class="form-group" style="display:none">
 						<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-							   data-min-file-count="2" name="multipicture"></div>
+							   name="multipicture"></div>
 						<script>
 						$("#file-1").fileinput({
 							//uploadExtraData: {'activitiId' : ${actid}},

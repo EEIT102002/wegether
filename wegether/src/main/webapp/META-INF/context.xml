@@ -12,7 +12,6 @@
           url="jdbc:sqlserver://localhost:1433;database=wegether"/>
 
 
-
 <!-- 	connection cloud DB -->
 <!-- 	<Resource name="jdbc/wegether" -->
 <!--           auth="Container" -->
