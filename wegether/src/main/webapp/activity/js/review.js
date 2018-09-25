@@ -29,7 +29,7 @@ var liTemp = '<li class="btn btn-secondary activityli"><a>' +
 var respondTemp = '<div class="respondAttend"><button type="button" value="accept">接受</button><button type="button" value="reject">拒絕</button></div>';
 
 var activityid;
-
+var pagelag;
 $(function () {
 	
 	$('#blocklist').on('click','.panel',function(){
@@ -92,14 +92,17 @@ $(function () {
 		lis.eq(i).addClass('choose').siblings(".choose").removeClass('choose');
 		switch (i) {
 			case 0:
+				pagelag = 0;
 				friendsearch.hide();
 				readAttend('/wegether/attend/accepted/activity/' + activityid, 0);
 				break;
 			case 1:
+				pagelag=1;
 				friendsearch.hide();
 				readAttend('/wegether/attend/unrespond/activity/' + activityid, 1);
 				break;
 			case 2:
+				pagelag=2;
 				friendsearch.show();
 				readAttend('/wegether/attend/invite/activity/' + activityid, 2);
 				break;
@@ -113,10 +116,11 @@ $(function () {
 		$.post(
 			url
 			, function (data) {
-				$.each(data, function (i, e) {
-					
-					divList.append(pushAttend(e, type));
-				})
+				if(pagelag == type){
+					$.each(data, function (i, e) {	
+						divList.append(pushAttend(e, type));
+					})
+				}
 			}
 			, 'json'
 		);

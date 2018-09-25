@@ -21,6 +21,7 @@
 		var scrolltimes = 0;
 		var index = null;
 		var listhight = 45;
+    	var pagelag;
 		$(document).ready(
 			function () {
 				var lis = $('ul:eq(0)').children('li');
@@ -103,28 +104,29 @@
 			})
 
 		function friendlist() {
-			addfriendlist(rowtemp, "/wegether/member/Friend/");
+			pagelag=1;
+			addfriendlist(rowtemp, "/wegether/member/Friend/",1);
 		}
 
 		function friendapplyedlist() {
-
-			addfriendlist(applyedtemp, "/wegether/member/Friend/Applyed/");
+			pagelag=2;
+			addfriendlist(applyedtemp, "/wegether/member/Friend/Applyed/",2);
 		}
 
 		function friendapplylist() {
-
-			addfriendlist(applytemp, "/wegether/member/Friend/Apply/");
+			pagelag=3;
+			addfriendlist(applytemp, "/wegether/member/Friend/Apply/",3);
 		}
 
 
-		function addfriendlist(temple, restful) {
+		function addfriendlist(temple, restful, lag) {
 			console.log(restful + first);
 			$.ajax({
 				type: "GET",
 				url: restful + first,
 				dataType: "json",
 				success: function (data) {
-					if (data.state) {
+					if (data.state &&　pagelag == lag) {
 						first += data.json.length;
 						if (count == 0 && data.count != null) {
 							count = data.count;
