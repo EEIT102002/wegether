@@ -260,7 +260,7 @@ table {
 		<div id="small_con">
 			<form id="ActivityCreateForm"
 				action="<c:url value="/actCreate.controller"/>" method="post"
-				accept-charset="utf-8" enctype="multipart/form-data">
+				accept-charset="UTF-8" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<td class="table-left">聚會封面</td>
@@ -285,7 +285,6 @@ table {
 														  removeIcon : '<img src="images/trash_can_red.png">'},
 									removeIcon : '<img src="images/trash_can.png" style="height:20px">',
 									browseIcon : '<img src="images/open_folder2.png"  style="height:20px">',
-									maxFileSize : 1000,
 									maxFilesNum : 10,
 									//allowedFileTypes: ['image', 'video', 'flash'],
 									slugCallback : function(filename) {
