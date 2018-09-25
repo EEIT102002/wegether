@@ -244,7 +244,7 @@
 								style="font-weight: bold; font-style: italic; padding-top: 4px; -shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">${mem.city}
 								<script>
 							$(function(){
-								var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+								var array_for_city = ["",'基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
 								      ,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']
 // 								var x = $('#memcity').val();
 // 								alert(x);
@@ -347,7 +347,7 @@
 								</c:otherwise>
 							</c:choose> <script>
 							$(function(){
-								var array_for_city = ['基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
+								var array_for_city = ['','基隆市', '台北市', '新北市','宜蘭縣','桃園市','新竹市'
 								      ,'新竹縣','苗栗縣','台中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','花蓮縣','台東縣','澎湖','金門','馬祖']
 // 								var x = $('#memcity').val();
 // 								alert(x);
@@ -434,8 +434,8 @@
 					</div>
 					<!--change_fourth end -->
 				</div>
-			${mem.content}
-			</input>
+<%-- 			${mem.content} --%>
+<!-- 			</input> -->
 			</div>
 			<!-- core end -->
 
