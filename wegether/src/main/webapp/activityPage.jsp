@@ -246,7 +246,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 					<div id="left">
 
 						<div id="up">
-							<div id="left" style="width: auto;">
+							<div id="left" style="width: auto;margin-right: 15px;">
 								<a href="personal.controller?memberId=${hostBean.id}"  style="text-decoration:none;">
 								<img 	src="/wegether/member/photo/${hostBean.id}"							
 									class="img-circle" width="70" height="70"> </a>
