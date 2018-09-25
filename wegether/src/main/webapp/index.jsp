@@ -126,6 +126,7 @@
 					<li><a href="">時間</a></li>
 					<li><a href="">地區</a></li>
 				</ul>
+
 					<div class="row" id="show_act_area">
 					</div>
 				</div>

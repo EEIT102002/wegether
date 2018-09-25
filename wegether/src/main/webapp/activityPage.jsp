@@ -252,7 +252,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 									class="img-circle" width="70" height="70"> </a>
 							</div>
 							<div id="left" style="width: auto;">
-								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
+								<p id="txtup" >${hostBean.nickname}</p>
 								<p id="txtup">${hostBean.job}</p>
 							</div>
 							<div id="right">

@@ -169,12 +169,15 @@
 }
 #about .item img{
 	width: 100%;
+	height:300px;
 }
 #about .item {
 	margin:1em 21px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	width:30%;
+	height:550px;
+	border:2px solid;
 }
 #about .item:hover{
 	background-color: white;
@@ -202,9 +205,9 @@
 	font-size: 1.5em;
 	padding-bottom:5px;
 }
-/* .Fb_i{ */
-/* 	background-color: rgb(66,103,178);    */
-/* } */
+.Fb_i{
+	background-color: rgb(66,103,178);   
+}
 .Google_i{
 	background-color: #DE4F42;
 }
