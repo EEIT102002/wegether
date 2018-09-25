@@ -46,13 +46,13 @@ public class MsgsController {
 	@GetMapping( path= {"/msgs.controller/{activityid}"}, produces= {"application/json"})
 	public ResponseEntity<?> getInfo(
 			@PathVariable(name="activityid", required = false) Integer activityid){
-
+		System.out.println("activityidcon:"+activityid);
 		List<Object[]> msgsList = new ArrayList<>();
 		List<MsgBean> msgBeans = msgDAO.selectByActivity(activityid);
-
+		Object[] obj = new Object[5];
 		if (msgBeans.size() != 0) {
 			msgBeans.forEach(msg -> {
-				Object[] obj = new Object[5];
+				
 				obj[0] = msg.getMemberid();				
 				obj[1] = memberDAO.select(msg.getMemberid()).getNickname();
 				obj[2] = TimeConvert.timeConvertString(msg.getMsgtime());
@@ -64,7 +64,8 @@ public class MsgsController {
 			System.out.println('A');
 			return new ResponseEntity<List<Object[]>>(msgsList, HttpStatus.OK);
 		} else {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+			msgsList.add(obj);
+			return new ResponseEntity<List<Object[]>>(msgsList, HttpStatus.OK);
 		}
 		
 	}

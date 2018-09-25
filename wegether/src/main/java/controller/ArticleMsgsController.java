@@ -46,7 +46,7 @@ public class ArticleMsgsController {
 	public ResponseEntity<?> getInfo(
 			@PathVariable(name="articleid", required = false) Integer articleid
 			){
-//				System.out.println("activityid="+id);
+				System.out.println("activityid="+articleid);
 		List<Object[]> msgsList = new ArrayList<>();
 		List<MsgBean> msgBeans = msgDAO.selectByArticle(articleid);
 		
@@ -76,45 +76,25 @@ public class ArticleMsgsController {
 		ResponseEntity<?> temp = null;
 		System.out.println("PostmsgBean:"+bean);
 		
-		if(bean.getContent()!=null && bean.getContent().length()!=0 && 
-				 !bean.getContent().equals("對聚會有任何疑問嘛？留個言吧！") ) {
-
+		if(bean.getContent()!=null && bean.getContent().length()!=0 ) {
+System.out.println("blank");
 				java.util.Date now = new java.util.Date();
 				bean.setMsgtime(now);
 				Boolean result = msgDAO.insert(bean);
-				System.out.println("1");
 				if(result!=null && result==true) {
-					System.out.println("2");
 					temp = getInfo(bean.getArticleid());
-					System.out.println("3");
 					return temp ;
 				} else {
 					return new ResponseEntity(HttpStatus.NO_CONTENT);			
 				}
 		}
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
-	}
-	
-	
-	
-	@DeleteMapping(path= {"/articlemsgs.controller/{id}"}, produces= {"application/json"})
-	public ResponseEntity<?> delete(@PathVariable int id) throws URISyntaxException{
-		System.out.println("@DeleteMapping");
-		MsgBean bean = msgDAO.selectById(id);
-		if(bean!=null) {
-			Boolean result = msgDAO.delete(id);
-			if(result!=null && result==true) {
-				ResponseEntity<?> temp = getInfo(bean.getArticleid());
-				return temp ;
-			}else {
-				return new ResponseEntity(HttpStatus.NO_CONTENT);	
-			}
-		}else {
-			System.out.println("@DeleteMapping=false");
-			return new ResponseEntity(HttpStatus.NO_CONTENT);	
-		}
-	}
 		
+		temp = getInfo(bean.getArticleid());
+		return temp ;
+	}
+	
+	
+	
 		
 	
 }

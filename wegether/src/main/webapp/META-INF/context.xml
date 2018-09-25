@@ -2,22 +2,22 @@
 <Context>
 
 <!-- 	connection local DB -->
-<!--     <Resource name="jdbc/wegether" -->
-<!--           auth="Container" -->
-<!--           type="javax.sql.DataSource" -->
-<!--           username="sa" -->
-<!--           password="passw0rd" -->
-<!--           driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
-<!--           url="jdbc:sqlserver://localhost:1433;database=wegether"/> -->
+    <Resource name="jdbc/wegether"
+          auth="Container"
+          type="javax.sql.DataSource"
+          username="sa"
+          password="passw0rd"
+          driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+          url="jdbc:sqlserver://localhost:1433;database=wegether"/>
 	
 	
 <!-- 	connection cloud DB -->
-	<Resource name="jdbc/wegether"
-          auth="Container"
-          type="javax.sql.DataSource"
-          username="EEIT102002@dbservereeit10202"
-          password="Hellohello-123"
-          driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-          url="jdbc:sqlserver://dbservereeit10202.database.windows.net:1433;database=wegether"/>
+<!-- 	<Resource name="jdbc/wegether" -->
+<!--           auth="Container" -->
+<!--           type="javax.sql.DataSource" -->
+<!--           username="EEIT102002@dbservereeit10202" -->
+<!--           password="Hellohello-123" -->
+<!--           driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
+<!--           url="jdbc:sqlserver://dbservereeit10202.database.windows.net:1433;database=wegether"/> -->
 	
 	</Context>

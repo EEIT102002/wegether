@@ -103,7 +103,7 @@ public class ActivityPageController {
 			model.addAttribute("actPicList", actPicList);
 			model.addAttribute("actPicListSize", actPicList.size());
 		}else {
-			model.addAttribute("actPicList", null);
+			model.addAttribute("actPicList", 0);
 			model.addAttribute("actPicListSize", 0);
 		}
 
@@ -129,7 +129,7 @@ public class ActivityPageController {
 		if (memberid != null)
 			model.addAttribute("memberid", memberid);
 		else
-			model.addAttribute("memberid", null);
+			model.addAttribute("memberid", 0);
 
 
 				return "activityPage";
