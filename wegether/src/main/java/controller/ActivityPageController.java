@@ -129,7 +129,7 @@ public class ActivityPageController {
 		if (memberid != null)
 			model.addAttribute("memberid", memberid);
 		else
-			model.addAttribute("memberid", null);
+			model.addAttribute("memberid", 0);
 
 
 				return "activityPage";
