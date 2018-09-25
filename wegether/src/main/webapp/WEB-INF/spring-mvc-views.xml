@@ -28,7 +28,7 @@
 	</bean>
 	<bean id="activityPage.error"
 		class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/index2.jsp"></property>
+		<property name="url" value="/index.jsp"></property>
 	</bean>
 
 
@@ -68,7 +68,7 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"
 		id="actCreateSuc.page">
-		<property value="/index2.jsp" name="url" />
+		<property value="/index.jsp" name="url" />
 	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"
@@ -78,7 +78,7 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"
 		id="actEditSuc.page">
-		<property value="/index2.jsp" name="url" />
+		<property value="/index.jsp" name="url" />
 	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"
@@ -88,7 +88,7 @@
 
 	<bean id="register.success"
 		class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/index2.jsp"></property>
+		<property name="url" value="/index.jsp"></property>
 	</bean>
 	<bean id="register.error"
 		class="org.springframework.web.servlet.view.InternalResourceView">

@@ -4,6 +4,7 @@
 
 
 
+
 <!-- 	connection cloud DB -->
 	<Resource name="jdbc/wegether"
 
@@ -13,7 +14,7 @@
           password="passw0rd"
           driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
           url="jdbc:sqlserver://localhost:1433;database=wegether"/>
-	
+
 <!-- 	<Resource name="jdbc/wegether" -->
 <!--           auth="Container" -->
 <!--           type="javax.sql.DataSource" -->
