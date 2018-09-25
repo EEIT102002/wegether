@@ -161,6 +161,12 @@ public class ActivityEditController {
 			System.out.println("file=" + file);
 			pic = file.getBytes();
 			activityBean.setPicture(pic); // 塞圖片
+
+			List<PictureBean> pictureBean = pictureDAO.selectByActivity(activityBean.getId());
+			PictureBean bean = (PictureBean) context.getBean("pictureBean");
+			bean.setId(pictureBean.get(0).getId());
+			bean.setPicture(pic);
+			pictureDAO.update(bean);
 		} else {
 			System.out.println("has no pic");
 		}
