@@ -137,7 +137,6 @@ public class MemberPersonalController {
 	@RequestMapping(path = { "/personal.controller" })
 	public String PersonalController2(Model model, Integer memberId,
 			@RequestAttribute(name = "memberid", required = false) Integer id) {
-		
 		//檢查是否有收到memberid
 		//登入下拉選單看自己的個人頁面 只須給登入id
 		if(memberId==null) {
@@ -145,6 +144,7 @@ public class MemberPersonalController {
 		}
 		//檢查memberid和id關西
 		int status =midAndIdCheckServices.check(id, memberId);// 狀態 1好友2非好友3黑名單4非會員未登入5自己
+	
 		int memberid = memberId;
 
 		System.out.println("login=" + id);
