@@ -27,7 +27,6 @@ public class NoticeHandler extends TextWebSocketHandler {
 	
 	
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println(message.getPayload());
 		TextMessage textmessage = new TextMessage("echo: " + message.getPayload());
 //		session.sendMessage(new TextMessage("echo: " + message.getPayload()));
 	}
@@ -37,7 +36,6 @@ public class NoticeHandler extends TextWebSocketHandler {
 		loginMap.get(id).getSessions().remove(session);
 		sessionMap.remove(session);
 		session.close();
-		System.out.println("loginMap("+id+") :"+loginMap.get(id).getSessions().size());
 	}
 
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -49,8 +47,6 @@ public class NoticeHandler extends TextWebSocketHandler {
 			sessionMap.put(session, id);
 			session.sendMessage(new TextMessage("login"));
 		}
-		System.out.println("loginMap:"+loginMap.get(id).getSessions().size());
-
 	}
 
 	public void handleTransportError(WebSocketSession arg0, Throwable arg1) throws Exception {
