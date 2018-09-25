@@ -41,7 +41,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery("from ActivityBean", ActivityBean.class).list();
 	}
 
-	private final String selectAllState = "from ActivityBean  WHERE state=0 ORDER BY id DESC";
+	private final String selectAllState = "from ActivityBean WHERE actend > getDate() and state <> 2 order by createtime desc";
 
 	@Override
 	public List<ActivityBean> selectAllState() {
@@ -188,17 +188,15 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype,
 			String title) {
-		String selectOfIndex = "select * from Activity  WHERE ";
+		String selectOfIndex = "select * from Activity  WHERE actend > getDate() and state <> 2 ";
 		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
 
-			selectOfIndex = selectOfIndex + " actbegin >='" + beginDate + "'AND actend <='" + endDate + "'and [state]="+ state;
+			selectOfIndex = selectOfIndex + "and actbegin >='" + beginDate + "'AND actend <='" + endDate+ "' ";
 		} else if (beginDate == "" && endDate != "") {
-			selectOfIndex = selectOfIndex + "actend <='" + endDate + "'and [state]=" + state;
+			selectOfIndex = selectOfIndex + "and actend <='" + endDate+ "' ";
 		} else if (endDate == "" && beginDate != "") {
-			selectOfIndex = selectOfIndex + "actbegin >='" + beginDate + "'and [state]=" + state;
-		} else
-			selectOfIndex = selectOfIndex + "[state]=" + state;
-
+			selectOfIndex = selectOfIndex + "and actbegin >='" + beginDate + "' ";
+		}
 		if (city != 0)
 			selectOfIndex = selectOfIndex + " and city=" + city;
 
@@ -214,25 +212,24 @@ public class ActivityDAOHibernate implements ActivityDAO {
 				selectOfIndex += ")";
 			}
 		}
-		if (title != "" && title.length() != 0)
-			selectOfIndex = selectOfIndex + " and title like N\'%" + title + "%\'";
-
+		if (title != "" && title.length() != 0) {
+			selectOfIndex = selectOfIndex + " and title like N\'%" + title + "%\'";}
+		selectOfIndex += " order by createtime desc";
 		return this.getSession().createNativeQuery(selectOfIndex, ActivityBean.class).list();
 	}
 
 	@Override
 	public List<ActivityBean> selectOfIndexPo(int state, int city, String beginDate, String endDate, String classtype,
 			String title, List<Integer> Actid) {
-		String selectOfIndex = "select * from Activity  WHERE ";
+		String selectOfIndex = "select * from Activity  WHERE actend < getDate() and state <> 2";
 		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
-			selectOfIndex = selectOfIndex+ " actbegin >='" + beginDate + "'AND actend <='" + endDate + "'and [state]="+ state;
+			selectOfIndex = selectOfIndex+ " and  actbegin >='" + beginDate + "'and actend <='" + endDate + "' " ;
 				
 		} else if (beginDate == "" && endDate != "") {
-			selectOfIndex = selectOfIndex + "actend <='" + endDate + "'and [state]=" + state;
+			selectOfIndex = selectOfIndex + "and actend <='" + endDate + "' ";
 		} else if (endDate == "" && beginDate != "") {
-			selectOfIndex = selectOfIndex + "actbegin >='" + beginDate + "'and [state]=" + state;
-		} else
-			selectOfIndex = selectOfIndex + "[state]=" + state;
+			selectOfIndex = selectOfIndex + " and actbegin >='" + beginDate + "' ";
+		}
 		if (city != 0)
 			selectOfIndex = selectOfIndex + " and city=" + city;
 		if (classtype != null && classtype.length() != 0) {
@@ -259,6 +256,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 			}
 			selectOfIndex += ")";
 		}
+		selectOfIndex += "order by createtime desc";
 		return this.getSession().createNativeQuery(selectOfIndex, ActivityBean.class).list();
 	}
 

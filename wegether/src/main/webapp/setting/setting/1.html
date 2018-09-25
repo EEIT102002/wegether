@@ -356,7 +356,16 @@
 			height: 150px;
 			cursor: move;
 		}
-
+		#myModal .modal-body{
+			display: flex;
+		    justify-content: center;
+			flex-direction: column;
+			align-items: center;
+		}
+		#myModal h4{
+			
+		}
+		
 		#cropBox {
 			position: relative;
 		}
@@ -504,7 +513,7 @@
 									<div id="rightdown" class="minBox right-down"></div>
 								</div>
 							</div>
-					<input type="file" name="photo" id="photo" accept="image/*">
+					<input class="btn btn-default btn-file" type="file" name="photo" id="photo" accept="image/*">
 				</div>
 				<div class="modal-footer">
 					<button type="button" id='photoUpdata' class="btn btn-default" data-dismiss="modal">上傳</button>
