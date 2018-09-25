@@ -198,6 +198,54 @@
 	height: 100px;
 	border-radius: 10px;
 }
+input[type=text], input[type=number], select,textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+textarea {
+    height: 100px;
+}
+input[type=date], input[name=startTimepicker], input[name=endTimepicker] {
+    width: 49.4%;
+    height: 50px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[name=dateline] {
+	width: 100%;
+}
+table {
+	margin-left:auto; 
+	margin-right:auto;
+}
+#preBotton {
+    width: 50%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.table-left {
+	border-right: solid 5px rgba(0, 44, 95, 0.3);
+	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
+}
+.table-right {
+	padding: 10px;
+	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
+	
+}
 </style>
 </head>
 <body>
@@ -209,13 +257,13 @@
 				accept-charset="ISO-8859-1" enctype="multipart/form-data">
 				<table>
 					<tr>
-						<td>聚會封面</td>
-						<td><img src="images/actcreate.png" id="picZone" class="selPic"> <input type="file"
+						<td class="table-left">聚會封面</td>
+						<td class="table-right"><img src="images/actcreate.png" id="picZone" class="selPic"> <input type="file"
 								 name="picture" id="actPic" accept="image/*"></td>
 					</tr>
 					<tr>
-						<td>其他照片</td>
-						<td><input type="button" value="我要上傳照片" id="addOtherPics" />
+						<td class="table-left">其他照片</td>
+						<td class="table-right"><input type="button" value="我要上傳照片" id="addOtherPics" />
 							<div class="form-group" style="display: none">
 								<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
 									   data-min-file-count="2" name="multipicture">
@@ -240,63 +288,63 @@
 							</script></td>
 					</tr>
 					<tr>
-						<td>聚會標題</td>
-						<td><input type="text" name="title" id="insertActname"
+						<td class="table-left">聚會標題</td>
+						<td class="table-right"><input type="text" name="title" id="insertActname"
 							value="${param.title}">${errMsgs.title}</td>
 					</tr>
 					<tr>
-						<td>聚會類型</td>
-						<td><input type="checkbox" name="classtype" value="運動">運動
+						<td class="table-left">聚會類型</td>
+						<td class="table-right"><input type="checkbox" name="classtype" value="運動">運動
 							<input type="checkbox" name="classtype" value="休閒">休閒
 							<input type="checkbox" name="classtype" value="音樂">音樂
 							<input type="checkbox" name="classtype" value="美食">美食
 							<input type="checkbox" name="classtype" value="聊天">聊天</td>
 					</tr>
 					<tr>
-						<td>城市/所在地</td>
-						<td><select name="city" id="selCity">
+						<td class="table-left">城市/所在地</td>
+						<td class="table-right"><select name="city" id="selCity">
 								<option>請選擇</option>
 						</select></td>
 					</tr>
 					<tr>
-						<td>地點</td>
-						<td><input type="text" name="addr" id="insertWhere" value="${param.addr}"></td>
+						<td class="table-left">地點</td>
+						<td class="table-right"><input type="text" name="addr" id="insertWhere" value="${param.addr}"></td>
 					</tr>
 					<tr>
-						<td>開始時間</td>
-						<td><input type="date" id="startTime" name="startTime">
+						<td class="table-left">開始時間</td>
+						<td class="table-right"><input type="date" id="startTime" name="startTime">
 							<input type="text" id="startTime2" name="startTimepicker"
 							class="timepicker" autocomplete="off" />${errMsgs.starDateTime}</td>
 					</tr>
 					<tr>
-						<td>結束時間</td>
-						<td><input type="date" id="endTime" name="endTime">
+						<td class="table-left">結束時間</td>
+						<td class="table-right"><input type="date" id="endTime" name="endTime">
 							<input type="text" id="endTime2" name="endTimepicker" class="timepicker"
 							autocomplete="off" />${errMsgs.endDateTime}</td>
 					</tr>
 					<tr>
-						<td>詳細描述</td>
-						<td><textarea name="content" id="insertDes" cols="30"
+						<td class="table-left">詳細描述</td>
+						<td class="table-right"><textarea name="content" id="insertDes" cols="30"
 								rows="10">${param.content}</textarea>${errMsgs.content}</td>
 					</tr>
 					<tr>
-						<td>聚會人數</td>
-						<td><input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax"
+						<td class="table-left">聚會人數</td>
+						<td class="table-right"><input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax"
 								   min="1" ng-init="peoplemax = 5"></td>
 					</tr>
 					<tr>
-						<td>聚會預算</td>
-						<td><input step="50" type="number" id="selBud" name="feed"
+						<td class="table-left">聚會預算</td>
+						<td class="table-right"><input step="50" type="number" id="selBud" name="feed"
 							ng-model="fee" min="0" ng-init="fee = 100" value="${param.feed}"></td>
 					</tr>
 					<tr>
-						<td>報名截止日期</td>
-						<td><input type="date" id="deathLine" name="dateline">${errMsgs.deathline}</td>
+						<td class="table-left">報名截止日期</td>
+						<td class="table-right"><input type="date" id="deathLine" name="dateline">${errMsgs.deathline}</td>
 					</tr>
 
 					<tr>
-						<td>是否創建報名表單</td>
-						<td><input type="radio" name="setFormOrNot" value="yes" id="setForm">是
+						<td class="table-left">是否創建報名表單</td>
+						<td class="table-right"><input type="radio" name="setFormOrNot" value="yes" id="setForm">是
 							<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否</td>
 					</tr>
 				</table>
