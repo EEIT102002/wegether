@@ -73,11 +73,11 @@ public class ArticleMsgsController {
 	
 	@PostMapping( path= {"/articlemsgs.controller"}, produces= {"application/json"})
 	public ResponseEntity<?> insertInfo(MsgBean bean)throws URISyntaxException {
-		ResponseEntity<?> temp = null;
+//		ResponseEntity<?> temp = null;
+		ResponseEntity<?> temp =  getInfo(bean.getArticleid());
 		System.out.println("PostmsgBean:"+bean);
 		
 		if(bean.getContent()!=null && bean.getContent().length()!=0 ) {
-System.out.println("blank");
 				java.util.Date now = new java.util.Date();
 				bean.setMsgtime(now);
 				Boolean result = msgDAO.insert(bean);
@@ -87,10 +87,13 @@ System.out.println("blank");
 				} else {
 					return new ResponseEntity(HttpStatus.NO_CONTENT);			
 				}
+		}else if(temp!=null){
+			return temp ;
 		}
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		
-		temp = getInfo(bean.getArticleid());
-		return temp ;
+//		temp = getInfo(bean.getArticleid());
+//		return temp ;
 	}
 	
 	
