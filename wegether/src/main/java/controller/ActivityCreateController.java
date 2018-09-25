@@ -152,20 +152,17 @@ public class ActivityCreateController {
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 
-		 if (applyform == null) {
-		 applyform = "";
-		 }
-
-		 JSONObject formJson = activityFormService.stringToJsonObject(applyform);
+		 JSONObject formJson = null;
 		 
-		 if (setForm != null && "yes".equals(setForm)) {
+		 if (setForm != null && "yes".equals(setForm) && applyform != null) {
+			 formJson = activityFormService.stringToJsonObject(applyform);
 			 formJson.put("hasForm", true);
 		 } else {
-			 formJson.put("hasForm", false);
+			 formJson = activityFormService.stringToJsonObject("{\"hasFrom\" : false}");
+//			 formJson.put("hasForm", false);
 		 }
 
-		 applyform = formJson.toString();
-		 activityBean.setForm(applyform);
+		 activityBean.setForm(formJson.toString());
 
 		System.out.println(startDate);
 		System.out.println(starttime);

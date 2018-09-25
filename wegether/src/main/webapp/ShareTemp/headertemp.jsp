@@ -14,14 +14,14 @@
 			</button>
 			<div class="logo">
 				<h1>
-					<a class="navbar-brand" href="/wegether/index2.jsp">Wegether</a>
+					<a class="navbar-brand" href="/wegether/index.jsp">Wegether</a>
 				</h1>
 			</div>
 		</div>
 		<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
 			<nav class="header_nav">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/wegether/index2.jsp"> <span data-hover="活動">活動</span>
+				<li class="active"><a href="/wegether/index.jsp"> <span data-hover="活動">活動</span>
 				</a></li>
 				<!-- 							<li><a href="#" class="scroll"><span data-hover="活動地圖">活動地圖</span></a></li> -->
 				<li><a href="javascript:;" class="scroll" data-toggle="modal" data-target="#ActPageBox"> <span data-hover="發起活動">發起活動</span>

@@ -169,12 +169,15 @@
 }
 #about .item img{
 	width: 100%;
+	height:300px;
 }
 #about .item {
 	margin:1em 21px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	width:30%;
+	height:550px;
+	border:2px solid;
 }
 #about .item:hover{
 	background-color: white;
