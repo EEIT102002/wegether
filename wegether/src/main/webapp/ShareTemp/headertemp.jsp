@@ -14,14 +14,14 @@
 			</button>
 			<div class="logo">
 				<h1>
-					<a class="navbar-brand" href="/wegether/index2.jsp">Wegether</a>
+					<a class="navbar-brand" href="/wegether/index.jsp">Wegether</a>
 				</h1>
 			</div>
 		</div>
 		<div class="collapse navbar-collapse nav-wil" id="dropdown_munu">
 			<nav class="header_nav">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/wegether/index2.jsp"> <span data-hover="活動">活動</span>
+				<li class="active"><a href="/wegether/index.jsp"> <span data-hover="活動">活動</span>
 				</a></li>
 				<!-- 							<li><a href="#" class="scroll"><span data-hover="活動地圖">活動地圖</span></a></li> -->
 				<li><a href="javascript:;" class="scroll" data-toggle="modal" data-target="#ActPageBox"> <span data-hover="發起活動">發起活動</span>
@@ -114,12 +114,14 @@
 						<div id="or" class="bg-primary text-white">
 							<h4>or</h4>
 						</div>
-						<button type="button" class="btn big_use Google_i">
-							<i class="fa fa-google" aria-hidden="true"></i>Google 登入
-						</button>						
+<!-- 						<button type="button" class="btn big_use Google_i"> -->
+<!-- 							<i class="fa fa-google" aria-hidden="true"></i>Google 登入 -->
+<!-- 						</button>						 -->
 						
-						<button class="btn fb-login-button big_use Fb_i" data-size="large" data-button-type="login_with"
- 						data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></button>
+						<a href="#" id="loginFB">
+						<button type="button" class="btn big_use Fb_i">
+							<i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入
+						</button></a>
 
 						<div class="AreaCon">
 							<button type="button" class="btn small_use Google_i">

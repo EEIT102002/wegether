@@ -126,17 +126,18 @@
 					<li><a href="">時間</a></li>
 					<li><a href="">地區</a></li>
 				</ul>
-					<div class="row  masonry" id="show_act_area">
+
+					<div class="row" id="show_act_area">
 					</div>
 				</div>
-			<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-			<script>
-			$(function(){
-				$('.masonry').masonry({
-					itemSelector: '.item',
-					})
-			})
-			</script>
+<!-- 			<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script> -->
+<!-- 			<script> -->
+<!--  			$(function(){ -->
+<!--  				$('.masonry').masonry({ -->
+<!--  					itemSelector: '.item', -->
+<!--  					}) -->
+<!--  			}) -->
+<!-- 			</script> -->
 	</div>
 	<!-- <footer>
 		<div class="container">
