@@ -35,17 +35,17 @@
 <%-- 									<h3>Select Service Table Result : ${fn:length(select)} 筆資料</h3> --%>
 <%-- 									<td>${errors.SelectResult}</td> --%>
 									<c:if test="${not empty select}">
-										<table align="center">
+										<table border="4" style="margin-left:350px;" >
 											<thead>
-												<tr>
+												<tr >
 <!-- 												<th>提問時間</th> -->
-													<th>會員ID</th>
-													<th>標題</th>
+													<th >會員ID</th>
+													<th >標題</th>
 													<th>類型</th>
-													<th>內容描述</th>
+<!-- 												<th>內容描述</th> -->
 												</tr>
 											</thead>
-											<tbody>
+											<tbody align="center">
 												<c:forEach var="obj" items="${select}">
 													<c:url value="/ServiceEditPage.jsp" var="link" scope="page">
 														<c:param name="memberid" value="${obj.memberid}" />
@@ -56,21 +56,24 @@
 														<c:param name="content" value="${obj.content}" />
 													</c:url>
 													<tr>
-														<div>
-															<span>
+														<div >
+															<span style="margin-left:200px">
 <%-- 																<td>${obj.asktime}</td> --%>
 																<td><a href="${link}">${obj.memberid}</td>
 																<td><a href="${link}">${obj.title}</td>
-															</span> <span>
-																<td><c:if test="${obj.classtype==1}">會員(例如登入或密碼問題)</c:if>
-																	<c:if test="${obj.classtype==2}">系統錯誤回報</c:if> <c:if
-			 															test="${obj.classtype==3}">建議</c:if> <c:if  
-																		test="${obj.classtype==4}">其他</c:if></td>  
+															</span> 
+															<span>
+																<td ><c:if test="${obj.classtype==1}">會員(例如登入或密碼問題)</c:if>
+																	<c:if test="${obj.classtype==2}">系統錯誤回報</c:if> 
+																	<c:if test="${obj.classtype==3}">建議</c:if> 
+																	<c:if test="${obj.classtype==4}">其他</c:if>
+																</td>  
 															</span>
-																<td>${errors.SelectError}</td>
 														</div>
-														<td>${obj.content}</td>
-														<td><input type="hidden" name="id" value="${param.id}"></input></td>
+<%-- 														<td>${obj.content}</td> --%>
+														<input type="hidden" name="asktime" value="${obj.asktime}"></input>
+														<input type="hidden" name="content" value="${obj.content}"></input>
+														<input type="hidden" name="id" value="${param.id}"></input>
 													</tr>
 												</c:forEach>
 											</tbody>
