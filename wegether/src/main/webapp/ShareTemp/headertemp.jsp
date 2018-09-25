@@ -118,8 +118,12 @@
 							<i class="fa fa-google" aria-hidden="true"></i>Google 登入
 						</button>						
 						
-						<button class="btn fb-login-button big_use Fb_i" data-size="large" data-button-type="login_with"
- 						data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></button>
+<!-- 						<button class="btn fb-login-button big_use Fb_i" data-size="large" data-button-type="login_with" -->
+<!--  						data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" ;"></button> -->
+	
+						
+							<a href="#" id="loginFB">Facebook登入</a>
+
 
 						<div class="AreaCon">
 							<button type="button" class="btn small_use Google_i">
