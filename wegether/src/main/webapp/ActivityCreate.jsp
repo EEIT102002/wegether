@@ -260,7 +260,7 @@ table {
 		<div id="small_con">
 			<form id="ActivityCreateForm"
 				action="<c:url value="/actCreate.controller"/>" method="post"
-				accept-charset="ISO-8859-1" enctype="multipart/form-data">
+				accept-charset="utf-8" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<td class="table-left">聚會封面</td>

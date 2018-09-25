@@ -148,6 +148,7 @@ public class ActivityCreateController {
 
 		 JSONObject formJson= null;		 
 		 if (setForm != null && "yes".equals(setForm) && applyform != null) {
+			 System.out.println(applyform);
 			 formJson = activityFormService.stringToJsonObject(applyform);
 			 formJson.put("hasForm", true);
 		 } else {

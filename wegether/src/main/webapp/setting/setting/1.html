@@ -44,21 +44,32 @@
 					addr += memberinfo["addr"] != null ? memberinfo["addr"] : "";
 					if (addr.length != 0)
 						memberinfo["addrs"] = addr;
-					$('.setting1 > table tr').each(function () {
-						var info = memberinfo[$(this).attr('id')];
+					$('.setting1 > table tr').each(function () {	
 						var e = $(this);
-						if (info != null && info != "") {
+						var info = memberinfo[e.attr('id')];
+						
+						if (info != null && info !== "") {
 							if (e.attr('id') == "birthday")
 								info = $.datepicker.formatDate('yy/mm/dd', new Date(info));
-							if(e.attr('id') != "favorite"){
-								e.children().eq(1).text(info)
-							}else{
+							if(e.attr('id') == 'sex'){
+								switch(info){
+									case 0:
+										info = '男';
+										break;
+									case 1:
+										info = '女';
+										break;
+								}
+							}
+							if(e.attr('id') == "favorite"){
 								var favoritediv = $('<div class="favoritediv"/>');
 								e.children().eq(1).html(favoritediv);
 								var infos = info.split(',');
 								$.each(infos, function(i,e){
 									favoritediv.append($('<div>').text(e))
 								})
+							}else{
+								e.children().eq(1).text(info)
 							}
 						} else {
 							this.children[1].innerHTML = '<span class="notinput">未填寫</span>';

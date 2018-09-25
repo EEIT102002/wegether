@@ -36,7 +36,6 @@ public class NoticeInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		System.out.println("noticeInterceptor");
 		if (request.getAttribute("id") == null || request.getAttribute("ntype") == null) {
 			HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 			return;
