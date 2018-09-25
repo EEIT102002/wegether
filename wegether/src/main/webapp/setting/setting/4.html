@@ -104,23 +104,22 @@
 			})
 
 		function friendlist() {
-			pagelag=1;
 			addfriendlist(rowtemp, "/wegether/member/Friend/",1);
 		}
 
 		function friendapplyedlist() {
-			pagelag=2;
 			addfriendlist(applyedtemp, "/wegether/member/Friend/Applyed/",2);
 		}
 
 		function friendapplylist() {
-			pagelag=3;
 			addfriendlist(applytemp, "/wegether/member/Friend/Apply/",3);
 		}
 
 
 		function addfriendlist(temple, restful, lag) {
-			console.log(restful + first);
+			if(pagelag == lag)
+				return;
+			pagelag=lag;
 			$.ajax({
 				type: "GET",
 				url: restful + first,
@@ -144,6 +143,7 @@
 							iframe_auto_height();
 						})
 						scrolltimes = 0;
+						pagelag = -1;
 					}
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {

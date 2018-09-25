@@ -30,6 +30,7 @@ var respondTemp = '<div class="respondAttend"><button type="button" value="accep
 
 var activityid;
 var pagelag;
+var actlag;
 $(function () {
 	
 	$('#blocklist').on('click','.panel',function(){
@@ -188,7 +189,10 @@ $(function () {
 
 
 	function clickContent_xx(i) {
-
+		if(actlag == i){
+			return;
+		}
+		actlag = i;
 		var ul = $('#right').children().hide().eq(i).show().find('.content_xx').show();
 		if (i == 0)
 			ul.next().hide();
@@ -197,6 +201,8 @@ $(function () {
 		$.post(
 			'/wegether' + reviewUrl[i]
 			, function (data) {
+				if(actlag != i)
+					return;
 				$.each(data, function (index, e) {
 					var li = $(liTemp);
 					li.children('a').attr('href', '/wegether/activityPage.controller?actid=' + e.activityid)
@@ -246,6 +252,7 @@ $(function () {
 					}
 					ul.append(li);
 				})
+				actlag= -1;
 			}
 			, 'json'
 		)
