@@ -268,13 +268,12 @@ $(function () {
 
 	function friendbuttonDo(e){
 		e=$(e)
-		var url = '/wegether/activity/'+activityid+'/'+e.val()+'/'+e.parent().attr('friendid');
-		console.log(url)
-//		$.post(
-//			url
-//			,function(data){
-//				e.parent().parent().remove();
-//				friendList.css('min-height', (count* listhight) + "px");
-//			}
-//		)	
+		var url = '/wegether/attend/activity/'+activityid+'/'+e.val()+'/'+e.parent().attr('friendid');
+		$.post(
+			url
+			,function(data){
+				e.parent().parent().remove();
+				$('#friendsearchBox .friendList').css('min-height', (count* listhight) + "px");
+			}
+		)	
 	}

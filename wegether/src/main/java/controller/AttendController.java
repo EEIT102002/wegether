@@ -49,6 +49,21 @@ public class AttendController {
 		}		
 	}
 	
+	@RequestMapping(path= {"/attend/activity/{activityid}/invite/{friendid}"})
+	public @ResponseBody ResponseEntity<?> inviteAttned(
+			@PathVariable(name="activityid") Integer activityid, @PathVariable(name="friendid") Integer invitemember,
+			@RequestAttribute("memberid") Integer memberid, HttpServletRequest request) {
+		AttendBean bean = attendService.invite(activityid, memberid, invitemember);
+		if(bean != null) {
+			request.setAttribute("id", bean.getId());
+			request.setAttribute("ntype", 5);
+			return new ResponseEntity<>(true,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
 	@RequestMapping(path= {"/attend/invite/{stateStr}/{attendid}"})
 	public @ResponseBody ResponseEntity<?> RespondAttendInvite(
 			@PathVariable(name="stateStr") String stateStr, @PathVariable(name="attendid") Integer attendid,
@@ -80,7 +95,6 @@ public class AttendController {
 		AttendBean bean = attendService.respondInviteByActivity(activityid, memberid, state);
 		return AttendInviteState(bean, request);	
 	}
-	
 	
 	private ResponseEntity<?> AttendInviteState(AttendBean bean,HttpServletRequest request){
 		if(bean != null) {

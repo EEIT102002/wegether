@@ -24,28 +24,6 @@
 		// 		$(this).addClass('animated');
 		// 	})
 	})
-	
-	function loginDo(){
-// 		 console.log(" Member loginDo");
-// 		 $('input[name=title]').removeAttr('data-toggle');
-// 		 $.get("servicelogincheck.controller",
-// 				  function(data){
-// 			 console.log(" Member login"); 
-// 			 $('input[name=title]').removeAttr('data-toggle');
-// 		 			},'json');
-		 
-	}
-	
-	function logoutDo() {
-// 		console.log(" Member logout");
-// 		 $('input[name=title]').attr('data-toggle','modal');
-// 		 $.get("servicelogincheck.controller",
-// 				  function(data){
-// 			 console.log(" Member logout");
-
-// 		 			},'json');	
-		}	
-	
 </script>
 </head>
 <body>
@@ -56,20 +34,9 @@
 
 			<form action="<c:url value="/Service.controller" />">
 				<div id="keyword_search">
-					<span class="form-group">問題名稱 :</span> 
-					<input type="text" name="title" placeholder="請輸入-標題" required="required"
-									value="${param.title}">
-									
-									
-<%-- 						<c:if test="${empty memberid}"> --%>
-<!-- 							<input type="text" name="title" placeholder="請輸入-標題" data-toggle="modal" data-target="#ActPageBox" required="required" -->
-<%-- 									value="${param.title}"> --%>
-<%-- 						</c:if> --%>
-<%-- 						<c:if test="${not empty memberid}"> --%>
-<%-- 							<input type="text" name="title" placeholder="請輸入-標題" required="required" value="${param.title}"> --%>
-<%-- 						</c:if>				 --%>
-						
-
+					<span class="form-group">問題名稱 :</span> <input type="text"
+						name="title" placeholder="請輸入-標題" required="required"
+						value="${param.title}">
 					<td>${errors.title}</td>
 				</div>
 				<div class="AreaCon">
@@ -86,14 +53,14 @@
 				<div class="Content" id="Content">
 					<label>問題描述 :</label>
 					<textarea rows="5" cols="105" placeholder="請輸入問題" name="content"
-						required="required"  ></textarea><td>${errors.content}</td>
+						required="required"></textarea><td>${errors.content}</td>
 				</div>
 				<div id="searchbarButton">
 					<input type="submit" name="servicemethod" value="提交"
 						class="btn btn-warning form-control "> <input type="reset"
 						value="清除" class="btn btn-warning form-control">
 				</div>
-				<tr><span>${loginerror.loginerror}</span></tr>
+<%-- 				<tr><span>${loginerror.loginerror}</span></tr> --%>
 			</form>
 		</div>
 	</div>
@@ -103,3 +70,5 @@
 	
 </body>
 </html>
+				
+			

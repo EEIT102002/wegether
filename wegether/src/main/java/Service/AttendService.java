@@ -9,8 +9,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import model.AttendBean;
+import model.FriendBean;
 import model.MemberBean;
 import model.dao.AttendDAO;
+import model.dao.FriendDAO;
 
 @Service
 @SuppressWarnings("unchecked")
@@ -20,14 +22,21 @@ public class AttendService {
 	@Autowired
 	private ActivityService activityService;
 	@Autowired
+	private FriendDAO friendDAO;
+	@Autowired
 	private ApplicationContext applicationContext;
 
 	public AttendBean apply(int activityid, int memberid, String answer) {
 		return insert(activityid, memberid, answer, 0);
 	}
 
-	public AttendBean invite(int activityid, int memberid) {
-		return insert(activityid, memberid, "default", 3);
+	public AttendBean invite(int activityid, int memberid, int friendid) {
+		FriendBean fbean = friendDAO.selectById(friendid);
+		if (fbean != null && fbean.getMemberid() == memberid) {
+			if (activityService.checkHost(memberid, activityid))
+				return insert(activityid, fbean.getMemberidf(), "default", 3);
+		}
+		return null;
 	}
 
 	private AttendBean insert(int activityid, int memberid, String answer, int state) {
@@ -53,12 +62,12 @@ public class AttendService {
 		AttendBean attendBean = attendDAO.select(attendid);
 		return respondInviteCheck(attendBean, memberid, state);
 	}
-	
+
 	public AttendBean respondInviteByActivity(int activityid, int memberid, int state) {
 		AttendBean attendBean = attendDAO.selectByActivityAndMember(activityid, memberid);
 		return respondInviteCheck(attendBean, memberid, state);
 	}
-	
+
 	private AttendBean respondInviteCheck(AttendBean attendBean, int memberid, int state) {
 		if (attendBean != null && memberid == attendBean.getMemberid() && attendBean.getState() == 3) {
 			attendBean.setState(state);
@@ -111,22 +120,22 @@ public class AttendService {
 		row.put("rank3", bean.getRank3());
 		return row;
 	}
-	
+
 	public JSONObject getAttend(int attendid, int memberid) {
 		AttendBean bean = attendDAO.select(attendid);
-		if(memberid == bean.getActivityBean().getHostid()) {
+		if (memberid == bean.getActivityBean().getHostid()) {
 			return rowAddAttendInfo(bean);
 		}
 		return null;
 	}
-	
+
 	private JSONObject rowAddAttendInfo(AttendBean bean) {
 		JSONObject row = createRow(bean.getMemberBean());
 		row.put("attendid", bean.getId());
 		row.put("applyForm", bean.getForm());
 		return row;
 	}
-	
+
 	private JSONObject createRow(MemberBean bean) {
 		JSONObject row = (JSONObject) applicationContext.getBean("newJson");
 		row.put("nickname", bean.getNickname());
