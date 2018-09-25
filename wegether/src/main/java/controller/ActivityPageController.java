@@ -103,7 +103,7 @@ public class ActivityPageController {
 			model.addAttribute("actPicList", actPicList);
 			model.addAttribute("actPicListSize", actPicList.size());
 		}else {
-			model.addAttribute("actPicList", 0);
+			model.addAttribute("actPicList", null);
 			model.addAttribute("actPicListSize", 0);
 		}
 

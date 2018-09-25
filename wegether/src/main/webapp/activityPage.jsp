@@ -284,11 +284,18 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 									
 							</div>
 							<div class="div2" >
+							
+							
+							<c:if test="${not empty actPicList}">
 								<c:set var="temp" value="1" />
 								<c:forEach var="obj" items="${actPicList}">
 									<img id="imd${temp}" src="/wegether/picture/${obj}" class="img-thumbnail">
 									<c:set var="temp" value="${temp+1}" />
 								</c:forEach>
+							</c:if>
+								
+								
+								
 							</div>
 						</div>
 						<!-- 	照片輪播  end-->
