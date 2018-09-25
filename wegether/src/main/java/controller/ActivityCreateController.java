@@ -152,10 +152,10 @@ public class ActivityCreateController {
 			 formJson = activityFormService.stringToJsonObject(applyform);
 			 formJson.put("hasForm", true);
 		 } else {
-			 formJson = activityFormService.stringToJsonObject("{\"hasFrom\" : false}");
+			 formJson = activityFormService.stringToJsonObject("{\"hasForm\" : false}");
 		 }
 		
-		activityBean.setForm( formJson.toString());
+		activityBean.setForm(formJson.toString());
 
 		System.out.println(startDate);
 		System.out.println(starttime);
