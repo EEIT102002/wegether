@@ -108,11 +108,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		 
 		//新增留言
 		 $('#txtbut').click(function(){
-<<<<<<< HEAD
 			 postMsgs(activityid,memberid,"${actBean.state}",$("#txt").val()); 
-=======
-			 postMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val()); 
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 			 $("#txt").val('');
 		});
 			
@@ -120,33 +116,16 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			$('#demo').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-<<<<<<< HEAD
 				 	 deleteMsgs(activityid,memberid,"${actBean.state}",temp);
-=======
-				 	 deleteMsgs("${actBean.id}","${memberid}","${actBean.state}",temp);
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 		    		 $("#txt").val('');
 		        }
 		    });
 		
-<<<<<<< HEAD
-
-=======
-		 //載入心得
-// 		 getArticles();
-		 
-		//刪除心得
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 			$('#demoArticle').click(function(event){
 				//刪除心得
 		        if (event.target.className == "btn btn-danger"){
-<<<<<<< HEAD
 		        	articleid = $(event.target).attr("articleid")
 				 	deleteArticles(articleid);
-=======
-					var temp = $(event.target).attr("msgid")
-				 	 deleteArticles("${actBean.id}","${memberid}","${actBean.state}",temp);
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 		        }
 		        
 				//回覆心得分享
@@ -191,12 +170,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-<<<<<<< HEAD
-				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#right>h3').val();
-=======
-				//alert("actname:"+$('#gettitle').val())
 				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#gettitle').val();
->>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 			})
 		
 	})
