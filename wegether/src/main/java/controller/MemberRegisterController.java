@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServlet;
-import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +55,7 @@ public class MemberRegisterController extends HttpServlet {
 		// flag= 0:未登入 1:登入
 		// Integer flag = 0;
 		 if (memberid != null) {
-//		JOptionPane.showMessageDialog(null, "已登入過，將轉至首頁請再次登入", "註冊失敗", JOptionPane.INFORMATION_MESSAGE );
-
-			 
+		
 		 return "register.success";
 		 }
 		System.out.println(memberid);
@@ -116,7 +113,7 @@ public class MemberRegisterController extends HttpServlet {
 
 		// 姓名驗證 只能中文2~7
 		String name = StringEscapeUtils.unescapeHtml(bean.getName());
-		Pattern patternname = Pattern.compile("^\\w{2,7}+$");
+		Pattern patternname = Pattern.compile("[\u4E00-\u9FBF]{2,7}+");
 		Matcher rematchername = patternname.matcher(name);
 		boolean checkname = rematchername.matches();
 		// System.out.println(name);
@@ -130,7 +127,7 @@ public class MemberRegisterController extends HttpServlet {
 		}
 		// 地址驗證 只能輸入中文
 		String addr = StringEscapeUtils.unescapeHtml(bean.getAddr());
-		Pattern patternaddr = Pattern.compile("^\\w+$");
+		Pattern patternaddr = Pattern.compile("^[\u4E00-\u9FBF_0-9]+$");
 		// ^[\u4e00-\u9fa5_0-9]+$
 		Matcher rematcheraddr =   patternaddr.matcher(addr);
 		boolean checkaddr = rematcheraddr.matches();
@@ -209,8 +206,7 @@ public class MemberRegisterController extends HttpServlet {
 			model.addAttribute("inputRrrors", errors);
 			System.out.println("所得到的bean:" + bean);
 			System.out.println("erroers" + errors);
-//			 JOptionPane.showMessageDialog(null, "請再次註冊", "註冊失敗", JOptionPane.PLAIN_MESSAGE );
-//
+
 			return "register.error";
 		} else {
 
@@ -223,8 +219,7 @@ public class MemberRegisterController extends HttpServlet {
 			bean.setContent(content);
 
 			memberDAOHibernate.insert(bean);
-//			JOptionPane.showMessageDialog(null, "將轉至首頁，請再次登入", "註冊成功", JOptionPane.INFORMATION_MESSAGE );
-
+			
 			// bean.getId()
 			// flag=1;
 
