@@ -152,7 +152,7 @@ public class ActivityCreateController {
 			 formJson = activityFormService.stringToJsonObject(applyform);
 			 formJson.put("hasForm", true);
 		 } else {
-			 formJson = activityFormService.stringToJsonObject("{\"hasFrom\" : false}");
+			 formJson = activityFormService.stringToJsonObject("{\"hasForm\" : false}");
 		 }
 		activityBean.setForm( formJson.toString());
 
