@@ -144,12 +144,16 @@ public class MemberPersonalController {
 		}
 		//檢查memberid和id關西
 		int status =midAndIdCheckServices.check(id, memberId);// 狀態 1好友2非好友3黑名單4非會員未登入5自己
-	
+		
 		int memberid = memberId;
 
 		System.out.println("login=" + id);
 		System.out.println("member=" + memberid);
 		System.out.println("檢查後狀態為" + status);
+		
+		if(status==3) {
+			return "index.success";
+		}
 		
 		// 搜尋頁面的隱私權設定
 		SettingBean setting = settingDAO.select(memberid);
