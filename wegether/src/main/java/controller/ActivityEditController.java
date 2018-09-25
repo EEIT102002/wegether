@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.sound.midi.Soundbank;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -155,7 +156,9 @@ public class ActivityEditController {
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 
 		byte[] pic = null;
-		if (file != null) { // 圖片判定
+		if (file != null || !file.isEmpty()) { // 圖片判定
+			System.out.println("has pic");
+			System.out.println("file="+file);
 			pic = file.getBytes();
 			activityBean.setPicture(pic); // 塞圖片
 		}
@@ -224,8 +227,13 @@ public class ActivityEditController {
 			Date cc = simpleDateFormat.parse(endDateTime);
 			activityBean.setActend(cc);
 		}
-		activityBean.setId(71); // 整合時須修改
-		activityBean.setTitle(activityBean.getTitle());
+		activityBean.setId(activityBean.getId());
+		activityBean.setTitle(StringEscapeUtils.unescapeHtml(activityBean.getTitle()));
+		activityBean.setContent(StringEscapeUtils.unescapeHtml(activityBean.getContent().trim()));
+		if (activityBean.getAddr() != null || !activityBean.getAddr().isEmpty())
+			activityBean.setAddr(StringEscapeUtils.unescapeHtml(activityBean.getAddr()));
+		if (activityBean.getClasstype() != null || !activityBean.getClasstype().isEmpty())
+			activityBean.setClasstype(StringEscapeUtils.unescapeHtml(activityBean.getClasstype()));
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 
@@ -236,7 +244,7 @@ public class ActivityEditController {
 
 		request.setAttribute("id", activityBean.getId());
 		request.setAttribute("ntype", 13);
-		return "actEditErr.page";
+		return "actEditSuc.page";
 	}
 
 	@RequestMapping("/insertOtherPics.do")

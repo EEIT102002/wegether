@@ -1,6 +1,4 @@
 function loginDo(){
-	
-	alert('loginDo');
 	$.ajax("/wegether/activity/login",{
 			method:"GET",
 			success:function(jsonArray){
@@ -10,6 +8,4 @@ function loginDo(){
 }
 
 function logoutDo() {
-//	$('.header_nav>ul>li:eq(0)').addClass('active');
-	alert('logouDo inner')
 }

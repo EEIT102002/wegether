@@ -80,7 +80,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			 $("#articleButId").attr("class","btn btn-secondary"); //心得分享按鍵   
 			 $("#demoArticle").hide();
 			 $("#demo").show();
-			 getMsgs(activityid);
+			 getMsgs("${actBean.id}");
 		})
 		
 		// 切換心得分享版面
@@ -89,7 +89,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			 $("#articleButId").attr("class","btn btn-warning"); //心得分享按鍵   
 			 $("#demo").hide();
 			 $("#demoArticle").show();
-			 getArticles(activityid); //載入心得
+			 getArticles("${actBean.id}"); //載入心得
 			 
 		})
 		
@@ -98,15 +98,21 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		
 		
 		 //載入留言 
-		 getMsgs(activityid);
-	//清除留言預設文字
+// 		 console.log(${actBean.id});
+		 getMsgs("${actBean.id}");
+		 
+		//清除留言預設文字
 		 $('#txt').click(function(){
 			 $("#txt").val('');
 		});
 		 
 		//新增留言
 		 $('#txtbut').click(function(){
+<<<<<<< HEAD
 			 postMsgs(activityid,memberid,"${actBean.state}",$("#txt").val()); 
+=======
+			 postMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val()); 
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 			 $("#txt").val('');
 		});
 			
@@ -114,17 +120,33 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			$('#demo').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
+<<<<<<< HEAD
 				 	 deleteMsgs(activityid,memberid,"${actBean.state}",temp);
+=======
+				 	 deleteMsgs("${actBean.id}","${memberid}","${actBean.state}",temp);
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 		    		 $("#txt").val('');
 		        }
 		    });
 		
+<<<<<<< HEAD
 
+=======
+		 //載入心得
+// 		 getArticles();
+		 
+		//刪除心得
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 			$('#demoArticle').click(function(event){
 				//刪除心得
 		        if (event.target.className == "btn btn-danger"){
+<<<<<<< HEAD
 		        	articleid = $(event.target).attr("articleid")
 				 	deleteArticles(articleid);
+=======
+					var temp = $(event.target).attr("msgid")
+				 	 deleteArticles("${actBean.id}","${memberid}","${actBean.state}",temp);
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 		        }
 		        
 				//回覆心得分享
@@ -169,7 +191,12 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
+<<<<<<< HEAD
 				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#right>h3').val();
+=======
+				//alert("actname:"+$('#gettitle').val())
+				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#gettitle').val();
+>>>>>>> branch 'master' of https://github.com/EEIT102002/wegether
 			})
 		
 	})
@@ -186,7 +213,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		 			},'json');	
 		 
 		 $('input[value=留言]').removeAttr('data-toggle');
-		 
+		 $('a[title=推薦給好友]').removeAttr('data-toggle');
 	
 	
 	}
@@ -248,18 +275,12 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 							<div id="left" style="width: auto;">
 								<a href="personal.controller?memberId=${hostBean.id}"  style="text-decoration:none;">
 								<img 	src="/wegether/member/photo/${hostBean.id}"							
-									class="img-circle" width="70" height="70"> </a>								
+									class="img-circle" width="70" height="70"> </a>
 							</div>
 							<div id="left" style="width: auto;">
-								<p id="txtup" >${hostBean.nickname}</p>
+								<p id="txtup" style="background-color: #FFBB73">${hostBean.nickname}</p>
 								<p id="txtup">${hostBean.job}</p>
 							</div>
-							&emsp;
-						      
-							
-							
-							
-							
 							<div id="right">
 								<c:if test="${empty memberid}">
 									<a href="#" class="tooltip-test" title="推薦給好友" data-toggle="modal" data-target="#ActPageBox" style="text-decoration:none;">  
@@ -302,7 +323,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 
 					<!-- 上右區塊  -->
 					<div id="right">
-						<h3>${actBean.title}</h3>
+						<h3 class="getTitle">${actBean.title}</h3>
 						<!-- right1 end -->
 						<p>${actbegin}</p>
 						<!-- right2 end -->
@@ -396,7 +417,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 				<!-- 上面區 end -->
 				<!-- 下面區塊 -->
 				<div id="down">
-					<h2>${actBean.title}</h2>
+					<h2>${actBean.title}</h2><input type="hidden" value="${actBean.title}" id="gettitle">
 					<p>${actBean.content}</p>
 					</br>
 
@@ -487,7 +508,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 
 
 <!-- 推薦活動給好友 -->
-	  <div class="modal fade" id="friendsearchBox" role="dialog">
+	  <div class="modal fade" id="friendsearchBox" role="dialog" style="border:2px solid;">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->

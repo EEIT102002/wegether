@@ -64,7 +64,6 @@ $(function () {
 	
 	//左邊選單
 	$('#left .content_xx').on('click', '.changePage', function () {
-		console.log(123);
 		var li = $(this);
 		var i = li.index();
 		li.addClass('choose').siblings(".choose").removeClass('choose');

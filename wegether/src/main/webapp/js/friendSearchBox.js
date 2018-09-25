@@ -1,5 +1,5 @@
 $(function(){
-	var rowtemp = '<div><a href=""><div class="memberPhoto"><div><img src="#" alt=""></div></div><span class="name"></span></a><div class="friendButton"><button type="button" value="invite">'+friendbuttonText+'</button></div></div>';
+	var rowtemp = '<div style="display:flex; position:relative;border-bottom:2px solid #ccc;" ><a href="" style="display:flex;flex:0.7;line-height:65px;"><div class="memberPhoto"><div><img src="#" alt=""></div></div><span class="name" style="flex:0.8"></span></a><div class="friendButton"><button type="button" value="invite" style="width:65px;position:absolute;bottom:0;right:0">'+friendbuttonText+'</button></div></div>';
 	var first = 0;
 	var count = 0;
 	var scrolltimes = 0;

@@ -5,28 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<link
-	href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-	rel='stylesheet' type='text/css'>
-<script src="js/bootstrap.js"></script>
-<script src="/wegether/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="./js/setting.js"></script>
-<script src="/wegether/js/noticeWebStocket.js" type="text/javascript"></script>
-<script src="/wegether/js/logMethod.js" type="text/javascript"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+<title>ServiceListPage</title>
+<jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
+<link rel="stylesheet" href="/wegether/css/Non-home.css">
 <script>
 	$(function() {
 		$('#header_nav ul li').click(function() {
@@ -216,7 +197,7 @@ footer>ul>li ul {
 										<table>
 											<thead>
 												<tr>
-													<th>提問時間</th>
+<!-- 													<th>提問時間</th> -->
 													<th>會員ID</th>
 													<th>標題</th>
 													<th>類型</th>
@@ -236,7 +217,7 @@ footer>ul>li ul {
 													<tr>
 														<div>
 															<span>
-																<td>${obj.asktime}</td>
+<%-- 																<td>${obj.asktime}</td> --%>
 																<td><a href="${link}">${obj.memberid}</td>
 																<td><a href="${link}">${obj.title}</td>
 															</span> <span>
@@ -266,26 +247,6 @@ footer>ul>li ul {
 		</div>
 	</div>
 
-	<!-- <footer>
-		<div class="container">
-			<p id="fw">Wegther 2018</p>
-		</div>
-	</footer> -->
-	<!-- <i  id="upTop" class="fa fa-chevron-circle-up animated infinite bounce" aria-hidden="true"></i> -->
-	<footer class="container">
-		<ul>
-			<li><a href="" title="">關於Wegether</a>
-				<ul>
-					<li>-我們的出發</li>
-					<li>-我們的團隊</li>
-					<li>-我們的服務</li>
-				</ul></li>
-			<li><a href="" title="">聯絡我們</a>
-				<ul>
-					<li>-聯絡我們</li>
-				</ul></li>
-		</ul>
-		<p class="text-center">- Wegther 2018 EEIT10202 -</p>
-	</footer>
+		<jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>
 </body>
 </html>

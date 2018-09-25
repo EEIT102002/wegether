@@ -27,7 +27,7 @@ city	int, 		--縣市
 addr	nvarchar(50), 		--詳細地址	
 tel	char(20), 		--電話	
 content	nvarchar(max), 		--自我介紹	
-favorite	varchar(max) 	,	--喜好活動類型	
+favorite	nvarchar(max) 	,	--喜好活動類型	
 signupdate	datetime not null default getdate(),		--註冊日期		
 rank1	decimal(2,1) check(rank1 between 0 and 5),		--活動滿意度	
 rank2	decimal(2,1) check(rank2 between 0 and 5),		--事前溝通安排	
@@ -516,7 +516,10 @@ create trigger notice_activity_update on activity --activity table更新 活動�
 for update
 as
 begin
-if (select count(id) from inserted) =1
+if (select count(id) from inserted) = 1 and (
+	(select click from deleted) = (select click from inserted)
+	or (select click from inserted) is null
+	)
 begin
 	declare @date datetime  = getDate(), @id int
 	select @id=id
@@ -693,8 +696,7 @@ begin
 				where activityid = n.activityid or articleid = n.articleid
 				group by activityid , articleid);
 end
-go
-
+z
 create trigger notice_member_update on member
 for update
 as
