@@ -99,9 +99,9 @@ public class ActivityEditController {
 			int endHour = Integer.parseInt(endTime.substring(0, 2));
 			if (endHour == 0)
 				endTime = (endHour + 12) + ":" + endTime.substring(3, 5) + " AM";
-			else if (endHour >= 1 && endHour <= 11)
+			else if (endHour >= 1 && endHour <= 9)
 				endTime = "0" + endHour + ":" + endTime.substring(3, 5) + " AM";
-			else if (endHour == 11)
+			else if (endHour == 10 || endHour == 11)
 				endTime = endHour + ":" + endTime.substring(3, 5) + " AM";
 			else if (endHour == 12)
 				endTime = endHour + ":" + endTime.substring(3, 5) + " PM";
