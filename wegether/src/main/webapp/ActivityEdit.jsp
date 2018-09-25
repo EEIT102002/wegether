@@ -36,11 +36,13 @@
 		})
 		
 		var nameAr = $('.allPic').attr('name');
-		alert(nameAr)
-		var thisName = nameAr.substring(1,(nameAr.length-1))
-		var ids = thisName.split(',');
-		for(i = 0; i < ids.length; i++){
-			$('img[id=' + (i+2) + ']').attr('id', ids[i]);
+		if(nameAr!=undefined){
+			//alert(nameAr)
+			var thisName = nameAr.substring(1,(nameAr.length-1))
+			var ids = thisName.split(',');
+			for(i = 0; i < ids.length; i++){
+				$('img[id=' + (i+2) + ']').attr('id', ids[i]);
+			}
 		}
 		
 		$('.deleteEditPics').click(function(){
@@ -296,7 +298,7 @@ table {
 							<input type="button" value="我要新增其他照片" id="addOtherPics"/>
 							<div class="form-group" style="display:none">
 							<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-									name="pics"></div>
+								   name="pics"></div>
 							<script>
 							$("#file-1").fileinput({
 								uploadExtraData: {'activitiId': ${actid}},

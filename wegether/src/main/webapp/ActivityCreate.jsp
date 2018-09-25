@@ -192,7 +192,10 @@
 <style>
 .selPic {
 	height: 180px;
-	border-radius: 15px;
+	border-radius: 7px;
+	border: 1px solid gray;
+	padding: 10px;
+	margin-bottom: 5px
 }
 .actPic {
 	height: 100px;
@@ -200,6 +203,7 @@
 }
 input[type=text], input[type=number], select,textarea {
     width: 100%;
+    height: 40px;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -212,7 +216,7 @@ textarea {
 }
 input[type=date], input[name=startTimepicker], input[name=endTimepicker] {
     width: 49.4%;
-    height: 50px;
+    height: 40px;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -240,9 +244,11 @@ table {
 .table-left {
 	border-right: solid 5px rgba(0, 44, 95, 0.3);
 	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
+	padding-right: 10px;
 }
 .table-right {
 	padding: 10px;
+	padding-left: 20px;
 	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
 	
 }
@@ -258,7 +264,7 @@ table {
 				<table>
 					<tr>
 						<td class="table-left">聚會封面</td>
-						<td class="table-right"><img src="images/actcreate.png" id="picZone" class="selPic"> <input type="file"
+						<td class="table-right"><img src="images/defult_pic.png" id="picZone" class="selPic"> <input type="file"
 								 name="picture" id="actPic" accept="image/*"></td>
 					</tr>
 					<tr>
@@ -266,7 +272,7 @@ table {
 						<td class="table-right"><input type="button" value="我要上傳照片" id="addOtherPics" />
 							<div class="form-group" style="display: none">
 								<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-									   data-min-file-count="2" name="multipicture">
+									   name="multipicture">
 							</div>
 							<script>
 								$("#file-1").fileinput({
