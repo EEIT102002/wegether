@@ -188,7 +188,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype,
 			String title) {
-		String selectOfIndex = "select * from Activity  WHERE actend > getDate() and state <> 2 ";
+		String selectOfIndex = "select * from Activity  WHERE actbegin > getDate() and state <> 2 ";
 		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
 
 			selectOfIndex = selectOfIndex + "and actbegin >='" + beginDate + "'AND actend <='" + endDate+ "' ";
@@ -221,7 +221,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public List<ActivityBean> selectOfIndexPo(int state, int city, String beginDate, String endDate, String classtype,
 			String title, List<Integer> Actid) {
-		String selectOfIndex = "select * from Activity  WHERE actend < getDate() and state <> 2";
+		String selectOfIndex = "select * from Activity  WHERE actbegin < getDate() and state <> 2";
 		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
 			selectOfIndex = selectOfIndex+ " and  actbegin >='" + beginDate + "'and actend <='" + endDate + "' " ;
 				
