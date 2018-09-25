@@ -65,15 +65,15 @@ public class FacebookLoginCheckController {
 				bean.setPwd("EA123456".getBytes());	//預設密碼
 				
 				//預設圖片
-				byte[] pic = null;
-				File defultPic = new File("/wegether/images/04.jpg");
-				try {
-					// pic = ((MultipartFile) defultPic).getBytes();
-					pic = PictureConvert.converFileToByte(defultPic);
-					bean.setPhoto(pic);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				byte[] pic = null;
+//				File defultPic = new File("/wegether/images/04.jpg");
+//				try {
+//					// pic = ((MultipartFile) defultPic).getBytes();
+//					pic = PictureConvert.converFileToByte(defultPic);
+//					bean.setPhoto(pic);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 				
 				bean.setBirthday(new java.util.Date());//系統註冊時間
 				memberDAO.insert(bean);
