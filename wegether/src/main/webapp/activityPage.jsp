@@ -10,6 +10,14 @@
 
 <jsp:include page="/ShareTemp/headerjs.jsp"></jsp:include>
 <link rel="stylesheet" href="/wegether/css/Non-home.css">
+
+<!-- applyForm -->
+<script src="/wegether/js/applyForm.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/wegether/css/applyForm.css">
+
+<!-- 推薦活動給好友 -->
+<!-- <link rel="stylesheet" href="/wegether/css/friendSearchBox.css"> -->
+<script src="/wegether/js/friendSearchBox.js" type="text/javascript"></script>
 <!-- 活動頁面使用  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/wegether/css/activityPage.css">
@@ -20,23 +28,24 @@
 <script type="text/javascript" src="/wegether/js/activityPage/articlePage.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/idCheck.js"></script>
 <script type="text/javascript" src="/wegether/js/activityPage/starPage.js"></script>
-<!-- applyForm -->
-<script src="/wegether/js/applyForm.js" type="text/javascript"></script>
-<link rel="stylesheet" href="/wegether/css/applyForm.css">
-
-<!-- 推薦活動給好友 -->
-<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
-<script src="/wegether/js/friendSearchBox.js" type="text/javascript"></script>
-
 
 <script>
 
 
 var activityid = ${actBean.id};
+
+var memberid ;
+if("${memberid}"!=null && "${memberid}"!=0){
+	console.log("123");
+  memberid = ${memberid};
+}else{
+	 memberid =null;
+}
+
 var actState = ${state};
 
 var friendbuttonText = '推薦'
-var  actPicListSize;
+var actPicListSize;
 
 if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize = ${actPicListSize} ;
@@ -44,9 +53,11 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize =0;
  }
 
-
 // var flag=0;
 	$(function() {
+		var articleid ;
+		
+		
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active')
 				.siblings().removeClass('active');
@@ -97,7 +108,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		 
 		//新增留言
 		 $('#txtbut').click(function(){
-			 postMsgs("${actBean.id}","${memberid}","${actBean.state}",$("#txt").val()); 
+			 postMsgs(activityid,memberid,"${actBean.state}",$("#txt").val()); 
 			 $("#txt").val('');
 		});
 			
@@ -105,21 +116,46 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			$('#demo').click(function(event){
 		        if (event.target.className == "btn btn-danger"){
 					var temp = $(event.target).attr("msgid")
-				 	 deleteMsgs("${actBean.id}","${memberid}","${actBean.state}",temp);
+				 	 deleteMsgs(activityid,memberid,"${actBean.state}",temp);
 		    		 $("#txt").val('');
 		        }
 		    });
 		
-		 //載入心得
-// 		 getArticles();
-		 
-		//刪除心得
 			$('#demoArticle').click(function(event){
+				//刪除心得
 		        if (event.target.className == "btn btn-danger"){
-					var temp = $(event.target).attr("msgid")
-				 	 deleteArticles("${actBean.id}","${memberid}","${actBean.state}",temp);
+		        	articleid = $(event.target).attr("articleid")
+				 	deleteArticles(articleid);
 		        }
+		        
+				//回覆心得分享
+		        if (event.target.className == "btn btn-primary"){
+		        	
+		        	
+		        	if(memberid!=null){
+			        	var searchbox = $('#frBox');
+						searchbox.modal();
+						articleid = $(event.target).attr("articleid")
+			        	console.log("articleid:"+articleid);
+		        	}else{
+// 					 <a href="#" class="tooltip-test"  data-toggle="modal" data-target="#ActPageBox">  </a>
+					 
+						
+		        	}
+		        }
+		        
 		    });
+		 
+		 
+			$('#dialogBut').click(function(){
+				var articleMsg = $('#dialogTxt').val();
+			 	 responseArticles(articleid,memberid,articleMsg);
+				
+			})
+			
+			
+		 
+		
 		
 		//star
 			$('#stardiv1 img').click(click1)
@@ -134,7 +170,6 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	
 			//我要分享心得
 			$('#attendShare').click(function() {
-				//alert("actname:"+$('#gettitle').val())
 				document.location.href = "ArticleCreate.jsp?actid="+activityid+"&actname="+$('#gettitle').val();
 			})
 		
@@ -211,7 +246,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 					<div id="left">
 
 						<div id="up">
-							<div id="left" style="width: auto;">
+							<div id="left" style="width: auto;margin-right: 15px;">
 								<a href="personal.controller?memberId=${hostBean.id}"  style="text-decoration:none;">
 								<img 	src="/wegether/member/photo/${hostBean.id}"							
 									class="img-circle" width="70" height="70"> </a>
@@ -249,11 +284,18 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 									
 							</div>
 							<div class="div2" >
+							
+							
+							<c:if test="${not empty actPicList}">
 								<c:set var="temp" value="1" />
 								<c:forEach var="obj" items="${actPicList}">
 									<img id="imd${temp}" src="/wegether/picture/${obj}" class="img-thumbnail">
 									<c:set var="temp" value="${temp+1}" />
 								</c:forEach>
+							</c:if>
+								
+								
+								
 							</div>
 						</div>
 						<!-- 	照片輪播  end-->
@@ -391,6 +433,9 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 			<!--       寫在這以上 -->
 		</div>
 	</div>
+	
+	
+<!-- 	報名表單 -->
 	<div class="modal fade" id="applyForm" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
@@ -465,6 +510,25 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		</div>
 	</div>
 	<!-- 推薦活動給好友 END-->
+	
+	<!-- 心得分享 -->
+	  <div class="modal fade" id="frBox" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+					<textarea  id="dialogTxt" ></textarea>
+				<div class="modal-footer">
+					<button  id="dialogBut" type="button" data-dismiss="modal" class="btn btn-primary">送出</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  心得分享 END-->
+	
+	
 	<jsp:include page="/ShareTemp/footertemp.jsp"></jsp:include>
 </body>
 <script type="text/javascript" src="/wegether/js/activityPage/autoPlay.js"></script>
