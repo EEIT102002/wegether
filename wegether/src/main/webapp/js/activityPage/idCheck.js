@@ -3,6 +3,7 @@
 var buttonTemp = '<button type="button" class="btn btn-warning" style="width:250px;height:35px"></button>';
 
 function idCheck(data) {
+	console.log("data.state1:"+data.state)
 	// 1:主辦人 2:已報名者 3:未報名者
 	var memBut = $('#memBut');
 	memBut.html('');
@@ -20,6 +21,7 @@ function idCheck(data) {
 		}
 	}else if(data.state != null) {
 		// --報名狀態 0:報名中 1:報名成功 2:報名失敗 3:活動主辦人邀請s
+		cosloe.log("data.state2:"+data.state)
 		memBut.attr("attendid",data.attendid);
 		switch (data.state) {
 			case 0:
