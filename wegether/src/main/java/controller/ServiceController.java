@@ -69,7 +69,6 @@ public class ServiceController {
 			System.out.println("未登入");
 //			loginerror.add("請先登入");
 			errors.put("loginerror","請先登入");
-			System.out.println(loginerror);
 			model.addAttribute("loginerror", errors);
 			return "Service.errors";
 		}else

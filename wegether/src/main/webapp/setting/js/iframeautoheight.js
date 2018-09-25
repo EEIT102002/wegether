@@ -66,7 +66,7 @@ function searchServer(formData, url, type){
                 var row = $(temp);
                 row.find(".name").html(e.nickname);
                 row.find('img').attr('src', '/wegether/member/photo/'+e.memberid);
-                row.find('a').attr('href', '/wegether/personal.controller?memberid='+e.memberid);
+                row.find('a').attr('href', '/wegether/personal.controller?memberId='+e.memberid);
                 row.find('.friendButton').attr('memberid', e.memberid);
                 minbody.append(row);
                 searchbox.modal();

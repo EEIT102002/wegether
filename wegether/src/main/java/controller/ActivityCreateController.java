@@ -136,25 +136,27 @@ public class ActivityCreateController {
 			activityBean.setActend(cc);
 		}
 
+		System.out.println("getAddr = " + activityBean.getAddr());
+		System.out.println("getClasstype = " + activityBean.getClasstype());
 		activityBean.setTitle(StringEscapeUtils.unescapeHtml(activityBean.getTitle()));
-		if (activityBean.getAddr() != null || !activityBean.getAddr().isEmpty())
+		if (activityBean.getAddr() != null)
 			activityBean.setAddr(StringEscapeUtils.unescapeHtml(activityBean.getAddr()));
-		if (activityBean.getClasstype() != null || !activityBean.getClasstype().isEmpty())
+		if (activityBean.getClasstype() != null)
 			activityBean.setClasstype(StringEscapeUtils.unescapeHtml(activityBean.getClasstype()));
 		activityBean.setContent(StringEscapeUtils.unescapeHtml(activityBean.getContent()));
 		activityBean.setHostid(id);
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 
-		 JSONObject formJson= null;		 
-		 if (setForm != null && "yes".equals(setForm) && applyform != null) {
-			 System.out.println(applyform);
-			 formJson = activityFormService.stringToJsonObject(applyform);
-			 formJson.put("hasForm", true);
-		 } else {
-			 formJson = activityFormService.stringToJsonObject("{\"hasForm\" : false}");
-		 }
-		activityBean.setForm( formJson.toString());
+		JSONObject formJson = null;
+		if (setForm != null && "yes".equals(setForm) && applyform != null) {
+			System.out.println(applyform);
+			formJson = activityFormService.stringToJsonObject(applyform);
+			formJson.put("hasForm", true);
+		} else {
+			formJson = activityFormService.stringToJsonObject("{\"hasForm\" : false}");
+		}
+		activityBean.setForm(formJson.toString());
 
 		System.out.println(startDate);
 		System.out.println(starttime);
