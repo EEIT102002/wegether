@@ -2,8 +2,6 @@
 <Context>
 
 
-
-
 <!-- 	connection cloud DB -->
 <!-- 	<Resource name="jdbc/wegether" -->
 <!--           auth="Container" -->

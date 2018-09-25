@@ -23,8 +23,7 @@ var friendbuttonText = '推薦'
 
 $(function() {
 	var articleid ;
-	var articleMsgsID;
-	 getArticles(1); //載入心得
+	 getArticles(2); //載入心得
 	 
 	
 		$('#demoArticle').click(function(event){
@@ -69,7 +68,7 @@ $(function() {
 	 $.get("article.controller/"+activityid,
 			 function(result){	
 	 			$.each(result, function(i,item){
-	 				
+	 				//心得分享
 	 				divElem1 =("<div id='msgid'>" +
 					'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
 					'<img src="/wegether/member/photo/'+item[0]+'" class="img-circle" width="70" height="70">  </a>' +
@@ -79,6 +78,8 @@ $(function() {
 // 					'<button id="deleteId" class="btn btn-danger" articleid='+item[4]+'>刪除</button>'+
 			 		'</br>'+item[3]+'</br>'
 			 		);
+	 				
+	 				//照片
 	 				 var divElem2 = null ;
 	 				 var temp1="";
 	 				$.each(item[5], function(i,item){
@@ -87,43 +88,35 @@ $(function() {
 	 					);
 	 					temp1 = temp1 + divElem2;
 	 				});	
-	 				temp = divElem1 + temp1 + '<hr><div id=articleMsgs'+item[4]+'></div></div>' + temp ;
 	 				
-	 				
-	 				
-	 			});	
-	 			$('#demoArticle').html(temp);
-	 			getArticlesid = $('#responseId').attr("articleid");
- 				console.log("zongyu:"+getArticlesid)
-	 			
-	 });	
-	 
-	 
- $.get('articlemsgs.controller/'+getArticlesid,
-			 
-			 function(result){	
-				 console.log("responsemsg:");
-		 			$.each(result, function(i,item){	
-		 				divElem =("<div id='msgid'>" +
+	 				//留言
+	 				 var divElem3 = null ;
+	 				var temp2="";
+	 				$.each(item[6], function(i,item){	
+		 				divElem3 =("<div id='msgid'>" +
 						'<a href="personal.controller?memberId='+item[0]+'"  style="text-decoration:none;">'+
-						'<img src="/wegether/member/photo/'+item[0]+'" width="50" class="img-circle">  </a>' +
+						'<img src="/wegether/member/photo/'+item[0]+'" width="50" height="50" class="img-circle">  </a>' +
 						'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
 						'<span style="font-size: small;">'+item[2]+'</span>'+
 //							'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
 				 		'</br>'+item[3]+'</br>'+
 						"</div>");
-		 				tempMsg = tempMsg + divElem;
-			 				console.log("temp:"+$('#articleMsgs123').attr("id"));
-			 			//	$('#articleMsgs123').html("123");
+		 				temp2 = temp2 + divElem3;
 		 			});	
-		 			
-// 		 			$('#articleMsgs2'+articleid).html("123");
-		 			
-		 });	
+	 				
+	 				
+ 	 				temp = divElem1 + temp1 + '<hr><div id=articleMsgs'+item[4]+'>'+ temp2+'</div></div>' + temp ;
+	 				
+
+	 				
+	 			});	
+	 			$('#demoArticle').html(temp);
+	 			
+	 		});	
 	 
+		}
 	 
-	 
- }
+
 
 //刪除心得功能
 function deleteArticles(articleid){
@@ -198,34 +191,21 @@ function deleteArticles(articleid){
 	
 									
 <div id="demoArticle" ></div>
-<!-- 推薦活動給好友 -->
+<!-- 心得分享 -->
 	  <div class="modal fade" id="friendsearchBox" role="dialog">
 		<div class="modal-dialog">
-
 			<!-- Modal content-->
 			<div class="modal-content">
-			
-			
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				
-				
-					
-					
 					<textarea  id="dialogTxt" ></textarea>
-				
-					
-					
-				
-				
 				<div class="modal-footer">
 					<button  id="dialogBut" type="button" data-dismiss="modal" class="btn btn-primary">送出</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
-	<!-- 推薦活動給好友 END-->
+	<!--  心得分享 END-->
 </body>
 </html>
