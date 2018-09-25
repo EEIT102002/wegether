@@ -21,7 +21,7 @@ function idCheck(data) {
 		}
 	}else if(data.state != null) {
 		// --報名狀態 0:報名中 1:報名成功 2:報名失敗 3:活動主辦人邀請s
-		cosloe.log("data.state2:"+data.state)
+		 console.log("data.state2:"+data.state)
 		memBut.attr("attendid",data.attendid);
 		switch (data.state) {
 			case 0:

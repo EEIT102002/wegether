@@ -50,7 +50,7 @@ public class ActivityPageRankController {
 			@RequestAttribute(name = "memberid", required = false) Integer memberid, 
 			HttpServletRequest request) {
 		
-			System.out.println("selectRank");
+			System.out.println("selectRank:activityid:"+activityid+"/memberid:"+memberid);
 			
 			AttendBean bean = activityPagRankeService.selectRank(activityid,memberid);
 			if(bean!=null) {	
