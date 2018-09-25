@@ -12,7 +12,7 @@
 			<li>-我們的服務</li>
 		</ul></li>
 	<li>
-		<a href="" title="">聯絡我們</a>
+		<a href="/Service.controller" title="">聯絡我們</a>
 		<ul>
 			<li>-聯絡我們</li>
 		</ul></li>
