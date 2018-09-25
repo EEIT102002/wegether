@@ -61,6 +61,7 @@ public class FacebookLoginCheckController {
 				bean.setFbid(fbid);			//FB取得的id
 				bean.setAccount(fbEmail);	//FB取得的email
 				bean.setName(fbName);		//FB取得的名稱
+				bean.setNickname(fbName);
 				bean.setPwd("EA123456".getBytes());	//預設密碼
 				
 				//預設圖片

@@ -2,6 +2,7 @@
 <Context>
 
 <!-- 	connection local DB -->
+
     <Resource name="jdbc/wegether"
           auth="Container"
           type="javax.sql.DataSource"
@@ -12,8 +13,8 @@
 
 
 
-
 <!-- 	connection cloud DB -->
+
 <!-- 	<Resource name="jdbc/wegether" -->
 <!--           auth="Container" -->
 <!--           type="javax.sql.DataSource" -->
