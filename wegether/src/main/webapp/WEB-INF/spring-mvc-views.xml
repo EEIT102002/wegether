@@ -38,13 +38,13 @@
 	</bean>
 
 
-		<!-- <bean id="Service.errors" -->
-		<!-- class="org.springframework.web.servlet.view.RedirectView"> -->
-		<!-- <property name="contextRelative" value="true"></property> -->
-		<!-- <property name="url" value="/Service.jsp"></property> -->
+	<!-- <bean id="Service.errors" -->
+	<!-- class="org.springframework.web.servlet.view.RedirectView"> -->
+	<!-- <property name="contextRelative" value="true"></property> -->
+	<!-- <property name="url" value="/Service.jsp"></property> -->
 		<!-- </bean> -->
-		
-		
+
+
 	<bean id="Service.insertpage"
 		class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true"></property>
@@ -65,10 +65,10 @@
 		id="actCreateErr.page">
 		<property value="/ActivityCreate.jsp" name="url" />
 	</bean>
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceView"
-		id="actCreateSuc.page">
-		<property value="/index.jsp" name="url" />
+	<bean id="actCreateSuc.page"
+		class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true"></property>
+		<property name="url" value="/index.jsp"></property>
 	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceView"

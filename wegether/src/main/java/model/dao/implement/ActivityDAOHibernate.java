@@ -41,7 +41,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		return this.getSession().createQuery("from ActivityBean", ActivityBean.class).list();
 	}
 
-	private final String selectAllState = "from ActivityBean WHERE actend > getDate() and state <> 2 order by createtime desc";
+	private final String selectAllState = "from ActivityBean WHERE actbegin > getDate() and state <> 2 order by createtime desc";
 
 	@Override
 	public List<ActivityBean> selectAllState() {
@@ -188,7 +188,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 	@Override
 	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype,
 			String title) {
-		String selectOfIndex = "select * from Activity  WHERE actend > getDate() and state <> 2 ";
+		String selectOfIndex = "select * from Activity  WHERE actbegin > getDate() and state <> 2 ";
 		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
 
 			selectOfIndex = selectOfIndex + "and actbegin >='" + beginDate + "'AND actend <='" + endDate+ "' ";
