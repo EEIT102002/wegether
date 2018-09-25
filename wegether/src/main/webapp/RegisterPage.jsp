@@ -22,7 +22,22 @@
 		$('#header_nav ul li').click(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 		})
-
+		$('#fast').click(function(){
+			$('#idaccount').val('benebn231@yahoo.com.tw');
+			$('#idpassword').val('123456789a!');
+			$('#idrepassword').val('123456789a!');
+			$('#idName').val('胡哥');
+			$('#nickname').val('小湖');
+			$('#idbh').val('1992-05-08');
+			$('#idjob').val('學生');
+			$('#zzz>option:eq(2)').attr('selected','selected');
+			$('#idaddr').val('信義區');
+			$('#idtel').val('0939905648');
+			$('#idarea').val('你好我是胡哥影星');
+			$('input[name=favorite]:eq(0)').attr('checked',true)
+			$('input[name=favorite]:eq(2)').attr('checked',true)
+			$('input[name=favorite]:eq(3)').attr('checked',true)
+		})
 	})
 
 	function loginDo(){
@@ -196,8 +211,9 @@ footer>ul>li ul {
 	<jsp:include page="/ShareTemp/headertemp.jsp"></jsp:include>
 	<div class="container">
 		<div id="small_con">
-
+			
 			<div align="center">
+				<button id="fast">一鍵帶入</button>
 				<hr>
 				<h3 style="color:#0066FF	;padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
 				註冊頁面
@@ -259,7 +275,7 @@ footer>ul>li ul {
 						</tr>
 						<tr>
 							<td>暱&nbsp;稱:</td>
-							<td><input type="text" name="nickname"
+							<td><input type="text" name="nickname" id="nickname"
 								value="${param.nickname}"></td>
 							<td>${inputRrrors.nickname}</td>
 						</tr>
@@ -304,12 +320,12 @@ footer>ul>li ul {
 						<tr>
 							<td>自&nbsp;我&nbsp;介&nbsp;紹:&nbsp;</td>
 							<td><textarea rows="4" cols="24" name="content"
-									value="${param.content}"></textarea></td>
+									value="${param.content}" id="idarea"></textarea></td>
 							<td>${inputRrrors.content}</td>
 						</tr>
 						<tr>
 							<td>聚&nbsp;會&nbsp;類&nbsp;型:&nbsp;</td>
-							<td><input type="checkbox" name="favorite" value="聊天"
+							<td><input  type="checkbox" name="favorite" value="聊天"
 								checked>聊天 <input type="checkbox" name="favorite"
 								value="運動">運動 <input type="checkbox" name="favorite"
 								value="休閒">休閒 <br> <input type="checkbox"
