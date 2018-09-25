@@ -8,9 +8,14 @@
     float: left;
 }
 #right{
-    
+      width:40%;
     float: right;
-}         
+}   
+
+#leftRight{
+      width:60%;
+    float: right;
+}        
 #txtup{
     text-align: left;    
 }

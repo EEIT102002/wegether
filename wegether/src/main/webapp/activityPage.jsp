@@ -256,7 +256,7 @@ var flag=1;
 								<p id="txtup" style="font-weight:bold;color:#842b00;">${hostBean.nickname}</p>
 								<p id="txtup" style="font-weight:bold;color:#c6a300;">${hostBean.job}</p>
 							</div>
-							<div id="right">
+							<div id="leftRight">
 								<c:if test="${memberid == 0}">
 									<a href="#" class="tooltip-test" title="推薦給好友" data-toggle="modal" data-target="#ActPageBox" style="text-decoration:none;">  
 									 	<img src="images/activityPageImages/invite.png" width="50">
