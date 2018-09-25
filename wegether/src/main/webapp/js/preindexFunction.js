@@ -14,7 +14,7 @@ function indexSelectFromDB(jsonArray){
 	str1 += "<img alt='' class='img-responsive' style='border-radius:5px;' src=\""+jsonArray[i][1]+"\"/></a>";
 	str1+="<figcaption style='margin-top:5px;'>";
 	str1+="活動名稱:"+jsonArray[i][0].title+"<br>"+"活動地點:"+array_for_city[jsonArray[i][0].city-1]+"<br>"+"活動時間:"+(Y+M+D)+"<br>"+"<p style='text-overflow:ellipsis;white-space : nowrap; overflow : hidden;'>活動內容:"+jsonArray[i][0].content+"</p>";
-	str1+="</figcaption></figure><a href='activityPage.controller?actid='"+jsonArray[i][0].id+"'><button class='btnAct btn btn-primary pull-right'>詳細資訊</button></a></div>";
+	str1+="</figcaption></figure><a href='activityPage.controller?actid="+jsonArray[i][0].id+"'><button class='btnAct btn btn-primary pull-right'>詳細資訊</button></a></div>";
 	i++;
     });
     $("#show_act_area").empty();
