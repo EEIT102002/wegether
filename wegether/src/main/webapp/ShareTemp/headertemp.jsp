@@ -114,12 +114,14 @@
 						<div id="or" class="bg-primary text-white">
 							<h4>or</h4>
 						</div>
-						<button type="button" class="btn big_use Google_i">
-							<i class="fa fa-google" aria-hidden="true"></i>Google 登入
-						</button>						
+<!-- 						<button type="button" class="btn big_use Google_i"> -->
+<!-- 							<i class="fa fa-google" aria-hidden="true"></i>Google 登入 -->
+<!-- 						</button>						 -->
 						
-						<button class="btn fb-login-button big_use Fb_i" data-size="large" data-button-type="login_with"
- 						data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></button>
+						<a href="#" id="loginFB">
+						<button type="button" class="btn big_use Fb_i">
+							<i class="fa fa-facebook-official" aria-hidden="true"></i>FB 登入
+						</button></a>
 
 						<div class="AreaCon">
 							<button type="button" class="btn small_use Google_i">

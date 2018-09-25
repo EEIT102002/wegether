@@ -62,8 +62,6 @@ public class ActivityCreateController {
 			@RequestAttribute(value = "memberid", required = false) Integer id,
 			@RequestParam(value = "setFormOrNot", required = false) String setForm, HttpServletRequest request,
 			Model model) throws ParseException, IOException {
-		System.out.println(activityBean);
-
 		if (id == null) {
 			model.addAttribute("loginFail", "請登入");
 			return "index.success";
@@ -78,11 +76,9 @@ public class ActivityCreateController {
 
 		byte[] pic = null;
 		if (file != null || !file.isEmpty()) { // 圖片判定
-			System.out.println("has pic");
 			pic = file.getBytes();
 			activityBean.setPicture(pic);
 		} else {
-			System.out.println("has no pic");
 			File defultPic = new File("..\\repository\\wegether\\src\\main\\webapp\\images\\actcreate.png");
 			try {
 				pic = fileToByte(defultPic);
@@ -99,10 +95,8 @@ public class ActivityCreateController {
 
 			if (!starttime.isEmpty() && !":".equals(starttime.substring(2, 3))) { // 開始日期判定
 				errors.put("starDateTime", "請輸入正確時間 ex 07:30 PM");
-				System.out.println("1");
 			} else if (startDate == null || starttime == null || starttime.isEmpty()) {
 				errors.put("starDateTime", "請輸入開始時間");
-				System.out.println("2");
 			} else if (!startDate.isEmpty()) {
 				String[] year = startDate.split("-");
 				if (Integer.parseInt(year[0]) >= 2200)
@@ -152,17 +146,14 @@ public class ActivityCreateController {
 		activityBean.setActbegin(aa);
 		activityBean.setDateline(bb);
 
-		 JSONObject formJson = null;
-		 
+		 JSONObject formJson= null;		 
 		 if (setForm != null && "yes".equals(setForm) && applyform != null) {
 			 formJson = activityFormService.stringToJsonObject(applyform);
 			 formJson.put("hasForm", true);
 		 } else {
 			 formJson = activityFormService.stringToJsonObject("{\"hasFrom\" : false}");
-//			 formJson.put("hasForm", false);
 		 }
-
-		 activityBean.setForm(formJson.toString());
+		activityBean.setForm( formJson.toString());
 
 		System.out.println(startDate);
 		System.out.println(starttime);

@@ -36,11 +36,13 @@
 		})
 		
 		var nameAr = $('.allPic').attr('name');
-		alert(nameAr)
-		var thisName = nameAr.substring(1,(nameAr.length-1))
-		var ids = thisName.split(',');
-		for(i = 0; i < ids.length; i++){
-			$('img[id=' + (i+2) + ']').attr('id', ids[i]);
+		if(nameAr!=undefined){
+			//alert(nameAr)
+			var thisName = nameAr.substring(1,(nameAr.length-1))
+			var ids = thisName.split(',');
+			for(i = 0; i < ids.length; i++){
+				$('img[id=' + (i+2) + ']').attr('id', ids[i]);
+			}
 		}
 		
 		$('.deleteEditPics').click(function(){
@@ -225,6 +227,45 @@
 	bottom:-70px;
 	left:5px;
 }
+input[type=text], input[type=number], select,textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+textarea {
+    height: 100px;
+}
+input[type=date], input[name=startTimepicker], input[name=endTimepicker] {
+    width: 49.4%;
+    height: 50px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[name=dateline] {
+	width: 100%;
+}
+table {
+	margin-left:auto; 
+	margin-right:auto;
+}
+#preBotton {
+    width: 50%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -257,7 +298,7 @@
 							<input type="button" value="我要新增其他照片" id="addOtherPics"/>
 							<div class="form-group" style="display:none">
 							<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
-									name="pics"></div>
+								   name="pics"></div>
 							<script>
 							$("#file-1").fileinput({
 								uploadExtraData: {'activitiId': ${actid}},
