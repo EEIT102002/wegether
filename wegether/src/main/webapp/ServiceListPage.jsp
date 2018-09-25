@@ -32,8 +32,8 @@
 		<div id="small_con">
 			<!--       寫在這 -->
 
-									<h3>Select Service Table Result : ${fn:length(select)} 筆資料</h3>
-									<td>${errors.SelectResult}</td>
+<%-- 									<h3>Select Service Table Result : ${fn:length(select)} 筆資料</h3> --%>
+<%-- 									<td>${errors.SelectResult}</td> --%>
 									<c:if test="${not empty select}">
 										<table align="center">
 											<thead>
