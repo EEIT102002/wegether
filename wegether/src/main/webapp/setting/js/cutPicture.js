@@ -1,8 +1,4 @@
 $(function(){
-    var p = $('#p');
-    var span = $('span');
-    var x=$('#x')
-    var y=$('#y');
     var click = false;
     var method;
     var cropBox = $('#cropBox');
@@ -53,15 +49,12 @@ $(function(){
         my = e.clientY;
         crop.h = cropBox.height();
         crop.w = cropBox.width();
-        x.text(crop.h)
-        y.text(crop.w) 
         method='moveBox';
     })
 
     rightdown.mousedown(function(e){
         e.stopPropagation();
         click = true;
-        span.text('area');
         mx = e.clientX;
         my = e.clientY;
         crop.h = cropBox.height();
@@ -81,10 +74,8 @@ $(function(){
         if(click){
             if(e.which == 0){
                 click = false
-                span.text("mouseup");
                 method=''; 
             }
-            span.text(method);
             switch(method){
                 case 'moveBox':
                     moveBox(e);
@@ -100,8 +91,8 @@ $(function(){
         var m={} ;
         m.x = e.clientX-mx+cut.w;
         m.y = e.clientY-my+cut.h;
-        x.text(e.clientX-mx)
-        y.text(e.clientY-my) 
+        m.x = m.x > 0? m.x:0;
+        m.y = m.y > 0? m.y:0;
         var side = m.x > m.y? m.y:m.x;
         var pos = cutBox.position(); 
         if(pos.top+side > crop.h || pos.left+side > crop.w){
@@ -133,8 +124,6 @@ $(function(){
         }
         cutBox.css('top',m.y+'px');
         opaqueSize(m.x,m.y,cutBox.height()+2);
-        x.text(cutBox.width())
-        y.text(cutBox.height())
         mx = e.clientX;
         my = e.clientY;
     }

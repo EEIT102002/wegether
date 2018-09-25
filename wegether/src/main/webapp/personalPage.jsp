@@ -266,7 +266,9 @@
 								<td type="button" class="btn btn-secondary "
 									style="padding: 4px; font-weight: bold; font-style: italic; text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;">
 									<c:if test="${fc[1]==1}">
-										<a href="activityPage.controller?actid=1" class="scroll">追蹤</a>
+<!-- 										<a href="activityPage.controller?actid=1" class="scroll">追蹤</a> -->
+											<a href="trackmember/add?fanid=1" class="scroll">追蹤</a>
+										
 									</c:if>
 
 								</td>

@@ -106,7 +106,7 @@ public class ActivityEditController {
 			else if (endHour == 12)
 				endTime = endHour + ":" + endTime.substring(3, 5) + " PM";
 			else
-				endTime = (endHour - 12) + ":" + endTime.substring(3, 5) + " PM";
+				endTime = "0" + (endHour - 12) + ":" + endTime.substring(3, 5) + " PM";
 			model.addAttribute("endTimepicker", endTime);
 		}
 
@@ -158,9 +158,11 @@ public class ActivityEditController {
 		byte[] pic = null;
 		if (file != null || !file.isEmpty()) { // 圖片判定
 			System.out.println("has pic");
-			System.out.println("file="+file);
+			System.out.println("file=" + file);
 			pic = file.getBytes();
 			activityBean.setPicture(pic); // 塞圖片
+		} else {
+			System.out.println("has no pic");
 		}
 
 		if (activityBean.getTitle() == null || activityBean.getTitle().isEmpty()) // 標題判定

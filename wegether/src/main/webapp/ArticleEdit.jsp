@@ -97,7 +97,8 @@
 							</div>
 						<input type="button" value="我要上傳其他照片" id="addOtherPics"/>
 						<div class="form-group" style="display:none">
-						<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" name="multipicture"></div>
+						<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
+							   name="multipicture"></div>
 						<script>
 						$("#file-1").fileinput({
 							uploadExtraData: {'articleId' : ${artid}},
