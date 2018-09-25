@@ -123,6 +123,8 @@
 .activityli>a .info * {
 	font-size: 12px;
 }
+
+
 .setting4ul {
     margin: 0;
     width: 100%;
@@ -324,4 +326,11 @@
     margin-right:10px;
 }
 
+#attendlist p{
+	color:black;
+}
+
+#right .activityli button{
+	margin-left:20px;
+}
 

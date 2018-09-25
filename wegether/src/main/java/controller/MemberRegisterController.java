@@ -116,7 +116,7 @@ public class MemberRegisterController extends HttpServlet {
 
 		// 姓名驗證 只能中文2~7
 		String name = StringEscapeUtils.unescapeHtml(bean.getName());
-		Pattern patternname = Pattern.compile("[\u4E00-\u9FBF]{2,7}+");
+		Pattern patternname = Pattern.compile("^\\w{2,7}+$");
 		Matcher rematchername = patternname.matcher(name);
 		boolean checkname = rematchername.matches();
 		// System.out.println(name);
@@ -130,7 +130,7 @@ public class MemberRegisterController extends HttpServlet {
 		}
 		// 地址驗證 只能輸入中文
 		String addr = StringEscapeUtils.unescapeHtml(bean.getAddr());
-		Pattern patternaddr = Pattern.compile("^[\u4E00-\u9FBF_0-9]+$");
+		Pattern patternaddr = Pattern.compile("^\\w+$");
 		// ^[\u4e00-\u9fa5_0-9]+$
 		Matcher rematcheraddr =   patternaddr.matcher(addr);
 		boolean checkaddr = rematcheraddr.matches();
