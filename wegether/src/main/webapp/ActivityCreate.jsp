@@ -285,7 +285,6 @@ table {
 														  removeIcon : '<img src="images/trash_can_red.png">'},
 									removeIcon : '<img src="images/trash_can.png" style="height:20px">',
 									browseIcon : '<img src="images/open_folder2.png"  style="height:20px">',
-									maxFileSize : 1000,
 									maxFilesNum : 10,
 									//allowedFileTypes: ['image', 'video', 'flash'],
 									slugCallback : function(filename) {
