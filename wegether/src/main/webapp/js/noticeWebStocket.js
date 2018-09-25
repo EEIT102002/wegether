@@ -47,6 +47,7 @@ function connectNotice(token) {
 		$(document).off('click', '.panel:first a[data-toggle="collapse"]');
 		$('#removeAllNotice').off('click');
 		noticediv.off('click', '.panel-collapse button');
+		$('#supremind').text(0).hide();
 	};
 	nwebSocket.onerror = function wserror(message) {
 		console.log("error: " + message);

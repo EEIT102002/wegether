@@ -69,7 +69,6 @@
 
 				friendList.on('click', '.friendButton button', function () {
 					var e = $(this);
-					console.log(e.parent().attr('friendid'));
 					$.post('/wegether/friend/' + e.val(), 'id='
 						+ e.parent().attr('friendid'), function (
 							data) {
