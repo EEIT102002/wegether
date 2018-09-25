@@ -194,15 +194,16 @@ footer>ul>li ul {
 									<h3>Select Service Table Result : ${fn:length(select)} 筆資料</h3>
 									<td>${errors.SelectResult}</td>
 									<c:if test="${not empty select}">
-										<table>
+										<table align="center">
 											<thead>
 												<tr>
-<!-- 													<th>提問時間</th> -->
+<!-- 												<th>提問時間</th> -->
 													<th>會員ID</th>
 													<th>標題</th>
 													<th>類型</th>
 													<th>內容描述</th>
 												</tr>
+											</div>
 											</thead>
 											<tbody>
 												<c:forEach var="obj" items="${select}">
