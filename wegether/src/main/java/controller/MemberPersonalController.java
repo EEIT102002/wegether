@@ -147,8 +147,8 @@ public class MemberPersonalController {
 		
 		int memberid = memberId;
 
-		System.out.println("login=" + id);
-		System.out.println("member=" + memberid);
+//		System.out.println("login=" + id);
+//		System.out.println("member=" + memberid);
 		System.out.println("檢查後狀態為" + status);
 		
 		if(status==3) {
@@ -179,20 +179,20 @@ public class MemberPersonalController {
 		membean.setState(membeansource.getState());
 		membean.setFbid(membeansource.getFbid());
 		membean.setGoogleid(membeansource.getGoogleid());
-		System.out.println("ID:"+membean.getId());
-		System.out.println("暱稱:"+membean.getNickname());
-		System.out.println("生日:"+membean.getBirthday());
-		System.out.println("性別:"+membean.getSex());
-		System.out.println("工作:"+membean.getJob());
-		System.out.println("城市:"+membean.getCity());
-		System.out.println("興趣:"+membean.getFavorite());
-		System.out.println("自我介紹:"+membean.getContent());
-		System.out.println("評分1:"+membean.getRank1());
-		System.out.println("評分2:"+membean.getRank2());
-		System.out.println("評分3:"+membean.getRank3());
-		System.out.println("粉絲人數:"+membean.getFans());
-		System.out.println("提醒:"+membean.getNotices());
-		System.out.println("狀態:"+membean.getState());
+//		System.out.println("ID:"+membean.getId());
+//		System.out.println("暱稱:"+membean.getNickname());
+//		System.out.println("生日:"+membean.getBirthday());
+//		System.out.println("性別:"+membean.getSex());
+//		System.out.println("工作:"+membean.getJob());
+//		System.out.println("城市:"+membean.getCity());
+//		System.out.println("興趣:"+membean.getFavorite());
+//		System.out.println("自我介紹:"+membean.getContent());
+//		System.out.println("評分1:"+membean.getRank1());
+//		System.out.println("評分2:"+membean.getRank2());
+//		System.out.println("評分3:"+membean.getRank3());
+//		System.out.println("粉絲人數:"+membean.getFans());
+//		System.out.println("提醒:"+membean.getNotices());
+//		System.out.println("狀態:"+membean.getState());
 		// 好友人數 參加次數 追蹤人數 主辦活動
 		List<FriendBean> fribean = friendDaoHibernate.selectAllFriendByMemberid(memberid);// 抓好友資料
 		List<AttendBean> attbean = attendDaoHibernate.selectBymemberid(memberid);// 抓參加資料
@@ -206,7 +206,7 @@ public class MemberPersonalController {
 		switch (setting.getBirthday()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("生日設定為NULL不公開");
+//				System.out.println("生日設定為NULL不公開");
 				membean.setBirthday(null);
 			}
 			break;
@@ -222,7 +222,7 @@ public class MemberPersonalController {
 		switch (setting.getSex()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("性別設定為NULL不公開");
+//				System.out.println("性別設定為NULL不公開");
 				membean.setSex(null);
 			}
 			break;
@@ -238,7 +238,7 @@ public class MemberPersonalController {
 		switch (setting.getJob()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("職業設定為NULL不公開");
+//				System.out.println("職業設定為NULL不公開");
 				membean.setJob(null);
 			}
 			break;
@@ -254,7 +254,7 @@ public class MemberPersonalController {
 		switch (setting.getCity()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("居住縣市設定為NULL不公開");
+//				System.out.println("居住縣市設定為NULL不公開");
 				membean.setCity(null);
 			}
 			break;
@@ -270,7 +270,7 @@ public class MemberPersonalController {
 		switch (setting.getFavorite()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("喜好設定為NULL不公開");
+//				System.out.println("喜好設定為NULL不公開");
 				membean.setFavorite(null);
 			}
 			break;
@@ -286,7 +286,7 @@ public class MemberPersonalController {
 		switch (setting.getContent()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("自我介紹設定為NULL不公開");
+//				System.out.println("自我介紹設定為NULL不公開");
 				membean.setContent(null);
 			}
 			break;
@@ -302,7 +302,7 @@ public class MemberPersonalController {
 		switch (setting.getRankscore()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("評分設定為NULL不公開");
+//				System.out.println("評分設定為NULL不公開");
 				membean.setRank1(null);
 				membean.setRank2(null);
 				membean.setRank3(null);
@@ -389,16 +389,16 @@ public class MemberPersonalController {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
 
-				System.out.println("主辦活動紀錄設定為NULL不公開");
+//				System.out.println("主辦活動紀錄設定為NULL不公開");
 				String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">不公開</td></tr>";
 				hostsum.add(temp2);
 			} else {
 
 				actbean.forEach(temp -> {
 
-					System.out.println("主辦活動人:" + temp.getHostid());
-					System.out.println("主辦活動名稱:" + temp.getTitle());
-					System.out.println("主辦活動名稱:" + temp.getContent());
+//					System.out.println("主辦活動人:" + temp.getHostid());
+//					System.out.println("主辦活動名稱:" + temp.getTitle());
+//					System.out.println("主辦活動名稱:" + temp.getContent());
 
 					String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
 							+ "<a href=\"activityPage.controller?actid=" + temp.getId() + "\"/>" + temp.getTitle()
@@ -433,9 +433,9 @@ public class MemberPersonalController {
 		case 0:
 			actbean.forEach(temp -> {
 
-				System.out.println("主辦活動人:" + temp.getHostid());
-				System.out.println("主辦活動名稱:" + temp.getTitle());
-				System.out.println("主辦活動名稱:" + temp.getContent());
+//				System.out.println("主辦活動人:" + temp.getHostid());
+//				System.out.println("主辦活動名稱:" + temp.getTitle());
+//				System.out.println("主辦活動名稱:" + temp.getContent());
 
 				String temp2 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
 						+ "<a href=\"activityPage.controller?actid=" + temp.getId() + "\"/>" + temp.getTitle() + "</a>"
@@ -451,14 +451,14 @@ public class MemberPersonalController {
 		switch (setting.getShowactivity()) {
 		case 1:
 			if (status == 2 || status == 3 || status == 4) {
-				System.out.println("參加活動紀錄設定為NULL不公開");
+//				System.out.println("參加活動紀錄設定為NULL不公開");
 				String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">不公開</td></tr>";
 				attsum.add(temp3);
 			} else {
-				System.out.print("case 1 else結果"+attbean);
+//				System.out.print("case 1 else結果"+attbean);
 				attbean.forEach(temp -> {// 會員所參加的活動id
-					 System.out.println("activityID:" + temp.getActivityid());
-					 System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
+//					 System.out.println("activityID:" + temp.getActivityid());
+//					 System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
 
 					String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
 							+ "<a href=\"activityPage.controller?actid=" + temp.getId() + "\"/>"
@@ -472,15 +472,15 @@ public class MemberPersonalController {
 		case 2:
 			if (status != 5) {
 
-				System.out.println("參加活動紀錄設定為NULL不公開");
+//				System.out.println("參加活動紀錄設定為NULL不公開");
 				String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">不公開</td></tr>";
 				attsum.add(temp3);
 			} else {
-				System.out.println("自己看");
+//				System.out.println("自己看");
 				attbean.forEach(temp -> {// 會員所參加的活動id
-					System.out.println("activityID:" + temp.getActivityid());
-
-					System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
+//					System.out.println("activityID:" + temp.getActivityid());
+//
+//					System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
 
 					String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
 							+ "<a href=\"activityPage.controller?actid=" + temp.getId() + "\"/>"
@@ -493,9 +493,9 @@ public class MemberPersonalController {
 			break;
 		case 0:
 			attbean.forEach(temp -> {// 會員所參加的活動id
-				System.out.println("公開");
-				System.out.println("activityID:" + temp.getActivityid());
-				System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
+//				System.out.println("公開");
+//				System.out.println("activityID:" + temp.getActivityid());
+//				System.out.println(activityDAOHibernate.selectId(temp.getActivityid()).getTitle());
 
 				String temp3 = "<tr><td style=\"padding:10px;font-weight:bold\">" + "活動標題:"
 						+ "<a href=\"activityPage.controller?actid=" + temp.getId() + "\"/>"
