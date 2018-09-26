@@ -28,28 +28,67 @@
 .multi{
 	height:150px;
 }
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+table {
+	margin-left:auto; 
+	margin-right:auto;
+}.table-left {
+	border-right: solid 5px rgba(0, 44, 95, 0.3);
+	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
+	padding-right: 10px;
+}
+.table-right {
+	padding: 10px;
+	padding-left: 20px;
+	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
+	
+}
+.table-top {
+	border-top: solid 5px rgba(0, 44, 95, 0.3);
+}
+input[type=submit], input[type=reset] {
+    width: 10%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    left: 39%;
+    top: 10px;
+    padding: 14px 20px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="/ShareTemp/headertemp.jsp"></jsp:include>
 	<div class="container">
 		<div id="small_con">
-		增加心得
 			<form id="ArticleCreateForm"
 				action="<c:url value="/articleCreate.controller"/>" method="post"
 				accept-charset="ISO-8859-1" enctype="multipart/form-data">
 				<table>
-					<tr>
-						<td>聚會標題</td>
-						<td>${param.actname}${actname}<input type="hidden" value="${param.actid}" name="actid"/></td>
+					<tr style="border:none"><td><h1>增加心得</h1></td><td></td></tr>
+					<tr class="table-top">
+						<td class="table-left">聚會標題</td>
+						<td class="table-right">${param.actname}${actname}<input type="hidden" value="${param.actid}" name="actid"/></td>
 					</tr>
 					<tr>
-						<td>心得</td>
-						<td><textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${content}</td>
+						<td class="table-left">心得</td>
+						<td class="table-right"><textarea name="content" id="insertDes" cols="30" rows="10"></textarea>${content}</td>
 					</tr>
 					<tr>
-						<td>上傳活動照片</td>
-						<td>
+						<td class="table-left">上傳活動照片</td>
+						<td class="table-right">
 						<input type="button" value="我要上傳心得照片" id="addOtherPics"/>
 						<div class="form-group" style="display:none">
 						<input id="file-1" type="file" multiple class="file" data-overwrite-initial="false"
