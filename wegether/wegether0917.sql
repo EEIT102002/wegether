@@ -160,6 +160,8 @@ constraint friend_uq unique (memberid, memberidf)
 )
 GO
 
+select m.* from Friend m WHERE memberid = 1 AND STATE = 0 
+
 create sequence invite_sq
 start with 1
 increment by 1
@@ -268,7 +270,7 @@ constraint picture_chk check(
 )
 GO 
 
-CREATE VIEW noticeview as
+alter VIEW noticeview as
 select nn.*, m.nickname as cnickname, m.id as cmemberid 
 from (select n.*, a.id as cactivityid , a.title as ctitle, a.hostid as chostid
 from notice n 
@@ -283,11 +285,15 @@ on  (nn.ntype = 1 and m.id = (select memberid from friend where id = nn.friendid
 	or (nn.ntype = 2 and m.id = (select memberidf from friend where id = nn.friendid))
 	or (nn.ntype = 3 and m.id = (select memberid from invite where id = nn.inviteid))
 	or ( nn.ntype in (4, 8 ,9) and m.id = (select memberid from attend where id = nn.attendid)
-	)or (nn.ntype = 5 and m.id = (select hostid from activity where id = nn.chostid)
+	)or (nn.ntype = 5 and m.id = nn.chostid
 	)or (nn.ntype = 10 and m.id = (select memberid from article where id = nn.articleid)
 	)or( nn.ntype = 11 and m.id = (select hostid from activity where id = nn.activityid))
 go	
 
+
+select * from attend where id = 30
+select nickname from member where id = 13
+select * from activity where id = 24
 create trigger setting_member_insert on member
 for insert
 as
