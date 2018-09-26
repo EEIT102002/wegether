@@ -76,7 +76,7 @@ public class MsgsController {
 
 		System.out.println("MsgBean:"+bean);
 
-		ResponseEntity<?> temp = null;
+		ResponseEntity<?> temp = getInfo(bean.getActivityid());
 		System.out.println("PostmsgBean:"+bean);
 
 		
@@ -92,14 +92,17 @@ public class MsgsController {
 					temp = getInfo(bean.getActivityid());
 					System.out.println("3");
 					return temp ;
-				} else {
-					return new ResponseEntity(HttpStatus.NO_CONTENT);			
+			
+				}else {
+					return new ResponseEntity(HttpStatus.NO_CONTENT);	
 				}
+		} else if(temp!=null){
+			return temp ;
 		}
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		
+	
 	}
-	
-	
 	
 	@DeleteMapping(path= {"/msgs.controller/{id}"}, produces= {"application/json"})
 	public ResponseEntity<?> delete(@PathVariable int id) throws URISyntaxException{

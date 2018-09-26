@@ -13,7 +13,7 @@
 					'<img src="/wegether/member/photo/'+item[0]+'" class="img-circle" width="70" height="70">  </a>' +
 					'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
 					'<span style="font-size: small;">'+item[2]+'</span>'+
-//					'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
+					'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除留言</button>'+			
 			 		'</br>'+item[3]+'</br>'+
 					"</div>");
 	 				temp = temp + divElem;
@@ -44,7 +44,7 @@ console.log("postMsgs in:"+" actId="+act+" memId="+mem+" state="+sta+" msg="+con
 				'<img src="/wegether/member/photo/'+item[0]+'" width="70"  height="70" class="img-circle">  </a>' +
 				'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
 				'<span style="font-size: small;">'+item[2]+'</span>'+
-//				'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
+				'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除留言</button>'+			
 		 		'</br>'+item[3]+'</br>'+
 				"</div>");
  				temp = temp + divElem;
@@ -76,7 +76,7 @@ function deleteMsgs(act,mem,sta,cont){
 					'<img src="/wegether/member/photo/'+item[0]+'" width="70"  height="70" class="img-circle">  </a>' +
 					'<span style="color: blue;">'+item[1]+'</span> &emsp; '+
 					'<span style="font-size: small;">'+item[2]+'</span>'+
-//					'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除</button>'+			
+					'<button id="deleteId" class="btn btn-danger" msgid='+item[4]+'>刪除留言</button>'+			
 			 		'</br>'+item[3]+'</br>'+
 					"</div>");
 	 				temp = temp + divElem;

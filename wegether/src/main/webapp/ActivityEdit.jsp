@@ -210,7 +210,14 @@
 	}
 </script>
 <style>
-.selPic , .allPic {
+.selPic {
+	height: 180px;
+	border-radius: 7px;
+	border: 1px solid gray;
+	padding: 10px;
+	margin-bottom: 5px
+}
+.allPic {
 	height: 180px;
 	border-radius: 15px;	
 }
@@ -257,14 +264,46 @@ table {
 	margin-right:auto;
 }
 #preBotton {
-    width: 50%;
+    width: 40%;
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    position: relative;
+    left: 30%;
+    padding: 14px 20px; 
+    margin-top: 8px; 
+}
+/* #preBotton { */
+/*     width: 50%; */
+/*     background-color: #4CAF50; */
+/*     color: white; */
+/*     padding: 14px 20px; */
+/*     margin: 8px 0; */
+/*     border: none; */
+/*     border-radius: 4px; */
+/*     cursor: pointer; */
+/* } */
+.table-left {
+	border-right: solid 5px rgba(0, 44, 95, 0.3);
+	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
+	padding-right: 10px;
+}
+.table-right {
+	padding: 10px;
+	padding-left: 20px;
+	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
+	
+}
+.table-top {
+	border-top: solid 5px rgba(0, 44, 95, 0.3);
+}
+.table-left2{
+	width: 40%
+}
+.pretr {
+	border-bottom: 1px gray solid;
 }
 </style>
 </head>
@@ -277,15 +316,16 @@ table {
 				action="<c:url value="/actEdit.edit.controller"/>" method="post"
 				accept-charset="ISO-8859-1" enctype="multipart/form-data">
 				<table>
-					<tr>
-						<td>聚會封面</td>
-						<td><img src="data:image/jpg;base64,${actOnePic}" id="picZone" class="selPic">
+					<tr><td><h1>修改我揪的團</h1></td><td></td></tr>
+					<tr class="table-top">
+						<td class="table-left">聚會封面</td>
+						<td class="table-right"><img src="data:image/jpg;base64,${actOnePic}" id="picZone" class="selPic">
 							<input type="file" name="picture" id="actPic" accept="image/*">
 							<input type="hidden" value="${result.id}" name="id"></td>
 					</tr>
 					<tr>
-						<td>其他照片</td>
-						<td><div>
+						<td class="table-left">其他照片</td>
+						<td class="table-right"><div>
 							<c:set var="temp" value="2" />
 							<c:forEach var="i" items="${actAllPic}">
 								<div class="picContainerEdit" id="actEditPic${temp}">
@@ -322,58 +362,58 @@ table {
 							</script></td>
 					</tr>
 					<tr>
-						<td>聚會標題</td>
-						<td><input type="text" name="title" id="insertActname"
+						<td class="table-left">聚會標題</td>
+						<td class="table-right"><input type="text" name="title" id="insertActname"
 							value="${result.title}${param.title}">${errMsgs.title}</td>
 					</tr>
-					<tr><td>聚會類型</td>
-						<td><input type="checkbox" name="classtype" value="運動">運動
+					<tr><td class="table-left">聚會類型</td>
+						<td class="table-right"><input type="checkbox" name="classtype" value="運動">運動
 							<input type="checkbox" name="classtype" value="休閒">休閒
 							<input type="checkbox" name="classtype" value="音樂">音樂
 							<input type="checkbox" name="classtype" value="美食">美食
 							<input type="checkbox" name="classtype" value="聊天">聊天</td>
 							<input type="hidden" name="hidecheckbox" id="hidecheckbox" value="${type}">
 					</tr>
-					<tr><td>城市/所在地</td>
-						<td><select name="city" id="selCity">
+					<tr><td class="table-left">城市/所在地</td>
+						<td class="table-right"><select name="city" id="selCity">
 							<option>請選擇</option></select>
 							<input type="hidden" id="hidecity" value="${result.city}${param.city}"></td>
 					</tr>
 					<tr>
-						<td>地點</td>
-						<td><input type="text" name="addr" id="insertWhere" value="${result.addr}${param.addr}"></td>
+						<td class="table-left">地點</td>
+						<td class="table-right"><input type="text" name="addr" id="insertWhere" value="${result.addr}${param.addr}"></td>
 					</tr>
 					<tr>
-						<td>開始時間</td>
-						<td><input type="date" id="startTime" name="startTime" value="${startTime}${param.startTime}">
+						<td class="table-left">開始時間</td>
+						<td class="table-right"><input type="date" id="startTime" name="startTime" value="${startTime}${param.startTime}">
 							<input type="text" id="startTime2" name="startTimepicker" value="${startTimepicker}${param.startTimepicker}"
 							placeholder="例  01:25 pm" class="timepicker" />${errMsgs.starDateTime}
 						</td>
 					</tr>
 					<tr>
-						<td>結束時間</td>
-						<td><input type="date" id="endTime" name="endTime"
+						<td class="table-left">結束時間</td>
+						<td class="table-right"><input type="date" id="endTime" name="endTime"
 							value="${endTime}${param.endTime}"> <input type="text" id="endTime2"
 							name="endTimepicker" class="timepicker" value="${endTimepicker}${param.endTimepicker}"
 							autocompelete="off" placeholder="例  01:25 pm" />${errMsgs.endDateTime}</td>
 					</tr>
 					<tr>
-						<td>詳細描述</td>
-						<td><textarea name="content" id="insertDes" cols="30" rows="10">
+						<td class="table-left">詳細描述</td>
+						<td class="table-right"><textarea name="content" id="insertDes" cols="30" rows="10">
 							${result.content}${param.content}</textarea>${errMsgs.content}</td>
 					</tr>
 					<tr>
-						<td>聚會人數</td>
-						<td><input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax"
+						<td class="table-left">聚會人數</td>
+						<td class="table-right"><input step="1" type="number" id="selNum" name="numberlimit" ng-model="peoplemax"
 							min="1" value="${result.numberlimit}${param.numberlimit}"></td>
 					</tr>
 					<tr>
-						<td>聚會預算</td>
-						<td><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" value="${result.feed}${param.feed}"></td>
+						<td class="table-left">聚會預算</td>
+						<td class="table-right"><input step="50" type="number" id="selBud" name="feed" ng-model="fee" min="0" value="${result.feed}${param.feed}"></td>
 					</tr>
 					<tr>
-						<td>報名截止日期</td>
-						<td><input type="date" id="deathLine" name="dateline"
+						<td class="table-left">報名截止日期</td>
+						<td class="table-right"><input type="date" id="deathLine" name="dateline"
 							value="${deathLine}${param.dateline}">${errMsgs.deathline}</td>
 					</tr>
 				</table>
@@ -396,44 +436,44 @@ table {
 								</div>
 								<div class="modal-body" id="mid-body">
 									<table>
-										<tr>
+										<tr class="pretr">
 											<td>聚會封面</td>
-											<img id="actPicture" src="data:image/jpg;base64,${actOnePic}"
+											<td><img id="actPicture" src="data:image/jpg;base64,${actOnePic}"
 												 class="selPic"/></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會標題</td>
 											<td id="actName"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會類型</td>
 											<td id="actType"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>城市/所在地</td>
 											<td id="actCity"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>地點</td>
 											<td id="actWhere"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>開始時間</td>
 											<td id="actStarttime"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>結束時間</td>
 											<td id="actEndtime"></td>
 										</tr>
-										<tr>
-											<td>詳細描述</td>
+										<tr class="pretr">
+											<td class="table-left2">詳細描述</td>
 											<td id="actDescription"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會人數</td>
 											<td id="actNumber"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會預算</td>
 											<td id="actBudget"></td>
 										</tr>

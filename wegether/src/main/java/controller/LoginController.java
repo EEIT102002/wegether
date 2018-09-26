@@ -77,7 +77,7 @@ public class LoginController {
 				}
 				loginMap.get(memberBean.getId()).getTokens().add(token);
 				Cookie cookie = new Cookie("token", token);
-				cookie.setMaxAge(60 * 60);
+				cookie.setMaxAge(60*60*24 );
 				cookie.setPath("/");
 				response.addCookie(cookie);
 				result.put("ntoken", noticeToken.randomToken(memberBean.getId()));

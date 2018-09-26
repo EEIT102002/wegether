@@ -232,14 +232,16 @@ table {
 	margin-right:auto;
 }
 #preBotton {
-    width: 50%;
+    width: 40%;
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    position: relative;
+    left: 30%;
+    top: 10px;
+    padding: 14px 20px;
 }
 .table-left {
 	border-right: solid 5px rgba(0, 44, 95, 0.3);
@@ -252,6 +254,15 @@ table {
 	border-bottom: solid 5px rgba(0, 44, 95, 0.3);
 	
 }
+.table-top {
+	border-top: solid 5px rgba(0, 44, 95, 0.3);
+}
+.table-left2{
+	width: 40%
+}
+.pretr {
+	border-bottom: 1px gray solid;
+}
 </style>
 </head>
 <body>
@@ -262,7 +273,8 @@ table {
 				action="<c:url value="/actCreate.controller"/>" method="post"
 				accept-charset="UTF-8" enctype="multipart/form-data">
 				<table>
-					<tr>
+					<tr style="border:none"><td><h1>我要揪團</h1></td><td></td></tr>
+					<tr class="table-top">
 						<td class="table-left">聚會封面</td>
 						<td class="table-right"><img src="images/defult_pic.png" id="picZone" class="selPic"> <input type="file"
 								 name="picture" id="actPic" accept="image/*"></td>
@@ -350,12 +362,12 @@ table {
 					<tr>
 						<td class="table-left">是否創建報名表單</td>
 						<td class="table-right"><input type="radio" name="setFormOrNot" value="yes" id="setForm">是
-							<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否</td>
+							<input type="radio" name="setFormOrNot" value="no" id="notSetForm">否
+							<input type="button" value="製作報名表單" id="ownForm" data-target="#setMyform"
+					  			   data-toggle="modal" style="display: none;margin-left:20px" /></td>
 					</tr>
 				</table>
-				<input type="button" name="" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
-				<input type="button" name="" value="製作報名表單" id="ownForm" data-target="#setMyform"
-					   data-toggle="modal" style="display: none" />
+				<input style="margin:auto"type="button" value="預覽" id="preBotton" data-target="#preview" data-toggle="modal" />
 				<div class="modal fade" id="preview" tabindex="-1" role="dialog">
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
@@ -372,44 +384,44 @@ table {
 								</div>
 								<div class="modal-body" id="mid-body">
 									<table>
-										<tr>
+										<tr class="pretr">
 											<td>聚會封面</td>
 											<td id="actPicture"><img src="images/actcreate.png"
 												id="actPiczone" class="actPic"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會標題</td>
 											<td id="actName"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會類型</td>
 											<td id="actType"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>城市/所在地</td>
 											<td id="actCity"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>地點</td>
 											<td id="actWhere"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>開始時間</td>
 											<td id="actStarttime"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>結束時間</td>
 											<td id="actEndtime"></td>
 										</tr>
-										<tr>
-											<td>詳細描述</td>
+										<tr class="pretr">
+											<td class="table-left2">詳細描述</td>
 											<td id="actDescription"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會人數</td>
 											<td id="actNumber"></td>
 										</tr>
-										<tr>
+										<tr class="pretr">
 											<td>聚會預算</td>
 											<td id="actBudget"></td>
 										</tr>

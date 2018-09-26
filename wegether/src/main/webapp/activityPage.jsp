@@ -14,9 +14,10 @@
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
+<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
 
 <!-- 推薦活動給好友 -->
-<!-- <link rel="stylesheet" href="/wegether/css/friendSearchBox.css"> -->
+<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
 <script src="/wegether/js/friendSearchBox.js" type="text/javascript"></script>
 <!-- 活動頁面使用  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -53,7 +54,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize =0;
  }
 
-// var flag=0;
+var flag=1;
 	$(function() {
 		var articleid ;
 		
@@ -67,12 +68,12 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		$("[data-toggle='tooltip']").tooltip();
 		
 		//收藏 按鍵圖示
-// 		$('#favorButton').click(function(){
-// 			if (flag == 0) {
-// 				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
-// 	 		} else {
-// 	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
-// 		})
+		$('#favorButton').click(function(){
+			if (flag == 0) {
+				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
+	 		} else {
+	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
+		})
 		
 		//切換留言版面 
 		$('#msgButId').click(function(){
@@ -255,25 +256,25 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 								<p id="txtup" style="font-weight:bold;color:#842b00;">${hostBean.nickname}</p>
 								<p id="txtup" style="font-weight:bold;color:#c6a300;">${hostBean.job}</p>
 							</div>
-							<div id="right">
-								<c:if test="${empty memberid}">
+							<div id="leftRight">
+								<c:if test="${memberid == 0}">
 									<a href="#" class="tooltip-test" title="推薦給好友" data-toggle="modal" data-target="#ActPageBox" style="text-decoration:none;">  
 									 	<img src="images/activityPageImages/invite.png" width="50">
 									</a>&emsp;
 								</c:if>
-								<c:if test="${not empty memberid}">
-									<a href="#" class="tooltip-test" title="推薦給好友" id="friendsearchButton"  style="text-decoration:none;">  
+								<c:if test="${memberid != 0}">
+									<a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友" id="friendsearchButton"  style="text-decoration:none;">  
 									 	<img src="images/activityPageImages/invite.png" width="50">
 									</a>&emsp;
 								</c:if>
 								
-								<span class="tooltip-test"  title="活動點閱率">
+								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
 									<img src="images/activityPageImages/click2.png" width="50">
 								</span>${actBean.click}&emsp; 
 								
-<!-- 								<a href="#" class="tooltip-test" -->
-<!-- 									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton" -->
-<!-- 									src="images/activityPageImages/favoritesOff.png" width="50"></a> -->
+								<a href="#" class="tooltip-test"
+									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton"
+									src="images/activityPageImages/favorites.png" width="50"></a>
 							</div>
 						</div>
 
@@ -335,10 +336,10 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 						
 						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
 						<div style="text-align: center" id = "memBut">
-						<c:if test="${empty memberid}">
+						<c:if test="${memberid == 0}">
 							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ActPageBox">請 先 登 入 才 能 報 名</button>
 						</c:if>
-						<c:if test="${not empty memberid}">
+						<c:if test="${memberid != 0}">
 							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
 						</c:if>
 							
@@ -406,10 +407,10 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 						<h4>留下意見:</h4>
 						<textarea id="txt" cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
 						</br> 
-						<c:if test="${empty memberid}">
+						<c:if test="${memberid == 0}">
 							<input type="button" class="btn btn-primary" value="留言" data-toggle="modal" data-target="#ActPageBox" />
 						</c:if>
-						<c:if test="${not empty memberid}">
+						<c:if test="${memberid != 0}">
 							<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
 						</c:if>
 						</br> </br>
