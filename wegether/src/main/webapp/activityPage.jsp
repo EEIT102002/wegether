@@ -14,9 +14,10 @@
 <!-- applyForm -->
 <script src="/wegether/js/applyForm.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/wegether/css/applyForm.css">
+<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
 
 <!-- 推薦活動給好友 -->
-<!-- <link rel="stylesheet" href="/wegether/css/friendSearchBox.css"> -->
+<link rel="stylesheet" href="/wegether/css/friendSearchBox.css">
 <script src="/wegether/js/friendSearchBox.js" type="text/javascript"></script>
 <!-- 活動頁面使用  -->
 <link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -53,7 +54,7 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 	 actPicListSize =0;
  }
 
-// var flag=0;
+var flag=1;
 	$(function() {
 		var articleid ;
 		
@@ -67,12 +68,12 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 		$("[data-toggle='tooltip']").tooltip();
 		
 		//收藏 按鍵圖示
-// 		$('#favorButton').click(function(){
-// 			if (flag == 0) {
-// 				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
-// 	 		} else {
-// 	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
-// 		})
+		$('#favorButton').click(function(){
+			if (flag == 0) {
+				flag = 1; $("#favorButton").attr("src","images/activityPageImages/favorites.png");
+	 		} else {
+	 			flag = 0; $("#favorButton").attr("src","images/activityPageImages/favoritesOff.png");}
+		})
 		
 		//切換留言版面 
 		$('#msgButId').click(function(){
@@ -252,28 +253,28 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 									class="img-circle" width="70" height="70"> </a>
 							</div>
 							<div id="left" style="width: auto;">
-								<p id="txtup" >${hostBean.nickname}</p>
-								<p id="txtup">${hostBean.job}</p>
+								<p id="txtup" style="font-weight:bold;color:#842b00;">${hostBean.nickname}</p>
+								<p id="txtup" style="font-weight:bold;color:#c6a300;">${hostBean.job}</p>
 							</div>
-							<div id="right">
-								<c:if test="${empty memberid}">
+							<div id="leftRight">
+								<c:if test="${memberid == 0}">
 									<a href="#" class="tooltip-test" title="推薦給好友" data-toggle="modal" data-target="#ActPageBox" style="text-decoration:none;">  
 									 	<img src="images/activityPageImages/invite.png" width="50">
 									</a>&emsp;
 								</c:if>
-								<c:if test="${not empty memberid}">
-									<a href="#" class="tooltip-test" title="推薦給好友" id="friendsearchButton"  style="text-decoration:none;">  
+								<c:if test="${memberid != 0}">
+									<a href="#" class="tooltip-test" data-toggle="tooltip" title="推薦給好友" id="friendsearchButton"  style="text-decoration:none;">  
 									 	<img src="images/activityPageImages/invite.png" width="50">
 									</a>&emsp;
 								</c:if>
 								
-								<span class="tooltip-test"  title="活動點閱率">
+								<span class="tooltip-test" data-toggle="tooltip" title="活動點閱率">
 									<img src="images/activityPageImages/click2.png" width="50">
 								</span>${actBean.click}&emsp; 
 								
-<!-- 								<a href="#" class="tooltip-test" -->
-<!-- 									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton" -->
-<!-- 									src="images/activityPageImages/favoritesOff.png" width="50"></a> -->
+								<a href="#" class="tooltip-test"
+									data-toggle="tooltip" title="收藏活動資訊"> <img id="favorButton"
+									src="images/activityPageImages/favorites.png" width="50"></a>
 							</div>
 						</div>
 
@@ -306,9 +307,9 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 					<div id="right">
 						<h3 class="getTitle">${actBean.title}</h3>
 						<!-- right1 end -->
-						<p>${actbegin}</p>
+						<p style="font-weight:bold;color:#ce0000;">${actbegin}</p>
 						<!-- right2 end -->
-						<p>${actBean.addr}</p>
+						<p style="font-weight:bold;color:#ff2d2d;">${actBean.addr}</p>
 						
 <!-- 						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2197094634926!2d121.54709331488881!3d25.026616844741607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aa32657c4a79%3A0x3d7f7c44e7d85df7!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5pWm5YyW5Y2X6Lev5LqM5q61MjAx6Jmf!5e0!3m2!1szh-TW!2stw!4v1536913293480" width="400" height="250" frameborder="0" style="border: 3px solid #FFBB00;margin：10px;" allowfullscreen></iframe> -->
 						
@@ -331,14 +332,14 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 						</div>
 						
 						<!-- 報名申請人數 -->
-						<p style="text-align: center">${attedNumber}</p>
+						<p style="text-align: center;color:#28004d;" >${attedNumber}</p>
 						
 						<!-- 報名按鍵   //0:未登入  1:主辦人  2:已報名者  3:未報名者--> 
 						<div style="text-align: center" id = "memBut">
-						<c:if test="${empty memberid}">
+						<c:if test="${memberid == 0}">
 							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ActPageBox">請 先 登 入 才 能 報 名</button>
 						</c:if>
-						<c:if test="${not empty memberid}">
+						<c:if test="${memberid != 0}">
 							<button type="button" class="btn btn-warning" >請 先 登 入 才 能 報 名</button>
 						</c:if>
 							
@@ -399,17 +400,17 @@ if("${actPicListSize}"!=null && "${actPicListSize}"!=0){
 				<!-- 下面區塊 -->
 				<div id="down">
 					<h2>${actBean.title}</h2><input type="hidden" value="${actBean.title}" id="gettitle">
-					<p>${actBean.content}</p>
+					<p style="font-weight:bold;color:#28004d;">${actBean.content}</p>
 					</br>
 
 					<div id="msgBlock" >
 						<h4>留下意見:</h4>
 						<textarea id="txt" cols="50" rows="2">對聚會有任何疑問嘛？留個言吧！</textarea>
 						</br> 
-						<c:if test="${empty memberid}">
+						<c:if test="${memberid == 0}">
 							<input type="button" class="btn btn-primary" value="留言" data-toggle="modal" data-target="#ActPageBox" />
 						</c:if>
-						<c:if test="${not empty memberid}">
+						<c:if test="${memberid != 0}">
 							<input id="txtbut" type="button" class="btn btn-primary" value="留言" />
 						</c:if>
 						</br> </br>

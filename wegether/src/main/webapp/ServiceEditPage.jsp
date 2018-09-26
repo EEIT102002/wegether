@@ -52,16 +52,16 @@
 				<div class="AreaCon">
 					<label>問題類型 :</label> <select name="classtype" id="classtype"
 						required="required">
-						<%-- 						<c:if test="${param.classtype==0}"><option value="0">--請選擇--</option> </c:if> --%>
-						<%-- 						<c:if test="${param.classtype==1}"><option value="1">會員(例如登入或密碼問題)</option> </c:if> --%>
-						<%-- 						<c:if test="${param.classtype==2}"><option value="2">系統錯誤回報</option> </c:if> --%>
-						<%-- 						<c:if test="${param.classtype==3}"><option value="3">建議</option> </c:if> --%>
-						<%-- 						<c:if test="${param.classtype==4}"><option value="4">其他</option> </c:if> --%>
-						<option value="0">--請選擇--</option>
-						<option value="1">會員(例如登入或密碼問題)</option>
-						<option value="2">系統錯誤回報</option>
-						<option value="3">建議</option>
-						<option value="4">其他</option>
+												<c:if test="${param.classtype==0}"><option value="0">--請選擇--</option> </c:if>
+												<c:if test="${param.classtype==1}"><option value="1">會員(例如登入或密碼問題)</option> </c:if>
+												<c:if test="${param.classtype==2}"><option value="2">系統錯誤回報</option> </c:if>
+												<c:if test="${param.classtype==3}"><option value="3">建議</option> </c:if>
+												<c:if test="${param.classtype==4}"><option value="4">其他</option> </c:if>
+<!-- 						<option value="0">--請選擇--</option> -->
+<!-- 						<option value="1">會員(例如登入或密碼問題)</option> -->
+<!-- 						<option value="2">系統錯誤回報</option> -->
+<!-- 						<option value="3">建議</option> -->
+<!-- 						<option value="4">其他</option> -->
 					</select>
 					<td>${errors.classtype}</td>
 				</div>
@@ -74,15 +74,17 @@
 				<div id="searchbarButton">
 					<input type="submit" name="servicemethod" value="更新"
 						class="btn btn-warning form-control ">
-					<button class="btn btn-warning form-control "
-						onclick="{ if(confirm('確定取消?'))location.href='<c:url value="/ServiceSelect.controller" />'}">取消</button>
+<!-- 					<button class="btn btn-warning form-control " -->
+<%-- 						onclick="{ if(confirm('確定取消?'))location.href='<c:url value="ServiceSelect.controller" />'}">取消</button> --%>
+
+						<a href="ServiceSelect.controller" class="btn btn-warning form-control ">取消</a>
 				</div>
-				<tr>
-					<td>${errors.action}</td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<td>${errors.action}</td> --%>
+<!-- 				</tr> -->
 			</form>
-			<a href="ServiceSelect.controller"
-				class="btn btn-warning form-control ">回到清單</a>
+<!-- 			<a href="ServiceSelect.controller" -->
+<!-- 				class="btn btn-warning form-control ">回到清單</a> -->
 
 		</div>
 	</div>

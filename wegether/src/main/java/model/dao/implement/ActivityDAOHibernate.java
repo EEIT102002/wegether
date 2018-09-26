@@ -184,7 +184,6 @@ public class ActivityDAOHibernate implements ActivityDAO {
 
 	// indexPage;state=0:活動搜尋 ; state=1:心得PO文搜尋
 	private String selectOfIndex = "select * from Activity  WHERE ";
-
 	@Override
 	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype,
 			String title) {
@@ -201,22 +200,55 @@ public class ActivityDAOHibernate implements ActivityDAO {
 			selectOfIndex = selectOfIndex + " and city=" + city;
 
 		if (classtype != null && classtype.length() != 0) {
-			String[] CTArray = classtype.split(",");
-			if (CTArray.length == 1) {
-				selectOfIndex = selectOfIndex + " and classtype= N\'" + CTArray[0] + "\'";
-			} else {
-				selectOfIndex = selectOfIndex + " and classtype in(N\'" + CTArray[0] + "\'";
-				for (int i = 1; i < CTArray.length; i++) {
-					selectOfIndex += ", N'" + CTArray[i] + "\'";
-				}
-				selectOfIndex += ")";
-			}
-		}
+			   String[] CTArray = classtype.split(",");
+			   if (CTArray.length == 1) {
+			    selectOfIndex = selectOfIndex + " and (classtype like N\'%" + CTArray[0] + "%\'";
+			   } else {
+			    selectOfIndex = selectOfIndex + " and (classtype like N\'%" + CTArray[0] + "%\'";
+			    for (int i = 1; i < CTArray.length; i++) {
+			     selectOfIndex += "or classtype like N\'%" + CTArray[i] + "%\'";
+			    }
+			   }
+			    selectOfIndex += ")";
+			  }
 		if (title != "" && title.length() != 0) {
 			selectOfIndex = selectOfIndex + " and title like N\'%" + title + "%\'";}
 		selectOfIndex += " order by createtime desc";
+		System.out.println("selectOfIndex = " +selectOfIndex);
 		return this.getSession().createNativeQuery(selectOfIndex, ActivityBean.class).list();
 	}
+//	@Override
+//	public List<ActivityBean> selectOfIndex(int state, int city, String beginDate, String endDate, String classtype,
+//			String title) {
+//		String selectOfIndex = "select * from Activity  WHERE actbegin > getDate() and state <> 2 ";
+//		if (beginDate != "" && endDate != "" && beginDate.length() != 0 && endDate.length() != 0) {
+//
+//			selectOfIndex = selectOfIndex + "and actbegin >='" + beginDate + "'AND actend <='" + endDate+ "' ";
+//		} else if (beginDate == "" && endDate != "") {
+//			selectOfIndex = selectOfIndex + "and actend <='" + endDate+ "' ";
+//		} else if (endDate == "" && beginDate != "") {
+//			selectOfIndex = selectOfIndex + "and actbegin >='" + beginDate + "' ";
+//		}
+//		if (city != 0)
+//			selectOfIndex = selectOfIndex + " and city=" + city;
+//
+//		if (classtype != null && classtype.length() != 0) {
+//			   String[] CTArray = classtype.split(",");
+//			   if (CTArray.length == 1) {
+//			    selectOfIndex = selectOfIndex + " and classtype= N\'" + CTArray[0] + "\'";
+//			   } else {
+//			    selectOfIndex = selectOfIndex + " and classtype in(N\'" + CTArray[0] + "\'";
+//			    for (int i = 1; i < CTArray.length; i++) {
+//			     selectOfIndex += ", N'" + CTArray[i] + "\'";
+//			    }
+//			    selectOfIndex += ")";
+//			   }
+//			  }
+//		if (title != "" && title.length() != 0) {
+//			selectOfIndex = selectOfIndex + " and title like N\'%" + title + "%\'";}
+//		selectOfIndex += " order by createtime desc";
+//		return this.getSession().createNativeQuery(selectOfIndex, ActivityBean.class).list();
+//	}
 
 	@Override
 	public List<ActivityBean> selectOfIndexPo(int state, int city, String beginDate, String endDate, String classtype,
@@ -233,20 +265,20 @@ public class ActivityDAOHibernate implements ActivityDAO {
 		if (city != 0)
 			selectOfIndex = selectOfIndex + " and city=" + city;
 		if (classtype != null && classtype.length() != 0) {
-			String[] CTArray = classtype.split(",");
-			if (CTArray.length == 1) {
-				selectOfIndex = selectOfIndex + " and classtype=  N\'" + CTArray[0] + "\'";
-			} else {
-				selectOfIndex = selectOfIndex + " and classtype in (N\'" + CTArray[0] + "\'";
-				for (int i = 1; i < CTArray.length; i++) {
-					selectOfIndex += ",'" + CTArray[i] + "\'";
-				}
-				selectOfIndex += ")";
-			}
+			   String[] CTArray = classtype.split(",");
+			   if (CTArray.length == 1) {
+			    selectOfIndex = selectOfIndex + " and classtype=  N\'" + CTArray[0] + "\'";
+			   } else {
+			    selectOfIndex = selectOfIndex + " and classtype in (N\'" + CTArray[0] + "\'";
+			    for (int i = 1; i < CTArray.length; i++) {
+			     selectOfIndex += ",'" + CTArray[i] + "\'";
+			    }
+			    selectOfIndex += ")";
+			   }
 
-		}
+			  }
 		if (title != "" && title.length() != 0)
-			selectOfIndex = selectOfIndex + " and title like N\'%" + title + "%\'";
+			selectOfIndex = selectOfIndex + " and title like N'%" + title + "%\'";
 		if (Actid.size() == 1) {
 			selectOfIndex = selectOfIndex + " and id=\'" + Actid.get(0) + "\'";
 		} else {
@@ -256,7 +288,7 @@ public class ActivityDAOHibernate implements ActivityDAO {
 			}
 			selectOfIndex += ")";
 		}
-		selectOfIndex += "order by createtime desc";
+		selectOfIndex += " order by createtime desc";
 		return this.getSession().createNativeQuery(selectOfIndex, ActivityBean.class).list();
 	}
 

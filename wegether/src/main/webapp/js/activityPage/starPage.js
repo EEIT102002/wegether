@@ -118,8 +118,9 @@
 
             				$.get("activityPageRank.controller/"+activityid,
             						  function(data){	
+            							console.log("data.rank11:"+data.rank1+"/data.rank2:"+data.rank2+"/data.rank3:"+data.rank3)
 	            				 		if(data){
-	            				 			
+	            				 			console.log("data.rank1:"+data.rank1+"/data.rank2:"+data.rank2+"/data.rank3:"+data.rank3)
 	            				 			if(data.rank1!=null || data.rank2!=null || data.rank3!=null ){
 	            				 				
 			            				 				 $("#stardiv1").show();
@@ -162,6 +163,22 @@
 				            							}
 				            							$('#spa3').text("... "+rank[data.rank3-1]); 
 			            				 				//-----end
+			            				 				
+			            				 			}else{
+			            				 				
+			            				 				 $("#stardiv1").show();
+			            		       					 $("#stardiv2").show();
+			            		       					 $("#stardiv3").show();
+			            		       					 $("#startSumit").show();
+			            		       					 $("#attendShare").show();
+			            		       					 
+//			            				 				 $('#stardiv1 img').unbind();
+//				            				 			 $('#stardiv2 img').unbind();
+//				            				 			 $('#stardiv3 img').unbind();
+//				            				 			 $('#output1').html("感謝您的評點！").show();   
+//				            				 			 $('#startSumit').hide();
+			            				 				
+			            				 				
 			            				 				
 			            				 			}
 	            				 			
