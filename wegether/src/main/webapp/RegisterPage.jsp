@@ -23,17 +23,17 @@
 			$(this).addClass('active').siblings().removeClass('active');
 		})
 		$('#fast').click(function(){
-			$('#idaccount').val('benebn231@yahoo.com.tw');
-			$('#idpassword').val('123456789a!');
-			$('#idrepassword').val('123456789a!');
-			$('#idName').val('胡哥');
+			$('#idaccount').val('ben0991@yahoo.com.tw');
+			$('#idpassword').val('Hellohello-123');
+			$('#idrepassword').val('Hellohello-123');
+			$('#idName').val('顆顆');
 			$('#nickname').val('小湖');
-			$('#idbh').val('1992-05-08');
+			$('#idbh').val('1991-05-08');
 			$('#idjob').val('學生');
 			$('#zzz>option:eq(2)').attr('selected','selected');
 			$('#idaddr').val('信義區');
 			$('#idtel').val('0939905648');
-			$('#idarea').val('你好我是胡哥影星');
+			$('#idarea').val('你好我未來想成為藝人!');
 			$('input[name=favorite]:eq(0)').attr('checked',true)
 			$('input[name=favorite]:eq(2)').attr('checked',true)
 			$('input[name=favorite]:eq(3)').attr('checked',true)
